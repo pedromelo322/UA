@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity ProcBotao is
+    Port (
+        clk        : in std_logic;
+        pulse_01s  : in std_logic; 
+        pulse_1s   : in std_logic;
+		  key        : in std_logic;
+        out_signal : out std_logic
+    );
+end ProcBotao;
+
+architecture Behavioral of ProcBotao is
+
+	signal s_out_signal : std_logic := 0;
+
+
+begin
+    process(clk)
+    begin
+		if (rising_edge(clk)) then
+			if (pulse_01s = '1') then
+				s_out_signal <= pulse_01s;
+			else
+				if (pulse_1s = '1') then
+					s_out_signal <= '1';
+				else
+					if (key = '0') then
+						s_out_signal <= '1';
+					else
+						s_out_signal <= '1';
+					end if;
+				end if;
+			end if;
+		end if;
+	end process;
+end Behavioral;
+				

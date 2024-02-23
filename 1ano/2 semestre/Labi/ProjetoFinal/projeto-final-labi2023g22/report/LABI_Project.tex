@@ -1,0 +1,240 @@
+\documentclass{report}
+\usepackage[T1]{fontenc} % Fontes T1
+\usepackage[utf8]{inputenc} % Input UTF8
+\usepackage[backend=biber, style=ieee]{biblatex} % para usar bibliografia
+\usepackage{csquotes}
+\usepackage[portuguese]{babel} %Usar língua portuguesa
+\usepackage{blindtext} % Gerar texto automaticamente
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref} % para autoref
+\usepackage{graphicx}
+\usepackage{indentfirst}
+
+\bibliography{bibliografia}
+
+\usepackage{graphicx}
+\usepackage{adjustbox}
+
+\begin{document}
+%%
+% Definições
+%
+\def\titulo{Projeto Final de Laboratórios de Informática}
+\def\data{DATA}
+\def\autores{Henrique Ferreira, Martina Duque, Pedro Melo, Sofia Marrafa}
+\def\autorescontactos{(113600)ferreira.manuel.henrique04@ua.pt, (113261) martina.duque18@ua.pt\\(114208) pedro.m.melo@ua.pt, (114591) sofiamarrafa@ua.pt}
+\def\versao{VERSAO}
+\def\departamento{Dept. de Eletrónica, Telecomunicações e Informática}
+\def\empresa{Universidade de Aveiro}
+\def\logotipo{ua.pdf}
+%
+%%%%%% CAPA %%%%%%
+%
+\begin{titlepage}
+
+\begin{center}
+%
+\vspace*{50mm}
+%
+{\Huge \titulo}\\ 
+%
+\vspace{10mm}
+%
+{\Large \empresa}\\
+%
+\vspace{10mm}
+%
+{\LARGE \autores}\\ 
+%
+\vspace{30mm}
+%
+\begin{figure}[h]
+\center
+\includegraphics{\logotipo}
+\end{figure}
+%
+\vspace{30mm}
+\end{center}
+%
+
+
+\end{titlepage}
+
+%%  Página de Título %%
+\title{%
+{\Huge\textbf{\titulo}}\\
+{\Large \departamento\\ \empresa}
+}
+%
+\author{%
+    \autores \\
+    \autorescontactos
+}
+%
+\date{\today}
+%
+\maketitle
+
+\pagenumbering{roman}
+
+%%%%%% RESUMO %%%%%%
+\begin{abstract}
+
+Neste projeto, no âmbito da disciplina de Laboratórios de Informática, foi proposto o planeamento, preparação e implementação de uma página web para gerir imagens num perfil próprio. Os utilizadores terão a capacidade de criar uma conta pessoal, fazer upload das suas próprias imagens, atribuir-lhes nome e data, e até mesmo editá-las. Além disso, poderão visualizar as imagens individualmente, comentar e votar nelas.
+
+O projeto engloba diversas tecnologias e componentes, tais como uma interface web desenvolvida com HTML, CSS e JavaScript. Além disso, utilizaremos uma aplicação web desenvolvida em Python para gerir a base de dados e o processamento de imagem e JavaScript Object Notation (JSON) gerenciando assim a comunicação entre dados. A persistência dos dados será realizada através de um banco de dado SQLite3, enquanto os ficheiros de imagem serão armazenados no sistema de ficheiros.
+
+
+É através da interface web, que os utilizadores terão a possibilidade de interagir com a aplicação e será a aplicação web em Python, a responsável por fornecer os recursos necessários para a criação e gestão das contas de utilizadores, assim como para a realização das operações de upload e visualização de fotos existentes na galeria. Para além do mais, esta irá ainda fornecer funcionalidades para o processamento das mesmas, permitindo aos utilizadores a edição das suas imagens de acordo com as suas preferências.
+
+
+Esta aplicação web foi desenvolvida com um sistema de registro e login de modo a que, de uma forma segura, os utilizadores possam carregar imagens com informações como autor, nome e data de carregamento. Além disso, estes podem visualizar as imagens existentes, filtrá-las por autor, ver detalhes de cada imagem, adicionar comentários e votar nas imagens.
+A escolha do banco de dados SQLite3 como meio de persistência de dados garante um armazenamento seguro e eficiente das informações relacionadas às contas dos utilizadores, imagens, comentários e das interações.
+
+
+
+\end{abstract}
+
+%%%%%% Agradecimentos %%%%%%
+% Segundo glisc deveria aparecer após conclusão...
+\tableofcontents
+% \listoftables     % descomentar se necessário
+% \listoffigures    % descomentar se necessário
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introdução}
+\label{chap.introducao}
+
+Neste projeto, será apresentado o planeamento, preparação e implementação de uma página web para gerir imagens num perfil próprio na qual os utilizadores terão a capacidade de criar uma conta pessoal, fazer upload das suas próprias imagens, atribuir-lhes nome e data, e até mesmo editá-las. 
+
+Este documento encontra-se dividido em 6 capítulos. Depois desta introdução,
+no \autoref{chap.interface} é apresentada a interface web seguida,
+no \autoref{chap.aplicaçao} da página Web. Para além destes, têm se ainda os capítulos \autoref{chap.persistencia} e \autoref{chap.process} onde são apresentados os capítulos da persistência e do processamento de imagem.
+Finalmente, no \autoref{chap.conclusao} são apresentadas
+as conclusões do trabalho.
+
+
+\chapter{Interface Web}
+\label{chap.interface}
+
+Esta componente é a grande responsável pelas várias funcionalidades do website, sendo composta por diversos ficheiros HTML, CSS, JavaScript dando assim origem a uma única interface para interação com o sistema permitindo assim o registo de novos utilizadores e login dos mesmos.
+
+Após o registo de cada utilizador, estes poderão fazer login na sua própria conta, sendo estes reencaminhados para a página principal, onde será possível visualizar a sua própria galeria (bem como a de outros utilizadores) e dar upload das suas próprias imagens.
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=150mm]{singin.png}
+  \end{adjustbox}
+  \caption{Registar conta}
+  \label{fig:singin}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=150mm]{login.png}
+  \end{adjustbox}
+  \caption{Login}
+  \label{fig:singin}
+\end{figure}
+
+Acedendo à opção de upload, é possível carregar qualquer foto que utilizador pretenda guardar, sendo ainda permitido atribuir nome e juntamente serão carregadas as informações de data de carregamento e autor, que corresponderá à pessoa que irá dar upload da imagem.
+
+Após isto, ao abrir a aba de Gallery, o utilizador poderá encontrar a foto anteriormente carregada pelo mesmo, bem como a de outros utilizadores, podendo assim, ao selecionar qualquer foto, comentar na mesma e interagir de forma positiva ou negativa.
+
+Caso o utilizador deseje ainda alterar uma foto da sua autoria, este pode alterar algumas das propriedades das imagens tais como luminusidade, contraste e cores, sendo ainda possível alterar a imagem original para a imagem modificada.
+
+Para além destas páginas, existe ainda uma página About, na qual cada utilizador poderá visualizar os autores da aplicação.
+
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=120mm]{Upload.png}
+  \end{adjustbox}
+  \caption{Upload}
+  \label{fig:singin}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=120mm]{Gallery.png}
+  \end{adjustbox}
+  \caption{Gallery}
+  \label{fig:singin}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=120mm]{process.png}
+  \end{adjustbox}
+  \caption{Process}
+  \label{fig:singin}
+\end{figure}
+
+
+
+
+\begin{figure}[h]
+  \centering
+  \begin{adjustbox}{center}
+    \includegraphics[width=120mm]{About.png}
+  \end{adjustbox}
+  \caption{About}
+  \label{fig:singin}
+\end{figure}
+
+
+
+\chapter{Aplicação Web}
+\label{chap.aplicaçao}
+A aplicação web utilizada para o bom funcionamento deste site foi desenvolvido em Python e serviu como camada intermediária entre a interface web e o banco de dados. Assim, será  este que nos irá servir os conteúdos estáticos já referidos anteriormente (HTML, CSS e JavaScript) permitindo a navegação pelos diversos componentes da interface. Este fornece métodos para a navegação entre os diferentes componentes e também uma interface programática para obtenção e inserção de informações relacionadas à imagens, autores, comentários e votos. Os métodos expostos pela aplicação web retornam objetos JSON, utilizados na junção de dados que permite uma comunicação entre dados estruturados no servidor de CherryPy e os clientes HTTP.
+
+\chapter{Persistência}
+\label{chap.persistencia}
+
+Este componente é composto por métodos que permitem o registo de informação numa base de dados relacional e a obtenção de informações da mesma. Os métodos serão utilizados pela Aplicação Web para registar a informação relativa às imagens existentes no sistema, bem como os comentários e os votos.
+
+
+A base de dados utilizada é a SQLite3, localizada no mesmo diretório da aplicação. Os ficheiros contendo as imagens são armazenados no sistema de ficheiros (no diretório uploads), sendo que a base de dados relacional terá informação sobre as imagens. Isto é, a base de dados tem informação sobre a data de carregamento da imagem e respetiva informação (nome, autor, comentários e votos).
+
+
+
+\chapter{Processador de Imagens}
+\label{chap.process}
+
+O componente de processamento de imagens permite simular algoritmos de manipulação de imagens. Os algoritmos foram implementados em um arquivo Python separado e são importados na aplicação principal. Os resultados do processamento são armazenados em um diretório temporário e os arquivos são removidos quando não são mais necessários.
+
+
+
+\chapter{Conclusões}
+\label{chap.conclusao}
+Em suma, este projeto requer a interação entre várias tecnologias e componentes, incluindo uma interface web desenvolvida com HTML, CSS e JavaScript, e uma aplicação web em Python para o relacionamento das funcionalidades principais, como manipulação de imagens, gestão de contas e persistência de dados. O uso do banco de dados SQLite3 assegura ainda a consistência e confiabilidade das informações armazenadas.
+
+\chapter*{Contribuições dos autores}
+
+A realização deste trabalho culminou na contribuição de todos os elementos. Todos os integrantes do grupo esforçaram-se e dedicaram várias horas para o melhor funcionamento possível do web site.
+
+Assim foi atribuída a mesma percentagem para cada elemento.
+\vspace{10pt}
+
+\autores : 25\%, 25\%, 25\%, 25\%\\
+
+\textbf{Repositório GitHub:} labi2023g22
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document} 

@@ -1,0 +1,230 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/simulation/modelsim
+Econtador
+Z1 w1685121273
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 1
+R0
+Z5 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/contador.vhd
+Z6 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/contador.vhd
+l0
+L5 1
+Vhb]1PJc=EMk2fE5?Yn]0E3
+!s100 nj9T]J1C7`[3U9cH_B;M61
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1685224219
+!i10b 1
+Z9 !s108 1685224219.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/contador.vhd|
+Z11 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/contador.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+Z14 DEx4 work 8 contador 0 22 hb]1PJc=EMk2fE5?Yn]0E3
+!i122 1
+l18
+L14 25
+V3X]L8=0=lkm8gA2ai2=X_3
+!s100 d=Cjl?Xk=]NFB8CM`@TIV0
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Edebounceunit
+Z15 w1685121390
+R2
+R3
+R4
+!i122 2
+R0
+Z16 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/DebounceUnit.vhd
+Z17 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/DebounceUnit.vhd
+l0
+L5 1
+VOhi;YPfdnUHJF:40nS:=31
+!s100 ?[^;I_mLD[@PfXJfjVCk^1
+R7
+31
+R8
+!i10b 1
+R9
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/DebounceUnit.vhd|
+Z19 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/DebounceUnit.vhd|
+!i113 1
+R12
+R13
+Abehavioral
+R2
+R3
+R4
+Z20 DEx4 work 12 debounceunit 0 22 Ohi;YPfdnUHJF:40nS:=31
+!i122 2
+l20
+L15 47
+VAGA@GIkd]b2DAC=O]Xl:F0
+!s100 :R[NPL[EJe6m3EJ<cFE<C1
+R7
+31
+R8
+!i10b 1
+R9
+R18
+R19
+!i113 1
+R12
+R13
+Eram_1p_16_8
+Z21 w1685121883
+R2
+R3
+R4
+!i122 0
+R0
+Z22 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_16_8.vhd
+Z23 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_16_8.vhd
+l0
+L5 1
+V0Z6gYOJ8SX:d8ahR53Lbg1
+!s100 L]dI_6B91V:fBJ6BZn6OM1
+R7
+31
+R8
+!i10b 1
+R9
+Z24 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_16_8.vhd|
+Z25 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_16_8.vhd|
+!i113 1
+R12
+R13
+Abehavioral
+R2
+R3
+R4
+Z26 DEx4 work 11 ram_1p_16_8 0 22 0Z6gYOJ8SX:d8ahR53Lbg1
+!i122 0
+l18
+L15 17
+V2ihb`@EaJ=6D[9_;eQWiS2
+!s100 EozVn0n66ego4@;O0Q@eJ1
+R7
+31
+R8
+!i10b 1
+R9
+R24
+R25
+!i113 1
+R12
+R13
+Eram_1p_demo
+Z27 w1685121908
+R2
+R3
+R4
+!i122 3
+R0
+Z28 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_Demo.vhd
+Z29 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_Demo.vhd
+l0
+L5 1
+V=GI7nHcD4?Po;Kf<>:6=I1
+!s100 6LkR6[DFUV1]B8SIaA;eT1
+R7
+31
+Z30 !s110 1685224220
+!i10b 1
+Z31 !s108 1685224220.000000
+Z32 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_Demo.vhd|
+Z33 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_Demo.vhd|
+!i113 1
+R12
+R13
+Astructural
+R26
+R14
+R20
+R2
+R3
+R4
+Z34 DEx4 work 11 ram_1p_demo 0 22 =GI7nHcD4?Po;Kf<>:6=I1
+!i122 3
+l21
+L15 57
+VKDC]D2QO21knGoLk>i@zn2
+!s100 iSU__dZadUkoIdHAWGKSN1
+R7
+31
+R30
+!i10b 1
+R31
+R32
+R33
+!i113 1
+R12
+R13
+Eram_1p_testbench
+Z35 w1685222469
+R2
+R3
+R4
+!i122 4
+R0
+Z36 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd
+Z37 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd
+l0
+L5 1
+V`oXXE?ZGPHK_]Zb2Z4AL>2
+!s100 Hf?eSDz>Q0mVghIeT<@WV1
+R7
+32
+Z38 !s110 1685224322
+!i10b 1
+Z39 !s108 1685224322.000000
+Z40 !s90 -reportprogress|300|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd|
+!i113 1
+Z41 o-work work
+R13
+Astimulus
+R34
+R2
+R3
+R4
+DEx4 work 16 ram_1p_testbench 0 22 `oXXE?ZGPHK_]Zb2Z4AL>2
+!i122 4
+l14
+L8 28
+VD;Q^=f6Q0LkPn?z>z?oLR1
+!s100 ]mRmPg[cfdJ5g9C>jAfc41
+R7
+32
+R38
+!i10b 1
+R39
+R40
+Z42 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd|
+!i113 1
+R41
+R13

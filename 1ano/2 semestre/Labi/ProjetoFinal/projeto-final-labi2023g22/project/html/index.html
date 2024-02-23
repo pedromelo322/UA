@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/style2.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+</head>
+<body>
+
+    <header>
+        <h2 class="log">Projeto de LI</h2>
+        <nav class="navigation">
+            <a href="../html/about.html" target="_blank" >About</a>
+        </nav>
+    </header>
+
+    <div class="wrapper">
+        <div class="form-box">
+            <h2 id = "top-dec">Entrar</h2>
+            <form action="#">
+                <div class="nome-lock">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="nome"></ion-icon></span>
+                        <input id = "nome" type="nome" required autocomplete="off">
+                        <label>Nome</label>
+                    </div>
+                </div>
+                <div class="mail-lock">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                        <input id = "email" type="email" required required oninput="handleEmailInput(this)" onblur="handleEmailBlur(this)" autocomplete="off">
+                        <label>Email</label>
+                    </div>
+                </div>
+                <div class="password-lock">
+                    <div class="input-box">
+                        <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                        <input id = "password" type="password" required autocomplete="off">
+                        <label>Password</label>
+                    </div>
+                </div>
+                <button id = "sendados" type="submit" class="btn">Entrar</button>
+                <div class="login-register">
+                    <p class="reglog-pergunta">Não tem conta? <a href="#" class="reglog">Criar Conta</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+</body>
+</html>

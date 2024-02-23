@@ -1,0 +1,29 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity FreqDivider_Demo is
+      port(
+              clk: in std_logic;
+              LEDR : out std_logic_vector(0 downto 0)
+              );
+
+end FreqDivider_Demo;
+
+architecture Shell of FreqDivider_Demo is
+
+    signal k_value : std_logic_vector(31 downto 0) := x"017D7840";
+    signal clk_div : std_logic;
+
+
+begin
+
+    freq_div : entity work.FreqDivider(Behavioral)
+    port map(
+        clkIn => clk,
+        k => k_value,
+        clkOut => clk_div
+        );
+
+    LEDR(0) <= clk_div;
+    
+end Shell;

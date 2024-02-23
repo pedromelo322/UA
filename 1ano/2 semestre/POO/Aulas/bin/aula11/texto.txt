@@ -1,0 +1,3 @@
+Construa um programa que leia um ficheiro de texto e que conte todos os pares de palavras
+encontrados no ficheiro e o número de ocorrências de cada par. Despreze todas as palavras
+de tamanho inferior a 3 e considere como separadores os seguintes caracteres:

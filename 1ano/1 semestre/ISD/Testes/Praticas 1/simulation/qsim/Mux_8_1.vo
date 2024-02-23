@@ -1,0 +1,158 @@
+// Copyright (C) 2020  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and any partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details, at
+// https://fpgasoftware.intel.com/eula.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition"
+
+// DATE "12/01/2022 19:52:31"
+
+// 
+// Device: Altera EP4CE6E22C6 Package TQFP144
+// 
+
+// 
+// This Verilog file should be used for ModelSim-Altera (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module Bool_func (
+	Y,
+	D,
+	EN_L,
+	A,
+	B,
+	C);
+output 	Y;
+input 	D;
+input 	EN_L;
+input 	A;
+input 	B;
+input 	C;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+wire \Y~output_o ;
+wire \D~input_o ;
+wire \C~input_o ;
+wire \A~input_o ;
+wire \B~input_o ;
+wire \inst|inst9|inst2~0_combout ;
+wire \EN_L~input_o ;
+wire \inst|inst9|inst2~1_combout ;
+
+
+cycloneive_io_obuf \Y~output (
+	.i(\inst|inst9|inst2~1_combout ),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\Y~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \Y~output .bus_hold = "false";
+defparam \Y~output .open_drain_output = "false";
+// synopsys translate_on
+
+cycloneive_io_ibuf \D~input (
+	.i(D),
+	.ibar(gnd),
+	.o(\D~input_o ));
+// synopsys translate_off
+defparam \D~input .bus_hold = "false";
+defparam \D~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cycloneive_io_ibuf \C~input (
+	.i(C),
+	.ibar(gnd),
+	.o(\C~input_o ));
+// synopsys translate_off
+defparam \C~input .bus_hold = "false";
+defparam \C~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cycloneive_io_ibuf \A~input (
+	.i(A),
+	.ibar(gnd),
+	.o(\A~input_o ));
+// synopsys translate_off
+defparam \A~input .bus_hold = "false";
+defparam \A~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cycloneive_io_ibuf \B~input (
+	.i(B),
+	.ibar(gnd),
+	.o(\B~input_o ));
+// synopsys translate_off
+defparam \B~input .bus_hold = "false";
+defparam \B~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cycloneive_lcell_comb \inst|inst9|inst2~0 (
+// Equation(s):
+// \inst|inst9|inst2~0_combout  = (\C~input_o  & ((\D~input_o ) # ((!\A~input_o  & !\B~input_o )))) # (!\C~input_o  & (\A~input_o  $ (((!\D~input_o  & \B~input_o )))))
+
+	.dataa(\D~input_o ),
+	.datab(\C~input_o ),
+	.datac(\A~input_o ),
+	.datad(\B~input_o ),
+	.cin(gnd),
+	.combout(\inst|inst9|inst2~0_combout ),
+	.cout());
+// synopsys translate_off
+defparam \inst|inst9|inst2~0 .lut_mask = 16'hA9BC;
+defparam \inst|inst9|inst2~0 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+cycloneive_io_ibuf \EN_L~input (
+	.i(EN_L),
+	.ibar(gnd),
+	.o(\EN_L~input_o ));
+// synopsys translate_off
+defparam \EN_L~input .bus_hold = "false";
+defparam \EN_L~input .simulate_z_as = "z";
+// synopsys translate_on
+
+cycloneive_lcell_comb \inst|inst9|inst2~1 (
+// Equation(s):
+// \inst|inst9|inst2~1_combout  = (\inst|inst9|inst2~0_combout  & !\EN_L~input_o )
+
+	.dataa(\inst|inst9|inst2~0_combout ),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(\EN_L~input_o ),
+	.cin(gnd),
+	.combout(\inst|inst9|inst2~1_combout ),
+	.cout());
+// synopsys translate_off
+defparam \inst|inst9|inst2~1 .lut_mask = 16'h00AA;
+defparam \inst|inst9|inst2~1 .sum_lutc_input = "datac";
+// synopsys translate_on
+
+assign Y = \Y~output_o ;
+
+endmodule

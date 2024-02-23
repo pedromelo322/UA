@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity contador is
+    port (
+        clk : in std_logic;
+        inc : in std_logic;
+        data_in : in std_logic_vector(7 downto 0);
+        data_out : out std_logic_vector(7 downto 0)
+    );
+end contador;
+
+architecture behavioral of contador is
+
+	    signal data_signal : std_logic_vector(7 downto 0);
+
+begin
+
+    process(clk)
+    begin
+        if rising_edge(clk) then
+		  
+			 data_signal <= data_in;
+			 
+          if inc = '1' then
+				if (data_signal = "11111110") then
+					data_signal <= "00000000";
+				else
+					data_signal <= std_logic_vector(unsigned(data_signal) + 1);
+				end if;
+          end if;
+
+          data_out <= data_signal;
+        end if;
+    end process;
+
+end behavioral;

@@ -1,0 +1,33 @@
+|TimerN
+clk => count_en.CLK
+clk => count[0].CLK
+clk => count[1].CLK
+clk => count[2].CLK
+clk => count[3].CLK
+clk => count[4].CLK
+rst => count_en.ACLR
+rst => count[0].ACLR
+rst => count[1].ACLR
+rst => count[2].ACLR
+rst => count[3].ACLR
+rst => count[4].ACLR
+en => count_en.ENA
+en => count[4].ENA
+en => count[3].ENA
+en => count[2].ENA
+en => count[1].ENA
+en => count[0].ENA
+start => count_en.OUTPUTSELECT
+start => count.OUTPUTSELECT
+start => count.OUTPUTSELECT
+start => count.OUTPUTSELECT
+start => count.OUTPUTSELECT
+start => count.OUTPUTSELECT
+s_count[0] << count[0].DB_MAX_OUTPUT_PORT_TYPE
+s_count[1] << count[1].DB_MAX_OUTPUT_PORT_TYPE
+s_count[2] << count[2].DB_MAX_OUTPUT_PORT_TYPE
+s_count[3] << count[3].DB_MAX_OUTPUT_PORT_TYPE
+s_count[4] << count[4].DB_MAX_OUTPUT_PORT_TYPE
+TimerOut << count_en.DB_MAX_OUTPUT_PORT_TYPE
+
+

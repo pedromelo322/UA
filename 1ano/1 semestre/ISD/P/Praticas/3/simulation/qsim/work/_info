@@ -1,0 +1,191 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/1 semestre/ISD/P/Praticas/3/simulation/qsim
+Eaddsub4
+Z1 w1669377452
+Z2 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z3 DPx10 cycloneive 20 cycloneive_atom_pack 0 22 WOh:M[al;oVzG5c`<He>D0
+Z4 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z6 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+Z7 DPx10 cycloneive 21 cycloneive_components 0 22 zGMDhP>8e@2k@f0e<PY]k2
+!i122 0
+R0
+Z8 8AddSubDemo.vho
+Z9 FAddSubDemo.vho
+l0
+Z10 L35 1
+VLYWEeaCzJDQ5<Y^b2R`Lm2
+!s100 QIZIN`I>H17gezDGgY]mO0
+Z11 OV;C;2020.1;71
+32
+Z12 !s110 1669377455
+!i10b 1
+Z13 !s108 1669377455.000000
+Z14 !s90 -work|work|AddSubDemo.vho|
+Z15 !s107 AddSubDemo.vho|
+!i113 1
+Z16 o-work work
+Z17 tExplicit 1 CvgOpt 0
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+DEx4 work 7 addsub4 0 22 LYWEeaCzJDQ5<Y^b2R`Lm2
+!i122 0
+l101
+L54 347
+Vbl?Tg9Z=:0K08Xi@1CHQi1
+!s100 2OYzaA1:@zX>bamj_1^;z2
+R11
+32
+R12
+!i10b 1
+R13
+R14
+R15
+!i113 1
+R16
+R17
+Eaddsub4_vhd_vec_tst
+Z18 w1669377450
+R5
+R6
+!i122 1
+R0
+Z19 8Waveform.vwf.vht
+Z20 FWaveform.vwf.vht
+l0
+Z21 L32 1
+V?MnD]IMH6M2R;V9na0@XM0
+!s100 ^ji@z06BJ;QelBXbNY3LP0
+R11
+32
+R12
+!i10b 1
+R13
+Z22 !s90 -work|work|Waveform.vwf.vht|
+Z23 !s107 Waveform.vwf.vht|
+!i113 1
+R16
+R17
+Aaddsub4_arch
+R5
+R6
+DEx4 work 19 addsub4_vhd_vec_tst 0 22 ?MnD]IMH6M2R;V9na0@XM0
+!i122 1
+l69
+Z24 L34 118
+Vl4E:[aa8_JD09jc[12amW2
+!s100 _z^3adMFlUPS?Adm=@:Aj3
+R11
+32
+R12
+!i10b 1
+R13
+R22
+R23
+!i113 1
+R16
+R17
+Eaddsubdemo
+Z25 w1669378626
+R2
+R3
+R4
+R5
+R6
+R7
+!i122 22
+R0
+R8
+R9
+l0
+R10
+VTc]ZUeGo^f`O`:<;8a33T0
+!s100 Y=[MM6mR4^BGe6lPF6@eK1
+R11
+32
+Z26 !s110 1669378628
+!i10b 1
+Z27 !s108 1669378628.000000
+R14
+R15
+!i113 1
+R16
+R17
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+DEx4 work 10 addsubdemo 0 22 Tc]ZUeGo^f`O`:<;8a33T0
+!i122 22
+l105
+L55 380
+V[03TY6ATUY>K<dH[3AHf?1
+!s100 C<jmF4[MlE3Qd3Ucljm^j3
+R11
+32
+R26
+!i10b 1
+R27
+R14
+R15
+!i113 1
+R16
+R17
+Eaddsubdemo_vhd_vec_tst
+Z28 w1669378625
+R5
+R6
+!i122 23
+R0
+R19
+R20
+l0
+R21
+V?m>SQ4oECiJVlafEnLEd`0
+!s100 R@9Lo]z:4G2S[Pn^0UYQ42
+R11
+32
+Z29 !s110 1669378629
+!i10b 1
+Z30 !s108 1669378629.000000
+R22
+R23
+!i113 1
+R16
+R17
+Aaddsubdemo_arch
+R5
+R6
+Z31 DEx4 work 22 addsubdemo_vhd_vec_tst 0 22 ?m>SQ4oECiJVlafEnLEd`0
+!i122 23
+l71
+L34 121
+VdfJ90QblC:nKL934d40511
+!s100 Iaj375^co_G^Chm=7^5@c2
+R11
+32
+R29
+!i10b 1
+R30
+R22
+R23
+!i113 1
+R16
+R17

@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat May 27 22:48:12 2023
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : Controlo
+Top-level Entity Name : Controlo
+Family : Cyclone IV E
+Total logic elements : 1,370
+    Total combinational functions : 1,309
+    Dedicated logic registers : 350
+Total registers : 350
+Total pins : 64
+Total virtual pins : 0
+Total memory bits : 168
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

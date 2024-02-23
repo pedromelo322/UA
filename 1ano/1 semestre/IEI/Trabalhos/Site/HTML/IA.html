@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>My Website</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/scripts.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg bg-light flex-column flex-sm-row fixed-top" style="border-bottom: 1px solid black; line-height: 20px;">
+            <div class="container-fluid">
+            <!--<img src="imagens/AI-PNG-HD.png" alt="AI" style="width: 80px;height: 60px;">-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav nav-pills mx-auto nav-fill" id="pills-tab" role="tablist" style="vertical-align: middle;">
+                    <li class="nav-item " role="presentation">
+                        <button class="nav-link" id="pills-introducao-tab"onclick="abrirNovoHtml('Introducao.html')" data-bs-toggle="pill" data-bs-target="#pills-introducao" type="button" role="tab" aria-controls="pills-introducao" aria-selected="false">Introdução</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-ia-tab" data-bs-toggle="pill" data-bs-target="#pills-ia" type="button" role="tab" aria-controls="pills-ia" aria-selected="true">Inteligência Artificial</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-aplicacoes-tab" onclick="abrirNovoHtml('Aplicacoes.html')" data-bs-toggle="pill" data-bs-target="#pills-aplicacoes" type="button" role="tab" aria-controls="pills-aplicacoes" aria-selected="false">Aplicações no Quotidiano</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-vandest-tab" onclick="abrirNovoHtml('Vandes.html')" data-bs-toggle="pill" data-bs-target="#pills-vandes" type="button" role="tab" aria-controls="pills-vandes" aria-selected="false">Vantagens e Desvantagens</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-conclusoes-tab" onclick="abrirNovoHtml('conclusoes.html')" data-bs-toggle="pill" data-bs-target="#pills-conlusoes" type="button" role="tab" aria-controls="pills-conclusoes" aria-selected="false">Conclusões</button>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div>
+                <a href="https://github.com/orgs/detiuaveiro/teams/infor2022-ap-g22/repositories" target="_blank">
+                    <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    <div class="container" style="margin-top: 70px;">
+        
+        <h1 class="display-4 text-center mb-4">Inteligência Artificial</h1>
+        <p class="lead">"Artificial intelligence (AI) was first defined as 'the science and engineering of making intelligent machines' in 1956 (by J. McCarthy in the article 'From here to human-level AI'). Throughout several decades of the 20th century, AI has evolved progressively into intelligent machines and algorithms that can reason and adapt based on sets of rules and environment which mimic human intelligence."</p>
+        <p class="lead">Neste capítulo, pretende-se definir o termo Inteligência Artificial, sua importância na atual sociedade e como ela funciona e pode ser classificada.</p>
+        
+        <h2 class="mt-5">Importância da IA</h2>
+        <p>A Inteligência Artificial é a área científica que se preocupa com a construçãode sistemas computacionais capazes de se adaptarem - pensar e aprender - bem como agirem, de forma quase humana, e onde o volume de dados normalmente excede a que os humanos conseguem analisar e processar.</p>
+        <p>A Inteligência Artificial está cada vez mais presente e uma das razões é pelo facto de ser automatizada, ou seja, consegue executar uma tarefa e repetila infinitamente sem qualquer esforço físico. Esta tecnologia permite também encontrar padrões durante a realização de tarefas fazendo com que desenvolva e encontre uma maneira mais rápida e eficaz de desenvolver essa mesma tarefa, conseguindo assim, por exemplo, reduzir custos na realização da mesma. Mas a IA não se fica por aí. Além de realizar tarefas sem a necessidade de atividade humano ou de encontrar maneiras mais eficazes para a resolução de problemas consegue também fazer em modo “Multitasking” - executar várias tarefas ao mesmo tempo.</p>
+        <p>Das mais importantes razões de utilização de IA é que esta tecnologia consegue ser melhor que o Homem em muitos aspetos como:</p>
+        <ul>
+            <li><strong>Reduzir o erro humano</strong> - ao comparar várias alternativas para alcançar o mesmo objetivo;</li>
+            <li><strong>Estar sempre disponível</strong> - a inteligência artificial permite ser usada 24 horas sobre 24 horas o que permite ser bastante mais produtivo do que o Homem.</li>
+        </ul>
+        <p>Esta tecnologia criou novas oportunidades de negócio que podem dar lugar a grandes empresas. Anteriormente aos tempos de hoje seria difícil imaginar usar um serviço do género dos táxis, em que se conecta um condutor a uma pessoa que necessita de se deslocar. Mas hoje em dia a Uber é uma das maiores empresas do mundo apenas por fazer isso. Outro exemplo é a Google que é um dos melhores motores de pesquisa do mundo através do uso de Machine Learning para analisar como as pessoas usam os seus serviços e os podem melhorar. As maiores empresas de hoje em dia usam IA para melhorar os seus serviços e se manter à frente da concorrência.</p>
+        
+        <h2 class="mt-5">Funcionamento</h2>
+        <p>A IA é um campo de estudo amplo que inclui “Machine Learning”, “Neural Networks” e “Deep Learning” (fig. 2.1).</p>
+        <p>"Neural network" é um tipo de aprendizagem composto por unidades interligadas que processam informações que permite realizar a tarefa que lhe é definida, retransmitindo informações entre cada unidade. O processo requer várias iterações na análise dos dados para encontrar possíveis conexões e derivar o significado de dados indefinidos.</p>
+        <p>"Machine learning" serve para automatizar a construção de modelos analíticos. Usa métodos de "Neural Networks", estatísticas, cálculos e física para encontrar algum padrão oculto nos dados sem ser explicitamente programado para onde procurar ou o que concluir.</p>
+        <p>"Deep learning" usa enormes "Neural networks" com muitas camadas de unidades de processamento, aproveitando os avanços no poder dos computadores e técnicas de treino melhoradas para aprender padrões complexos em grandes quantidades de dados. Aplicações comuns incluem reconhecimento de imagem e fala.</p>
+        <p>Em geral, os sistemas de IA funcionam através da leitura de grandes quantidades de dados, analisando-os e procurando ligações e padrões, que são usados para aprender a efetuar uma determinada tarefa. Desta forma, um chatBot que é alimentado por exemplos de conversas de texto pode aprender a conversar com outras pessoas, ou uma ferramenta de reconhecimento de imagem pode aprender a identificar e descrever objetos em imagens, analisando milhões de exemplos.</p>
+        
+        <h2 class="mt-5">Classificação</h2>
+        <p>A IA pode ser classificada em dois grandes grupos (Tabela2.1), capacidades ou por funcionalidades.</p>
+
+        <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-c3ow">Classificação</th>
+                <th class="tg-c3ow">Ia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-0pky tg-center" rowspan="4"><span style="font-weight:400;font-style:normal;">Capacidades da IA</span></td>
+                <td class="tg-c3ow">Reativas</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow">Memória Limitada</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow">Teoria da Mente</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow">Autoconsciente</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow tg-center" rowspan="3">Funcionalidades da IA</td>
+                <td class="tg-c3ow">Limitada</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow">Geral</td>
+              </tr>
+              <tr>
+                <td class="tg-c3ow">Super</td>
+              </tr>
+            </tbody>
+        </table>
+          
+        <h3 class="mt-5">Capacidade da IA</h3>
+        <p>A IA pode ser classificada em dois grandes grupos (Tabela2.1), capacidades ou por funcionalidades.</p>
+
+        <h4 class="mt-5">IA Reativas</h4>
+        <p>Este é o tipo mais básico de que possui capacidades extremamente limitadas. Estas não possuem funcionalidade baseada em memória o que significa que apenas reagem a cenários atuais e não podem usar experiências adquiridas anteriormente para tomar decisões no presente, ou seja, não têm a capacidade de “aprender”.</p>  
+        <p>Um exemplo popular de uma máquina de IA reativa é o Deep Blue da IBM, uma máquina que derrotou o grande mestre de xadrez Garry Kasparov em 1997 (fig.2.2). Estas máquinas reativas não interagem com o mundo, então elas respondem a situações idênticas da mesma maneira todas as vezes que esses cenários são encontrados.</p>
+        
+        <h4 class="mt-5">IA de memória limitada</h4>
+        <p>Máquinas de memória limitada para além de terem os recursos das máquinas reativas também tem a capacidade de aprender através da análise de ações ou dados que lhe foram fornecidos com o objetivo de construir um conhecimento experimental, que mais tarde será submetido a testes. Quase todos os aplicativos existentes enquadram-se nesta categoria de IA. Todos os sistemas de inteligência artificial da atualidade, como aqueles que usam deep learning, são treinados com grandes quantidades de dados de treino que são armazenados nas suas memórias para criar um modelo de referência para resolver futuros problemas.</p>
+        <p>Este tipo de IA é usado por assistentes de voz, chatbots, carros que conduzem sozinhos e outras tecnologias.</p>
+        <p>Um exemplo deste tipo de IA é uma IA de reconhecimentos de imagens(fig.2.3),esta é treinada usando milhares de imagens e a sua respetiva identificação, para ensinar a identificar os objetos que analisa. Quando um objeto é analisado por este tipo de IA, usa as imagens de treino como referência para entender o conteúdo da nova imagem apresentada e baseado-se na sua aprendizagem dá um nome à imagem.</p>
+        
+        <h4 class="mt-5">Teoria da mente</h4>
+        <p>Os últimos dois tipos de IA apresentados como podemos perceber já estão presentes na nossa atualidade</p>
+        <p>Teoria da mente é o terceiro tipo de IA e o próximo nível de sistemas de IA que os investigadores estão atualmente empenhados em inovar. Este tipo de IA será capaz de entender melhor as pessoas com que interage compreendendo os seus pensamentos, crenças, necessidades e emoções o que tornará as máquinas capazes de tomar decisões semelhantes aos humanos.</p>
+        <p>Os pesquisadores estão a tentar criar máquinas que possam entender melhor os humanos e aprender com vários fatores que influenciam o seu processo de pensamento. Um dos objetivos deste tipo de IA é por exemplo a criação de um robô emocionalmente inteligente que interage com humanos, para dar uma sensação de conversa real.</p>
+        
+        <h4 class="mt-5">IA inconsciente</h4>
+        <p>IA autoconsciente é o último estado de desenvolvimento de IA que existe apenas em teoria.</p>
+        <p>O tipo de IA autoconsciente é uma IA que ao foi desenvolvida com o objetivo de ser tão parecida com o cérebro humano que desenvolveu autoconsciência.</p>
+        <p>Apesar de esta tecnologia estar a séculos de distância é o objetivo final de toda a pesquisa de IA. Este tipo de AI não será apenas capaz de entender as características dos seres humanos como emoções, crenças, necessidades, mas também terá essas mesmas características.</p>
+        <p>Algumas pessoas acreditam que embora o desenvolvimento da autoconsciência possa impulsionar nosso progresso como civilização, também pode levar a uma catástrofe. Isso ocorre porque, uma vez autoconsciente, a IA seria capaz de ter ideias como auto preservação, que podem direta ou indiretamente significar o fim da humanidade, pois tal entidade poderia facilmente superar o intelecto de qualquer ser humano e traçar planos para dominar a humanidade.</p>
+
+        <h3 class="mt-5">Funcionalidades de IA</h3>
+
+        <h4 class="mt-5">IA limitada</h4>
+        <p>A IA fraca, também conhecida como Inteligência Artificial limitada (IAL) representada todas as IA criadas até à data. IAL é um sistema que é treinado para executar apenas tarefas específicas. Este tipo de IA não consegue fazer mais nada para além do que foi programada e tem um número muito limitado de capacidades. De acordo com o sistema de classificação acima mencionado, esses sistemas correspondem a todas as IA de memória reativa e limitada. Mesmo a IA mais complexa ,que use aprendizagem de máquina e aprendizagem profunda para aprender, enquadra-se na IAL.</p>
+
+        <h4 class="mt-5">IA geral</h4>
+        <p>IA geral (IAG) é a capacidade de uma IA aprender, percebe, entender e funcionar completamente como um ser humano, ou seja, o sistema IAG pode executar qualquer tarefa que um ser humano possa. No entanto as IA que existem atualmente conseguem executar uma tarefa com maior eficácia do que os humanos, mas unicamente a função que lhes foi atribuída, por outro lado o ser humano pode executar a tarefa com menos perfeição, mas pode executar uma maior variedade de funções.</p>
+        <p>Por isso o objetivo da IAG é serem capazes de construir múltiplas competências de forma independente e formar conexões e generalizações entre domínios, reduzindo assim o tempo necessário para as treinar.</p>
+
+        <h4 class="mt-5">Super IA</h4>
+        <p>A superinteligência artificial (SIA) é uma forma de IA capaz de superar a inteligência humana, manifestando habilidades cognitivas e desenvolvendo habilidades de pensamento próprias.</p>
+        <p>Também conhecida como super IA, a superinteligência artificial é considerada o tipo de IA mais avançado, poderoso e inteligente que para além de replicar a inteligência dos seres humanos, será extremamente melhor em tudo o que faz devido á sua memória, processamento e análise de dados mais rápidos e capacidades de tomada de decisão.</p>
+        <p>O desenvolvimento de IAG e SIA levará a um cenário conhecido como singularidade. E embora o potencial de ter máquinas tão poderosas à nossa disposição pareça atraente, essas máquinas também podem ameaçar nossa existência ou, pelo menos, nosso modo de vida.</p>
+    </div>
+
+</body>
+</html>
+

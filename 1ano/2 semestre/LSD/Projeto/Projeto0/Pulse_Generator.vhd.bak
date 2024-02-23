@@ -1,0 +1,35 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity Pulse_Generator is
+    Port (
+        SW : in STD_LOGIC_VECTOR (1 downto 0);
+        CLK : in STD_LOGIC;
+        Pulse : out STD_LOGIC
+    );
+end Pulse_Generator;
+
+architecture Behavioral of Pulse_Generator is
+    signal counter : integer := 0;
+    signal rate : integer := 0;
+begin
+    process (CLK) 
+    begin
+        if rising_edge(CLK) then
+            case SW is
+                when "01" => rate <= 50000000;   -- 1Hz
+                when "10" => rate <= 50000000/10;  -- 10Hz
+                when "11" => rate <= 50000000/60; -- 60Hz
+                when others => rate <= 50000000 * 60;  -- frequência normal
+            end case;
+            if counter < rate then
+                counter <= counter + 1;
+                Pulse <= '0';
+            else
+                counter <= 0;
+                Pulse <= '1';
+            end if;
+        end if;
+    end process;
+end Behavioral;

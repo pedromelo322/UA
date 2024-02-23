@@ -1,0 +1,49 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "s_count[0]",
+					"strict" : false
+				},
+				{
+					"name" : "s_count[1]",
+					"strict" : false
+				},
+				{
+					"name" : "s_count[2]",
+					"strict" : false
+				},
+				{
+					"name" : "s_count[3]",
+					"strict" : false
+				},
+				{
+					"name" : "s_count[4]",
+					"strict" : false
+				},
+				{
+					"name" : "TimerOut",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "rst",
+					"strict" : false
+				},
+				{
+					"name" : "start",
+					"strict" : false
+				},
+				{
+					"name" : "en",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

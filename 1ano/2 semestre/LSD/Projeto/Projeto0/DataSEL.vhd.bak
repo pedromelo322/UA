@@ -1,0 +1,33 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+
+entity DataSel is
+    port (
+        clk : in std_logic;
+		  inc : in std_logic;
+		  data_out : out std_logic;
+    );
+end DataSel;
+
+architecture behavioral of DataSel is
+
+	signal data : std_logic := "00";
+
+begin
+	process(clk)
+	
+	begin
+	
+		if (rising_edge(clk)) then
+			if (inc = '1') then
+				if (data = "01") then
+					data <= "00";
+				else
+					data <= std_logic_vector(unsigned(data) + 1);
+				end if;
+			end if;
+		end if;
+	end process;
+end behavioral;

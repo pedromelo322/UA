@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat Apr 08 22:53:20 2023
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : TimerN_Demo
+Top-level Entity Name : TimerN
+Family : Cyclone IV E
+Total logic elements : 10
+    Total combinational functions : 10
+    Dedicated logic registers : 6
+Total registers : 6
+Total pins : 10
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

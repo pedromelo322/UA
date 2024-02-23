@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat Jun 10 16:38:25 2023
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : RAM_1P_Demo
+Top-level Entity Name : test_exmp
+Family : Cyclone IV E
+Total logic elements : 2
+    Total combinational functions : 0
+    Dedicated logic registers : 2
+Total registers : 2
+Total pins : 3
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

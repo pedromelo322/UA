@@ -1,0 +1,14 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity DebounceUnit is
+    generic(kHzClkFreq : positive := 50000;
+            mSecMinInWidth : positive := 100;
+            inPolarity : std_logic := '0';
+            outPolarioty : std_logic := '1');
+            
+    port (refClk : in std_logic;
+          dirtyIn : in std_logic;
+          pulsedOut: out std_logic);
+          
+end DebounceUnit;

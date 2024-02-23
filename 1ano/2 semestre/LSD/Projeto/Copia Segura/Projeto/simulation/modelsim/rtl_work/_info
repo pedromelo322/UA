@@ -1,0 +1,138 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/simulation/modelsim
+Econtrolunit
+Z1 w1685224696
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 1
+R0
+Z4 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd
+Z5 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd
+l0
+L4 1
+VE?a8?2J?5O[5zNId4`1;l3
+!s100 GBD7B0E6_CP_]E[o?H[z>0
+Z6 OV;C;2020.1;71
+31
+Z7 !s110 1685311701
+!i10b 1
+Z8 !s108 1685311701.000000
+Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd|
+Z10 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd|
+!i113 1
+Z11 o-93 -work work
+Z12 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+DEx4 work 11 controlunit 0 22 E?a8?2J?5O[5zNId4`1;l3
+!i122 1
+l20
+L15 71
+V2J4=P8MT74;RaC:IZ4K`Y1
+!s100 X3;KJY:@zz4D^Dn?ccD0M2
+R6
+31
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Edebounceunit
+Z13 w1685224642
+Z14 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+R2
+R3
+!i122 0
+R0
+Z15 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd
+Z16 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd
+l0
+L5 1
+VOhi;YPfdnUHJF:40nS:=31
+!s100 ?[^;I_mLD[@PfXJfjVCk^1
+R6
+31
+R7
+!i10b 1
+R8
+Z17 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd|
+Z18 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd|
+!i113 1
+R11
+R12
+Abehavioral
+R14
+R2
+R3
+DEx4 work 12 debounceunit 0 22 Ohi;YPfdnUHJF:40nS:=31
+!i122 0
+l20
+L15 47
+VAGA@GIkd]b2DAC=O]Xl:F0
+!s100 :R[NPL[EJe6m3EJ<cFE<C1
+R6
+31
+R7
+!i10b 1
+R8
+R17
+R18
+!i113 1
+R11
+R12
+Epulse_generator
+Z19 w1685224727
+R14
+R2
+R3
+!i122 2
+R0
+Z20 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd
+Z21 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd
+l0
+L5 1
+V19RjBGAR[?_FLT7A33KQ<2
+!s100 90059U@iaV5XfTQSgA4If3
+R6
+31
+Z22 !s110 1685311702
+!i10b 1
+Z23 !s108 1685311702.000000
+Z24 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd|
+!i113 1
+R11
+R12
+Abehavioral
+R14
+R2
+R3
+DEx4 work 15 pulse_generator 0 22 19RjBGAR[?_FLT7A33KQ<2
+!i122 2
+l16
+L13 33
+V1M4F_S0j>JQ:91oNz@a0z1
+!s100 FgB0l6^L@U0LPX;<Zl_Mm3
+R6
+31
+R22
+!i10b 1
+R23
+R24
+Z25 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd|
+!i113 1
+R11
+R12

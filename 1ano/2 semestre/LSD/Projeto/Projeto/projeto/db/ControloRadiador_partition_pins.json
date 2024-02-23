@@ -1,0 +1,69 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "counter[0]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[1]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[2]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[3]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[4]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[5]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[6]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[7]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[8]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[9]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[10]",
+					"strict" : false
+				},
+				{
+					"name" : "counter[11]",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "up_down",
+					"strict" : false
+				},
+				{
+					"name" : "tempo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

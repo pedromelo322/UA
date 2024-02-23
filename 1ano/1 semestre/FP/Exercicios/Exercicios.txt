@@ -1,0 +1,3 @@
+links: 
+https://horstmann.com/codecheck/python-questions.html
+https://codingbat.com/python

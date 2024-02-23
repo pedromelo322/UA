@@ -1,0 +1,17 @@
+vendor_name = ModelSim
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_TestBench.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_16_8.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/RAM_1P_Demo.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/contador.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/DebounceUnit.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/test_exmp.vhd
+source_file = 1, c:/intelfpga_lite/20.1/quartus/libraries/vhdl/ieee/prmtvs_b.vhd
+source_file = 1, c:/intelfpga_lite/20.1/quartus/libraries/vhdl/ieee/prmtvs_p.vhd
+source_file = 1, c:/intelfpga_lite/20.1/quartus/libraries/vhdl/ieee/timing_b.vhd
+source_file = 1, c:/intelfpga_lite/20.1/quartus/libraries/vhdl/ieee/timing_p.vhd
+source_file = 1, C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula10/Parte2/db/RAM_1P_Demo.cbx.xml
+design_name = test_exmp
+instance = comp, \valor_out~output\, valor_out~output, test_exmp, 1
+instance = comp, \clk~input\, clk~input, test_exmp, 1
+instance = comp, \valor_in~input\, valor_in~input, test_exmp, 1
+instance = comp, \valor_out~reg0\, valor_out~reg0, test_exmp, 1

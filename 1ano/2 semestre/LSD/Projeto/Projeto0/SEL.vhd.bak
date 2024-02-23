@@ -1,0 +1,41 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+
+entity SEL
+    port (
+		  en : in std_logic;
+        clk : in std_logic;
+		  adress0 : in std_logic_vector(10 downto 0);
+		  adress1 : in std_logic_vector(5 downto 0);
+		  minutos0, minutos1, horas0, horas1 : out std_logic_vector(3 downto 0)
+		);
+end SEL;
+
+architecture Behavioral of SEL is
+
+signal s_minutos: std_logic_vector(5 downto 0) := (others => '0');
+signal s_horas: std_logic_vector(4 downto 0) := (others => '0');
+
+begin
+
+	process(clk)
+	begin
+		if (rising_edge(clk)) then
+			if (en = '0') then
+				s_horas <= adress0(10 downto 6);
+				s_minutos <= adress0(5 downto 0);
+			else
+				s_horas <= adress1;
+				s_minutos <= (others => '0');
+			end if;
+		
+
+			minutos0 <= std_logic_vector(unsigned(s_minutos) mod 10)(3 downto 0);
+			minutos1 <= std_logic_vector(unsigned(s_minutos) / 10)(3 downto 0);
+			horas0 <= std_logic_vector(unsigned(s_horas) mod 10)(3 downto 0);
+			horas1 <= std_logic_vector(unsigned(s_horas) / 10)(3 downto 0);
+		end if;
+	end process;
+end Behavioral;

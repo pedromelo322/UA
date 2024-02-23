@@ -1,0 +1,24 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity selecter is
+    port (input : in std_logic_vector(3 downto 0);
+			 sel : in std_logic;
+          output : out std_logic
+          );
+end selecter;
+
+architecture selecter_arch of selecter is
+    begin
+        process(input)
+        begin
+            if (input = "1111") then 
+                output <= '0';
+            elsif (input = "0000") then
+                output <= '1';
+            else
+                output <= sel;
+            end if;
+        end process;
+end selecter_arch;

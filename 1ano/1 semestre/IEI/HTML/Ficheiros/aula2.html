@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Aula2</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Patrick Hand">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Rubik Distressed">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+
+        
+        
+        <style>
+            body {
+            font-size: 10pt;
+            }
+            h1 {
+            color: red;
+            }
+            h2 {
+            color: green;
+            }
+
+            table, td, th {
+            border: 1px solid black;
+            }
+
+            #jan {
+            background-color: yellow;
+            }
+
+            #fev {
+            background-color: green;
+            }
+
+            #mar {
+            background-color: aqua;
+            }
+
+            #abr {
+            background-color: blue;
+            }
+            #mai {
+            background-color: blueviolet;
+            }
+
+            #jun {
+            background-color: violet;
+            }
+            #jul {
+            background-color: purple;
+            }
+
+            #ago {
+            background-color: red;
+            }
+            #set {
+            background-color: orangered;
+            }
+
+            #out {
+            background-color: orange;
+            }
+
+            #nov {
+            background-color: darkorange;
+            }
+
+            #dez {
+            background-color: yellow;
+            }
+
+            #tp1{
+                font-family: sans-serif
+            }
+
+            #tp2{
+                font-family: monospace
+            }
+
+            #tp3{
+                font-family: serif
+            }
+
+            #tpl1{
+                font-family: "Patrick Hand", serif;
+            }
+
+            #tpl2{
+                font-family: "Rubik Distressed", serif;
+            }
+
+            #tpl3{
+                font-family: "Raleway", serif;
+            }
+            .container {
+            font-family: arial;
+            font-size: 24px;
+            margin: 25px;
+            width: 350px;
+            height: 200px;
+            outline: dashed 1px red;
+            /* Setup */
+            position: relative;
+            }
+
+            .child {
+            width: 50px;
+            height: 50px;
+            /* Center vertically and horizontally */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -25px 0 0 -25px; /* Apply negative top and left margins to truly center the element */
+            }
+
+        </style>
+    </head>
+    <body>
+        
+        <div>
+            <img src="imagem.png" alt="texto" style="width: 100px;">
+            <img src="imagem.png" alt="texto" style="width: 90px;">
+            <img src="imagem.png" alt="texto" style="width: 80px;">
+            <img src="imagem.png" alt="texto" style="width: 70px;">
+            <img src="imagem.png" alt="texto" style="width: 60px;">
+            <img src="imagem.png" alt="texto" style="width: 50px;">
+            <img src="imagem.png" alt="texto" style="width: 40px;">
+            <img src="imagem.png" alt="texto" style="width: 30px;">
+        </div>
+    
+        <div>
+            <p style="color: blue;"> Este texto ficará azul </p>
+            <p style="color: rgb(83, 83, 248);"> Este texto ficará azul </p>
+            <p style="color: rgb(134, 134, 247);"> Este texto ficará azul </p>
+            <p style="color: rgb(194, 194, 246);"> Este texto ficará azul </p>
+        </div>
+
+        <div>
+            <h1 style="color: black; background-color: blue;"> Este texto ficará vermelho e o fundo azul</h1>
+            <h2 style="color: black; background-color: red;"> Este texto ficará preto e o fundo vermelho</h2>
+            <h3 style="color: white; background-color: green;"> Este texto ficará branco e o fundo verde</h3>
+            <h4 style="color: white; background-color: purple;"> Este texto ficará branco e o fundo roxo</h4>
+            <h5 style="color: black; background-color: aqua;"> Este texto ficará preto e o fundo azul água</h5>
+            <h6 style="color: black; background-color: yellow;"> Este texto ficará preto e o fundo amarelo</h6>
+        
+        </div>
+
+        <div>
+            <h1>Este texto estará de acordo com style de h1 defenido no head.</h1>
+            <h2>Este texto estará de acordo com style de h2 defenido no head.</h2>
+        </div>
+        <div>
+            <table>
+                <tr><th>Nome</th><th>2009</th><th>2010</th><th>2011</th><th>2012</th></tr>
+                <tr><td id="jan">Jan</td><td id="jan">14</td><td id="jan">13</td><td id="jan">11</td><td id="jan">9</td></tr>
+                <tr><td id="fev">Fev</td><td id="fev">15</td><td id="fev">14</td><td id="fev">14</td><td id="fev">11</td></tr>
+                <tr><td id="mar">Mar</td><td id="mar">17</td><td id="mar">17</td><td id="mar">15</td><td id="mar">16</td></tr>
+                <tr><td id="abr">Abr</td><td id="abr">18</td><td id="abr">17</td><td id="abr">13</td><td id="abr">18</td></tr>
+                <tr><td id="mai">Mai</td><td id="mai">19</td><td id="mai">18</td><td id="mai">16</td><td id="mai">21</td></tr>
+                <tr><td id="jun">Jun</td><td id="jun">21</td><td id="jun">22</td><td id="jun">20</td><td id="jun">16</td></tr>
+                <tr><td id="jul">Jul</td><td id="jul">23</td><td id="jul">21</td><td id="jul">22</td><td id="jul">18</td></tr>
+                <tr><td id="ago">Ago</td><td id="ago">24</td><td id="ago">23</td><td id="ago">24</td><td id="ago">23</td></tr>
+                <tr><td id="set">Set</td><td id="set">21</td><td id="set">20</td><td id="set">22</td><td id="set">15</td></tr>
+                <tr><td id="out">Out</td><td id="out">18</td><td id="out">16</td><td id="out">19</td><td id="out">11</td></tr>
+                <tr><td id="nov">Nov</td><td id="nov">15</td><td id="nov">14</td><td id="nov">14</td><td id="nov">10</td></tr>
+                <tr><td id="dez">Dez</td><td id="dez">13</td><td id="dez">11</td><td id="dez">12</td><td id="dez"> 8 </td></tr>
+                </table>
+        </div>
+        <div>
+            <p id = "tp1"> Tipo1</p>
+            <p id = "tp2"> Tipo2</p>
+            <p id = "tp3"> Tipo3</p>
+        </div>
+        <div>
+            <p id = "tpl1">He do subjects prepared bachelor juvenile ye oh. He feelings removing informed he as ignorant we prepared. Evening do forming observe spirits is in. Country hearted be of justice sending. On so they as with room cold ye. Be call four my went mean. Celebrated if remarkably especially an. Going eat set she books found met aware. </p>
+            <p id = "tpl2">Finished her are its honoured drawings nor. Pretty see mutual thrown all not edward ten. Particular an boisterous up he reasonably frequently. Several any had enjoyed shewing studied two. Up intention remainder sportsmen behaviour ye happiness. Few again any alone style added abode ask. Nay projecting unpleasing boisterous eat discovered solicitude. Own six moments produce elderly pasture far arrival. Hold our year they ten upon. Gentleman contained so intention sweetness in on resolving.</p>
+            <p id = "tpl3">Boy favourable day can introduced sentiments entreaties. Noisier carried of in warrant because. So mr plate seems cause chief widen first. Two differed husbands met screened his. Bed was form wife out ask draw. Wholly coming at we no enable. Offending sir delivered questions now new met. Acceptance she interested new boisterous day discretion celebrated.</p> 
+        </div>
+        <div class="container">
+            <div class="jumbotron">
+                <h1> Exemplo de Twitter Bootstrap </h1>
+            </div>
+        </div>
+
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="active"> <a href="#"> Link 1 </a> </li>
+                    <li> <a href="#"> Link 2 </a> </li>
+                    <li> <a href="#"> Link 3 </a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="child">
+                <button type="button" class="btn btn-lg btn-default"> Botão </button>
+            </div>
+        </div>
+    </body>
+</html> 

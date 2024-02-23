@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>My Website</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/scripts.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-light flex-column flex-sm-row fixed-top" style="border-bottom: 1px solid black; line-height: 20px;">
+        <div class="container-fluid">
+        <!--<img src="imagens/AI-PNG-HD.png" alt="AI" style="width: 80px;height: 60px;">-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav nav-pills mx-auto nav-fill" id="pills-tab" role="tablist" style="vertical-align: middle;">
+                <li class="nav-item " role="presentation">
+                    <button class="nav-link" id="pills-introducao-tab"onclick="abrirNovoHtml('Introducao.html')" data-bs-toggle="pill" data-bs-target="#pills-introducao" type="button" role="tab" aria-controls="pills-introducao" aria-selected="false">Introdução</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-ia-tab" onclick="abrirNovoHtml('IA.html')" data-bs-toggle="pill" data-bs-target="#pills-ia" type="button" role="tab" aria-controls="pills-ia" aria-selected="false">Inteligência Artificial</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-aplicacoes-tab"  data-bs-toggle="pill" data-bs-target="#pills-aplicacoes" type="button" role="tab" aria-controls="pills-aplicacoes" aria-selected="true">Aplicações no Quotidiano</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-vandest-tab" onclick="abrirNovoHtml('Vandes.html')" data-bs-toggle="pill" data-bs-target="#pills-vandes" type="button" role="tab" aria-controls="pills-vandes" aria-selected="false">Vantagens e Desvantagens</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-conclusoes-tab" onclick="abrirNovoHtml('conclusoes.html')" data-bs-toggle="pill" data-bs-target="#pills-conlusoes" type="button" role="tab" aria-controls="pills-conclusoes" aria-selected="false">Conclusões</button>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <div>
+            <a href="https://github.com/orgs/detiuaveiro/teams/infor2022-ap-g22/repositories" target="_blank">
+                <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 70px;">
+
+      <h1 class="display-4 text-center mb-4">Aplicações no quotidiano</h1>
+      <p class="lead">A IA tem vindo a ser cada vez mais usada ao longo dos anos e sem sabermos esta tecnologia já está bastante presente na nossa vida diária. Neste capítulo vão ser abordados alguns dos principais usos dessa IA.</p>
+      
+      <h2 class="mt-5">Redes Sociais</h2>
+      <p>As redes sociais como Facebook, Instagram, Twitter são usadas por todos nós. Alguns mais, outros menos, uns para um objetivo, outros para outro, mas todos usam as mesmas interfaces e a IA está presente em várias destas interfaces. Na personalização do "feed" de acordo com cada pessoa, pois com base no seu histórico dos gostos em posts e das pesquisas, analisa e aprende para fornecer outros relacionados com o mesmo. Isto permite a estas aplicações criar a cada utilizador uma experiência própria e única. Outras utilizações são no funcionamento dos pedidos de amizade. O Facebook também tem uma ferramenta de IA chamada "Deep text" que monitoriza comentários, posts e outros dados para perceber diferentes línguas, abreviações e aprender a entender o seu contexto. Por fim a IA é utilizada para prevenir cyberbullying usando Machine Learning. Lê os comentários e as descrições das fotos e dos vídeos publicados e se considerar ofensivo, o utilizador recebe um alerta em que o que foi escrito pode ser considerado bullying.</p>
+      
+      <h2 class="mt-5">Publicidade</h2>
+      <p>Publicidade também é algo que encaramos cada vez que usamos a Internet e a IA está a se tornar o futuro desta.A IA é utilizada para mostrar anúncios de acordo com o utilizador, ou seja, com base em pesquisas prévias feitas pelo utilizador, a IA cria anúncios com essas pesquisas, permitindo assim melhorar o propósito da publicidade, vender.</p>
+      <p>Alguns outros exemplos da utilização de IA na Publicidade, como:</p>
+      <ul>
+        <li>ajustamento de orçamentos de publicidade para atingir automaticamente os KPIs(Indicadores Chaves de Performance);</li>
+        <li>determinar e atingir metas de campanha;</li>
+        <li>obter informação sobre gastos em anúncios e estratégias dos concorrentes;</li>
+        <li>criar cópias de anúncios;</li>
+        <li>criar anúncios visualmente criativos;</li>
+        <li>prever o desempenho de um anúncio antes de lançar campanhas.</li>
+      </ul>
+      
+      <h2 class="mt-5">Automóveis</h2>
+      <p>Os automóveis são atualmente um meio necessário e insubstituível no dia-a-dia de qualquer pessoa. Os automóveis ainda não têm todos piloto automático ou seja, não conseguem dirigir sem ação do Homem, mas já existem algumas marcas que o fazem, como a Tesla entre outras. Para isso acontecer foi usada então a IA.</p>
+      <p>A IA usa câmaras para conseguir saber o que está ao redor do automóvel, como as linhas de estrada, os semáforos, os peões, outros veículos que se encontram na estrada e ler os sinais de trânsito (fig. 3.1) para assim, analisar e saber o que fazer. Se deve parar ou avançar. A utilização desta tecnologia ainda não é perfeita mas não falta muito até o ser e possivelmente será mais seguro segundo a Waymo da Google. Foram realizadas simulações e foi visto que a IA conseguiu evitar 75% das colisões de veículos e evitar até 93% das lesões graves, contrariamente ao modelo NIEON, que calculou que o Homem nestas situações, tem apenas 62,5% de chance de evitar uma colisão e 84% de evitar uma lesão grave(fig.3.2).</p>
+      <p>No entanto, calcula-se que daqui a uns anos será possível ter tanta confiança nesta tecnologia que não irá mais ser essencial haver um lugar do condutor mas sim apenas os restantes lugares como se pode ver na fig. 3.3. Poderá ser possível haver uma maior otimização do espaço do automóvel, criando uma maior confortabilidade.</p>
+      <p>Por fim, em termos de empregabilidade irá retirar muitos empregos a diversas pessoas, já que não há necessidade de, por exemplo, um motorista de autocarros para levar as pessoas do ponto A ao ponto B, nem de motoristas de mercadorias.</p>
+    </div>
+        
+      
+</body>
+</html>
+

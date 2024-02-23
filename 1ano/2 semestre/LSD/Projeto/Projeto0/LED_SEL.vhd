@@ -1,0 +1,43 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity LED_SEL is
+    port (
+			clk  : in std_logic;
+			temp : in std_logic_vector(1 downto 0);
+			sol  : in std_logic;
+			lua  : in std_logic;
+			gelo : in std_logic
+    );
+end LED_SEL;
+
+architecture behavioral of LED_SEL is
+	signal s_sol, s_lua, s_gelo : std_logic := '0';
+
+
+begin
+
+	process(clk)
+	begin
+		if (rising_edge(clk)) then
+			if (temp = "00") then
+				s_sol <= '1';
+				s_lua <= '0';
+				s_gelo <= '0';
+			elsif (temp = "01") then
+				s_sol <= '0';
+				s_lua <= '1';
+				s_gelo <= '0';
+			elsif (temp = "10") then
+				s_sol <= '0';
+				s_lua <= '0';
+				s_gelo <= '1';
+			else
+				s_sol <= '0';
+				s_lua <= '0';
+				s_gelo <= '0';
+			end if;
+		end if;
+	end process;
+end behavioral;

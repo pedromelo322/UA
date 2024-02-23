@@ -1,0 +1,97 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/simulation/modelsim
+Ealu16
+Z1 w1681900858
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16.vhd
+Z6 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16.vhd
+l0
+L5 1
+Vc=UTGMF[Na=i^;D25IFOQ1
+!s100 j`7Ai?KN:zW@iiQfhM:5z3
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1681902893
+!i10b 1
+Z9 !s108 1681902893.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16.vhd|
+Z11 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+Z14 DEx4 work 5 alu16 0 22 c=UTGMF[Na=i^;D25IFOQ1
+!i122 0
+l16
+L13 33
+V;Af;452nk4PDV_VHDhb]33
+!s100 ;F99:mQD9i@dBeDVSU:7f1
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Ealu16_tb
+Z15 w1681900055
+R3
+R4
+!i122 1
+R0
+Z16 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16_Tb.vhd
+Z17 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16_Tb.vhd
+l0
+L3 1
+V4XS:60_1c?_EKR3;9FY1E2
+!s100 Eh?kM9jbZoUlT:C36>IbA2
+R7
+32
+Z18 !s110 1681902989
+!i10b 1
+Z19 !s108 1681902989.000000
+Z20 !s90 -reportprogress|300|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16_Tb.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16_Tb.vhd|
+!i113 1
+Z21 o-work work
+R13
+Astimulus
+R2
+R14
+R3
+R4
+DEx4 work 8 alu16_tb 0 22 4XS:60_1c?_EKR3;9FY1E2
+!i122 1
+l17
+L6 49
+V8Poi55`4S]Ed]Oe3Skd>90
+!s100 k`JGU9N;Y?DB6[[^LMo[@0
+R7
+32
+R18
+!i10b 1
+R19
+R20
+Z22 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Parte3/ALU16_Tb.vhd|
+!i113 1
+R21
+R13

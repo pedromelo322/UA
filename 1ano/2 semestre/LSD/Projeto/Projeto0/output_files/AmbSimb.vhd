@@ -1,0 +1,33 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity AmbSimb is
+    Port (
+        clk      : in std_logic;
+        reset    : in std_logic;
+        up_down  : in std_logic;
+        counter  : out std_logic_vector(8 downto 0)
+    );
+end AmbSimb;
+
+architecture Behavioral of AmbSimb is
+    signal counter_int : unsigned(8 downto 0) := (others => '0');
+begin
+    process(clk, reset)
+    begin
+        if rising_edge(clk) then
+            if up_down = '1' then
+                if counter_int < "111111111" then
+                    counter_int <= counter_int + 1;
+                end if;
+            else
+                if counter_int > "000000000" then
+                    counter_int <= counter_int - 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    counter <= std_logic_vector(counter_int);
+end Behavioral;

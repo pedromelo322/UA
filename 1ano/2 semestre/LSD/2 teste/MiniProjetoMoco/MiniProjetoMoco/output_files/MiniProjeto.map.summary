@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon May 16 17:20:32 2022
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : MiniProjeto
+Top-level Entity Name : MiniProjeto
+Family : Cyclone IV E
+Total logic elements : 26
+    Total combinational functions : 26
+    Dedicated logic registers : 8
+Total registers : 8
+Total pins : 17
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

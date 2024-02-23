@@ -1,0 +1,25 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity ALU4 is
+    port (A, B : in std_logic_vector(3 downto 0);
+          Sel : in std_logic_vector(2 downto 0);
+          Z : out std_logic_vector(3 downto 0));
+end ALU4;
+
+architecture Behavioral of ALU4 is
+begin
+    process(A, B, Sel)
+    begin
+        with Sel select
+            Z <= A + B when "000",
+            Z <= A - B when "001",
+            Z <= A * B when "010",
+            Z <= A / B when "011",
+            Z <= A rem B when "100",
+            Z <= A and B when "101",
+            Z <= A or B when "110",
+            Z <= A xor B when "111";
+    end process;
+end Behavioral;

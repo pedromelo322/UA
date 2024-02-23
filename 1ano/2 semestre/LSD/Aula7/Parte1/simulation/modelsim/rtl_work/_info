@@ -1,0 +1,94 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/simulation/modelsim
+Edec2_4en
+Z1 w1681896936
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z4 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En.vhd
+Z5 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En.vhd
+l0
+L4 1
+VKQQ:21F[Y]b1^^1AAQ8443
+!s100 H2o[W=0QhgI44PjU2USPE3
+Z6 OV;C;2020.1;71
+31
+Z7 !s110 1681899158
+!i10b 1
+Z8 !s108 1681899158.000000
+Z9 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En.vhd|
+Z10 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En.vhd|
+!i113 1
+Z11 o-93 -work work
+Z12 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+Z13 DEx4 work 8 dec2_4en 0 22 KQQ:21F[Y]b1^^1AAQ8443
+!i122 0
+l11
+L10 19
+V=33nHF>5oF7X4ZJU9NjKR0
+!s100 5fHDo4VLY1Dgdcj1ali>W2
+R6
+31
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Edec2_4en_tb
+Z14 w1681897377
+R2
+R3
+!i122 1
+R0
+Z15 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En_Tb.vhd
+Z16 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En_Tb.vhd
+l0
+L5 1
+Vbaj>fTU^XRNMXP;Ym[dL21
+!s100 IDN1]`AbW[i;O:zBiP>TD0
+R6
+32
+Z17 !s110 1681899204
+!i10b 1
+Z18 !s108 1681899204.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En_Tb.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En_Tb.vhd|
+!i113 1
+Z20 o-work work
+R12
+Astimulus
+R13
+R2
+R3
+DEx4 work 11 dec2_4en_tb 0 22 baj>fTU^XRNMXP;Ym[dL21
+!i122 1
+l16
+L8 34
+V8V?@CTC13o<5;^CfZ5BBl0
+!s100 WeFGz;5l8b_MDRE?>`>C62
+R6
+32
+R17
+!i10b 1
+R18
+R19
+Z21 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula7/Dec2_4En_Tb.vhd|
+!i113 1
+R20
+R12

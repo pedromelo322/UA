@@ -1,0 +1,69 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity PEnc4_2 is
+    port ( decodeln : in std_logic_vector(15 downto 0);
+            encodedOut : out std_logic_vector(3 downto 0);
+            validOut : out std_logic);
+end PEnc4_2;
+
+
+--architecture Behavioral of PEnc4_2 is
+--begin
+    --process (decodeln)
+    --begin
+        --if decodeln = "0001" then
+            --encodedOut <= "00"; validOut <= '1';
+        --elsif decodeln = "0010" then
+            --encodedOut <= "01"; validOut <= '1';
+        --elsif decodeln = "0100" then
+            --encodedOut <= "10"; validOut <= '1';
+        --elsif decodeln = "1000" then
+            --encodedOut <= "11"; validOut <= '1';
+        --else
+            --encodedOut <= "00"; validOut <= '0';
+        --end if;
+    --end process;
+--end Behavioral;
+
+architecture Behavioral of PEnc4_2 is
+begin
+    process(decodeln)
+    begin
+        if decodeln = "0000000000000001" then
+            encodedOut <= "0000"; validOut <= '1';
+        elsif decodeln = "0000000000000010" then
+            encodedOut <= "0001"; validOut <= '1';
+        elsif decodeln = "0000000000000100" then
+            encodedOut <= "0010"; validOut <= '1';
+        elsif decodeln = "0000000000001000" then
+            encodedOut <= "0011"; validOut <= '1';
+        elsif decodeln = "0000000000010000" then
+            encodedOut <= "0100"; validOut <= '1';
+        elsif decodeln = "0000000000100000" then
+            encodedOut <= "0101"; validOut <= '1';
+        elsif decodeln = "0000000001000000" then
+            encodedOut <= "0110"; validOut <= '1';
+        elsif decodeln = "0000000010000000" then
+            encodedOut <= "0111"; validOut <= '1';
+        elsif decodeln = "0000000100000000" then
+            encodedOut <= "1000"; validOut <= '1';
+        elsif decodeln = "0000001000000000" then
+            encodedOut <= "1001"; validOut <= '1';
+        elsif decodeln = "0000010000000000" then
+            encodedOut <= "1010"; validOut <= '1';
+        elsif decodeln = "0000100000000000" then
+            encodedOut <= "1011"; validOut <= '1';
+        elsif decodeln = "0001000000000000" then
+            encodedOut <= "1100"; validOut <= '1';
+        elsif decodeln = "0010000000000000" then
+            encodedOut <= "1101"; validOut <= '1';
+        elsif decodeln = "0100000000000000" then
+            encodedOut <= "1110"; validOut <= '1';
+        elsif decodeln = "1000000000000000" then
+            encodedOut <= "1111"; validOut <= '1';
+        else
+            encodedOut <= "0000"; validOut <= '0';
+        end if;
+    end process;
+end Behavioral;

@@ -1,0 +1,154 @@
+Questão 4
+
+       .data
+X1:    .asciiz "Xg5aT3fCe"               
+       .align  2        
+X2:    .space  15    
+X3:    .space  13
+X4:       
+       .text            
+       .globl main    
+main:  la     $a1,X3        
+       ori    $t0,$0,0x61    
+       ori    $t1,$0,0x7A    
+       xor    $a2,$a2,$a2   
+L1:    la     $a0,X1        
+       addu   $a0,$a0,$a2    
+       lb     $t2,0($a0)    
+       blt    $t2,$t0,L2    
+       bgt    $t2,$t1,L2    
+       sb     $t2,0($a1)    
+       addi   $a1,$a1,1    
+L2:    addi   $a2,$a2,1    
+       bne    $t2,$0,L1    
+L3:    sb     $t2,0($a1)    
+       jr     $ra
+
+Carater ASCII 
+  '!'   0x21
+  '#'   0x23
+  '$'   0x24
+  '%'   0x25
+  '*'   0x2A
+  '+'   0x2B
+  '-'   0x2D
+  '0'   0x30
+  '9'   0x39
+  '@'   0x40
+  'A'   0x41
+  'Z'   0x5A
+  'a'   0x61
+  'z'   0x7A
+
+
+ 
+
+
+Analise o código assembly e responda às questões seguintes. Considere que o segmento de dados do programa começa no endereço 0x10010020 e que a sua primeira instrução está armazenada no endereço 0x00400024.
+
+O número total de posições de memória ocupado pela string "X1" é
+
+Resposta 1 Pergunta 4
+10
+O número total de posições de memória ocupado pelo segmento de dados (X4-X1) é:
+
+Resposta 2 Pergunta 4
+40
+Se se pretender usar o espaço de memória referenciado pelo label "X2" para um array de inteiros, a dimensão máxima desse array é:
+
+Resposta 3 Pergunta 4
+3
+Se "X2" referenciar um array de inteiros, o endereço de memória do elemento X2[2] é:
+
+Resposta 4 Pergunta 4
+0x10010034
+O valor do registo $a1 após a execução da primeira instrução do trecho de código (la) é:
+
+Resposta 5 Pergunta 4
+0x1001003C
+O endereço de memória a que corresponde o label "L1" é (tenha em atenção as instruções virtuais do código):
+
+Resposta 6 Pergunta 4
+0x00400034
+O número de vezes que o ciclo do programa é realizado é:
+
+Resposta 7 Pergunta 4
+9
+No final da execução do programa, o conteúdo do registo $a0 é:
+
+Resposta 8 Pergunta 4
+0x10010029
+No final da execução do programa, o conteúdo do registo $a1 é:
+
+Resposta 9 Pergunta 4
+0x10010040
+No final da execução do programa, o valor armazenado em X3[2] é (em hexadecimal):
+
+Resposta 10 Pergunta 4
+0x66
+
+
+
+
+Tradução: 
+
+X1:    .asciiz "Xg5aT3fCe"               espaço 10      20-2A
+       .align  2                         espaço 12      2C
+X2:    .space  15                        espaço 27      2C-3B
+X3:    .space  13                        espaço 40      3C
+X4:       
+       .text            
+       .globl main    
+main:  la     $a1,X3                     #$a1 = &X3[0] = 0x1001003C     #00400024 - 27
+       ori    $t0,$0,0x61                #$t0 = 0x61                    #      28 - 2B
+       ori    $t1,$0,0x7A                #$t1 = 0x7A                    #      2c - 2f
+       xor    $a2,$a2,$a2                #a2 = 0  = i                   #      30  - 33
+                                         # while
+L1:    la     $a0,X1                     #a0 = &X1[0] = 0x10010020      #      34- 37
+       addu   $a0,$a0,$a2                #$a0 = $a0 + $a2 = &X1[I]
+       lb     $t2,0($a0)                 #$t2 = valor($a0) = X1[I]
+
+       blt    $t2,$t0,L2                 
+       bgt    $t2,$t1,L2                #if ((X1[I] >= 0X61) && (X1[I] <= 0X7A))
+       sb     $t2,0($a1)                    #salvar (X1[I]) em &X3[I], porque no final do loop &X3[0] é incrementado
+       addi   $a1,$a1,1                     #&x3 = &X3 + 1, está a ser gravado bit a bit por isso é +1
+L2:    addi   $a2,$a2,1                 #endif: i++
+       bne    $t2,$0,L1                 #if X1[I] != 0, retorna para o loop 
+L3:    sb     $t2,0($a1)                #salvar X1[i], que  vai ser 0, em X3[i]
+       jr     $ra
+
+
+Carater ASCII 
+  '!'   0x21
+  '#'   0x23
+  '$'   0x24
+  '%'   0x25
+  '*'   0x2A
+  '+'   0x2B
+  '-'   0x2D
+  '0'   0x30
+  '9'   0x39
+  '@'   0x40
+  'A'   0x41
+  'Z'   0x5A
+  'a'   0x61
+  'z'   0x7A
+
+
+
+
+
+
+12+4+4+4+3 = 27 = 1B
+
+0001 1011
+
+X2[0] 2C - 2F
+X2[1] 30 - 33
+X2[2] 34 - 37
+12-15 38 - 3B
+
+
+61 62 63 64 65 66 67 68 69 70
+
+a  b  c  d  e  f

@@ -1,0 +1,53 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Controlo_tb is
+end Controlo_tb;
+
+architecture Behavioral of Controlo_tb is
+    constant clk_period : time := 20 ns;
+    
+    signal CLOCK_50 : std_logic := '0';
+    signal SW : std_logic_vector(1 downto 0) := (others => '0');
+    signal KEY : std_logic_vector(3 downto 0) := (others => '0');
+    signal LEDG : std_logic_vector(6 downto 0);
+    signal LEDR : std_logic_vector(0 downto 0);
+    signal HEX0, HEX1, HEX2, HEX3, HEX5, HEX6, HEX7 : std_logic_vector(6 downto 0);
+    
+begin
+
+    uut: entity work.Controlo
+        port map(
+            CLOCK_50 => CLOCK_50,
+            SW => SW,
+            KEY => KEY,
+            LEDG => LEDG,
+            LEDR => LEDR,
+            HEX0 => HEX0, 
+            HEX1 => HEX1, 
+            HEX2 => HEX2, 
+            HEX3 => HEX3, 
+            HEX5 => HEX5, 
+            HEX6 => HEX6, 
+            HEX7 => HEX7
+        );
+
+    clk_process: process
+    begin
+        CLOCK_50 <= '0';
+        wait for clk_period/2;
+        CLOCK_50 <= '1';
+        wait for clk_period/2;
+    end process;
+    
+    stim_process: process
+    begin
+
+
+        wait for 5 ns;
+        SW <= "11";
+
+        wait
+    end process;
+
+end Behavioral;

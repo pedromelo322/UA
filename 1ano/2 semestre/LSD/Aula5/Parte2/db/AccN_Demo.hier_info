@@ -1,0 +1,52 @@
+|AccN_Demo
+dataIn[0] => addern:Sumador.operand0[0]
+dataIn[1] => addern:Sumador.operand0[1]
+dataIn[2] => addern:Sumador.operand0[2]
+dataIn[3] => addern:Sumador.operand0[3]
+dataOut[0] <= regn:Registador.dataOut[0]
+dataOut[1] <= regn:Registador.dataOut[1]
+dataOut[2] <= regn:Registador.dataOut[2]
+dataOut[3] <= regn:Registador.dataOut[3]
+enable => regn:Registador.enable
+reset => regn:Registador.reset
+clock => regn:Registador.clock
+
+
+|AccN_Demo|AdderN:Sumador
+operand0[0] => result.IN0
+operand0[1] => result.IN0
+operand0[2] => result.IN0
+operand0[3] => result.IN0
+operand1[0] => result.IN1
+operand1[1] => result.IN1
+operand1[2] => result.IN1
+operand1[3] => result.IN1
+result[0] <= result.DB_MAX_OUTPUT_PORT_TYPE
+result[1] <= result.DB_MAX_OUTPUT_PORT_TYPE
+result[2] <= result.DB_MAX_OUTPUT_PORT_TYPE
+result[3] <= result.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|AccN_Demo|RegN:Registador
+reset => dataOut.OUTPUTSELECT
+reset => dataOut.OUTPUTSELECT
+reset => dataOut.OUTPUTSELECT
+reset => dataOut.OUTPUTSELECT
+enable => dataOut.OUTPUTSELECT
+enable => dataOut.OUTPUTSELECT
+enable => dataOut.OUTPUTSELECT
+enable => dataOut.OUTPUTSELECT
+clock => dataOut[0]~reg0.CLK
+clock => dataOut[1]~reg0.CLK
+clock => dataOut[2]~reg0.CLK
+clock => dataOut[3]~reg0.CLK
+dataIn[0] => dataOut.DATAB
+dataIn[1] => dataOut.DATAB
+dataIn[2] => dataOut.DATAB
+dataIn[3] => dataOut.DATAB
+dataOut[0] <= dataOut[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+dataOut[1] <= dataOut[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+dataOut[2] <= dataOut[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+dataOut[3] <= dataOut[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

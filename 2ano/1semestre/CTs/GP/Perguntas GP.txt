@@ -1,0 +1,565 @@
+01.03: Qual das seguintes opções NÃO é um elemento tangível do valor comercial dos projetos?
+Pergunta 1 Resposta
+a.
+Quota de mercado
+b.
+Goodwill
+c.
+Instalações
+d.
+Ativos monetários
+Pergunta 2
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.17: O que é uma fase do projeto?
+Pergunta 2 Resposta
+a.
+Um agrupamento lógico de processos de gestão de projetos
+b.
+Uma série de fases pelas quais um projeto passa do início ao fim
+c.
+Um conjunto de atividades de projeto relacionadas que conduzem a prestações concretas
+d.
+Uma revisão no final de uma fase
+Pergunta 3
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.19: Qual é o principal objetivo da gestão de portfólio?
+Pergunta 3 Resposta
+a.
+Assegurar a produção contínua de bens/serviços
+b.
+Definir um novo projeto ou uma nova fase de um projeto existente
+c.
+Gestão centralizada de um ou mais portfólios para atingir objetivos estratégicos
+d.
+Gerir as interdependências entre projetos
+Pergunta 4
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.01: Qual das seguintes opções NÃO é uma caraterística de um projeto?
+Pergunta 4 Resposta
+a.
+Temporário
+b.
+Único
+c.
+Repetitivo
+d.
+Realizado a todos os níveis organizacionais
+Pergunta 5
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.09: Qual das seguintes opções é uma forma fundamental de criar valor e benefícios nas organizações?
+Pergunta 5 Resposta
+a.
+Evitar a mudança
+b.
+Concentrar-se apenas em tarefas repetitivas
+c.
+Realizar projetos
+d.
+Evitar todos os projetos
+
+01.37: Qual das seguintes opções melhor descreve a diferença entre liderança e gestão?
+Pergunta 6 Resposta
+a.
+A liderança consiste em orientar utilizando o poder relacional, enquanto a gestão consiste em dirigir utilizando o poder posicional.
+b.
+A liderança centra-se em objetivos a curto prazo, enquanto a gestão se centra numa visão a longo prazo.
+c.
+A liderança consiste em dirigir utilizando o poder posicional, enquanto a gestão consiste em orientar utilizando o poder relacional.
+d.
+Liderança e gestão são termos sinónimos.
+Pergunta 7
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.29: Em que esfera de influência o gestor de projetos interage com outros gestores de projetos para abordar os potenciais impactos de outros projetos?
+Pergunta 7 Resposta
+a.
+Disciplina profissional
+b.
+O projeto
+c.
+A organização
+d.
+O sector
+Pergunta 8
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.33: As competências de liderança envolvem principalmente a capacidade de:
+Pergunta 8 Resposta
+a.
+Assegurar o alinhamento dos objetivos do projeto com os objetivos estratégicos
+b.
+Concentrar-se em elementos técnicos críticos
+c.
+Orientar, motivar e dirigir uma equipa
+d.
+Ter uma visão geral de alto nível da organização
+Pergunta 9
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.23: Qual é a principal distinção entre um gestor de projetos e um gestor funcional?
+Pergunta 9 Resposta
+a.
+Um gestor de projetos garante que as operações comerciais sejam eficientes.
+b.
+Um gestor funcional concentra-se na supervisão da gestão de uma unidade de negócio.
+c.
+Um gestor funcional lidera a equipa para atingir os objetivos do projeto.
+d.
+Um gestor funcional é responsável pelo início e encerramento do projeto.
+Pergunta 10
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+01.39: Qual dos seguintes estilos de liderança se concentra em servir e colocar as outras pessoas em primeiro lugar?
+Pergunta 10 Resposta
+a.
+Transacional
+b.
+Líder servidor
+c.02.35: Qual processo se concentra principalmente na subdivisão das entregas do projeto em componentes menores?
+Pergunta 11 Resposta
+a.
+Coletar requisitos
+b.
+Planear a gestão do âmbito
+c.
+Definir o âmbito
+d.
+Criar WBS
+Pergunta 12
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+02.31: Em que processo as necessidades e os requisitos das partes interessadas são determinados e documentados?
+Pergunta 12 Resposta
+a.
+Planear a gestão do âmbito
+b.
+Recolher requisitos
+c.
+Criar WBS
+d.
+Definir âmbito
+Pergunta 13
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+02.07: Qual dos seguintes NÃO é um benefício chave do processo "Desenvolver o Termo de Abertura do Projeto"?
+Pergunta 13 Resposta
+a.
+Fornece uma ligação direta entre o projeto e os objetivos estratégicos da organização.
+b.
+Descreve o orçamento do projeto e a atribuição de recursos.
+c.
+Assegura o alinhamento com o trabalho e a estratégia em curso da organização.
+d.
+Demonstra o compromisso organizacional com o projeto.
+Pergunta 14
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+02.05: Qual das seguintes opções melhor descreve o objetivo principal do Termo de Abertura do Projeto?
+Pergunta 14 Resposta
+a.
+Detalhar os riscos do projeto e as estratégias de mitigação.
+b.
+Delinear o orçamento do projeto e a atribuição de recursos.
+c.
+Autorizar formalmente a existência de um projeto e dar autoridade ao gestor de projeto.
+d.
+Fornecer um cronograma detalhado dos marcos do projeto.
+Pergunta 15
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+02.17: Que processo garante que todo o trabalho do projeto está concluído e que o projeto atingiu os seus objetivos?
+Pergunta 15 Resposta
+a.
+Monitorizar e controlar o trabalho do projeto
+b.
+Desenvolver o Plano de Gestão de Projetos
+c.
+Encerrar o projeto ou a fase
+d.
+Dirigir e Gerir o Trabalho do Projeto
+
+Laissez-faire
+d.
+Carismático
+
+3.27: Em um ambiente ágil, porque é que as equipas colaborativas podem ser benéficas?
+Pergunta 16 Resposta
+a.
+Impõem hierarquias rígidas.
+b.
+Reduzem a necessidade de recursos.
+c.
+Aumentam a produtividade e facilitam a resolução inovadora de problemas.
+d.
+Eliminam a necessidade de reuniões de equipa.
+Pergunta 17
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+03.15: Que tendência emergente alarga a teoria e a prática da gestão do valor acrescentado?
+Pergunta 17 Resposta
+a.
+Cronograma de Trabalho
+b.
+Desvio de custos
+c.
+Índice de Desempenho de Custos
+d.
+Retorno do investimento
+Pergunta 18
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+03.11: Qual é o principal objetivo da Gestão de Custos de Projetos?
+Pergunta 18 Resposta
+a.
+Garantir que o projeto é o mais caro.
+b.
+Utilizar o maior número possível de recursos.
+c.
+Dar prioridade ao âmbito do projeto em relação aos custos.
+d.
+Completar o projeto dentro do orçamento aprovado.
+Pergunta 19
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+03.21: Qual é o processo da Gestão de Recursos do Projeto que se centra principalmente na obtenção dos membros da equipa, instalações e equipamentos necessários para o projeto?
+Pergunta 19 Resposta
+a.
+Controlar recursos
+b.
+Adquirir recursos
+c.
+Planear a Gestão de Recursos
+d.
+Estimar os recursos da atividade
+Pergunta 20
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+03.05: Que resultado é a versão aprovada de um modelo de cronograma que só pode ser alterado através de procedimentos formais de controlo de alterações?
+Pergunta 20 Resposta
+a.
+Calendário do Projeto
+b.
+Lista de Atividades
+c.
+Baseline do cronograma
+d.
+Estimativas de duração
+
+04.39: O que acontece quando tanto a incerteza tecnológica quanto a incerteza de requisitos são muito altas num projeto?
+Pergunta 21 Resposta
+a.
+O projeto requer menos recursos.
+b.
+O projeto torna-se mais previsível.
+c.
+O projeto passa de complexo a caótico.
+d.
+O projeto torna-se mais simples.
+Pergunta 22
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+04.33: Qual a vantagem dos pequenos incrementos para entender os requisitos do projeto?
+Pergunta 22 Resposta
+a.
+Eles complicam os requisitos do cliente.
+b.
+Aumentam os custos do projeto.
+c.
+Eles fornecem uma compreensão mais clara das verdadeiras necessidades do cliente.
+d.
+Atrasam a entrega do projeto.
+Pergunta 23
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+04.23: Qual dos seguintes NÃO é um atributo compartilhado entre Lean, Agile e Kanban?
+Pergunta 23 Resposta
+a.
+Entregar valor
+b.
+Minimizar o desperdício
+c.
+Respeito pelas pessoas
+d.
+Maximizar o trabalho realizado
+Pergunta 24
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+04.27: Qual é o objetivo final da combinação de vários métodos de gestão de projetos?
+Pergunta 24 Resposta
+a.
+Fornecer valor de forma eficiente e eficaz
+b.
+A adesão estrita a um método
+c.
+Utilizar o maior número possível de métodos
+d.
+Evitar o método Kanban
+Pergunta 25
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+04.07: Projetos de alta incerteza são caracterizados por:
+Pergunta 25 Resposta
+a.
+Ênfase no controlo das mudanças.
+b.
+Baixos níveis de incerteza e risco de execução.
+c.
+Procedimentos claros de projectos anteriores.
+d.
+Altas taxas de mudança, complexidade e risco.
+05.29: Numa estratégia de transição híbrida, qual é o passo inicial antes de adicionar mais técnicas incrementais?
+Pergunta 26 Resposta
+a.
+Implementar totalmente o Agile.
+b.
+Utilizar novos materiais de cobertura.
+c.
+Integrar um componente externo.
+d.
+Adicionar mais técnicas iterativas.
+Pergunta 27
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+05.17: Em qual ciclo de vida a equipe puxa os recursos com base em sua capacidade de iniciar o trabalho, em vez de em um cronograma baseado em iteração?
+Pergunta 27 Resposta
+a.
+Ágil baseado em iterações
+b.
+Ágil baseado em fluxos
+c.
+Ciclo de vida preditivo
+d.
+Ciclo de vida incremental
+Pergunta 28
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+05.05: No continuum dos ciclos de vida do projeto, quais dois ciclos de vida representam os dois extremos?
+Pergunta 28 Resposta
+a.
+Iterativo e Incremental
+b.
+Ágil e Iterativo
+c.
+Preditivo e Ágil
+d.
+Preditivo e Incremental
+Pergunta 29
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+05.31: Porque é que as equipas ágeis misturam frequentemente várias estruturas?
+Pergunta 29 Resposta
+a.
+Para aderir estritamente a uma única metodologia.
+b.
+Porque é exigido por organismos reguladores.
+c.
+Para responder às particularidades únicas de cada contexto de projeto.
+d.
+Para evitar as complexidades das metodologias ágeis.
+Pergunta 30
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+05.13: Qual abordagem de ciclo de vida fornece entregas menores com frequência e fornece valor mais cedo do que um único produto final?
+Pergunta 30 Resposta
+a.
+Ágil
+b.
+Preditiva
+c.
+Iterativo
+d.
+Incremental
+
+06.03: Como é que os acordos de trabalho contribuem para as equipas ágeis?
+Pergunta 31 Resposta
+a.
+Criam um ambiente de equipa autoritário
+b.
+Estabelecem expectativas e normas claras para o fluxo de trabalho da equipa
+c.
+Desconsideram as contribuições individuais dos membros da equipa
+d.
+Incentivam a inconsistência no fluxo de trabalho do projeto
+Pergunta 32
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+06.31: Qual das seguintes opções descreve melhor o princípio das medições nas metodologias Agile?
+Pergunta 32 Resposta
+a.
+Valorizar os resultados entregues e empíricos em detrimento das previsões
+b.
+Medir valores preditivos em vez de valores empíricos
+c.
+Utilizar apenas métricas qualitativas para o relatório de estado do projeto
+d.
+Concentrar-se principalmente nas medições de base
+Pergunta 33
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+06.05: Como é que uma visão clara do projeto afeta um projeto Agile?
+Pergunta 33 Resposta
+a.
+Reduz o moral e a motivação da equipa
+b.
+Fornece orientação e compreensão do objetivo do projeto entre os membros da equipa e as partes interessadas
+c.
+Confunde os membros da equipa e as partes interessadas
+d.
+É irrelevante para a execução do projeto
+Pergunta 34
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+06.13: No contexto do Refinamento do Backlog, que papel o product owner desempenha na criação da história?
+Pergunta 34 Resposta
+a.
+Dita exclusivamente como as histórias devem ser escritas
+b.
+Envolve a equipa na exploração, discussão e escrita de histórias
+c.
+Ignora o contributo da equipa na definição da história
+d.
+Isola-se da equipa durante o processo de escrita
+Pergunta 35
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+06.29: Qual é o resultado pretendido com a realização de Retrospetivas em projetos ágeis?
+Pergunta 35 Resposta
+a.
+Criticar os membros da equipa
+b.
+Desencorajar a comunicação da equipa
+c.
+Finalizar os planos iniciais
+d.
+Encontrar áreas de melhoria e adaptar processos
+
+07.31: Qual é a caraterística crucial de um PMO Ágil para responder às diferentes necessidades específicas de um projeto?
+Pergunta 36 Resposta
+a.
+Rigidez
+b.
+Exclusividade
+c.
+Multidisciplinaridade
+d.
+Homogeneidade
+Pergunta 37
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+07.39: Que papel desempenha a transparência na implementação de mudanças usando metodologias ágeis em organizações em evolução?
+Pergunta 37 Resposta
+a.
+Desencoraja a adaptação
+b.
+Não tem impacto
+c.
+Aumenta a probabilidade de sucesso
+d.
+Impede o sucesso
+Pergunta 38
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+07.05: O que enfatiza a afirmação de Peter Drucker "A cultura come a estratégia ao pequeno-almoço"?
+Pergunta 38 Resposta
+a.
+O desprezo pela cultura organizacional é fundamental para a implementação estratégica
+b.
+A influência e o poder da cultura organizacional na implementação da estratégia
+c.
+A importância de realizar reuniões ao pequeno-almoço para discutir a cultura
+d.
+A estratégia e o planeamento são os componentes organizacionais mais importantes
+Pergunta 39
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+07.35: Como é que as organizações com muitas aquisições podem mitigar a perda de conhecimento do produto após o fim do envolvimento do fornecedor?
+Pergunta 39 Resposta
+a.
+Limitar as interações com o fornecedor
+b.
+Evitar técnicas ágeis
+c.
+Ignorar as retrospetivas
+d.
+Envolver-se em retrospetivas enquanto o fornecedor ainda está envolvido
+Pergunta 40
+Resposta guardada
+Nota: 1
+Marcar pergunta
+Texto da pergunta
+07.27: Que aspeto da escalabilidade é enfatizado nas considerações para escalar o trabalho ágil?
+Pergunta 40 Resposta
+a.
+Concentrar-se principalmente em projetos de grande escala
+b.
+Começar pequeno e aprender com as primeiras iniciativas
+c.
+Escalar de forma rápida e ampla
+d.
+Seguir rigidamente um único método de escalonamento

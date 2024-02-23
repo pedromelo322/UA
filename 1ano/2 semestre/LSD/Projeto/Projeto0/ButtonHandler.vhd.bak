@@ -1,0 +1,23 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity ButtonHandler is
+    port(
+        clk : in std_logic;
+        btn_P, btn_S, btn_plus, btn_minus : in std_logic;
+        pulse_P, pulse_S, pulse_plus, pulse_minus : out std_logic
+    );
+end ButtonHandler;
+
+architecture Behavioral of ButtonHandler is
+    -- signals for internal use
+begin
+    process(clk)
+    begin
+        -- Check for rising edge of clk
+        if rising_edge(clk) then
+            -- handle button presses, generate corresponding pulses
+            -- You will need to implement the debouncing and the generation of pulse trains for long presses here
+        end if;
+    end process;
+end Behavioral;

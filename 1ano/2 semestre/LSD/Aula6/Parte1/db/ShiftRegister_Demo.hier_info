@@ -1,0 +1,62 @@
+|ShiftRegister_Demo
+SW[0] => shiftregistern:top_level.sin
+CLOCK_50 => freq_divider:divisor.clkIn
+LEDR[0] << shiftregistern:top_level.dataout[0]
+LEDR[1] << shiftregistern:top_level.dataout[1]
+LEDR[2] << shiftregistern:top_level.dataout[2]
+LEDR[3] << shiftregistern:top_level.dataout[3]
+LEDR[4] << shiftregistern:top_level.dataout[4]
+LEDR[5] << shiftregistern:top_level.dataout[5]
+LEDR[6] << shiftregistern:top_level.dataout[6]
+LEDR[7] << shiftregistern:top_level.dataout[7]
+
+
+|ShiftRegister_Demo|ShiftRegisterN:top_level
+clk => aux[0].CLK
+clk => aux[1].CLK
+clk => aux[2].CLK
+clk => aux[3].CLK
+clk => aux[4].CLK
+clk => aux[5].CLK
+clk => aux[6].CLK
+clk => aux[7].CLK
+sin => aux[0].DATAIN
+dataout[0] <= aux[0].DB_MAX_OUTPUT_PORT_TYPE
+dataout[1] <= aux[1].DB_MAX_OUTPUT_PORT_TYPE
+dataout[2] <= aux[2].DB_MAX_OUTPUT_PORT_TYPE
+dataout[3] <= aux[3].DB_MAX_OUTPUT_PORT_TYPE
+dataout[4] <= aux[4].DB_MAX_OUTPUT_PORT_TYPE
+dataout[5] <= aux[5].DB_MAX_OUTPUT_PORT_TYPE
+dataout[6] <= aux[6].DB_MAX_OUTPUT_PORT_TYPE
+dataout[7] <= aux[7].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ShiftRegister_Demo|Freq_Divider:divisor
+clkIn => s_Counter[0].CLK
+clkIn => s_Counter[1].CLK
+clkIn => s_Counter[2].CLK
+clkIn => s_Counter[3].CLK
+clkIn => s_Counter[4].CLK
+clkIn => s_Counter[5].CLK
+clkIn => s_Counter[6].CLK
+clkIn => s_Counter[7].CLK
+clkIn => s_Counter[8].CLK
+clkIn => s_Counter[9].CLK
+clkIn => s_Counter[10].CLK
+clkIn => s_Counter[11].CLK
+clkIn => s_Counter[12].CLK
+clkIn => s_Counter[13].CLK
+clkIn => s_Counter[14].CLK
+clkIn => s_Counter[15].CLK
+clkIn => s_Counter[16].CLK
+clkIn => s_Counter[17].CLK
+clkIn => s_Counter[18].CLK
+clkIn => s_Counter[19].CLK
+clkIn => s_Counter[20].CLK
+clkIn => s_Counter[21].CLK
+clkIn => s_Counter[22].CLK
+clkIn => s_Counter[23].CLK
+clkIn => clkOut~reg0.CLK
+clkOut <= clkOut~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

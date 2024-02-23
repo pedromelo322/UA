@@ -1,0 +1,35 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity AmbSimb is
+    Port (
+        clk      : in std_logic;
+        Tamb  : in std_logic_vector(8 downto 0);
+		  Tamb_dez: out std_logic_vector(8 downto 0)
+		  Tamb_und: out std_logic_vector(8 downto 0)
+		  Tamb_dec: out std_logic_vector(8 downto 0)
+    );
+end AmbSimb;
+
+architecture Behavioral of AmbSimb is
+
+	signal dez, und, dec : std_logic_vector(3 downto 0);
+	
+begin
+	
+	process(clk)
+		
+	begin
+		
+		if (rising_edge(clk)) then
+		
+			und <= Tamb(3 downto 0);
+			dez <= Tamb(7 downto 4);
+			dec <= Tamb(8 downto 8) & (others => '0');
+		
+		end if;
+	
+	end process;
+
+end Behavioral;

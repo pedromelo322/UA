@@ -1,0 +1,16 @@
+Fitter Status : Successful - Mon May 29 00:01:00 2023
+Quartus Prime Version : 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+Revision Name : ControloRadiador
+Top-level Entity Name : ControloRadiador
+Family : Cyclone IV E
+Device : EP4CE115F29C7
+Timing Models : Final
+Total logic elements : 1,575 / 114,480 ( 1 % )
+    Total combinational functions : 1,529 / 114,480 ( 1 % )
+    Dedicated logic registers : 501 / 114,480 ( < 1 % )
+Total registers : 501
+Total pins : 64 / 529 ( 12 % )
+Total virtual pins : 0
+Total memory bits : 168 / 3,981,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 0 / 532 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

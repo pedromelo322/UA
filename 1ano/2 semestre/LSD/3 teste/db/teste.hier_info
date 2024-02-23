@@ -1,0 +1,9 @@
+|teste
+clk => s_count[0].CLK
+clk => s_count[1].CLK
+clk => s_count[2].CLK
+num3[0] <= s_count[0].DB_MAX_OUTPUT_PORT_TYPE
+num3[1] <= s_count[1].DB_MAX_OUTPUT_PORT_TYPE
+num3[2] <= s_count[2].DB_MAX_OUTPUT_PORT_TYPE
+
+

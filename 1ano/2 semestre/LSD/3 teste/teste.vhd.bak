@@ -1,0 +1,15 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity teste is
+    port(
+        num1, num2 : in std_logic_vector(3 downto 0);
+        num3 : out std_logic_vector(3 downto 0)
+    );
+end entity teste;
+
+architecture rtl of teste is
+begin
+    num3 <= std_logic_vector(unsigned(num1) / unsigned(num2));
+end architecture rtl;

@@ -1,0 +1,72 @@
+|ROM_Demo
+LEDR[0] <= ROM_16_8:inst.dataOut[0]
+LEDR[1] <= ROM_16_8:inst.dataOut[1]
+LEDR[2] <= ROM_16_8:inst.dataOut[2]
+LEDR[3] <= ROM_16_8:inst.dataOut[3]
+CLOCK_50 => Pulse_Generator:inst5.clk
+SW[0] => contador_binario:inst2.enable
+
+
+|ROM_Demo|ROM_16_8:inst
+address[0] => dataOut[0].DATAIN
+address[1] => dataOut[1].DATAIN
+address[2] => dataOut[2].DATAIN
+address[3] => dataOut[3].DATAIN
+dataOut[0] <= address[0].DB_MAX_OUTPUT_PORT_TYPE
+dataOut[1] <= address[1].DB_MAX_OUTPUT_PORT_TYPE
+dataOut[2] <= address[2].DB_MAX_OUTPUT_PORT_TYPE
+dataOut[3] <= address[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ROM_Demo|contador_binario:inst2
+clk => internal_count[0].CLK
+clk => internal_count[1].CLK
+clk => internal_count[2].CLK
+clk => internal_count[3].CLK
+enable => internal_count[0].ENA
+enable => internal_count[1].ENA
+enable => internal_count[2].ENA
+enable => internal_count[3].ENA
+count[0] <= internal_count[0].DB_MAX_OUTPUT_PORT_TYPE
+count[1] <= internal_count[1].DB_MAX_OUTPUT_PORT_TYPE
+count[2] <= internal_count[2].DB_MAX_OUTPUT_PORT_TYPE
+count[3] <= internal_count[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|ROM_Demo|Pulse_Generator:inst5
+clk => pulse~reg0.CLK
+clk => counter[0].CLK
+clk => counter[1].CLK
+clk => counter[2].CLK
+clk => counter[3].CLK
+clk => counter[4].CLK
+clk => counter[5].CLK
+clk => counter[6].CLK
+clk => counter[7].CLK
+clk => counter[8].CLK
+clk => counter[9].CLK
+clk => counter[10].CLK
+clk => counter[11].CLK
+clk => counter[12].CLK
+clk => counter[13].CLK
+clk => counter[14].CLK
+clk => counter[15].CLK
+clk => counter[16].CLK
+clk => counter[17].CLK
+clk => counter[18].CLK
+clk => counter[19].CLK
+clk => counter[20].CLK
+clk => counter[21].CLK
+clk => counter[22].CLK
+clk => counter[23].CLK
+clk => counter[24].CLK
+clk => counter[25].CLK
+clk => counter[26].CLK
+clk => counter[27].CLK
+clk => counter[28].CLK
+clk => counter[29].CLK
+clk => counter[30].CLK
+clk => counter[31].CLK
+pulse <= pulse~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

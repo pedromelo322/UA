@@ -1,0 +1,124 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity TratamentoBotoes is
+    port(
+		clk   : in std_logic;
+		Tamb  : in std_logic_vector(11 downto 0);
+		Tamb_dez, Tamb_und, Tamb_dec: out std_logic_vector(6 downto 0)
+
+    );
+
+end TratamentoBotoes;
+
+architecture Behavioral of TratamentoBotoes is
+
+begin
+
+
+	debounce_KEY3: entity work.DebounceUnit(Behavioral)
+	
+	generic map(
+		
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 50,
+		inPolarity => '0',
+		outPolarity => '1')
+		
+		
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(3),
+		pulsedOut => p_pulse
+	);
+		
+		
+	debounce_KEY2: entity work.DebounceUnit(Behavioral)
+	
+	generic map(
+		
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 50,
+		inPolarity => '0',
+		outPolarity => '1')
+		
+		
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(2),
+		pulsedOut => s_pulse
+	);
+	 
+	debounce_KEY1: entity work.DebounceUnit(Behavioral)
+
+	generic map(
+
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 50,
+		inPolarity => '0',
+		outPolarity => '1')
+
+	
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(1),
+		pulsedOut => s_plus
+	);
+	
+	
+
+
+   debounce_KEY0: entity work.DebounceUnit(Behavioral)
+
+	generic map(
+
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 50,
+		inPolarity => '0',
+		outPolarity => '1')
+
+	
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(0),
+		pulsedOut => s_minus
+	);
+	
+	
+	
+	
+	
+	debounce_KEY1_long: entity work.DebounceUnit(Behavioral)
+
+	generic map(
+
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 1000,
+		inPolarity => '0',
+		outPolarity => '1')
+
+	
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(1),
+		pulsedOut => s_plus_long
+	);
+	
+
+
+   debounce_KEY0_long: entity work.DebounceUnit(Behavioral)
+
+	generic map(
+
+		kHzClkFreq => 50_000,
+		mSecMinInWidth => 1000,
+		inPolarity => '0',
+		outPolarity => '1')
+
+	
+	port map (
+		refClk => CLOCK_50,
+		dirtyIn => KEY(0),
+		pulsedOut => s_minus_long
+	);

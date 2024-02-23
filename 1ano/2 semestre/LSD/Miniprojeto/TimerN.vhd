@@ -1,0 +1,44 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity TimerN is
+    generic (
+        N : integer := 15
+    );
+    port (
+        clk : in std_logic;
+        rst : in std_logic;
+        en : in std_logic;
+        s_count : out std_logic_vector(3 downto 0)
+    );
+
+
+end TimerN;
+
+architecture Behavioral of TimerN is
+    signal count : std_logic_vector(3 downto 0) := (others => '0');
+    signal count_en : std_logic := '0';
+
+begin
+    
+        process(clk, rst)
+        begin
+            if rst = '1' then
+                count <= (others => '0');
+                count_en <= '0';
+            elsif rising_edge(clk) then
+                if en = '1' then
+                    if unsigned(count) = to_unsigned(N, 4) then
+								count <= (others => '0');
+                        count_en <= '0';
+                    else
+                        count <= std_logic_vector(unsigned(count) + 1);
+                    end if;
+                end if;
+            end if;
+        end process;
+    
+        s_count <= count;
+    
+    end Behavioral;

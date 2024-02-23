@@ -1,0 +1,87 @@
+Aqui estão as respostas para as perguntas do seu quiz:
+
+Pergunta 1: A resposta correta é c. Goodwill não é um elemento tangível do valor comercial dos projetos.
+
+Pergunta 2: A resposta correta é c. Uma fase do projeto é um conjunto de atividades de projeto relacionadas que conduzem a prestações concretas.
+
+Pergunta 3: A resposta correta é c. O principal objetivo da gestão de portfólio é a gestão centralizada de um ou mais portfólios para atingir objetivos estratégicos.
+
+Pergunta 4: A resposta correta é c. Ser repetitivo não é uma caraterística de um projeto.
+
+Pergunta 5: A resposta correta é c. Realizar projetos é uma forma fundamental de criar valor e benefícios nas organizações.
+
+Pergunta 6: A opção **a** é a mais correta. A liderança consiste em orientar utilizando o poder relacional, enquanto a gestão consiste em dirigir utilizando o poder posicional.
+
+Pergunta 7: A resposta correta é **c**, a organização. O gestor de projetos interage com outros gestores de projetos dentro da organização para abordar os potenciais impactos de outros projetos.
+
+Pergunta 8: A resposta correta é **c**. As competências de liderança envolvem principalmente a capacidade de orientar, motivar e dirigir uma equipa.
+
+Pergunta 9: A resposta correta é **b**. Um gestor funcional concentra-se na supervisão da gestão de uma unidade de negócio, enquanto um gestor de projetos é responsável por liderar a equipa para atingir os objetivos do projeto.
+
+Pergunta 10: A resposta correta é **b**, Líder servidor. Este estilo de liderança se concentra em servir e colocar as outras pessoas em primeiro lugar.
+
+Pergunta 11: A resposta correta é **d**, Criar WBS. Este processo se concentra principalmente na subdivisão das entregas do projeto em componentes menores.
+
+Pergunta 12: A resposta correta é **b**, Recolher requisitos. Este processo determina e documenta as necessidades e os requisitos das partes interessadas.
+
+Pergunta 13: A resposta correta é **b**. O processo "Desenvolver o Termo de Abertura do Projeto" não descreve o orçamento do projeto e a atribuição de recursos.
+
+Pergunta 14: A resposta correta é **c**. O objetivo principal do Termo de Abertura do Projeto é autorizar formalmente a existência de um projeto e dar autoridade ao gestor de projeto.
+
+Pergunta 15: A resposta correta é **c**, Encerrar o projeto ou a fase. Este processo garante que todo o trabalho do projeto está concluído e que o projeto atingiu os seus objetivos.
+
+
+Pergunta 16: A resposta correta é **c**. Em um ambiente ágil, as equipas colaborativas podem ser benéficas porque aumentam a produtividade e facilitam a resolução inovadora de problemas.
+
+Pergunta 17: A resposta correta é **d**, Retorno do investimento. Esta é uma tendência emergente que alarga a teoria e a prática da gestão do valor acrescentado.
+
+Pergunta 18: A resposta correta é **d**. O principal objetivo da Gestão de Custos de Projetos é completar o projeto dentro do orçamento aprovado.
+
+Pergunta 19: A resposta correta é **b**, Adquirir recursos. Este é o processo da Gestão de Recursos do Projeto que se centra principalmente na obtenção dos membros da equipa, instalações e equipamentos necessários para o projeto.
+
+Pergunta 20: A resposta correta é **c**, Baseline do cronograma. Este é o resultado que é a versão aprovada de um modelo de cronograma que só pode ser alterado através de procedimentos formais de controlo de alterações.
+
+
+Pergunta 21: A resposta correta é **c**. Quando tanto a incerteza tecnológica quanto a incerteza de requisitos são muito altas num projeto, o projeto passa de complexo a caótico.
+
+Pergunta 22: A resposta correta é **c**. Os pequenos incrementos fornecem uma compreensão mais clara das verdadeiras necessidades do cliente, o que é uma vantagem para entender os requisitos do projeto.
+
+Pergunta 23: A resposta correta é **d**. Maximizar o trabalho realizado não é um atributo compartilhado entre Lean, Agile e Kanban.
+
+Pergunta 24: A resposta correta é **a**. O objetivo final da combinação de vários métodos de gestão de projetos é fornecer valor de forma eficiente e eficaz.
+
+Pergunta 25: A resposta correta é **d**. Projetos de alta incerteza são caracterizados por altas taxas de mudança, complexidade e risco.
+
+Pergunta 26: A resposta correta é **d**. Numa estratégia de transição híbrida, o passo inicial antes de adicionar mais técnicas incrementais é adicionar mais técnicas iterativas.
+
+Pergunta 27: A resposta correta é **b**, Ágil baseado em fluxos. Neste ciclo de vida, a equipe puxa os recursos com base em sua capacidade de iniciar o trabalho, em vez de em um cronograma baseado em iteração.
+
+Pergunta 28: A resposta correta é **c**, Preditivo e Ágil. No continuum dos ciclos de vida do projeto, estes dois ciclos de vida representam os dois extremos.
+
+Pergunta 29: A resposta correta é **c**. As equipas ágeis misturam frequentemente várias estruturas para responder às particularidades únicas de cada contexto de projeto.
+
+Pergunta 30: A resposta correta é **d**, Incremental. Esta abordagem de ciclo de vida fornece entregas menores com frequência e fornece valor mais cedo do que um único produto final.
+
+Espero que isso ajude! Se você tiver mais perguntas, sinta-se à vontade para perguntar.
+
+Pergunta 31: A resposta correta é b. Os acordos de trabalho contribuem para as equipas ágeis ao estabelecerem expectativas e normas claras para o fluxo de trabalho da equipa.
+
+Pergunta 32: A resposta correta é a. Nas metodologias Agile, o princípio das medições enfatiza a valorização dos resultados entregues e empíricos em detrimento das previsões.
+
+Pergunta 33: A resposta correta é b. Uma visão clara do projeto fornece orientação e compreensão do objetivo do projeto entre os membros da equipa e as partes interessadas, o que é benéfico para um projeto Agile.
+
+Pergunta 34: A resposta correta é b. No contexto do Refinamento do Backlog, o product owner envolve a equipa na exploração, discussão e escrita de histórias.
+
+Pergunta 35: A resposta correta é d. A realização de Retrospetivas em projetos ágeis tem como resultado pretendido encontrar áreas de melhoria e adaptar processos.
+
+Pergunta 36: A resposta correta é **c**. A caraterística crucial de um PMO Ágil para responder às diferentes necessidades específicas de um projeto é a Multidisciplinaridade.
+
+Pergunta 37: A resposta correta é **c**. A transparência desempenha um papel crucial na implementação de mudanças usando metodologias ágeis em organizações em evolução, pois aumenta a probabilidade de sucesso.
+
+Pergunta 38: A resposta correta é **b**. A afirmação de Peter Drucker "A cultura come a estratégia ao pequeno-almoço" enfatiza a influência e o poder da cultura organizacional na implementação da estratégia.
+
+Pergunta 39: A resposta correta é **d**. As organizações com muitas aquisições podem mitigar a perda de conhecimento do produto após o fim do envolvimento do fornecedor ao envolver-se em retrospetivas enquanto o fornecedor ainda está envolvido.
+
+Pergunta 40: A resposta correta é **b**. O aspeto da escalabilidade que é enfatizado nas considerações para escalar o trabalho ágil é começar pequeno e aprender com as primeiras iniciativas.
+
+Espero que isso ajude! Se você tiver mais perguntas, sinta-se à vontade para perguntar.

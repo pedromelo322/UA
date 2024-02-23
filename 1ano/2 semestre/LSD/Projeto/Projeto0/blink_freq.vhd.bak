@@ -1,0 +1,34 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity blink_freq is
+    port(
+        clk : in std_logic;
+        en_in : in std_logic;
+        en_out : out std_logic
+    );
+end entity;
+
+architecture Behavioral of blink_freq is
+    signal cnt : unsigned(31 downto 0) := (others => '0');
+    signal en_out_int : std_logic := '0';
+
+    begin
+
+    process(clk)
+
+    begin
+        if rising_edge(clk) then
+            if (en_in = '1') then
+                cnt <= (others => '0');
+                en_out <= en;
+            else
+                cnt <= cnt + 1;
+                if (cnt >= x"017D 7840") then
+                    cnt <= (others => '0');
+                    en_out <= '1';
+                else
+                    en_out <= '0';
+                end if;
+            end if;

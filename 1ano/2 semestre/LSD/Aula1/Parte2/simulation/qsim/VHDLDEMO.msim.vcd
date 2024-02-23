@@ -1,0 +1,104 @@
+$comment
+	File created using the following command:
+		vcd file VHDLDEMO.msim.vcd -direction
+$end
+$date
+	Tue Apr 04 18:01:09 2023
+$end
+$version
+	ModelSim Version 2020.1
+$end
+$timescale
+	1ps
+$end
+
+$scope module nand2gate_vhd_vec_tst $end
+$var wire 1 ! InPort0 $end
+$var wire 1 " InPort1 $end
+$var wire 1 # OutPort $end
+
+$scope module i1 $end
+$var wire 1 $ gnd $end
+$var wire 1 % vcc $end
+$var wire 1 & unknown $end
+$var wire 1 ' devoe $end
+$var wire 1 ( devclrn $end
+$var wire 1 ) devpor $end
+$var wire 1 * ww_devoe $end
+$var wire 1 + ww_devclrn $end
+$var wire 1 , ww_devpor $end
+$var wire 1 - ww_InPort0 $end
+$var wire 1 . ww_InPort1 $end
+$var wire 1 / ww_OutPort $end
+$var wire 1 0 \OutPort~output_o\ $end
+$var wire 1 1 \InPort0~input_o\ $end
+$var wire 1 2 \InPort1~input_o\ $end
+$var wire 1 3 \and_gate|OutPort~combout\ $end
+$var wire 1 4 \and_gate|ALT_INV_OutPort~combout\ $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+0"
+1#
+0$
+1%
+x&
+1'
+1(
+1)
+1*
+1+
+1,
+0-
+0.
+1/
+10
+01
+02
+03
+14
+$end
+#90000
+1!
+1-
+11
+#240000
+0!
+0-
+01
+#270000
+1"
+1.
+12
+#450000
+0"
+0.
+02
+#570000
+1"
+1!
+1.
+1-
+11
+12
+13
+04
+00
+0/
+0#
+#750000
+0"
+0!
+0.
+0-
+01
+02
+03
+14
+10
+1/
+1#
+#1000000

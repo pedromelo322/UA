@@ -1,0 +1,65 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+
+entity ControlUnit_TB is
+end ControlUnit_TB;
+
+architecture Behavior of ControlUnit_TB is
+
+
+    signal clk                  : std_logic := '0';
+    signal set_p                : std_logic := '0';
+    signal set_s                : std_logic := '0';
+    signal modo_temperatura_out : std_logic;
+    signal modo_relogio_out     : std_logic_vector(1 downto 0);
+
+    constant clk_period : time := 20 ns;
+
+begin
+
+    UUT: entity work.ControlUnit(Behavioral)
+        port map (
+            clk                 => clk,
+            set_p               => set_p,
+            set_s               => set_s,
+            modo_temperatura_out=> modo_temperatura_out,
+            modo_relogio_out    => modo_relogio_out
+        );
+
+    clk_process :process
+    begin
+        clk <= '0';
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
+    end process;
+
+    stim_proc: process
+    begin
+	 
+		  wait for 20 ns;
+
+        wait for clk_period;  
+        set_s <= '1'; 
+        wait for clk_period;
+        set_s <= '0'; 
+        set_p <= '1';
+        wait for clk_period;
+        set_p <= '0'; 
+        wait for clk_period;
+        set_s <= '1'; 
+        wait for clk_period;
+        set_s <= '0';
+        wait for clk_period;
+        set_s <= '1';
+        wait for clk_period;
+        set_s <= '0'; 
+        set_p <= '1';
+        wait for clk_period;
+        set_p <= '0'; 
+
+
+        wait;
+    end process;
+
+end Behavior;

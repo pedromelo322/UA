@@ -1,0 +1,3 @@
+client_id,number_of_numbers,guess
+antonio,4,['last']
+antonio,9,"['max', 'last']"

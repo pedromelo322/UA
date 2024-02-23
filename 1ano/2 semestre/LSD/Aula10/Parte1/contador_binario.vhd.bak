@@ -1,0 +1,26 @@
+entity contador_binario is
+    port (
+        clk : in std_logic;
+        enable : in std_logic;
+        count : out std_logic_vector(3 downto 0)
+    );
+end contador_binario;
+
+architecture behavioral of contador_binario is
+    signal internal_count : std_logic_vector(3 downto 0) := (others => '0');
+begin
+    process(clk)
+    begin
+        if rising_edge(clk) then
+		      if enable = '1' then
+                if internal_count = "1111" then
+                    internal_count <= (others => '0');
+                else
+                    internal_count <= internal_count + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    count <= internal_count;
+end behavioral;

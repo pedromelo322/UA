@@ -1,0 +1,98 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/simulation/modelsim
+Esimulambiente
+Z1 w1685391947
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente.vhd
+Z6 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente.vhd
+l0
+L5 1
+VEHiz4`8LkoPGSJbVOlUYe0
+!s100 AFe?EDfa6OV;[ohOQX8RH3
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1686404126
+!i10b 1
+Z9 !s108 1686404126.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente.vhd|
+Z11 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+Z14 DEx4 work 13 simulambiente 0 22 EHiz4`8LkoPGSJbVOlUYe0
+!i122 0
+l19
+L14 30
+VOlJn3^VNFBPhZ86lYfaiP2
+!s100 jV4]5oOFU6Rkim@5CTo4k3
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Esimulambiente_tb
+R1
+R2
+R3
+R4
+!i122 1
+R0
+Z15 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente_TB.vhd
+Z16 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente_TB.vhd
+l0
+L5 1
+Voi:M2cl^KC1N;07RgG>nG2
+!s100 g3XaReZDCEDfQ69:c50oM3
+R7
+32
+Z17 !s110 1686404208
+!i10b 1
+Z18 !s108 1686404208.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente_TB.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente_TB.vhd|
+!i113 1
+Z20 o-work work
+R13
+Abehavioral
+R14
+R2
+R3
+R4
+DEx4 work 16 simulambiente_tb 0 22 oi:M2cl^KC1N;07RgG>nG2
+!i122 1
+l16
+L8 53
+V::m[EeU[HcBUoB1dS6?ZH2
+!s100 @]PPZa<2aK]IjXhU^;Bho1
+R7
+32
+R17
+!i10b 1
+R18
+R19
+Z21 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/projeto/SimulAmbiente_TB.vhd|
+!i113 1
+R20
+R13

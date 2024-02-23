@@ -1,0 +1,1152 @@
+Analysis & Synthesis report for ControloRadiador
+Mon May 29 00:00:45 2023
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. State Machine - |ControloRadiador|ControlUnit:controlunit_inst|s_currentState
+ 10. Registers Removed During Synthesis
+ 11. Removed Registers Triggering Further Register Optimizations
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Registers Packed Into Inferred Megafunctions
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0|altsyncram_cpe1:auto_generated
+ 17. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY3
+ 18. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY2
+ 19. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY1
+ 20. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY0
+ 21. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY1_long
+ 22. Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY0_long
+ 23. Parameter Settings for Inferred Entity Instance: ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0
+ 24. Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Mod0
+ 25. Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Div0
+ 26. Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Mod1
+ 27. Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Div1
+ 28. Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0
+ 29. Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0
+ 30. Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1
+ 31. Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1
+ 32. altsyncram Parameter Settings by Entity Instance
+ 33. Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst6"
+ 34. Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst5"
+ 35. Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst4"
+ 36. Post-Synthesis Netlist Statistics for Top Partition
+ 37. Elapsed Time Per Partition
+ 38. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon May 29 00:00:45 2023       ;
+; Quartus Prime Version              ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
+; Revision Name                      ; ControloRadiador                            ;
+; Top-level Entity Name              ; ControloRadiador                            ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 1,623                                       ;
+;     Total combinational functions  ; 1,529                                       ;
+;     Dedicated logic registers      ; 501                                         ;
+; Total registers                    ; 501                                         ;
+; Total pins                         ; 64                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 168                                         ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; ControloRadiador   ; ControloRadiador   ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 12          ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 12          ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.1%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
+;     Processor 5            ;   0.0%      ;
+;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processors 8-12        ;   0.0%      ;
++----------------------------+-------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                               ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                          ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                                                         ; Library ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+---------+
+; ControloRadiador.vhd                                      ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd                                      ;         ;
+; DebounceUnit.vhd                                          ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd                                          ;         ;
+; ControlUnit.vhd                                           ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd                                           ;         ;
+; Pulse_Generator.vhd                                       ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd                                       ;         ;
+; ProgramaHorario.vhd                                       ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgramaHorario.vhd                                       ;         ;
+; Relogio.vhd                                               ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Relogio.vhd                                               ;         ;
+; FreqPiscar.vhd                                            ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/FreqPiscar.vhd                                            ;         ;
+; EscolhaPiscar.vhd                                         ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolhaPiscar.vhd                                         ;         ;
+; Mux3para1.vhd                                             ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Mux3para1.vhd                                             ;         ;
+; ControlOnOff.vhd                                          ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlOnOff.vhd                                          ;         ;
+; SimulAmbiente.vhd                                         ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/SimulAmbiente.vhd                                         ;         ;
+; ProgHoras.vhd                                             ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgHoras.vhd                                             ;         ;
+; EscolherEndreco.vhd                                       ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolherEndreco.vhd                                       ;         ;
+; ConfigEndreco.vhd                                         ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ConfigEndreco.vhd                                         ;         ;
+; Bin7SegDecoder.vhd                                        ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Bin7SegDecoder.vhd                                        ;         ;
+; ProcBotao.vhd                                             ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProcBotao.vhd                                             ;         ;
+; TempoDisplay.vhd                                          ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd                                          ;         ;
+; TemperaturaDisplay.vhd                                    ; yes             ; User VHDL File                                        ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd                                    ;         ;
+; altsyncram.tdf                                            ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altsyncram.tdf                                                                ;         ;
+; stratix_ram_block.inc                                     ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/stratix_ram_block.inc                                                         ;         ;
+; lpm_mux.inc                                               ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/lpm_mux.inc                                                                   ;         ;
+; lpm_decode.inc                                            ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/lpm_decode.inc                                                                ;         ;
+; aglobal201.inc                                            ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/aglobal201.inc                                                                ;         ;
+; a_rdenreg.inc                                             ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/a_rdenreg.inc                                                                 ;         ;
+; altrom.inc                                                ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altrom.inc                                                                    ;         ;
+; altram.inc                                                ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altram.inc                                                                    ;         ;
+; altdpram.inc                                              ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/altdpram.inc                                                                  ;         ;
+; db/altsyncram_cpe1.tdf                                    ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/altsyncram_cpe1.tdf                                    ;         ;
+; db/controloradiador.ram0_programahorario_8ca3c27f.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/controloradiador.ram0_programahorario_8ca3c27f.hdl.mif ;         ;
+; lpm_divide.tdf                                            ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/lpm_divide.tdf                                                                ;         ;
+; abs_divider.inc                                           ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/abs_divider.inc                                                               ;         ;
+; sign_div_unsign.inc                                       ; yes             ; Megafunction                                          ; c:/intelfpga_lite/20.1/quartus/libraries/megafunctions/sign_div_unsign.inc                                                           ;         ;
+; db/lpm_divide_m9m.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_m9m.tdf                                     ;         ;
+; db/sign_div_unsign_bkh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_bkh.tdf                                ;         ;
+; db/alt_u_div_a4f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_a4f.tdf                                      ;         ;
+; db/add_sub_7pc.tdf                                        ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/add_sub_7pc.tdf                                        ;         ;
+; db/add_sub_8pc.tdf                                        ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/add_sub_8pc.tdf                                        ;         ;
+; db/lpm_divide_hhm.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_hhm.tdf                                     ;         ;
+; db/sign_div_unsign_9kh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_9kh.tdf                                ;         ;
+; db/alt_u_div_64f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_64f.tdf                                      ;         ;
+; db/lpm_divide_k9m.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_k9m.tdf                                     ;         ;
+; db/sign_div_unsign_akh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_akh.tdf                                ;         ;
+; db/alt_u_div_74f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_74f.tdf                                      ;         ;
+; db/lpm_divide_ghm.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_ghm.tdf                                     ;         ;
+; db/sign_div_unsign_8kh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_8kh.tdf                                ;         ;
+; db/alt_u_div_44f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_44f.tdf                                      ;         ;
+; db/lpm_divide_gcm.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_gcm.tdf                                     ;         ;
+; db/sign_div_unsign_5nh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_5nh.tdf                                ;         ;
+; db/alt_u_div_u9f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_u9f.tdf                                      ;         ;
+; db/lpm_divide_uim.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_uim.tdf                                     ;         ;
+; db/sign_div_unsign_mlh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_mlh.tdf                                ;         ;
+; db/alt_u_div_07f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_07f.tdf                                      ;         ;
+; db/lpm_divide_1jm.tdf                                     ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_1jm.tdf                                     ;         ;
+; db/sign_div_unsign_plh.tdf                                ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_plh.tdf                                ;         ;
+; db/alt_u_div_67f.tdf                                      ; yes             ; Auto-Generated Megafunction                           ; C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_67f.tdf                                      ;         ;
++-----------------------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 1,623          ;
+;                                             ;                ;
+; Total combinational functions               ; 1529           ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 392            ;
+;     -- 3 input functions                    ; 321            ;
+;     -- <=2 input functions                  ; 816            ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 982            ;
+;     -- arithmetic mode                      ; 547            ;
+;                                             ;                ;
+; Total registers                             ; 501            ;
+;     -- Dedicated logic registers            ; 501            ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 64             ;
+; Total memory bits                           ; 168            ;
+;                                             ;                ;
+; Embedded Multiplier 9-bit elements          ; 0              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 508            ;
+; Total fan-out                               ; 5622           ;
+; Average fan-out                             ; 2.60           ;
++---------------------------------------------+----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                            ;
++-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; Compilation Hierarchy Node                      ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                          ; Entity Name         ; Library Name ;
++-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+; |ControloRadiador                               ; 1529 (0)            ; 501 (0)                   ; 168         ; 0            ; 0       ; 0         ; 64   ; 0            ; |ControloRadiador                                                                                                                                            ; ControloRadiador    ; work         ;
+;    |ConfigEndreco:configendreco_inst|           ; 20 (20)             ; 16 (16)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ConfigEndreco:configendreco_inst                                                                                                           ; ConfigEndreco       ; work         ;
+;    |ControlOnOff:controlonoff_inst|             ; 17 (17)             ; 10 (10)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ControlOnOff:controlonoff_inst                                                                                                             ; ControlOnOff        ; work         ;
+;    |ControlUnit:controlunit_inst|               ; 5 (5)               ; 4 (4)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ControlUnit:controlunit_inst                                                                                                               ; ControlUnit         ; work         ;
+;    |DebounceUnit:debounce_KEY0_long|            ; 73 (73)             ; 29 (29)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY0_long                                                                                                            ; DebounceUnit        ; work         ;
+;    |DebounceUnit:debounce_KEY0|                 ; 63 (63)             ; 23 (23)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY0                                                                                                                 ; DebounceUnit        ; work         ;
+;    |DebounceUnit:debounce_KEY1_long|            ; 73 (73)             ; 29 (29)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY1_long                                                                                                            ; DebounceUnit        ; work         ;
+;    |DebounceUnit:debounce_KEY1|                 ; 64 (64)             ; 23 (23)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY1                                                                                                                 ; DebounceUnit        ; work         ;
+;    |DebounceUnit:debounce_KEY2|                 ; 65 (65)             ; 25 (25)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY2                                                                                                                 ; DebounceUnit        ; work         ;
+;    |DebounceUnit:debounce_KEY3|                 ; 65 (65)             ; 25 (25)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|DebounceUnit:debounce_KEY3                                                                                                                 ; DebounceUnit        ; work         ;
+;    |EscolhaPiscar:escolhapiscar_inst|           ; 2 (2)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|EscolhaPiscar:escolhapiscar_inst                                                                                                           ; EscolhaPiscar       ; work         ;
+;    |EscolherEndreco:escolherendreco_inst|       ; 11 (11)             ; 22 (22)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|EscolherEndreco:escolherendreco_inst                                                                                                       ; EscolherEndreco     ; work         ;
+;    |FreqPiscar:freqpiscar_inst|                 ; 55 (55)             ; 33 (33)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|FreqPiscar:freqpiscar_inst                                                                                                                 ; FreqPiscar          ; work         ;
+;    |Mux3para1:mux3para1_inst|                   ; 8 (8)               ; 4 (4)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|Mux3para1:mux3para1_inst                                                                                                                   ; Mux3para1           ; work         ;
+;    |ProcBotao:procbotao_inst_minus|             ; 44 (44)             ; 35 (35)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProcBotao:procbotao_inst_minus                                                                                                             ; ProcBotao           ; work         ;
+;    |ProcBotao:procbotao_inst_plus|              ; 44 (44)             ; 35 (35)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProcBotao:procbotao_inst_plus                                                                                                              ; ProcBotao           ; work         ;
+;    |ProgHoras:proghoras_inst|                   ; 15 (15)             ; 10 (10)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProgHoras:proghoras_inst                                                                                                                   ; ProgHoras           ; work         ;
+;    |ProgramaHorario:programahorario_inst|       ; 0 (0)               ; 0 (0)                     ; 168         ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProgramaHorario:programahorario_inst                                                                                                       ; ProgramaHorario     ; work         ;
+;       |altsyncram:memory_rtl_0|                 ; 0 (0)               ; 0 (0)                     ; 168         ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0                                                                               ; altsyncram          ; work         ;
+;          |altsyncram_cpe1:auto_generated|       ; 0 (0)               ; 0 (0)                     ; 168         ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0|altsyncram_cpe1:auto_generated                                                ; altsyncram_cpe1     ; work         ;
+;    |Pulse_Generator:pulse_generator_inst|       ; 104 (104)           ; 70 (70)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|Pulse_Generator:pulse_generator_inst                                                                                                       ; Pulse_Generator     ; work         ;
+;    |Relogio:relogio_inst|                       ; 46 (46)             ; 11 (11)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|Relogio:relogio_inst                                                                                                                       ; Relogio             ; work         ;
+;    |SimulAmbiente:simulambiente_inst|           ; 21 (21)             ; 24 (24)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|SimulAmbiente:simulambiente_inst                                                                                                           ; SimulAmbiente       ; work         ;
+;    |TemperaturaDisplay:temperaturadisplay_inst| ; 588 (11)            ; 36 (36)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst                                                                                                 ; TemperaturaDisplay  ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst4|     ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst4                                                             ; Bin7SegDecoder      ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst5|     ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst5                                                             ; Bin7SegDecoder      ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst6|     ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst6                                                             ; Bin7SegDecoder      ; work         ;
+;       |lpm_divide:Div0|                         ; 108 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_uim:auto_generated|        ; 108 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0|lpm_divide_uim:auto_generated                                                   ; lpm_divide_uim      ; work         ;
+;             |sign_div_unsign_mlh:divider|       ; 108 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0|lpm_divide_uim:auto_generated|sign_div_unsign_mlh:divider                       ; sign_div_unsign_mlh ; work         ;
+;                |alt_u_div_07f:divider|          ; 108 (108)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0|lpm_divide_uim:auto_generated|sign_div_unsign_mlh:divider|alt_u_div_07f:divider ; alt_u_div_07f       ; work         ;
+;       |lpm_divide:Div1|                         ; 106 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_1jm:auto_generated|        ; 106 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1|lpm_divide_1jm:auto_generated                                                   ; lpm_divide_1jm      ; work         ;
+;             |sign_div_unsign_plh:divider|       ; 106 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1|lpm_divide_1jm:auto_generated|sign_div_unsign_plh:divider                       ; sign_div_unsign_plh ; work         ;
+;                |alt_u_div_67f:divider|          ; 106 (106)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1|lpm_divide_1jm:auto_generated|sign_div_unsign_plh:divider|alt_u_div_67f:divider ; alt_u_div_67f       ; work         ;
+;       |lpm_divide:Mod0|                         ; 195 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_gcm:auto_generated|        ; 195 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0|lpm_divide_gcm:auto_generated                                                   ; lpm_divide_gcm      ; work         ;
+;             |sign_div_unsign_5nh:divider|       ; 195 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0|lpm_divide_gcm:auto_generated|sign_div_unsign_5nh:divider                       ; sign_div_unsign_5nh ; work         ;
+;                |alt_u_div_u9f:divider|          ; 195 (195)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0|lpm_divide_gcm:auto_generated|sign_div_unsign_5nh:divider|alt_u_div_u9f:divider ; alt_u_div_u9f       ; work         ;
+;       |lpm_divide:Mod1|                         ; 147 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1                                                                                 ; lpm_divide          ; work         ;
+;          |lpm_divide_gcm:auto_generated|        ; 147 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1|lpm_divide_gcm:auto_generated                                                   ; lpm_divide_gcm      ; work         ;
+;             |sign_div_unsign_5nh:divider|       ; 147 (0)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1|lpm_divide_gcm:auto_generated|sign_div_unsign_5nh:divider                       ; sign_div_unsign_5nh ; work         ;
+;                |alt_u_div_u9f:divider|          ; 147 (147)           ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1|lpm_divide_gcm:auto_generated|sign_div_unsign_5nh:divider|alt_u_div_u9f:divider ; alt_u_div_u9f       ; work         ;
+;    |TempoDisplay:tempodisplay_inst|             ; 146 (13)            ; 37 (37)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst                                                                                                             ; TempoDisplay        ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst1|     ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|Bin7SegDecoder:bin7segdecoder_inst1                                                                         ; Bin7SegDecoder      ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst2|     ; 14 (14)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|Bin7SegDecoder:bin7segdecoder_inst2                                                                         ; Bin7SegDecoder      ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst3|     ; 5 (5)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|Bin7SegDecoder:bin7segdecoder_inst3                                                                         ; Bin7SegDecoder      ; work         ;
+;       |Bin7SegDecoder:bin7segdecoder_inst|      ; 14 (14)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|Bin7SegDecoder:bin7segdecoder_inst                                                                          ; Bin7SegDecoder      ; work         ;
+;       |lpm_divide:Div0|                         ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div0                                                                                             ; lpm_divide          ; work         ;
+;          |lpm_divide_hhm:auto_generated|        ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div0|lpm_divide_hhm:auto_generated                                                               ; lpm_divide_hhm      ; work         ;
+;             |sign_div_unsign_9kh:divider|       ; 25 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div0|lpm_divide_hhm:auto_generated|sign_div_unsign_9kh:divider                                   ; sign_div_unsign_9kh ; work         ;
+;                |alt_u_div_64f:divider|          ; 25 (25)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div0|lpm_divide_hhm:auto_generated|sign_div_unsign_9kh:divider|alt_u_div_64f:divider             ; alt_u_div_64f       ; work         ;
+;       |lpm_divide:Div1|                         ; 12 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div1                                                                                             ; lpm_divide          ; work         ;
+;          |lpm_divide_ghm:auto_generated|        ; 12 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div1|lpm_divide_ghm:auto_generated                                                               ; lpm_divide_ghm      ; work         ;
+;             |sign_div_unsign_8kh:divider|       ; 12 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div1|lpm_divide_ghm:auto_generated|sign_div_unsign_8kh:divider                                   ; sign_div_unsign_8kh ; work         ;
+;                |alt_u_div_44f:divider|          ; 12 (12)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Div1|lpm_divide_ghm:auto_generated|sign_div_unsign_8kh:divider|alt_u_div_44f:divider             ; alt_u_div_44f       ; work         ;
+;       |lpm_divide:Mod0|                         ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod0                                                                                             ; lpm_divide          ; work         ;
+;          |lpm_divide_m9m:auto_generated|        ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod0|lpm_divide_m9m:auto_generated                                                               ; lpm_divide_m9m      ; work         ;
+;             |sign_div_unsign_bkh:divider|       ; 36 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod0|lpm_divide_m9m:auto_generated|sign_div_unsign_bkh:divider                                   ; sign_div_unsign_bkh ; work         ;
+;                |alt_u_div_a4f:divider|          ; 36 (36)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod0|lpm_divide_m9m:auto_generated|sign_div_unsign_bkh:divider|alt_u_div_a4f:divider             ; alt_u_div_a4f       ; work         ;
+;       |lpm_divide:Mod1|                         ; 20 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod1                                                                                             ; lpm_divide          ; work         ;
+;          |lpm_divide_k9m:auto_generated|        ; 20 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod1|lpm_divide_k9m:auto_generated                                                               ; lpm_divide_k9m      ; work         ;
+;             |sign_div_unsign_akh:divider|       ; 20 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod1|lpm_divide_k9m:auto_generated|sign_div_unsign_akh:divider                                   ; sign_div_unsign_akh ; work         ;
+;                |alt_u_div_74f:divider|          ; 20 (20)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ControloRadiador|TempoDisplay:tempodisplay_inst|lpm_divide:Mod1|lpm_divide_k9m:auto_generated|sign_div_unsign_akh:divider|alt_u_div_74f:divider             ; alt_u_div_74f       ; work         ;
++-------------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                           ;
++--------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------------------------------------------+
+; Name                                                                                                   ; Type ; Mode        ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF                                                       ;
++--------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------------------------------------------+
+; ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0|altsyncram_cpe1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port ; 24           ; 7            ; --           ; --           ; 168  ; db/ControloRadiador.ram0_ProgramaHorario_8ca3c27f.hdl.mif ;
++--------------------------------------------------------------------------------------------------------+------+-------------+--------------+--------------+--------------+--------------+------+-----------------------------------------------------------+
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |ControloRadiador|ControlUnit:controlunit_inst|s_currentState                                                 ;
++----------------------------+----------------------------+----------------------+----------------------+-----------------------+
+; Name                       ; s_currentState.PROGRAMACAO ; s_currentState.SET_M ; s_currentState.SET_H ; s_currentState.NORMAL ;
++----------------------------+----------------------------+----------------------+----------------------+-----------------------+
+; s_currentState.NORMAL      ; 0                          ; 0                    ; 0                    ; 0                     ;
+; s_currentState.SET_H       ; 0                          ; 0                    ; 1                    ; 1                     ;
+; s_currentState.SET_M       ; 0                          ; 1                    ; 0                    ; 1                     ;
+; s_currentState.PROGRAMACAO ; 1                          ; 0                    ; 0                    ; 1                     ;
++----------------------------+----------------------------+----------------------+----------------------+-----------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                              ;
++----------------------------------------------------------------+----------------------------------------------------------------+
+; Register name                                                  ; Reason for Removal                                             ;
++----------------------------------------------------------------+----------------------------------------------------------------+
+; Mux3para1:mux3para1_inst|y[0..2,4,8..11]                       ; Stuck at GND due to stuck port data_in                         ;
+; Pulse_Generator:pulse_generator_inst|rate[1,3,16]              ; Stuck at GND due to stuck port data_in                         ;
+; Pulse_Generator:pulse_generator_inst|rate[19]                  ; Stuck at VCC due to stuck port data_in                         ;
+; Pulse_Generator:pulse_generator_inst|rate[24,26..31]           ; Stuck at GND due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Toff[0]                         ; Stuck at VCC due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Toff[1]                         ; Stuck at GND due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Toff[2]                         ; Stuck at VCC due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Toff[4,8..11]                   ; Stuck at GND due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Ton[0,1]                        ; Stuck at VCC due to stuck port data_in                         ;
+; ControlOnOff:controlonoff_inst|Ton[2]                          ; Stuck at GND due to stuck port data_in                         ;
+; EscolherEndreco:escolherendreco_inst|adress_out[0]             ; Merged with EscolherEndreco:escolherendreco_inst|horas_out[6]  ;
+; EscolherEndreco:escolherendreco_inst|adress_out[1]             ; Merged with EscolherEndreco:escolherendreco_inst|horas_out[7]  ;
+; EscolherEndreco:escolherendreco_inst|adress_out[2]             ; Merged with EscolherEndreco:escolherendreco_inst|horas_out[8]  ;
+; EscolherEndreco:escolherendreco_inst|adress_out[3]             ; Merged with EscolherEndreco:escolherendreco_inst|horas_out[9]  ;
+; EscolherEndreco:escolherendreco_inst|adress_out[4]             ; Merged with EscolherEndreco:escolherendreco_inst|horas_out[10] ;
+; ControlOnOff:controlonoff_inst|Ton[10,11]                      ; Merged with ControlOnOff:controlonoff_inst|Ton[9]              ;
+; Pulse_Generator:pulse_generator_inst|rate[7..9,18,20,21,23,25] ; Merged with Pulse_Generator:pulse_generator_inst|rate[17]      ;
+; Pulse_Generator:pulse_generator_inst|rate[22]                  ; Merged with Pulse_Generator:pulse_generator_inst|rate[14]      ;
+; Pulse_Generator:pulse_generator_inst|rate[6]                   ; Merged with Pulse_Generator:pulse_generator_inst|rate[11]      ;
+; DebounceUnit:debounce_KEY1|s_previousIn                        ; Merged with DebounceUnit:debounce_KEY1_long|s_previousIn       ;
+; DebounceUnit:debounce_KEY1|s_dirtyIn                           ; Merged with DebounceUnit:debounce_KEY1_long|s_dirtyIn          ;
+; DebounceUnit:debounce_KEY0|s_previousIn                        ; Merged with DebounceUnit:debounce_KEY0_long|s_previousIn       ;
+; DebounceUnit:debounce_KEY0|s_dirtyIn                           ; Merged with DebounceUnit:debounce_KEY0_long|s_dirtyIn          ;
+; Pulse_Generator:pulse_generator_inst|rate[13,15]               ; Merged with Pulse_Generator:pulse_generator_inst|rate[12]      ;
+; Pulse_Generator:pulse_generator_inst|rate[2,4,5,10]            ; Merged with Pulse_Generator:pulse_generator_inst|rate[0]       ;
+; ControlOnOff:controlonoff_inst|Ton[3,4]                        ; Merged with ControlOnOff:controlonoff_inst|Toff[3]             ;
+; ControlOnOff:controlonoff_inst|Ton[9]                          ; Merged with ControlOnOff:controlonoff_inst|Ton[8]              ;
+; TempoDisplay:tempodisplay_inst|minutos1_temp[3]                ; Stuck at GND due to stuck port data_in                         ;
+; TempoDisplay:tempodisplay_inst|horas1_temp[2,3]                ; Stuck at GND due to stuck port data_in                         ;
+; TempoDisplay:tempodisplay_inst|minutos1[3]                     ; Stuck at GND due to stuck port data_in                         ;
+; TempoDisplay:tempodisplay_inst|horas1[2,3]                     ; Stuck at GND due to stuck port data_in                         ;
+; Total Number of Removed Registers = 66                         ;                                                                ;
++----------------------------------------------------------------+----------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                    ;
++-------------------------------------------------+---------------------------+----------------------------------------------------------------------------------+
+; Register name                                   ; Reason for Removal        ; Registers Removed due to This Register                                           ;
++-------------------------------------------------+---------------------------+----------------------------------------------------------------------------------+
+; Mux3para1:mux3para1_inst|y[0]                   ; Stuck at GND              ; ControlOnOff:controlonoff_inst|Toff[4], ControlOnOff:controlonoff_inst|Toff[8],  ;
+;                                                 ; due to stuck port data_in ; ControlOnOff:controlonoff_inst|Toff[9], ControlOnOff:controlonoff_inst|Toff[10], ;
+;                                                 ;                           ; ControlOnOff:controlonoff_inst|Toff[11]                                          ;
+; TempoDisplay:tempodisplay_inst|minutos1_temp[3] ; Stuck at GND              ; TempoDisplay:tempodisplay_inst|minutos1[3]                                       ;
+;                                                 ; due to stuck port data_in ;                                                                                  ;
+; TempoDisplay:tempodisplay_inst|horas1_temp[2]   ; Stuck at GND              ; TempoDisplay:tempodisplay_inst|horas1[2]                                         ;
+;                                                 ; due to stuck port data_in ;                                                                                  ;
+; TempoDisplay:tempodisplay_inst|horas1_temp[3]   ; Stuck at GND              ; TempoDisplay:tempodisplay_inst|horas1[3]                                         ;
+;                                                 ; due to stuck port data_in ;                                                                                  ;
++-------------------------------------------------+---------------------------+----------------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 501   ;
+; Number of registers using Synchronous Clear  ; 149   ;
+; Number of registers using Synchronous Load   ; 5     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 233   ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++---------------------------------------------------------+
+; Inverted Register Statistics                            ;
++-----------------------------------------------+---------+
+; Inverted Register                             ; Fan out ;
++-----------------------------------------------+---------+
+; Pulse_Generator:pulse_generator_inst|rate[17] ; 7       ;
+; Pulse_Generator:pulse_generator_inst|rate[12] ; 2       ;
+; Pulse_Generator:pulse_generator_inst|rate[14] ; 2       ;
+; Total number of inverted registers = 3        ;         ;
++-----------------------------------------------+---------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                                                   ;
++-----------------------------------------------------+---------------------------------------------------+------+
+; Register Name                                       ; Megafunction                                      ; Type ;
++-----------------------------------------------------+---------------------------------------------------+------+
+; ProgramaHorario:programahorario_inst|readData[0..6] ; ProgramaHorario:programahorario_inst|memory_rtl_0 ; RAM  ;
++-----------------------------------------------------+---------------------------------------------------+------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |ControloRadiador|FreqPiscar:freqpiscar_inst|cnt[22]                ;
+; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; Yes        ; |ControloRadiador|SimulAmbiente:simulambiente_inst|counter_int[7]   ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |ControloRadiador|ProcBotao:procbotao_inst_plus|counter[19]         ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |ControloRadiador|ProcBotao:procbotao_inst_minus|counter[2]         ;
+; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |ControloRadiador|ConfigEndreco:configendreco_inst|data_signal[6]   ;
+; 5:1                ; 22 bits   ; 66 LEs        ; 44 LEs               ; 22 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY3|s_debounceCnt[9]       ;
+; 5:1                ; 22 bits   ; 66 LEs        ; 44 LEs               ; 22 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY2|s_debounceCnt[6]       ;
+; 5:1                ; 22 bits   ; 66 LEs        ; 44 LEs               ; 22 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY1|s_debounceCnt[14]      ;
+; 5:1                ; 22 bits   ; 66 LEs        ; 44 LEs               ; 22 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY0|s_debounceCnt[2]       ;
+; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY1_long|s_debounceCnt[3]  ;
+; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |ControloRadiador|DebounceUnit:debounce_KEY0_long|s_debounceCnt[16] ;
+; 6:1                ; 5 bits    ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |ControloRadiador|ProgHoras:proghoras_inst|s_horas[0]               ;
+; 6:1                ; 6 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |ControloRadiador|Relogio:relogio_inst|s_minutos[1]                 ;
+; 6:1                ; 5 bits    ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |ControloRadiador|Relogio:relogio_inst|s_horas[4]                   ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Source assignments for ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0|altsyncram_cpe1:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------------------------+
+; Assignment                      ; Value              ; From ; To                                                   ;
++---------------------------------+--------------------+------+------------------------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                                    ;
++---------------------------------+--------------------+------+------------------------------------------------------+
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY3 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                 ;
+; msecmininwidth ; 50    ; Signed Integer                                 ;
+; inpolarity     ; '0'   ; Enumerated                                     ;
+; outpolarity    ; '1'   ; Enumerated                                     ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY2 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                 ;
+; msecmininwidth ; 50    ; Signed Integer                                 ;
+; inpolarity     ; '0'   ; Enumerated                                     ;
+; outpolarity    ; '1'   ; Enumerated                                     ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY1 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                 ;
+; msecmininwidth ; 50    ; Signed Integer                                 ;
+; inpolarity     ; '0'   ; Enumerated                                     ;
+; outpolarity    ; '1'   ; Enumerated                                     ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY0 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                 ;
+; msecmininwidth ; 50    ; Signed Integer                                 ;
+; inpolarity     ; '0'   ; Enumerated                                     ;
+; outpolarity    ; '1'   ; Enumerated                                     ;
++----------------+-------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY1_long ;
++----------------+-------+-----------------------------------------------------+
+; Parameter Name ; Value ; Type                                                ;
++----------------+-------+-----------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                      ;
+; msecmininwidth ; 1000  ; Signed Integer                                      ;
+; inpolarity     ; '0'   ; Enumerated                                          ;
+; outpolarity    ; '1'   ; Enumerated                                          ;
++----------------+-------+-----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: DebounceUnit:debounce_KEY0_long ;
++----------------+-------+-----------------------------------------------------+
+; Parameter Name ; Value ; Type                                                ;
++----------------+-------+-----------------------------------------------------+
+; khzclkfreq     ; 50000 ; Signed Integer                                      ;
+; msecmininwidth ; 1000  ; Signed Integer                                      ;
+; inpolarity     ; '0'   ; Enumerated                                          ;
+; outpolarity    ; '1'   ; Enumerated                                          ;
++----------------+-------+-----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0   ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; Parameter Name                     ; Value                                                     ; Type           ;
++------------------------------------+-----------------------------------------------------------+----------------+
+; BYTE_SIZE_BLOCK                    ; 8                                                         ; Untyped        ;
+; AUTO_CARRY_CHAINS                  ; ON                                                        ; AUTO_CARRY     ;
+; IGNORE_CARRY_BUFFERS               ; OFF                                                       ; IGNORE_CARRY   ;
+; AUTO_CASCADE_CHAINS                ; ON                                                        ; AUTO_CASCADE   ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                                                       ; IGNORE_CASCADE ;
+; WIDTH_BYTEENA                      ; 1                                                         ; Untyped        ;
+; OPERATION_MODE                     ; SINGLE_PORT                                               ; Untyped        ;
+; WIDTH_A                            ; 7                                                         ; Untyped        ;
+; WIDTHAD_A                          ; 5                                                         ; Untyped        ;
+; NUMWORDS_A                         ; 24                                                        ; Untyped        ;
+; OUTDATA_REG_A                      ; UNREGISTERED                                              ; Untyped        ;
+; ADDRESS_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_A                   ; NONE                                                      ; Untyped        ;
+; INDATA_ACLR_A                      ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_A                     ; NONE                                                      ; Untyped        ;
+; WIDTH_B                            ; 1                                                         ; Untyped        ;
+; WIDTHAD_B                          ; 1                                                         ; Untyped        ;
+; NUMWORDS_B                         ; 1                                                         ; Untyped        ;
+; INDATA_REG_B                       ; CLOCK1                                                    ; Untyped        ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1                                                    ; Untyped        ;
+; RDCONTROL_REG_B                    ; CLOCK1                                                    ; Untyped        ;
+; ADDRESS_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; OUTDATA_REG_B                      ; UNREGISTERED                                              ; Untyped        ;
+; BYTEENA_REG_B                      ; CLOCK1                                                    ; Untyped        ;
+; INDATA_ACLR_B                      ; NONE                                                      ; Untyped        ;
+; WRCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; ADDRESS_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; OUTDATA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; RDCONTROL_ACLR_B                   ; NONE                                                      ; Untyped        ;
+; BYTEENA_ACLR_B                     ; NONE                                                      ; Untyped        ;
+; WIDTH_BYTEENA_A                    ; 1                                                         ; Untyped        ;
+; WIDTH_BYTEENA_B                    ; 1                                                         ; Untyped        ;
+; RAM_BLOCK_TYPE                     ; AUTO                                                      ; Untyped        ;
+; BYTE_SIZE                          ; 8                                                         ; Untyped        ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                 ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_A      ; OLD_DATA                                                  ; Untyped        ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                                      ; Untyped        ;
+; INIT_FILE                          ; db/ControloRadiador.ram0_ProgramaHorario_8ca3c27f.hdl.mif ; Untyped        ;
+; INIT_FILE_LAYOUT                   ; PORT_A                                                    ; Untyped        ;
+; MAXIMUM_DEPTH                      ; 0                                                         ; Untyped        ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                                    ; Untyped        ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                                           ; Untyped        ;
+; ENABLE_ECC                         ; FALSE                                                     ; Untyped        ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                                     ; Untyped        ;
+; WIDTH_ECCSTATUS                    ; 3                                                         ; Untyped        ;
+; DEVICE_FAMILY                      ; Cyclone IV E                                              ; Untyped        ;
+; CBXI_PARAMETER                     ; altsyncram_cpe1                                           ; Untyped        ;
++------------------------------------+-----------------------------------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Mod0 ;
++------------------------+----------------+-------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                  ;
++------------------------+----------------+-------------------------------------------------------+
+; LPM_WIDTHN             ; 6              ; Untyped                                               ;
+; LPM_WIDTHD             ; 6              ; Untyped                                               ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_PIPELINE           ; 0              ; Untyped                                               ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                               ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                               ;
+; CBXI_PARAMETER         ; lpm_divide_m9m ; Untyped                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                        ;
++------------------------+----------------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Div0 ;
++------------------------+----------------+-------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                  ;
++------------------------+----------------+-------------------------------------------------------+
+; LPM_WIDTHN             ; 6              ; Untyped                                               ;
+; LPM_WIDTHD             ; 4              ; Untyped                                               ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_PIPELINE           ; 0              ; Untyped                                               ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                               ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                               ;
+; CBXI_PARAMETER         ; lpm_divide_hhm ; Untyped                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                        ;
++------------------------+----------------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Mod1 ;
++------------------------+----------------+-------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                  ;
++------------------------+----------------+-------------------------------------------------------+
+; LPM_WIDTHN             ; 5              ; Untyped                                               ;
+; LPM_WIDTHD             ; 5              ; Untyped                                               ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_PIPELINE           ; 0              ; Untyped                                               ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                               ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                               ;
+; CBXI_PARAMETER         ; lpm_divide_k9m ; Untyped                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                        ;
++------------------------+----------------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TempoDisplay:tempodisplay_inst|lpm_divide:Div1 ;
++------------------------+----------------+-------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                  ;
++------------------------+----------------+-------------------------------------------------------+
+; LPM_WIDTHN             ; 5              ; Untyped                                               ;
+; LPM_WIDTHD             ; 4              ; Untyped                                               ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                               ;
+; LPM_PIPELINE           ; 0              ; Untyped                                               ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                               ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                               ;
+; CBXI_PARAMETER         ; lpm_divide_ghm ; Untyped                                               ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                               ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                               ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                            ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                          ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                          ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                        ;
++------------------------+----------------+-------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0 ;
++------------------------+----------------+-------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                              ;
++------------------------+----------------+-------------------------------------------------------------------+
+; LPM_WIDTHN             ; 12             ; Untyped                                                           ;
+; LPM_WIDTHD             ; 12             ; Untyped                                                           ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                           ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                           ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                           ;
+; CBXI_PARAMETER         ; lpm_divide_gcm ; Untyped                                                           ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                           ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                           ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                        ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                      ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                      ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                    ;
++------------------------+----------------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0 ;
++------------------------+----------------+-------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                              ;
++------------------------+----------------+-------------------------------------------------------------------+
+; LPM_WIDTHN             ; 12             ; Untyped                                                           ;
+; LPM_WIDTHD             ; 4              ; Untyped                                                           ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                           ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                           ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                           ;
+; CBXI_PARAMETER         ; lpm_divide_uim ; Untyped                                                           ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                           ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                           ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                        ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                      ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                      ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                    ;
++------------------------+----------------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod1 ;
++------------------------+----------------+-------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                              ;
++------------------------+----------------+-------------------------------------------------------------------+
+; LPM_WIDTHN             ; 12             ; Untyped                                                           ;
+; LPM_WIDTHD             ; 12             ; Untyped                                                           ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                           ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                           ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                           ;
+; CBXI_PARAMETER         ; lpm_divide_gcm ; Untyped                                                           ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                           ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                           ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                        ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                      ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                      ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                    ;
++------------------------+----------------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1 ;
++------------------------+----------------+-------------------------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                                              ;
++------------------------+----------------+-------------------------------------------------------------------+
+; LPM_WIDTHN             ; 12             ; Untyped                                                           ;
+; LPM_WIDTHD             ; 7              ; Untyped                                                           ;
+; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                                           ;
+; LPM_PIPELINE           ; 0              ; Untyped                                                           ;
+; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                                           ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                                           ;
+; CBXI_PARAMETER         ; lpm_divide_1jm ; Untyped                                                           ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                                           ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                                           ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                                        ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                                      ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                                      ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                                    ;
++------------------------+----------------+-------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                                         ;
++-------------------------------------------+--------------------------------------------------------------+
+; Name                                      ; Value                                                        ;
++-------------------------------------------+--------------------------------------------------------------+
+; Number of entity instances                ; 1                                                            ;
+; Entity Instance                           ; ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0 ;
+;     -- OPERATION_MODE                     ; SINGLE_PORT                                                  ;
+;     -- WIDTH_A                            ; 7                                                            ;
+;     -- NUMWORDS_A                         ; 24                                                           ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                                 ;
+;     -- WIDTH_B                            ; 1                                                            ;
+;     -- NUMWORDS_B                         ; 1                                                            ;
+;     -- ADDRESS_REG_B                      ; CLOCK1                                                       ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                                 ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                                         ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                                    ;
++-------------------------------------------+--------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst6" ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                          ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; en   ; Input ; Info     ; Stuck at VCC                                                                     ;
++------+-------+----------+----------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst5" ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                          ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; en   ; Input ; Info     ; Stuck at VCC                                                                     ;
++------+-------+----------+----------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "TemperaturaDisplay:temperaturadisplay_inst|Bin7SegDecoder:bin7segdecoder_inst4" ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                          ;
++------+-------+----------+----------------------------------------------------------------------------------+
+; en   ; Input ; Info     ; Stuck at VCC                                                                     ;
++------+-------+----------+----------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 64                          ;
+; cycloneiii_ff         ; 501                         ;
+;     ENA               ; 152                         ;
+;     ENA SCLR          ; 76                          ;
+;     ENA SCLR SLD      ; 5                           ;
+;     SCLR              ; 68                          ;
+;     plain             ; 200                         ;
+; cycloneiii_lcell_comb ; 1534                        ;
+;     arith             ; 547                         ;
+;         1 data inputs ; 3                           ;
+;         2 data inputs ; 345                         ;
+;         3 data inputs ; 199                         ;
+;     normal            ; 987                         ;
+;         0 data inputs ; 40                          ;
+;         1 data inputs ; 34                          ;
+;         2 data inputs ; 399                         ;
+;         3 data inputs ; 122                         ;
+;         4 data inputs ; 392                         ;
+; cycloneiii_ram_block  ; 7                           ;
+;                       ;                             ;
+; Max LUT depth         ; 24.30                       ;
+; Average LUT depth     ; 9.27                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:02     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Mon May 29 00:00:36 2023
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ControloRadiador -c ControloRadiador
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file controloradiador.vhd
+    Info (12022): Found design unit 1: ControloRadiador-Structural File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 16
+    Info (12023): Found entity 1: ControloRadiador File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file debounceunit.vhd
+    Info (12022): Found design unit 1: DebounceUnit-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd Line: 15
+    Info (12023): Found entity 1: DebounceUnit File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file controlunit.vhd
+    Info (12022): Found design unit 1: ControlUnit-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd Line: 15
+    Info (12023): Found entity 1: ControlUnit File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlUnit.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file pulse_generator.vhd
+    Info (12022): Found design unit 1: Pulse_Generator-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd Line: 13
+    Info (12023): Found entity 1: Pulse_Generator File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file programahorario.vhd
+    Info (12022): Found design unit 1: ProgramaHorario-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgramaHorario.vhd Line: 15
+    Info (12023): Found entity 1: ProgramaHorario File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgramaHorario.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file relogio.vhd
+    Info (12022): Found design unit 1: Relogio-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Relogio.vhd Line: 17
+    Info (12023): Found entity 1: Relogio File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Relogio.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file freqpiscar.vhd
+    Info (12022): Found design unit 1: FreqPiscar-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/FreqPiscar.vhd Line: 13
+    Info (12023): Found entity 1: FreqPiscar File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/FreqPiscar.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file escolhapiscar.vhd
+    Info (12022): Found design unit 1: EscolhaPiscar-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolhaPiscar.vhd Line: 17
+    Info (12023): Found entity 1: EscolhaPiscar File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolhaPiscar.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file mux3para1.vhd
+    Info (12022): Found design unit 1: Mux3para1-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Mux3para1.vhd Line: 12
+    Info (12023): Found entity 1: Mux3para1 File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Mux3para1.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file controlonoff.vhd
+    Info (12022): Found design unit 1: ControlOnOff-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlOnOff.vhd Line: 14
+    Info (12023): Found entity 1: ControlOnOff File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControlOnOff.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file simulambiente.vhd
+    Info (12022): Found design unit 1: SimulAmbiente-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/SimulAmbiente.vhd Line: 14
+    Info (12023): Found entity 1: SimulAmbiente File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/SimulAmbiente.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file tempambbin.vhd
+    Info (12022): Found design unit 1: TempAmbBin-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempAmbBin.vhd Line: 15
+    Info (12023): Found entity 1: TempAmbBin File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempAmbBin.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file proghoras.vhd
+    Info (12022): Found design unit 1: ProgHoras-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgHoras.vhd Line: 16
+    Info (12023): Found entity 1: ProgHoras File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProgHoras.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file escolherendreco.vhd
+    Info (12022): Found design unit 1: EscolherEndreco-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolherEndreco.vhd Line: 17
+    Info (12023): Found entity 1: EscolherEndreco File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/EscolherEndreco.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file configendreco.vhd
+    Info (12022): Found design unit 1: ConfigEndreco-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ConfigEndreco.vhd Line: 16
+    Info (12023): Found entity 1: ConfigEndreco File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ConfigEndreco.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file bin7segdecoder.vhd
+    Info (12022): Found design unit 1: Bin7SegDecoder-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Bin7SegDecoder.vhd Line: 10
+    Info (12023): Found entity 1: Bin7SegDecoder File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Bin7SegDecoder.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file simulambiente_tb.vhd
+    Info (12022): Found design unit 1: SimulAmbiente_TB-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/SimulAmbiente_TB.vhd Line: 8
+    Info (12023): Found entity 1: SimulAmbiente_TB File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/SimulAmbiente_TB.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file procbotao.vhd
+    Info (12022): Found design unit 1: ProcBotao-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProcBotao.vhd Line: 14
+    Info (12023): Found entity 1: ProcBotao File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProcBotao.vhd Line: 4
+Info (12021): Found 2 design units, including 1 entities, in source file tempodisplay.vhd
+    Info (12022): Found design unit 1: TempoDisplay-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 15
+    Info (12023): Found entity 1: TempoDisplay File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 5
+Info (12021): Found 2 design units, including 1 entities, in source file temperaturadisplay.vhd
+    Info (12022): Found design unit 1: TemperaturaDisplay-Behavioral File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 15
+    Info (12023): Found entity 1: TemperaturaDisplay File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 5
+Info (12127): Elaborating entity "ControloRadiador" for the top level hierarchy
+Info (12129): Elaborating entity "DebounceUnit" using architecture "A:behavioral" for hierarchy "DebounceUnit:debounce_KEY3" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 30
+Info (12129): Elaborating entity "DebounceUnit" using architecture "A:behavioral" for hierarchy "DebounceUnit:debounce_KEY1_long" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 102
+Info (12128): Elaborating entity "ProcBotao" for hierarchy "ProcBotao:procbotao_inst_minus" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 138
+Warning (10540): VHDL Signal Declaration warning at ProcBotao.vhd(17): used explicit default value for signal "rate" because signal was never assigned a value File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ProcBotao.vhd Line: 17
+Info (12129): Elaborating entity "ControlUnit" using architecture "A:behavioral" for hierarchy "ControlUnit:controlunit_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 161
+Info (12129): Elaborating entity "Pulse_Generator" using architecture "A:behavioral" for hierarchy "Pulse_Generator:pulse_generator_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 177
+Info (12128): Elaborating entity "Relogio" for hierarchy "Relogio:relogio_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 184
+Info (12129): Elaborating entity "ProgramaHorario" using architecture "A:behavioral" for hierarchy "ProgramaHorario:programahorario_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 198
+Info (12129): Elaborating entity "FreqPiscar" using architecture "A:behavioral" for hierarchy "FreqPiscar:freqpiscar_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 209
+Info (12129): Elaborating entity "EscolhaPiscar" using architecture "A:behavioral" for hierarchy "EscolhaPiscar:escolhapiscar_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 218
+Info (12129): Elaborating entity "Mux3para1" using architecture "A:behavioral" for hierarchy "Mux3para1:mux3para1_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 229
+Info (12129): Elaborating entity "ControlOnOff" using architecture "A:behavioral" for hierarchy "ControlOnOff:controlonoff_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 238
+Info (12129): Elaborating entity "SimulAmbiente" using architecture "A:behavioral" for hierarchy "SimulAmbiente:simulambiente_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 248
+Info (12129): Elaborating entity "ProgHoras" using architecture "A:behavioral" for hierarchy "ProgHoras:proghoras_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 262
+Info (12129): Elaborating entity "EscolherEndreco" using architecture "A:behavioral" for hierarchy "EscolherEndreco:escolherendreco_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 273
+Info (12129): Elaborating entity "ConfigEndreco" using architecture "A:behavioral" for hierarchy "ConfigEndreco:configendreco_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 284
+Info (12128): Elaborating entity "TempoDisplay" for hierarchy "TempoDisplay:tempodisplay_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 299
+Info (12129): Elaborating entity "Bin7SegDecoder" using architecture "A:behavioral" for hierarchy "TempoDisplay:tempodisplay_inst|Bin7SegDecoder:bin7segdecoder_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 52
+Info (12128): Elaborating entity "TemperaturaDisplay" for hierarchy "TemperaturaDisplay:temperaturadisplay_inst" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ControloRadiador.vhd Line: 312
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "ProgramaHorario:programahorario_inst|memory_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to SINGLE_PORT
+        Info (286033): Parameter WIDTH_A set to 7
+        Info (286033): Parameter WIDTHAD_A set to 5
+        Info (286033): Parameter NUMWORDS_A set to 24
+        Info (286033): Parameter OUTDATA_REG_A set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_PORT_A set to OLD_DATA
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter INIT_FILE set to db/ControloRadiador.ram0_ProgramaHorario_8ca3c27f.hdl.mif
+Info (278001): Inferred 8 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TempoDisplay:tempodisplay_inst|Mod0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 35
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TempoDisplay:tempodisplay_inst|Div0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 37
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TempoDisplay:tempodisplay_inst|Mod1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 39
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TempoDisplay:tempodisplay_inst|Div1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 41
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TemperaturaDisplay:temperaturadisplay_inst|Mod0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 33
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TemperaturaDisplay:temperaturadisplay_inst|Div0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 36
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TemperaturaDisplay:temperaturadisplay_inst|Mod1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 36
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "TemperaturaDisplay:temperaturadisplay_inst|Div1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 39
+Info (12130): Elaborated megafunction instantiation "ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0"
+Info (12133): Instantiated megafunction "ProgramaHorario:programahorario_inst|altsyncram:memory_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "SINGLE_PORT"
+    Info (12134): Parameter "WIDTH_A" = "7"
+    Info (12134): Parameter "WIDTHAD_A" = "5"
+    Info (12134): Parameter "NUMWORDS_A" = "24"
+    Info (12134): Parameter "OUTDATA_REG_A" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_PORT_A" = "OLD_DATA"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "INIT_FILE" = "db/ControloRadiador.ram0_ProgramaHorario_8ca3c27f.hdl.mif"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_cpe1.tdf
+    Info (12023): Found entity 1: altsyncram_cpe1 File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/altsyncram_cpe1.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "TempoDisplay:tempodisplay_inst|lpm_divide:Mod0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 35
+Info (12133): Instantiated megafunction "TempoDisplay:tempodisplay_inst|lpm_divide:Mod0" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 35
+    Info (12134): Parameter "LPM_WIDTHN" = "6"
+    Info (12134): Parameter "LPM_WIDTHD" = "6"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_m9m.tdf
+    Info (12023): Found entity 1: lpm_divide_m9m File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_m9m.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_bkh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_bkh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_bkh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_a4f.tdf
+    Info (12023): Found entity 1: alt_u_div_a4f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_a4f.tdf Line: 27
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
+    Info (12023): Found entity 1: add_sub_7pc File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/add_sub_7pc.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
+    Info (12023): Found entity 1: add_sub_8pc File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/add_sub_8pc.tdf Line: 23
+Info (12130): Elaborated megafunction instantiation "TempoDisplay:tempodisplay_inst|lpm_divide:Div0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 37
+Info (12133): Instantiated megafunction "TempoDisplay:tempodisplay_inst|lpm_divide:Div0" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 37
+    Info (12134): Parameter "LPM_WIDTHN" = "6"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_hhm.tdf
+    Info (12023): Found entity 1: lpm_divide_hhm File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_hhm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_9kh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_9kh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_9kh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_64f.tdf
+    Info (12023): Found entity 1: alt_u_div_64f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_64f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "TempoDisplay:tempodisplay_inst|lpm_divide:Mod1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 39
+Info (12133): Instantiated megafunction "TempoDisplay:tempodisplay_inst|lpm_divide:Mod1" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 39
+    Info (12134): Parameter "LPM_WIDTHN" = "5"
+    Info (12134): Parameter "LPM_WIDTHD" = "5"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_k9m.tdf
+    Info (12023): Found entity 1: lpm_divide_k9m File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_k9m.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_akh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_akh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_akh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_74f.tdf
+    Info (12023): Found entity 1: alt_u_div_74f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_74f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "TempoDisplay:tempodisplay_inst|lpm_divide:Div1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 41
+Info (12133): Instantiated megafunction "TempoDisplay:tempodisplay_inst|lpm_divide:Div1" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TempoDisplay.vhd Line: 41
+    Info (12134): Parameter "LPM_WIDTHN" = "5"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ghm.tdf
+    Info (12023): Found entity 1: lpm_divide_ghm File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_ghm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_8kh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_8kh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_8kh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_44f.tdf
+    Info (12023): Found entity 1: alt_u_div_44f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_44f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 33
+Info (12133): Instantiated megafunction "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Mod0" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 33
+    Info (12134): Parameter "LPM_WIDTHN" = "12"
+    Info (12134): Parameter "LPM_WIDTHD" = "12"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_gcm.tdf
+    Info (12023): Found entity 1: lpm_divide_gcm File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_gcm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_5nh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_5nh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_5nh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_u9f.tdf
+    Info (12023): Found entity 1: alt_u_div_u9f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_u9f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 36
+Info (12133): Instantiated megafunction "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div0" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 36
+    Info (12134): Parameter "LPM_WIDTHN" = "12"
+    Info (12134): Parameter "LPM_WIDTHD" = "4"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_uim.tdf
+    Info (12023): Found entity 1: lpm_divide_uim File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_uim.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_mlh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_mlh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_mlh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_07f.tdf
+    Info (12023): Found entity 1: alt_u_div_07f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_07f.tdf Line: 27
+Info (12130): Elaborated megafunction instantiation "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1" File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 39
+Info (12133): Instantiated megafunction "TemperaturaDisplay:temperaturadisplay_inst|lpm_divide:Div1" with the following parameter: File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/TemperaturaDisplay.vhd Line: 39
+    Info (12134): Parameter "LPM_WIDTHN" = "12"
+    Info (12134): Parameter "LPM_WIDTHD" = "7"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_1jm.tdf
+    Info (12023): Found entity 1: lpm_divide_1jm File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/lpm_divide_1jm.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_plh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_plh File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/sign_div_unsign_plh.tdf Line: 25
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_67f.tdf
+    Info (12023): Found entity 1: alt_u_div_67f File: C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/db/alt_u_div_67f.tdf Line: 27
+Info (286030): Timing-Driven Synthesis is running
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1696 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 7 input pins
+    Info (21059): Implemented 57 output pins
+    Info (21061): Implemented 1625 logic cells
+    Info (21064): Implemented 7 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4882 megabytes
+    Info: Processing ended: Mon May 29 00:00:45 2023
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:05
+
+

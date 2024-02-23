@@ -1,0 +1,199 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/Projeto_LSD/Projeto/Projeto/simulation/qsim
+Eescolherendreco
+Z1 w1685288094
+Z2 DPx10 cycloneive 20 cycloneive_atom_pack 0 22 WOh:M[al;oVzG5c`<He>D0
+Z3 DPx10 cycloneive 21 cycloneive_components 0 22 zGMDhP>8e@2k@f0e<PY]k2
+Z4 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z5 DPx6 altera 11 dffeas_pack 0 22 dc5N=DKXMMTVYdUQ@D3FA2
+Z6 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z7 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z8 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+Z9 DPx6 altera 28 altera_primitives_components 0 22 ca:ehlQAg4;_gVV:^8MAg3
+!i122 0
+R0
+Z10 8ControloRadiador.vho
+Z11 FControloRadiador.vho
+l0
+Z12 L37 1
+Vi:jPHX^b2o;Mi@MQ?7cNe1
+!s100 ln^[WRSXBzXn^d6;XSg?B2
+Z13 OV;C;2020.1;71
+32
+Z14 !s110 1685288096
+!i10b 1
+Z15 !s108 1685288096.000000
+Z16 !s90 -work|work|ControloRadiador.vho|
+Z17 !s107 ControloRadiador.vho|
+!i113 1
+Z18 o-work work
+Z19 tExplicit 1 CvgOpt 0
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+DEx4 work 15 escolherendreco 0 22 i:jPHX^b2o;Mi@MQ?7cNe1
+!i122 0
+l145
+L51 1083
+VVAmfeJ_4k9U=lHGFe_Y^O1
+!s100 I7T>HY4o;32SI]SbiYMAb0
+R13
+32
+R14
+!i10b 1
+R15
+R16
+R17
+!i113 1
+R18
+R19
+Eescolherendreco_vhd_vec_tst
+Z20 w1685288093
+R7
+R8
+!i122 1
+R0
+Z21 8Waveform.vwf.vht
+Z22 FWaveform.vwf.vht
+l0
+Z23 L32 1
+VB1=`G6bQg78>]4JIWoVcV0
+!s100 X[5@g7WV7zG@QZFAc4EJZ1
+R13
+32
+R14
+!i10b 1
+R15
+Z24 !s90 -work|work|Waveform.vwf.vht|
+Z25 !s107 Waveform.vwf.vht|
+!i113 1
+R18
+R19
+Aescolherendreco_arch
+R7
+R8
+DEx4 work 27 escolherendreco_vhd_vec_tst 0 22 B1=`G6bQg78>]4JIWoVcV0
+!i122 1
+l59
+L34 194
+VfcdihgQYNHl8S;Hek?RY`3
+!s100 OO@2VPT2N:QW=gC>fm9_a2
+R13
+32
+R14
+!i10b 1
+R15
+R24
+R25
+!i113 1
+R18
+R19
+Esimulambiente
+Z26 w1685290264
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+!i122 2
+Z27 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/simulation/qsim
+R10
+R11
+l0
+R12
+VRU6KHn3Ul<_Ci5F>W]=2Y2
+!s100 >9LFL?ERH<:SP<@R^l=z01
+R13
+32
+Z28 !s110 1685290266
+!i10b 1
+Z29 !s108 1685290266.000000
+R16
+R17
+!i113 1
+R18
+R19
+Astructure
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+DEx4 work 13 simulambiente 0 22 RU6KHn3Ul<_Ci5F>W]=2Y2
+!i122 2
+l118
+L45 941
+Vz^X3h7LQAUbfbgRhGl<gV2
+!s100 gkZ6^=8EXI]aK;8CW4@PD0
+R13
+32
+R28
+!i10b 1
+R29
+R16
+R17
+!i113 1
+R18
+R19
+Esimulambiente_vhd_vec_tst
+Z30 w1685290263
+R7
+R8
+!i122 3
+R27
+R21
+R22
+l0
+R23
+VQ9^4XJN31cbGH2AgPkbTn3
+!s100 _40;K6S_AZKJ9Zf_^iSPD3
+R13
+32
+R28
+!i10b 1
+R29
+R24
+R25
+!i113 1
+R18
+R19
+Asimulambiente_arch
+R7
+R8
+DEx4 work 25 simulambiente_vhd_vec_tst 0 22 Q9^4XJN31cbGH2AgPkbTn3
+!i122 3
+l47
+L34 137
+VkGg9i0j3LlQYS[;23XA6C1
+!s100 ^nJiZRI;U=SKmz?EgUzem1
+R13
+32
+R28
+!i10b 1
+R29
+R24
+R25
+!i113 1
+R18
+R19

@@ -1,0 +1,98 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/simulation/modelsim
+Esimulambiente
+Z1 w1685295360
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente.vhd
+Z6 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente.vhd
+l0
+L5 1
+V?;;S[?KDO1K@G[VSUfEe^1
+!s100 W?4KjP3f[GA2:1aCP<jEg1
+Z7 OV;C;2020.1;71
+31
+Z8 !s110 1685295398
+!i10b 1
+Z9 !s108 1685295397.000000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente.vhd|
+Z11 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente.vhd|
+!i113 1
+Z12 o-93 -work work
+Z13 tExplicit 1 CvgOpt 0
+Abehavioral
+R2
+R3
+R4
+Z14 DEx4 work 13 simulambiente 0 22 ?;;S[?KDO1K@G[VSUfEe^1
+!i122 0
+l20
+L15 32
+V]OZaSGHD3O6K<m3]Qz4cm2
+!s100 fM7LAz2G2cW=Te<4KOBNG1
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Esimulambiente_tb
+Z15 w1685294399
+R2
+R3
+R4
+!i122 1
+R0
+Z16 8C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente_TB.vhd
+Z17 FC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente_TB.vhd
+l0
+L5 1
+Voi:M2cl^KC1N;07RgG>nG2
+!s100 g3XaReZDCEDfQ69:c50oM3
+R7
+32
+Z18 !s110 1685295420
+!i10b 1
+Z19 !s108 1685295420.000000
+Z20 !s90 -reportprogress|300|-work|work|C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente_TB.vhd|
+!s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente_TB.vhd|
+!i113 1
+Z21 o-work work
+R13
+Abehavioral
+R14
+R2
+R3
+R4
+DEx4 work 16 simulambiente_tb 0 22 oi:M2cl^KC1N;07RgG>nG2
+!i122 1
+l17
+L8 55
+VNEa491@D`3z`iOkUO^FY=2
+!s100 n^leDU7UWCGBS4V8BQzUR0
+R7
+32
+R18
+!i10b 1
+R19
+R20
+Z22 !s107 C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Testes/SimulAmbiente_TB.vhd|
+!i113 1
+R21
+R13

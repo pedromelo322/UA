@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "not_applicable",
+		"error_message" : "Access Violation at 0X00007FF8BC00013E",
+		"source_file" : "unknown",
+		"line" : "0",
+		"stack_trace" : "\t0x7ff8bc00013d: CCL_MSG + 0x5013d (?write_message@MSG_REPORT_FILE@@QEAA_NPEAVMSG_POST@@@Z + 0x4d)\n\t0x7ff8ab216aae: SYS_QUI + 0x16aae (?save_msg@QUI_DISPLAY@@QEAAXAEBVFIO_PATH@@@Z + 0x18e)\n\t0x7ff8ab234b53: SYS_QUI + 0x34b53 (?qui_save_pro_msg@@YAXXZ + 0x2e3)\n\t0x7ff8ab22a527: SYS_QUI + 0x2a527 (?flow_starting_setup@QUI_FRAME_WND@@QEAA_NW4FSTR_FLOW_ENUM@@_N@Z + 0x77)\n\t0x7ff8ab212911: SYS_QUI + 0x12911 (?start_flow@QUI_APP@@QEAA_NW4FSTR_FLOW_ENUM@@AEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N22@Z + 0x51)\n\t0x7ff83d495153: resr_tmwq + 0x25153 (?run_prereq_command@TMWQ_TREE@@IEAAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@_N11@Z + 0x113)\n\t0x7ff83d4970b1: resr_tmwq + 0x270b1 (?start_next_task@TMWQ_TREE@@IEAAX_N@Z + 0x821)\n\t0x7ff83d496876: resr_tmwq + 0x26876 (?start@TMWQ_TREE@@IEAA_NPEAVTMWQ_ITEM@@@Z + 0x1d6)\n\t0x7ff83d48f06e: resr_tmwq + 0x1f06e (?on_start@TMWQ_TREE@@IEAAXAEBVQModelIndex@@@Z + 0x34e)\n\t0x7ff83d48e382: resr_tmwq + 0x1e382 (?on_double_click_text@TMWQ_TREE@@QEAAXAEBVQModelIndex@@@Z + 0x122)\n\t 0x7084d1f0: QtCore4 + 0x11d1f0 (?activate@QMetaObject@@SAXPEAVQObject@@PEBU1@HPEAPEAX@Z + 0x520)\n\t 0x701fe599: QtGui4 + 0x46e599 (?doubleClicked@QAbstractItemView@@IEAAXAEBVQModelIndex@@@Z + 0x29)\n\t 0x70238eab: QtGui4 + 0x4a8eab (?mouseDoubleClickEvent@QTreeView@@MEAAXPEAVQMouseEvent@@@Z + 0x15b)\n\t 0x6fdf1dd8: QtGui4 + 0x61dd8 (?event@QWidget@@MEAA_NPEAVQEvent@@@Z + 0xe8)\n\t 0x701154e6: QtGui4 + 0x3854e6 (?event@QFrame@@MEAA_NPEAVQEvent@@@Z + 0x36)\n\t 0x702087ec: QtGui4 + 0x4787ec (?viewportEvent@QAbstractItemView@@MEAA_NPEAVQEvent@@@Z + 0x4ac)\n\t0x7ff898374d76: GCL_AFCQ + 0xb4d76 (?viewportEvent@AFCQ_TREE_VIEW@@MEAA_NPEAVQEvent@@@Z + 0x2b6)\n\t 0x70840552: QtCore4 + 0x110552 (?sendThroughObjectEventFilters@QCoreApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x82)\n\t 0x6fdb2f81: QtGui4 + 0x22f81 (?notify_helper@QApplicationPrivate@@QEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0xe1)\n\t 0x6fdb1b8e: QtGui4 + 0x21b8e (?notify@QApplication@@UEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x71e)\n\t 0x7083e67b: QtCore4 + 0x10e67b (?notifyInternal@QCoreApplication@@AEAA_NPEAVQObject@@PEAVQEvent@@@Z + 0x7b)\n\t 0x6fdb5dee: QtGui4 + 0x25dee (?sendMouseEvent@QApplicationPrivate@@SA_NPEAVQWidget@@PEAVQMouseEvent@@00PEAPEAV2@AEAV?$QPointer@VQWidget@@@@_N@Z + 0x1de)\n\t 0x6fe169b0: QtGui4 + 0x869b0 (?trUtf8@QScrollBar@@SA?AVQString@@PEBD0H@Z + 0x1440)\n\t 0x6fe1a361: QtGui4 + 0x8a361 (?winMouseButtonUp@QApplication@@SAXXZ + 0x2761)\n\t0x7ff8dbf78280: USER32 + 0x18280 (DispatchMessageW + 0x740)\n\t0x7ff8dbf77d40: USER32 + 0x17d40 (DispatchMessageW + 0x200)\n\t 0x70863982: QtCore4 + 0x133982 (?processEvents@QEventDispatcherWin32@@UEAA_NV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x3e2)\n\t 0x6fe12074: QtGui4 + 0x82074 (?openPopup@QApplicationPrivate@@QEAAXPEAVQWidget@@@Z + 0x204)\n\t 0x7083b5db: QtCore4 + 0x10b5db (?exec@QEventLoop@@QEAAHV?$QFlags@W4ProcessEventsFlag@QEventLoop@@@@@Z + 0x22b)\n\t 0x7083dbbf: QtCore4 + 0x10dbbf (?exec@QCoreApplication@@SAHXZ + 0xdf)\n\t0x7ff6865f198b: quartus + 0x198b (?qgq_main@@YAHHPEAPEBD@Z + 0x8b)\n\t0x7ff8bbfc3258: CCL_MSG + 0x13258 (?msg_main_thread@@YAPEAXPEAX@Z + 0x18)\n\t0x7ff8bbfc4a5e: CCL_MSG + 0x14a5e (?msg_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x6e)\n\t0x7ff8bbf86af0: ccl_mem + 0x16af0 (?mem_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x70)\n\t0x7ff8bbfc2af1: CCL_MSG + 0x12af1 (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0xa1)\n\t0x7ff6865f2777: quartus + 0x2777 (WinMain + 0x127)\n\t0x7ff6865f1f40: quartus + 0x1f40 (__tmainCRTStartup + 0x148)\n\t0x7ff8dd3926bc: KERNEL32 + 0x126bc (BaseThreadInitThunk + 0x1c)\n\t0x7ff8de18dfb7: ntdll + 0x5dfb7 (RtlUserThreadStart + 0x27)\n",
+		"subsystem" : "unknown"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "20.1.1",
+		"build" : "720",
+		"edition" : "Lite Edition"
+	}
+}

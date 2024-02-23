@@ -1,0 +1,64 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity MiniProjeto_Demo is
+      port(
+            CLOCK_50 : in std_logic;
+            LEDR : out std_logic_vector(15 downto 0);
+            Hex0 : out std_logic_vector(6 downto 0); 
+            Key  : in std_logic_vector(1 downto 0)
+      );
+
+end MiniProjeto_Demo;
+
+architecture Shell of MiniProjeto_Demo is
+
+signal s_select : std_logic := '1';
+--signal k_value1 : std_logic_vector(31 downto 0) := x"02FAF080";
+signal k_value4 : std_logic_vector(31 downto 0) := x"00BEBC20";
+signal bininput : std_logic_vector(15 downto 0);
+signal clk : std_logic;
+
+
+begin 
+
+
+      freqdivider_inst: entity work.FreqDivider
+        port map (
+          clkIn  => CLOCK_50,
+          k      => k_value4,
+          clkOut => clk
+        );
+
+      CUD: entity work.CounterUpDown4(Behavioral)
+        port map(
+            clk => clk,
+            reset => Key(0),
+            upDown => s_select,
+            count => bininput
+        );
+
+      bin7segdecoder_inst: entity work.Bin7SegDecoder(Behavioral)
+        port map (
+          binInput  => bininput,
+          decOut_n => Hex0
+        );
+
+      LEDR <= bininput;
+
+      process(bininput)
+
+      begin
+
+            if (bininput = "0000000000001111") then
+                  s_select <= '0';
+            elsif (bininput = "0000000000000000") then
+                  s_select <= '1';
+            end if;
+      
+      end process;
+
+
+end Shell;
+

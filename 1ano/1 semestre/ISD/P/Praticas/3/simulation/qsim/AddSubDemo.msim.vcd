@@ -1,0 +1,150 @@
+$comment
+	File created using the following command:
+		vcd file AddSubDemo.msim.vcd -direction
+$end
+$date
+	Fri Nov 25 12:17:10 2022
+$end
+$version
+	ModelSim Version 2020.1
+$end
+$timescale
+	1ps
+$end
+
+$scope module addsubdemo_vhd_vec_tst $end
+$var wire 1 ! A0 $end
+$var wire 1 " A1 $end
+$var wire 1 # A2 $end
+$var wire 1 $ A3 $end
+$var wire 1 % B0 $end
+$var wire 1 & B1 $end
+$var wire 1 ' B2 $end
+$var wire 1 ( B3 $end
+$var wire 1 ) Cout $end
+$var wire 1 * K $end
+$var wire 1 + Overflow $end
+$var wire 1 , S0 $end
+$var wire 1 - S1 $end
+$var wire 1 . S2 $end
+$var wire 1 / S3 $end
+
+$scope module i1 $end
+$var wire 1 0 gnd $end
+$var wire 1 1 vcc $end
+$var wire 1 2 unknown $end
+$var wire 1 3 devoe $end
+$var wire 1 4 devclrn $end
+$var wire 1 5 devpor $end
+$var wire 1 6 ww_devoe $end
+$var wire 1 7 ww_devclrn $end
+$var wire 1 8 ww_devpor $end
+$var wire 1 9 ww_Cout $end
+$var wire 1 : ww_A0 $end
+$var wire 1 ; ww_A1 $end
+$var wire 1 < ww_A2 $end
+$var wire 1 = ww_A3 $end
+$var wire 1 > ww_K $end
+$var wire 1 ? ww_B3 $end
+$var wire 1 @ ww_B2 $end
+$var wire 1 A ww_B1 $end
+$var wire 1 B ww_B0 $end
+$var wire 1 C ww_S2 $end
+$var wire 1 D ww_S3 $end
+$var wire 1 E ww_S1 $end
+$var wire 1 F ww_S0 $end
+$var wire 1 G ww_Overflow $end
+$var wire 1 H \Cout~output_o\ $end
+$var wire 1 I \S2~output_o\ $end
+$var wire 1 J \S3~output_o\ $end
+$var wire 1 K \S1~output_o\ $end
+$var wire 1 L \S0~output_o\ $end
+$var wire 1 M \Overflow~output_o\ $end
+$var wire 1 N \A3~input_o\ $end
+$var wire 1 O \A2~input_o\ $end
+$var wire 1 P \A1~input_o\ $end
+$var wire 1 Q \A0~input_o\ $end
+$var wire 1 R \K~input_o\ $end
+$var wire 1 S \B0~input_o\ $end
+$var wire 1 T \inst|inst|inst1~0_combout\ $end
+$var wire 1 U \B1~input_o\ $end
+$var wire 1 V \inst|inst1|inst1~combout\ $end
+$var wire 1 W \B2~input_o\ $end
+$var wire 1 X \inst|inst2|inst1~combout\ $end
+$var wire 1 Y \B3~input_o\ $end
+$var wire 1 Z \inst|inst3|inst1~combout\ $end
+$var wire 1 [ \inst|inst2|inst4~combout\ $end
+$var wire 1 \ \inst|inst3|inst4~combout\ $end
+$var wire 1 ] \inst|inst1|inst4~combout\ $end
+$var wire 1 ^ \inst|inst|inst~combout\ $end
+$var wire 1 _ \inst|inst8~combout\ $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+0"
+1#
+0$
+1%
+1&
+0'
+1(
+0)
+1*
+1+
+1,
+0-
+0.
+1/
+00
+11
+x2
+13
+14
+15
+16
+17
+18
+09
+0:
+0;
+1<
+0=
+1>
+1?
+0@
+1A
+1B
+0C
+1D
+0E
+1F
+1G
+0H
+0I
+1J
+0K
+1L
+1M
+0N
+1O
+0P
+0Q
+1R
+1S
+0T
+1U
+0V
+0W
+1X
+1Y
+0Z
+0[
+1\
+0]
+1^
+1_
+$end
+#1000000

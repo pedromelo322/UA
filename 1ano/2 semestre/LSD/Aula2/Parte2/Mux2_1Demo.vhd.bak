@@ -1,0 +1,28 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+entity Mux2_1 is
+port(sel : in std_logic;
+	dataIn1 : in std_logic;
+	dataIn0 : in std_logic;
+	dataOut : out std_logic;
+end Mux2_1;
+
+architecture BehavProc of Mux2_1 is
+begin
+	process(enable, inputs)
+	begin
+		if (enable = '0') then
+			outputs <= "0000";
+		else
+			if (inputs = "00") then
+				outputs <= "0001";
+			elsif (inputs = "01") then
+				outputs <= "0010";
+			elsif (inputs = "10") then
+				outputs <= "0100";
+			else
+				outputs <= "1000";
+			end if;
+		end if;
+	end process;
+end BehavProc;

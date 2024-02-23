@@ -1,0 +1,41 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+
+entity mux_sel is
+    port (
+        clk : in std_logic;
+			binInput : in std_logic_vector(6 downto 0);
+			mux_out : out std_logic_vector(1 downto 0)
+    );
+end mux_sel;
+
+architecture behavioral of mux_sel is
+	
+	 constant gelo : std_logic_vector(6 downto 0) := "0000001";
+    constant lua : std_logic_vector(6 downto 0) := "0001000";
+    constant sol : std_logic_vector(6 downto 0) := "1000000";
+	 
+	 signal s_mux_out : std_logic(1 downto 0) := (others => '1');
+	 
+	 
+begin
+
+	process(clk)
+	begin
+		
+		case binInput is
+		when gelo =>
+				s_mux_out <= "00";
+		when lua =>
+				s_mux_out <= "01";
+		when sol =>
+				s_mux_out <= "10";
+		when others =>
+				s_mux_out <= "11";
+		end case;
+		
+	end process
+
+end behavioral;

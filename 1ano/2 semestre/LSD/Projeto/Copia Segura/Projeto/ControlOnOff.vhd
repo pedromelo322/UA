@@ -1,0 +1,44 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+entity ControlOnOff is
+    Port (
+		  clk : in std_logic;
+        Tref : in std_logic_vector(11 downto 0);
+		  Tamb : in std_logic_vector(11 downto 0);
+		  OnOff : out std_logic
+    );
+end ControlOnOff;
+
+architecture Behavioral of ControlOnOff is
+
+	constant histerese : std_logic_vector(3 downto 0) := "1010";
+	signal Ton, Toff  : std_logic_vector(11 downto 0);
+	signal s_onoff    : std_logic := '0';
+	
+	
+begin
+
+	process(clk)
+	begin
+	
+		if (rising_edge(clk)) then
+		
+			Ton <= std_logic_vector(unsigned(Tref) - unsigned(histerese)/2);
+			Toff <= std_logic_vector(unsigned(Tref) + unsigned(histerese)/2);
+			
+			
+			if (Tamb <= Ton) then
+				s_onoff <= '1';
+			elsif (Tamb >= Toff) then
+				s_onoff <= '0';
+			else
+				s_onoff <= s_onoff;
+			end if;
+			
+			OnOff <= s_onoff;
+			
+		end if;
+	end process;
+end Behavioral;

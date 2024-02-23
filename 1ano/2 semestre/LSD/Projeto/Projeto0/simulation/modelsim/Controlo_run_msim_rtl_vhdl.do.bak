@@ -1,0 +1,15 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Pulse_Generator.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Relogio.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Bin7SegDecoder.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/DebounceUnit.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/ButtonHandler.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/FreqDivider.vhd}
+vcom -93 -work work {C:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Projeto/Projeto/Controlo.vhd}
+

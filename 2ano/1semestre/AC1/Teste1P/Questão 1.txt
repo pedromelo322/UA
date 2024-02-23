@@ -1,0 +1,84 @@
+Questão 1
+void main(void)
+{
+ int num, i;
+ int order = -1;
+ num = read_int();
+ i = 0;
+ do {
+ if ((num & 1) == 1)
+ order = i;
+ num = num >> 1;
+ i++;
+ } while (i < 32);
+ if (order != -1)
+ print_int10(order);
+ else
+ print_string("No set bits\n");
+}
+
+
+
+# num  : $t1
+# i    : $t0
+# order: $t2
+    
+            .data
+
+str:        .asciiz "No set bits\n"
+
+            .eqv print_int10, 1
+            .eqv print_string, 4
+            .eqv read_int10, 5
+
+            .text
+            .globl main
+
+main:
+
+            li $t2, -1                        #int order = -1   
+            li $t1, 0                         # int num         
+
+            li $v0, read_int10                
+            syscall                           #read_int()
+            move $t1, $v0                     #num = read_int()
+
+            li $t0, 0                         #i = 0
+
+
+do:         
+            li $t4, 1                         # temp = 1
+            and $t3, $t1 , $t4                # (num & 1)
+
+if:         bne $t3,1,endif                   #if (num & 1) == 1
+            
+            move $t2, $t0                     #order = i
+
+
+endif:
+            srl $t1, $t1, 1                   # num = num >> 1 
+            addi $t0, $t0, 1                  # i++
+
+while:
+            blt $t0, 32, do                   #while(i < 32)
+
+if2:       
+
+            beq $t2, -1, else2                # if (order != -1)
+
+            move $a0, $t2
+            li $v0, print_int10
+            syscall                           #print_int10(order)
+
+            j endif2
+            
+else2:
+            la $a0, str
+            li $v0, print_string
+            syscall                            # print_string("No set bits\n")
+            
+
+endif2:
+
+            li $v0, 0
+            jr $ra

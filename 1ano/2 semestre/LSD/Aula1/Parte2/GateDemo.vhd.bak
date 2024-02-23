@@ -1,0 +1,14 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity GateDemo is
+    port(SW : in std_logic_vector(3 downto 0);
+         LEDR : out std_logic_vector(3 downto 0));
+end GateDemo;
+
+architecture Shell of GateDemo is
+begin
+    system_core: entity work.AND2Gate(Behavioral)
+        port map(InPort0 => SW(0), InPort1 => SW(1), OutPort => LEDR(0));
+end Shell;
+

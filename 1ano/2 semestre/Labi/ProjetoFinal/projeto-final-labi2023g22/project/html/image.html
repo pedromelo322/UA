@@ -1,0 +1,57 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/style2.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap">
+        <script src="https://kit.fontawesome.com/cdfe9eb8b9.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <nav>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        </nav>
+            
+    </head>
+    <body>
+        <div class="photo">
+            <span class="author"></span>
+            <img id = "foto" style="margin-top: 3vh;" src="" alt="Foto">
+        <div class="info">
+            <span class="nome"></span>
+            <span class="upload-time"></span>
+            <div class="comments">
+            <h3>Comentários</h3>
+            <ul id="comments-list">
+                <!-- Comentários adicionados dinamicamente com JavaScript -->
+            </ul>
+            <form id="comment-form">
+                <div style="display: inline-block;">
+
+                    <input id="comment-input" type="text" placeholder="Adicione o seu comentário"  class="input" required="">
+                    <button class="button">
+                        Comentar <i class="fa-regular fa-paper-plane"></i>
+                      </button>
+                
+                
+                
+                </div>
+            </form>
+            </div>
+            <div id = "votes" class="votes">
+            <!--<h3>Votação</h3>-->
+            <button id="like-btn"><i class="fa-regular fa-thumbs-up"></i> Like  <span id="likes-count">0</span></button>
+            <button id="dislike-btn"><i class="fa-regular fa-thumbs-down"></i> Dislike <span id="dislikes-count">0</span></button>
+            
+
+            </div>
+        </div>
+        </div>
+    
+        <script src="../js/imagens.js"></script>
+    </body>
+    </html>

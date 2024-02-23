@@ -1,0 +1,150 @@
+m255
+K4
+z2
+!s11e MIXED_VERSIONS
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/pedro/OneDrive/Documentos/UA/1 ano/2 semestre/LSD/Aula1/simulation/qsim
+vGateDemo
+Z1 !s110 1677065545
+!i10b 1
+!s100 CfY7mC9OdHE`jJ2FQ;kh>2
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I1kX`aanNAY>h4iCWGH6DN3
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1677065542
+8GateDemo.vo
+FGateDemo.vo
+!i122 0
+L0 32 72
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1677065544.000000
+!s107 GateDemo.vo|
+!s90 -work|work|GateDemo.vo|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@gate@demo
+Egatedemo
+Z7 w1677065609
+Z8 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z9 DPx10 cycloneive 20 cycloneive_atom_pack 0 22 WOh:M[al;oVzG5c`<He>D0
+Z10 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z11 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z12 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+Z13 DPx10 cycloneive 21 cycloneive_components 0 22 zGMDhP>8e@2k@f0e<PY]k2
+!i122 2
+R0
+Z14 8GateDemo.vho
+Z15 FGateDemo.vho
+l0
+L35 1
+VMhC`a08fJQO[Za^U;f6H72
+!s100 TRa8gXiQBPgA:N]fTEAQ31
+Z16 OV;C;2020.1;71
+32
+Z17 !s110 1677065611
+!i10b 1
+Z18 !s108 1677065611.000000
+Z19 !s90 -work|work|GateDemo.vho|
+Z20 !s107 GateDemo.vho|
+!i113 1
+R5
+Z21 tExplicit 1 CvgOpt 0
+Astructure
+R8
+R9
+R10
+R11
+R12
+R13
+DEx4 work 8 gatedemo 0 22 MhC`a08fJQO[Za^U;f6H72
+!i122 2
+l59
+L42 72
+Vd_RgRW<cHO0VkW[[9zTeN1
+!s100 __QaVi<0?WFP[oNZdGWS32
+R16
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R5
+R21
+Egatedemo_vhd_vec_tst
+Z22 w1677065607
+R11
+R12
+!i122 3
+R0
+Z23 8Waveform.vwf.vht
+Z24 FWaveform.vwf.vht
+l0
+L32 1
+V6cP6Ym2gH5GlGLc>USo020
+!s100 XYFQ4nK6noeeQ6Oi7R@NC2
+R16
+32
+R17
+!i10b 1
+R18
+Z25 !s90 -work|work|Waveform.vwf.vht|
+!s107 Waveform.vwf.vht|
+!i113 1
+R5
+R21
+Agatedemo_arch
+R11
+R12
+DEx4 work 20 gatedemo_vhd_vec_tst 0 22 6cP6Ym2gH5GlGLc>USo020
+!i122 3
+l45
+L34 65
+VhN6SOM4fjoX?]P7XW_U?83
+!s100 >C]Cb>[MoIM:[P<a:;Xz>1
+R16
+32
+R17
+!i10b 1
+R18
+R25
+Z26 !s107 Waveform.vwf.vht|
+!i113 1
+R5
+R21
+vGateDemo_vlg_vec_tst
+R1
+!i10b 1
+!s100 0Jzn<EU7W34eh_MSBI=312
+R2
+I<82ObF`7>8]UDIYYj64][1
+R3
+R0
+w1677065540
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+!i122 1
+L0 30 46
+R4
+r1
+!s85 0
+31
+!s108 1677065545.000000
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R5
+R6
+n@gate@demo_vlg_vec_tst

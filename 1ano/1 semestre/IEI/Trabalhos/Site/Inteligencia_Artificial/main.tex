@@ -1,0 +1,399 @@
+\documentclass{report}
+\usepackage[T1]{fontenc} % Fontes T1
+\usepackage[utf8]{inputenc} % Input UTF8
+\usepackage[backend=biber, style=ieee]{biblatex} % para usar bibliografia
+\usepackage{csquotes}
+\usepackage[portuguese]{babel} %Usar língua portuguesa
+\usepackage{blindtext} % Gerar texto automaticamente
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref} % para autoref
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage[section]{placeins}
+\usepackage{multirow}
+
+\bibliography{bibliografia}
+
+
+\begin{document}
+%%
+% Definições
+%
+\def\titulo{Inteligência Artificial}
+\def\data{DATA}
+\def\autores{Henrique Manuel Pereira Ferreira,\\ Pedro Miguel Miranda Melo}
+\def\autorescontactos{(113600) ferreira.manuel.henrique04@ua.pt, (114208) pedro.m.melo@ua.pt}
+\def\versao{VERSÃO 1.0}
+\def\departamento{Dept. de Eletrónica, Telecomunicações e Informática}
+\def\empresa{Universidade de Aveiro}
+\def\logotipo{ua.pdf}
+\def\repositorio{infor2022-ap-g22}
+%
+%%%%%% CAPA %%%%%%
+%
+\begin{titlepage}
+
+\begin{center}
+%
+\vspace*{50mm}
+%
+{\Huge \titulo}\\ 
+%
+\vspace{10mm}
+%
+{\Large \empresa}\\
+%
+\vspace{10mm}
+%
+{\LARGE \autores}\\ 
+%
+\vspace{30mm}
+%
+\begin{figure}[h]
+\center
+\includegraphics{Imagens/ua.pdf}
+\end{figure}
+%
+\vspace{30mm}
+\end{center}
+%
+\begin{flushright}
+\versao
+\end{flushright}
+\end{titlepage}
+
+%%  Página de Título %%
+\title{%
+{\Huge\textbf{\titulo}}\\
+{\Large \departamento\\ \empresa\\ \repositorio}
+}
+%
+\author{%
+    \autores \\
+    \autorescontactos
+}
+%
+\date{\today}
+%
+\maketitle
+
+\pagenumbering{roman}
+
+%%%%%% RESUMO %%%%%%
+\begin{abstract}
+    No âmbito da Unidade Curricular anual de Introdução à Engenharia Informática do $1^{o}$ ano do curso de~\ac{leci}, tentou-se abordar uma das temáticas, atualmente, com grande interesse científico na área das novas tecnologias das ciências da computação - a Inteligência Artificial. 
+
+    Com este trabalho pretendeu-se esclarecer o que se entende cientificamente por Inteligência Artificial, como realmente funciona e como poderá ser classificada. Pretendeu-se também abordar as suas principais funcionalidades bem como identificar, muito sucintamente, as suas principais aplicações práticas: Redes Sociais, Publicidade e os Automóveis. As suas principais vantagens e desvantagens são também afloradas.
+
+    Por fim, este trabalho termina com a apresentação de algumas opiniões - previsões,  como é o caso de Ray Kurzweil - Diretor de Engenharia da Google e conhecido visionário, do que poderá vir a ser o futuro da Inteligência Artificial. Aqui salienta-se o grande impacto negativo e receoso que a IA poderá vir a torna-se para nós humanos e que mais tememos onde as máquinas ditas inteligentes se tornem mais inteligentes e venham a revoltar-se contra o criador, onde aliás já foi várias vezes abordado em várias longas metragem como é o caso do Exterminador Implacável, MATRIX e Tron Legacy.
+\end{abstract}
+
+%%%%%% Agradecimentos %%%%%%
+% Segundo glisc deveria aparecer após conclusão...
+%\renewcommand{\abstractname}{Agradecimentos}
+%\begin{abstract}
+%Eventuais agradecimentos.
+%Comentar bloco caso não existam agradecimentos a fazer.
+%\end{abstract}
+
+
+\tableofcontents
+\listoftables     % descomentar se necessário
+\listoffigures    % descomentar se necessário
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introdução}
+\label{chap.introducao}
+Hoje em dia, quer estejamos em casa, quer estejamos no nosso local de trabalho ou de estudo, quer estejamos inclusivamente em viagem, a pé, de carro ou de avião, estamos sempre rodeados por pequenas máquinas designadas  computadores. Computadores estes cada vez mais capazes de realizar tarefas variadas e já com um certo grau de  inteligência, designada por Inteligência Artificial que reflete o grau de inteligência dos programadores.
+
+No entanto, o termo \ac{ia} consiste na capacidade de simular a própria inteligência humana usando computadores, ou sistemas computacionais, programados para pensar como os seres humanos e replicar as suas ações recorrendo a algoritmos próprios e funções matemáticas.
+A \ac{ia} permite a máquinas aprender por si mesma, ajustar-se a novos cenários e realizar tarefas humanas.
+Usando esta tecnologia, computadores são treinados para realizar tarefas específicas a partir do processamento de grandes quantidades de dados e reconhecer padrões nos mesmos.
+
+As primeiras pesquisas de \ac{ia} começaram na década de 1950
+que consistiam na exploração de tópicos como a resolução de problemas e métodos simbólicos de reconhecimento de padrões~\cite{Zadeh:2008}.
+Esse trabalho inicial abriu caminho para a automação e o raciocínio lógico
+que vemos hoje nos computadores, graças ao aumento do volume de dados,
+algoritmos avançados e melhorias no poder de computação e armazenamento.
+
+\section{Objetivos}
+Com este trabalho pretende-se dar a conhecer a importância e como realmente funciona a Inteligência Artificial, assim como pode ser classificada. Também ser pretende apresentar as suas principais vantagens e desvantagens e como poderá ou estará já a afetar o nosso futuro.
+
+\section{Organização do relatório}
+Este trabalho está dividido em 5 capítulos. No primeiro é feito uma pequena abordagem ao tema e as primeiras pesquisas. No capítulo~\ref{chap.IA} é exposto tudo um pouco sobre a Inteligência Artificial, a sua importância, o seu funcionamento e como pode ser classificada. No capítulo~\ref{chap.quotidiano} são abordados algumas aplicações desta tecnologia no nosso quotidiano. No capítulo~\ref{chap.vd} são dadas algumas vantagens e desvantagens do uso da Inteligência Artificial. Por fim, no capítulo~\ref{chap.conclusao}, apresenta-se as principais conclusões deste trabalho, bem como se a IA terá um grande impacto ou não no nosso futuro.
+
+\chapter{Inteligência Artificial}
+\label{chap.IA}
+\begin{quote}
+    ``\emph{Artificial intelligence (AI) was first defined as `the science and engineering of making intelligent machines' in 1956 (by J. McCarthy in the article 'From here to human-level AI'). Throughout several decades of the 20th century, AI has evolved progressively into intelligent machines and algorithms that can reason and adapt based on sets of rules and environment which mimic human intelligence.}''
+\end{quote}
+
+
+%\begin{quote}
+%    ``\emph{Achievement of human level machine %intelligence has long been one of the basic objectives of AI. }''~\cite{Zadeh:2008}
+%\end{quote}
+
+ Com este capítulo pretende-se definir o termo Inteligência Artificial, a sua importância na nossa atual sociedade bem como esta realmente funciona e pode ser classificada.
+
+
+\section{Importância da IA}
+\label{sec.importancia}
+A Inteligência Artificial é a área científica que se preocupa com a construção de sistemas computacionais capazes de se adaptarem  - pensar e aprender - bem como agirem, de forma quase humana, e onde o volume de dados normalmente excede a que os humanos conseguem analisar e processar.
+
+A Inteligência Artificial está cada vez mais presente e uma das razões é pelo facto de ser automatizada, ou seja, consegue executar uma tarefa e repeti-la infinitamente sem qualquer esforço físico. Esta tecnologia permite também encontrar padrões durante a realização de tarefas fazendo com que desenvolva e encontre uma maneira mais rápida e eficaz de desenvolver essa mesma tarefa, conseguindo assim, por exemplo, reduzir custos na realização da mesma. Mas a IA não se fica por aí. Além de realizar tarefas sem a necessidade de atividade humano ou de encontrar maneiras mais eficazes para a resolução de problemas consegue também fazer em modo ``Multitasking'' - executar várias tarefas ao mesmo tempo~\cite{CSU:2021}.
+
+Das mais importantes razões de utilização de IA é que esta tecnologia consegue ser melhor que o Homem em muitos aspetos como:
+
+\begin{itemize}
+    \item \textbf{Reduzir o erro humano} - ao comparar várias alternativas para alcançar o mesmo objetivo;
+    
+    \item \textbf{Estar sempre disponível} - a inteligência artificial permite ser usada 24 horas sobre 24 horas o que permite ser bastante mais produtivo do que o Homem.
+\end{itemize}
+
+Esta tecnologia criou novas oportunidades de negócio que podem dar lugar a grandes empresas~\cite{NgLeungChuQiao:2021}.
+Anteriormente aos tempos de hoje seria difícil imaginar usar um serviço do género dos táxis, em que se conecta um condutor a uma pessoa que necessita de se deslocar. Mas hoje em dia a Uber é uma das maiores empresas do mundo apenas por fazer isso. Outro exemplo é a Google que é um dos melhores motores de pesquisa do mundo através do uso de Machine Learning para analisar como as pessoas usam os seus serviços e os podem melhorar.
+As maiores empresas de hoje em dia usam \ac{ia} para melhorar os seus serviços e se manter à frente da concorrência.
+
+
+
+\section{Funcionamento}
+\label{sec.funcionamento}
+A \ac{ia} é um campo de estudo amplo que inclui ``Machine Learning'', ``Neural Networks'' e ``Deep Learning''~(fig.~\ref{fig:AI})~\cite{SAS:2022}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{Imagens/deep-learning-vs-machine-learning-vs-artificial-intelligence1.png}
+    \caption{As várias sub-áreas da Inteligência Artificial: ``Machine Learning, Neural Networks e Deep Learning''.}
+    \label{fig:AI}
+\end{figure}
+
+``Neural network'' é um tipo de aprendizagem composto por unidades interligadas que processam informações que permite realizar a tarefa que lhe é definida, retransmitindo informações entre cada unidade. O processo requer várias iterações na análise dos dados para encontrar possíveis conexões e derivar o significado de dados indefinidos.
+
+``Machine learning'' serve para automatizar a construção de modelos analíticos. Usa métodos de ``Neural Networks'', estatísticas, cálculos e física para encontrar algum padrão oculto nos dados sem ser explicitamente programado para onde procurar ou o que concluir.
+
+``Deep learning'' usa enormes ``Neural networks'' com muitas camadas de unidades de processamento, aproveitando os avanços no poder dos computadores e técnicas de treino melhoradas para aprender padrões complexos em grandes quantidades de dados. Aplicações comuns incluem reconhecimento de imagem e fala.
+
+Em geral, os sistemas de \ac{ia} funcionam através da leitura de grandes quantidades de dados, analisando-os e procurando ligações e padrões, que são usados para aprender a efetuar uma determinada tarefa. Desta forma, um chatBot que é alimentado por exemplos de conversas de texto pode aprender a conversar com outras pessoas, ou uma ferramenta de reconhecimento de imagem pode aprender a identificar e descrever objetos em imagens, analisando milhões de exemplos.
+
+\section{Classificação}
+\label{sec.classificação}
+A IA pode ser classificada em dois grandes grupos (Tabela~\ref{tabela:Classificações}), capacidades ou por funcionalidades~\cite{COGNITIVEWORLD:2019}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{Classificação}                          & Ia               \\ \hline
+\multirow{4}{*}{Capacidades da IA}                           & Reativas         \\ \cline{2-2} 
+                                                             & Memória Limitada \\ \cline{2-2} 
+                                                             & Teoria da Mente  \\ \cline{2-2} 
+                                                             & Autoconsciente   \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Funcionalidades da IA}} & Limitada         \\ \cline{2-2} 
+\multicolumn{1}{|c|}{}                                       & Geral            \\ \cline{2-2} 
+\multicolumn{1}{|c|}{}                                       & Super            \\ \hline
+\end{tabular}
+\caption{Classificação de Inteligência Artificial}
+\label{tabela:Classificações}
+\end{table}
+
+
+
+
+
+
+\subsection{Capacidades da IA}
+\subsubsection{\ac{ia} reativas}
+Este é o tipo mais básico de \ac{ia} que possui capacidades extremamente limitadas. Estas não possuem funcionalidade baseada em memória o que significa que apenas reagem a cenários atuais e não podem usar experiências adquiridas anteriormente para tomar decisões no presente, ou seja, não têm a capacidade de “aprender”.
+
+Um exemplo popular de uma máquina de \ac{ia} reativa é o Deep Blue da IBM, uma máquina que derrotou o grande mestre de xadrez Garry Kasparov em 1997 (fig.~\ref{fig:Deep Blue}). Estas máquinas reativas não interagem com o mundo, então elas respondem a situações idênticas da mesma maneira todas as vezes que esses cenários são encontrados.
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.9\textwidth]{Imagens/deep_blue.jpg}
+    \caption{Deep Blue vence o grande mestre de xadrez Garry Kasparov.}
+    \label{fig:Deep Blue}
+\end{figure}
+
+
+
+
+\begin{figure}[h]
+    \centering  
+    \includegraphics[width=0.9\textwidth]{Imagens/IA_identificação.jpeg}
+    \caption{Identificação de carros.}
+    \label{fig:Ident}
+\end{figure}
+
+\subsubsection{\ac{ia}de memória limitada}
+Máquinas de memória limitada para além de terem os recursos das máquinas reativas também tem a capacidade de aprender através da análise de ações ou dados que lhe foram fornecidos com o objetivo de construir um conhecimento experimental, que mais tarde será submetido a testes. Quase todos os aplicativos existentes enquadram-se nesta categoria de \ac{ia}. Todos os sistemas de inteligência artificial da atualidade, como aqueles que usam deep learning, são treinados com grandes quantidades de dados de treino que são armazenados nas suas memórias para criar um modelo de referência para resolver futuros problemas.
+
+
+Este tipo de \ac{ia} é usado por assistentes de voz, chatbots, carros que conduzem sozinhos e outras tecnologias. 
+Um exemplo deste tipo de \ac{ia} é uma \ac{ia} de reconhecimentos de imagens(fig.\ref{fig:Ident}),esta é treinada usando milhares de imagens e a sua respetiva identificação, para ensinar a identificar os objetos que analisa. Quando um objeto é analisado por este tipo de \ac{ia}, usa as imagens de treino como referência para entender o conteúdo da nova imagem apresentada e baseado-se na sua aprendizagem dá um nome à imagem.
+
+
+
+
+
+\subsubsection{Teoria da Mente}
+Os últimos dois tipos de \ac{ia} apresentados como podemos perceber já estão presentes na nossa atualidade.\par
+Teoria da mente é o terceiro tipo de \ac{ia} e o próximo nível de sistemas de \ac{ia} que os investigadores estão atualmente empenhados em inovar. Este tipo de \ac{ia} será capaz de entender melhor as pessoas com que interage compreendendo os seus pensamentos, crenças, necessidades e emoções o que tornará as máquinas capazes de tomar decisões semelhantes aos humanos.
+
+Os pesquisadores estão a tentar criar máquinas que possam entender melhor os humanos e aprender com vários fatores que influenciam o seu processo de pensamento. Um dos objetivos deste tipo de \ac{ia} é por exemplo a criação de um robô emocionalmente inteligente que interage com humanos, para dar uma sensação de conversa real.
+
+\subsubsection{\ac{ia} autoconsciente}
+\ac{ia} autoconsciente é o último estado de desenvolvimento de \ac{ia} que existe apenas em teoria.
+
+O tipo de \ac{ia} autoconsciente é uma \ac{ia} que ao foi desenvolvida com o objetivo de ser tão parecida com o cérebro humano que desenvolveu autoconsciência.
+
+Apesar de esta tecnologia estar a séculos de distância é o objetivo final de toda a pesquisa de \ac{ia}. Este tipo de AI não será apenas capaz de entender as características dos seres humanos como emoções, crenças, necessidades, mas também terá essas mesmas características.
+
+Algumas pessoas acreditam que embora o desenvolvimento da autoconsciência possa impulsionar nosso progresso como civilização, também pode levar a uma catástrofe. Isso ocorre porque, uma vez autoconsciente, a \ac{ia} seria capaz de ter ideias como auto preservação, que podem direta ou indiretamente significar o fim da humanidade, pois tal entidade poderia facilmente superar o intelecto de qualquer ser humano e traçar planos para dominar a humanidade.
+
+\subsection{Funcionalidades de IA}
+\subsubsection{\ac{ia} limitada}
+A \ac{ia} fraca, também conhecida como Inteligência Artificial limitada (IAL) representada todas as \ac{ia} criadas até à data. IAL é um sistema que é treinado para executar apenas tarefas específicas.  Este tipo de \ac{ia} não consegue fazer mais nada para além do que foi programada e tem um número muito limitado de capacidades. De acordo com o sistema de classificação acima mencionado, esses sistemas correspondem a todas as \ac{ia} de memória reativa e limitada. Mesmo a \ac{ia} mais complexa ,que use aprendizagem de máquina e aprendizagem profunda para aprender, enquadra-se na IAL.
+
+\subsubsection{\ac{ia} geral}
+\ac{ia} geral (IAG) é a capacidade de uma \ac{ia} aprender, percebe, entender e funcionar completamente como um ser humano, ou seja, o sistema IAG pode executar qualquer tarefa que um ser humano possa. No entanto as \ac{ia} que existem atualmente conseguem executar uma tarefa com maior eficácia do que os humanos, mas unicamente a função que lhes foi atribuída, por outro lado o ser humano pode executar a tarefa com menos perfeição, mas pode executar uma maior variedade de funções.
+
+Por isso o objetivo da IAG é serem capazes de construir múltiplas competências de forma independente e formar conexões e generalizações entre domínios, reduzindo assim o tempo necessário para as treinar.
+
+\subsubsection{Super IA}
+A superinteligência artificial (SIA) é uma forma de \ac{ia} capaz de superar a inteligência humana, manifestando habilidades cognitivas e desenvolvendo habilidades de pensamento próprias.
+
+Também conhecida como super \ac{ia}, a superinteligência artificial é considerada o tipo de \ac{ia} mais avançado, poderoso e inteligente que para além de replicar a inteligência dos seres humanos, será extremamente melhor em tudo o que faz devido á sua memória, processamento e análise de dados mais rápidos e capacidades de tomada de decisão.
+
+O desenvolvimento de IAG e SIA levará a um cenário conhecido como singularidade. E embora o potencial de ter máquinas tão poderosas à nossa disposição pareça atraente, essas máquinas também podem ameaçar nossa existência ou, pelo menos, nosso modo de vida.
+
+\chapter{Aplicações no quotidiano}
+\label{chap.quotidiano}
+A \ac{ia} tem vindo a ser cada vez mais usada ao longo dos anos e sem sabermos esta tecnologia já está bastante presente na nossa vida diária. Neste capítulo vão ser abordados alguns dos principais usos dessa \ac{ia}.
+
+\section{Redes Sociais}
+As redes sociais como Facebook, Instagram, Twitter são usadas por todos nós. Alguns mais, outros menos, uns para um objetivo, outros para outro, mas todos usam as mesmas interfaces e a \ac{ia} está presente em várias destas interfaces. Na personalização do "feed" de acordo com cada pessoa, pois com base no seu his tórico dos gostos em posts e das pesquisas, analisa e aprende para fornecer outros relacionados com o mesmo. Isto permite a estas aplicações criar a cada utilizador uma experiência própria e única. Outras utilizações são no funcionamento dos pedidos de amizade. O Facebook também tem uma ferramenta de \ac{ia} chamada "Deep text" que monitoriza comentários, posts e outros dados para perceber diferentes línguas, abreviações e aprender a entender o seu contexto.
+
+Por fim a \ac{ia} é utilizada para prevenir cyberbullying usando Machine Learning. Lê os comentários e as descrições das fotos e dos vídeos publicados e se considerar ofensivo, o utilizador recebe um alerta em que o que foi escrito pode ser considerado bullying \cite{Marr:2019}.
+
+\section{Publicidade}
+Publicidade também é algo que encaramos cada vez que usamos a Internet e a \ac{ia} está a se tornar o futuro desta. A \ac{ia} é utilizada para mostrar anúncios de acordo com o utilizador, ou seja, com base em pesquisas prévias feitas pelo utilizador, a \ac{ia} cria anúncios com essas pesquisas, permitindo assim melhorar o propósito da publicidade, vender.
+
+Alguns outros exemplos da utilização de \ac{ia} na Publicidade\cite{Mike:2022}, como:
+
+\begin{itemize}
+    \item o ajustamento de orçamentos de publicidade para atingir automaticamente os KPIs(Indicadores Chaves de Performance);
+    \item determinar e atingir metas de campanha;
+    \item obter informação sobre gastos em anúncios e estratégias dos concorrentes;
+    \item criar cópias de anúncios;
+    \item criar anúncios visualmente criativos;
+    \item prever o desempenho de um anúncio antes de lançar campanhas.
+\end{itemize}
+
+\section{Automóveis}
+\label{Automoveis}
+Os automóveis são atualmente um meio necessário e insubstituível no dia-a-dia de qualquer pessoa. Os automóveis ainda não têm todos piloto automático, ou seja, não conseguem dirigir sem ação do Homem, mas já existem algumas marcas que o fazem, como a Tesla entre outras. 
+Para isso acontecer foi usada então a \ac{ia}. 
+
+A \ac{ia} usa câmaras para conseguir saber o que está ao redor do automóvel, como as linhas de estrada, os semáforos, os peões, outros veículos que se encontram na estrada e ler os sinais de trânsito (fig.~\ref{fig:PilotoAut}) para assim, analisar e saber o que fazer. Se deve parar ou avançar. A utilização desta tecnologia ainda não é perfeita mas não falta muito até o ser e possivelmente será mais seguro segundo a Waymo da Google \cite{Waymo:2022}. Foram realizadas simulações e foi visto que a \ac{ia} conseguiu evitar 75\% das colisões de veículos e evitar até 93\% das lesões graves, contrariamente ao modelo NIEON, que calculou que o Homem nestas situações, tem apenas 62,5\% de chance de evitar uma colisão e 84\% de evitar uma lesão grave(fig.\ref{fig:Waymo}).
+
+No entanto, calcula-se que daqui a uns anos será possível ter tanta confiança nesta tecnologia que não irá mais ser essencial haver um lugar do condutor mas sim apenas os restantes lugares como se pode ver na fig.~\ref{fig:carroFuturo}. Poderá ser possível haver uma maior otimização do espaço do automóvel, criando uma maior confortabilidade. 
+
+Por fim, em termos de empregabilidade irá retirar muitos empregos a diversas pessoas, já que não há necessidade de, por exemplo, um motorista de autocarros para levar as pessoas do ponto A ao ponto B, nem de motoristas de mercadorias.
+
+
+\begin{figure}
+    \centering  
+    \includegraphics[width=0.9\textwidth]{Imagens/pilotoAutomatico.jpg}
+    \caption{Piloto Automático.}
+    \label{fig:PilotoAut}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Imagens/WaymoGoogle.jpg}
+    \caption{Desempenho na prevenção de colisão da Waymo vs NIEON.}
+    \label{fig:Waymo}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Imagens/carroFuturo.jpeg}
+    \caption{Carro futurista}
+    \label{fig:carroFuturo}
+\end{figure}
+
+\chapter{Vantagens e desvantagens}
+\label{chap.vd}
+Neste capítulo vão ser abordadas 3 vantagens e 3 desvantagens sobre o uso da Inteligência Artificial~\cite{SAS:2022}.
+
+
+\section{Vantagens}
+\subsection{Redução dos erros}
+Uma das grandes vantagens da \ac{ia} é ter uma probabilidade de errar muito reduzida ou inexistente na realização de uma tarefa, isto porque são capazes de executar tarefas com maior rapidez, exatidão e precisão, quando comparada com a realização do ser humano da mesma tarefa, como as decisões são tomadas com base em informações previamente adquiridas e as ações são determinadas por algoritmos,  não são afetadas por emoções ou problemas como o cansaço, o nervosismo, ou a ansiedade, por tanto os erros são reduzidos e a chance de atingir uma exatidão com maior grau de precisão é enorme. Logo, além de velocidade, a \ac{ia} fornece perfeição e isso é essencial para que seja uma tecnologia realmente eficiente.
+
+\subsection{Velocidade e disponibilidade 24h por dia}
+A velocidade na execução das tarefas também é uma vantagem que a \ac{ia} apresenta, para tomar uma decisão os humanos têm de analisar vários fatores e agir sobre essa análise o que pode ser um processo demorado, no entanto a análise realizada pela \ac{ia} acontece num instante de segundos pois é limitada na base de cumprir o objetivo para a qual foi programada, para além de não precisar de qualquer tipo de descanso, enquanto que um humano trabalha 6 a 8 horas por dia para além de usufruir de dois dias sem trabalhar,enquanto que a \ac{ia} pode trabalhar 24 horas por dia.
+
+\subsection{Realização de tarefas perigosas}
+Uma das maiores vantagens de \ac{ia} é que podemos ultrapassar vários limites que são impostos aos humanos pelos riscos que a tarefa a realizar apresenta, através da programação de uma \ac{ia} que possa realizar essas tarefas por nós, como por exemplo explorar novos planetas, desarmar bombas, explorar as partes mais profundas do oceano ou na mineração de petróleo e carvão.
+
+\section{Desvantagens}
+\subsection{Alto custo de implementação e manutenção}
+A criação de \ac{ia} requer elevados custos de produção e manutenção, pois são máquinas muito complexas que necessitam de manter a sua infraestrutura atualizada. O seu reparo exigem igualmente recursos muitos dispendiosos pois é preciso profissionais altamente qualificados para lidar adequadamente a situação em qualquer circunstância, para além dos custos da energia elétrica e da conectividade. 
+
+\subsection{Desemprego}
+Uma das mais referidas desvantagens da \ac{ia} é a perda progressiva de milhões de empregos em todo o mundo devido à substituição de postos tradicionais de trabalho humano por robôs. Em parte, esta previsão não está totalmente errada, algumas empresas estão á procura de robôs para substituir trabalhadores que realizam trabalhos que necessitam de qualificação mínima, sobretudo os que baseiam-se em tarefas repetitivas, facilmente automatizadas. No entanto poderão surgir novos trabalhos baseados na manutenção e melhoria da infraestrutura destes equipamentos.
+
+\subsection{Falta de criatividade}
+Quer a sensibilidade ou a criatividade humana, não são o forte da \ac{ia} pois esta só consegue realizar aquelas tarefas para a qual foi programada. Os nossos pensamentos e decisões muitas vezes vêm das emoções e experiências que vivenciamos, e isso não pode ser realizado ainda pela \ac{ia}.
+
+
+
+
+\chapter{Conclusões}
+\label{chap.conclusao}
+%Pela observação dos aspetos analisados anteriormente já se pode chegar uma conclusão.
+As principais conclusões que se poderá destacar deste trabalho relaciona-se diretamente com o atual impacto que a Inteligência Artificial já tem nas nossas vidas, cada vez que navegamos na Internet e somos ``bombardeados'' com publicidade dirigida de acordo com as nossas atuais atitudes como clientes por exemplo, bem como poderá vir a ser com certeza muito importante para conseguirmos mitigar os vários problemas que necessitem urgentemente de serem  resolvidos.
+
+Por outro lado, foi identificada a possibilidade de existir a designada ``Singularidade'' - a hipotética possibilidade da \ac{ia} poderá vir a ser capaz de superar a inteligência humana e tornar-se auto-consciente das suas capacidades - que poderá vir a tornar-se imprevisível e impossível de controlar, levando, por ventura, ao fim da espécie humana; onde aliás já foi
+variamente abordada em várias longas metragem como é o caso do Exterminador Implacável, MATRIX e Tron Legacy.
+
+Por fim, não poderemos deixar de citar Ray Kurzweil -  Diretor de Engenharia da Google - um conhecido visionário onde das 147 previsões que fez, desde 1990, afirma ter uma taxa de sucesso de $86\%$. Assim sendo, sobre a singularidade tecnológica afirma:
+
+\begin{quote}
+    ``\emph{2029 is the consistent date I have predicted for when an AI will pass a valid Turing test and therefore achieve human levels of intelligence. I have set the date 2045 for the 'Singularity' which is when we will multiply our effective intelligence a billion fold by merging with the intelligence we have created.}''~\cite{Kurzweil:2017}
+\end{quote}
+
+Com ele, outros autores como Stephen Hawking, Elon Musk e Bill Gates já também falaram sobre este potencial perigo onde a ficção poderá mesmo tornar-se realidade.
+
+
+
+\chapter*{Contribuições dos autores}
+O trabalho foi desenvolvido pelos dois membros com igual esforço e dedicação, isto é, tanto o \ac{Henrique} como o \ac{Pedro} contribuíram de igual forma para este relatório.
+
+\vspace{10pt}
+
+\autores : 50\%, 50\%
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Acrónimos}
+\begin{acronym}
+\acro{ua}[UA]{Universidade de Aveiro}
+\acro{leci}[LECI]{Licenciatura em Engenharia de Computadores e Informática}
+\acro{ia}[IA]{Inteligência Artificial}
+\acro{Henrique}[HF]{Henrique Ferreira}
+\acro{Pedro}[PM]{Pedro Melo}
+\acro{}{Inteligência Artificial Limitada}
+
+\end{acronym}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+\end{document}
