@@ -1,0 +1,39 @@
+GAS LISTING prog1b.s 			page 1
+
+
+DEFINED SYMBOLS
+            prog1b.s:1      *ABS*:0000000000000001 UP
+            prog1b.s:2      *ABS*:0000000000000000 DOWN
+            prog1b.s:3      *ABS*:0000000000000003 putChar
+            prog1b.s:4      *ABS*:0000000000000006 printInt
+            prog1b.s:5      *ABS*:0000000000000001 inKey
+            prog1b.s:9      .data:0000000000000000 char1
+            prog1b.s:10     .data:0000000000000001 char2
+            prog1b.s:11     .data:0000000000000002 char3
+            prog1b.s:12     .data:0000000000000003 char4
+            prog1b.s:13     .data:0000000000000004 char5
+            prog1b.s:14     .data:0000000000000005 char6
+            prog1b.s:21     .text:0000000000000000 main
+            prog1b.s:31     .text:0000000000000018 do
+            prog1b.s:167    .text:0000000000000148 wait
+            prog1b.s:83     .text:0000000000000098 if1
+            prog1b.s:87     .text:00000000000000a4 endif1
+            prog1b.s:92     .text:00000000000000b0 if2
+            prog1b.s:96     .text:00000000000000bc endif2
+            prog1b.s:102    .text:00000000000000c8 if3
+            prog1b.s:119    .text:00000000000000e8 endif3
+            prog1b.s:105    .text:00000000000000d0 if6
+            prog1b.s:112    .text:00000000000000e4 else6
+            prog1b.s:116    .text:00000000000000e8 end6
+            prog1b.s:124    .text:00000000000000f4 if4
+            prog1b.s:128    .text:0000000000000100 endif4
+            prog1b.s:130    .text:0000000000000100 if5
+            prog1b.s:151    .text:000000000000012c endif5
+            prog1b.s:133    .text:000000000000010c if
+            prog1b.s:143    .text:0000000000000124 else
+            prog1b.s:149    .text:000000000000012c endif
+            prog1b.s:154    .text:000000000000012c while
+            prog1b.s:181    .text:0000000000000170 for
+            prog1b.s:189    .text:000000000000018c endfor
+
+NO UNDEFINED SYMBOLS

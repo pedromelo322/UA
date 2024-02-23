@@ -1,0 +1,13 @@
+GAS LISTING Ex1.s 			page 1
+
+
+DEFINED SYMBOLS
+               Ex1.s:3      *ABS*:0000000000000003 putChar
+               Ex1.s:4      *ABS*:0000000000000006 printInt
+               Ex1.s:5      *ABS*:000000000000000c resetCoreTimer
+               Ex1.s:6      *ABS*:000000000000000b readCoreTimer
+               Ex1.s:13     .text:0000000000000000 main
+               Ex1.s:20     .text:0000000000000004 while
+               Ex1.s:38     .text:0000000000000034 while2
+
+NO UNDEFINED SYMBOLS
