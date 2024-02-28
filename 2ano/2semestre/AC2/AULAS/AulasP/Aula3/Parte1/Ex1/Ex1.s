@@ -37,7 +37,7 @@ while:
         andi $t2, $t2, 0x0001
         andi $t3, $t3, 0xFFFE
 
-        or $t3, $t3, $t2a
+        or $t3, $t3, $t2
 
 
         sw $t3, LATE($t1)
