@@ -1,3 +1,4 @@
+
         .data
 
         .equ ADDR_BASE_HI,0xBF88 # Base address: 16 MSbits
@@ -44,6 +45,5 @@ while:
         j while
 
         jr $ra
-
 
 
