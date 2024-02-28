@@ -29,17 +29,19 @@ main:
 
 while:
 
-        lw $t2, LateE($t1)  #saida
+        lw $t2, LATE($t1)  #saida
         lw $t3, PORTB($t1)  #entrada
         
 
         
         andi $t2, $t2, 0xFFFE
         andi $t3, $t3, 0x0001 
+        xori $t3, $t3, 0x0001
         
         or $t2, $t2, $t3
 
-        sw $t2, 0($t1)
+
+        sw $t2, LATE($t1)
         
 
         j while
