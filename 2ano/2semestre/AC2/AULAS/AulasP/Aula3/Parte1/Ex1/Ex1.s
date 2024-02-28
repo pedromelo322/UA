@@ -20,7 +20,7 @@ main:
         lui $t1, ADDR_BASE_HI
         lw $t2, TRISE($t1) # Read TRISE
         andi $t2, $t2, 0xFFFE # RE0 -> saida
-        sw $t2, Trise($t1) # Write TRISE
+        sw $t2, TRISE($t1) # Write TRISE
 
         lw $t2, TRISB($t1) # Read TRISB
         ori $t2, $t2, 0x0001 # RB0 -> entrada
