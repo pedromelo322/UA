@@ -33,14 +33,12 @@ main:
         sw $t0, TRISE($s1) 
 
 
-        li $s2, 1
+        li $s2, 0
 
 
 
 
 while:
-
-
 
 
         lw $t0, LATE($s1)
@@ -50,49 +48,25 @@ while:
         sw $t0, LATE($s1)
 
         lw $t0, PORTB($s1)
-        andi $t0, $t0, 0x0002
-        srl $t0, $t0, 1
+        andi $t0, $t0, 0x0008
 
 
-if:
-        bne $t0, 1, else
+
 
 
         jal delay
 
         
+        move $t0, $s2
+
+        xori $t0, $t0, 0x0008
+
+        srl $t0, $t0, 3
+
+
         sll $s2,$s2,1
-
-if2:
-       bne $s2, 0x0010, endif2
-
-       li $s2, 1
-
-        
-endif2:
-
-        j endif
-else:
-
-        jal delay
-
-        
-        srl $s2,$s2,1
-
-
-if3:
-       bne $s2, 0x0000, endif3
-
-       li $s2, 0x0008
-
-        
-endif3:
-
-
-endif:
-
-
-
+        add $s2, $s2, $t0
+        andi $s2, $s2,0x000F 
 
 
         j while
@@ -122,7 +96,7 @@ delay:
 wait:   li $v0,READ_CORE_TIMER
         syscall
         
-        blt $v0,6666666,wait # e.g. f=4.6Hz
+        blt $v0,13333333,wait # e.g. f=4.6Hz
 
 
         
