@@ -67,7 +67,7 @@ if:
 
         j endif
 else:
-        li $a0, 10000
+        li $a0, 20000
         jal delay
 
         
