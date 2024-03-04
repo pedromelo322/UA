@@ -1,0 +1,18 @@
+Mar 04 15:50:45.649 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Mar 04 15:50:45.649 HYPERVISOR: Started on IP = localhost, TCP port = 56948.
+Mar 04 15:50:46.142 HYPERVISOR: exec_cmd: hypervisor version 
+Mar 04 15:50:46.142 HYPERVISOR: exec_cmd: hypervisor working_dir C:\Users\pedro\OneDrive\Documentos\UA\2ano\2semestre\RC2\P\P3\Ex1\project-files\dynamips 
+Mar 04 15:50:46.142 GENERAL: working_dir=C:\Users\pedro\OneDrive\Documentos\UA\2ano\2semestre\RC2\P\P3\Ex1\project-files\dynamips
+Mar 04 15:50:46.142 HYPERVISOR: exec_cmd: ethsw create netA 
+Mar 04 15:50:48.875 HYPERVISOR: exec_cmd: nio create_udp udp-a60a3ed0-10c9-484a-b7b4-33467d645085 20007 127.0.0.1 20006 
+Mar 04 15:50:48.875 HYPERVISOR: exec_cmd: ethsw add_nio netA udp-a60a3ed0-10c9-484a-b7b4-33467d645085 
+Mar 04 15:50:48.905 HYPERVISOR: exec_cmd: ethsw set_access_port netA udp-a60a3ed0-10c9-484a-b7b4-33467d645085 1 
+Mar 04 15:50:49.321 HYPERVISOR: exec_cmd: nio create_udp udp-d82fc6e8-1bc0-470d-ac5d-1a2bada1957b 20019 127.0.0.1 20018 
+Mar 04 15:50:49.321 HYPERVISOR: exec_cmd: ethsw add_nio netA udp-d82fc6e8-1bc0-470d-ac5d-1a2bada1957b 
+Mar 04 15:50:49.349 HYPERVISOR: exec_cmd: ethsw set_access_port netA udp-d82fc6e8-1bc0-470d-ac5d-1a2bada1957b 1 
+Mar 04 15:54:40.516 HYPERVISOR: exec_cmd: nio bind_filter udp-a60a3ed0-10c9-484a-b7b4-33467d645085 2 capture 
+Mar 04 15:54:40.516 HYPERVISOR: exec_cmd: nio setup_filter udp-a60a3ed0-10c9-484a-b7b4-33467d645085 2 en10mb C:\Users\pedro\OneDrive\Documentos\UA\2ano\2semestre\RC2\P\P3\Ex1\project-files\captures\R1_FastEthernet01_to_netA_Ethernet0.pcap 
+Mar 04 15:55:58.260 HYPERVISOR: exec_cmd: ethsw delete netA 
+Mar 04 15:55:58.324 HYPERVISOR: exec_cmd: hypervisor stop 
+Mar 04 15:55:58.466 HYPERVISOR: Stopped.
+Mar 04 15:55:58.466 GENERAL: reset done.
