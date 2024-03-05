@@ -1,0 +1,19 @@
+GAS LISTING Ex2.s 			page 1
+
+
+DEFINED SYMBOLS
+               Ex2.s:3      *ABS*:000000000000bf88 ADDR_BASE_HI
+               Ex2.s:4      *ABS*:0000000000006040 TRISB
+               Ex2.s:5      *ABS*:0000000000006050 PORTB
+               Ex2.s:6      *ABS*:0000000000006060 LATB
+               Ex2.s:7      *ABS*:0000000000006100 TRISE
+               Ex2.s:8      *ABS*:0000000000006110 PORTE
+               Ex2.s:9      *ABS*:0000000000006120 LATE
+               Ex2.s:10     *ABS*:000000000000000b READ_CORE_TIMER
+               Ex2.s:11     *ABS*:000000000000000c RESET_CORE_TIMER
+               Ex2.s:17     .text:0000000000000000 main
+               Ex2.s:32     .text:000000000000001c while
+               Ex2.s:62     .text:0000000000000048 delay
+               Ex2.s:74     .text:0000000000000064 wait
+
+NO UNDEFINED SYMBOLS
