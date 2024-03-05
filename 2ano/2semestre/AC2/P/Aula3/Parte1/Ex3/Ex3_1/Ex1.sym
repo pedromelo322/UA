@@ -1,0 +1,15 @@
+GAS LISTING Ex1.s 			page 1
+
+
+DEFINED SYMBOLS
+               Ex1.s:3      *ABS*:000000000000bf88 ADDR_BASE_HI
+               Ex1.s:4      *ABS*:00000000000060c0 TRISD
+               Ex1.s:5      *ABS*:00000000000060d0 PORTD
+               Ex1.s:6      *ABS*:00000000000060e0 LATD
+               Ex1.s:7      *ABS*:0000000000006100 TRISE
+               Ex1.s:8      *ABS*:0000000000006110 PORTE
+               Ex1.s:9      *ABS*:0000000000006120 LATE
+               Ex1.s:17     .text:0000000000000000 main
+               Ex1.s:33     .text:000000000000001c while
+
+NO UNDEFINED SYMBOLS
