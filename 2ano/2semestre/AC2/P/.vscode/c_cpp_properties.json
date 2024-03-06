@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/opt/pic32mx/include"
+            ],
+            "defines": [],
+            "compilerPath": ""
+        }
+    ],
+    "version": 4
+}

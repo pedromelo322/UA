@@ -1,0 +1,7 @@
+{
+    "C_Cpp.default.compilerPath": "/opt/pic32mx/bin/pcompile",
+    "files.associations": {
+        "detpic32.h": "c",
+        "p32mx795f512h.h": "c"
+    }
+}
