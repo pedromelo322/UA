@@ -2509,17 +2509,17 @@
                             "type": "ethernet"
                         },
                         {
-                            "name": "Ethernet 2",
-                            "special": false,
-                            "type": "ethernet"
-                        },
-                        {
                             "name": "Wi-Fi",
                             "special": true,
                             "type": "ethernet"
                         },
                         {
                             "name": "Liga\u00e7\u00e3o de Rede Bluetooth",
+                            "special": false,
+                            "type": "ethernet"
+                        },
+                        {
+                            "name": "Ethernet 2",
                             "special": false,
                             "type": "ethernet"
                         }
@@ -2560,6 +2560,6 @@
     },
     "type": "topology",
     "variables": null,
-    "version": "2.2.44.1",
+    "version": "2.2.45",
     "zoom": 50
 }
