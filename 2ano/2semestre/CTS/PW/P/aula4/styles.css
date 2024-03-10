@@ -1,0 +1,55 @@
+
+p{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1{
+    color:blue;
+}
+
+h2{
+    color:orangered;
+}
+
+h3{
+    color:#0000ff
+}
+
+hr{
+    border-color: cyan;
+}
+hr{
+    border-color: blue;
+    border-radius: 1cm;
+    border-width: 5px;
+}
+
+#UA{
+    color:purple;
+    font-weight: bold;
+}
+
+#UA:hover{
+    color:orange;
+    font-weight: bold;
+    background-color: green;
+    font-style:italic;
+}
+
+
+#copyright{
+    color:orangered;
+    font-weight: bold;
+    font-size:large;
+}
+
+
+li{
+    color:orangered;
+}
+
+
+#opção{
+    color: blue;
+}
