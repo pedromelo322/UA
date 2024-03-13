@@ -19,7 +19,7 @@ int main(void){
 
     TRISD = TRISD & 0xff9f;
 
-    TRISB = TRISD | 0x000f;
+    TRISB = TRISB | 0x000f;
 
     TRISB = TRISB & 0x80FF;
 
