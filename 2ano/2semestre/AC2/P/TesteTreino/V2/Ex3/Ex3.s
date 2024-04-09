@@ -14,7 +14,7 @@ main:
 
     lui $s2, ADDRHIGH
     lw $t0, TRISE($s2)
-    andi $t0, $t0, 0xff82
+    andi $t0, $t0, 0xff83
     sw $t0, TRISE($s2)
 
 
@@ -25,7 +25,7 @@ main:
 while:
 
     lw $t0, LATE($s2)
-    andi $t0, $t0, 0xff82
+    andi $t0, $t0, 0xff83
     sll $t1, $s3, 2
     or $t0, $t0, $t1
     sw $t0, LATE($s2)
