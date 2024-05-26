@@ -36,6 +36,7 @@ int main(void){
 
     while (1)
     {
+
         printInt10(PORTDbits.RD0);
         LATCbits.LATC14 =  PORTDbits.RD0;
         
