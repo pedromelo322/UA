@@ -4,7 +4,9 @@
 void putc(char byte2send)
 {
 // wait while UTXBF == 1
+    while(U2STAbits.UTXBF == 1);
 // Copy byte2send to the UxTXREG register
+    U2TXREG = byte2send;
 }
 
 
@@ -44,7 +46,7 @@ int main()
     IEC1bits.U2RXIE = 1; // Enable timer T2 interrupts
     IFS1bits.U2RXIF = 0; // Reset timer T2 interrupt flag
 
-    TRISB = TRISB | 0x000f;
+    TRISB = TRISB | 0x000E;
 
     EnableInterrupts();
 
@@ -61,7 +63,7 @@ void _int_(32) isr_U2RX(void){
     char c;
     c = U2RXREG;
     if(c == 'L'){
-        int valor = LATB & 0x000f;
+        int valor = (PORTB & 0x000E) >> 1;
         putc(valor + '0');
     }else if(c == 'S'){
         printstr("Pedro");
