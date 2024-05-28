@@ -46,7 +46,7 @@ int main()
     IEC1bits.U2RXIE = 1; // Enable timer T2 interrupts
     IFS1bits.U2RXIF = 0; // Reset timer T2 interrupt flag
 
-    TRISB = TRISB | 0x000E;
+    TRISB = TRISB | 0x0007;
 
     EnableInterrupts();
 
@@ -63,7 +63,7 @@ void _int_(32) isr_U2RX(void){
     char c;
     c = U2RXREG;
     if(c == 'L'){
-        int valor = (PORTB & 0x000E) >> 1;
+        int valor = PORTB & 0x0007;
         putc(valor + '0');
     }else if(c == 'S'){
         printstr("Pedro");
