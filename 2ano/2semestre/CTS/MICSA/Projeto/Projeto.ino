@@ -66,7 +66,7 @@ void loop() {
     displayGasValue();
   }
 
-  controlFan();
+  control();
   delay(250); // Atraso para leitura e atualização de valores
 
   printDebug(temperature, temperatureThreshold, gasSensorValue, gasThreshold);
@@ -96,11 +96,16 @@ void displayGasValue() {
   lcd.print(gasThreshold);
 }
 
-// Função para controlar o ventilador com base na temperatura e no nível de gás
-void controlFan() {
-  if (temperature >= temperatureThreshold || gasSensorValue >= gasThreshold) {
+// Função para controlar o ventilador e buzzer com base na temperatura e no nível de gás
+void control() {
+  // Define as margens de tolerância
+  int temperatureMargin = temperatureThreshold/20;
+  int gasMargin = gasThreshold/20;
+
+  // Verifica se a temperatura ou o nível de gás excedem os limiares mais as margens de tolerância
+  if (temperature > temperatureThreshold + temperatureMargin || gasSensorValue > gasThreshold + gasMargin) {
     digitalWrite(FAN_PIN, LOW); 
-    forceChange = (temperature >= temperatureThreshold) ? 1 : 2;
+    forceChange = (temperature > temperatureThreshold + temperatureMargin) ? 1 : 2;
     for (int i = 0; i < 3; i++) { // Repete o som 3 vezes
       tone(BUZZER_PIN, 1000); 
       delay(200);
@@ -109,11 +114,13 @@ void controlFan() {
         delay(200);
       }
     }
-  } else {
+  } else if (temperature < temperatureThreshold - temperatureMargin && gasSensorValue < gasThreshold - gasMargin) {
+    // Desliga o ventilador e o buzzer apenas se a temperatura e o nível de gás estiverem abaixo dos limiares menos as margens de tolerância
     digitalWrite(FAN_PIN, HIGH);
     noTone(BUZZER_PIN);
     forceChange = 0;
   }
+  // Não altera o estado do ventilador ou buzzer se a temperatura ou o nível de gás estiverem dentro das margens de tolerância
 }
 
 // Função para imprimir informações de depuração no Serial
