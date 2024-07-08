@@ -13,8 +13,8 @@
 // Definição de limites para temperatura e gás
 #define MIN_TEMPERATURE 20
 #define MAX_TEMPERATURE 40
-#define MIN_GAS 300
-#define MAX_GAS 600
+#define MIN_GAS 100
+#define MAX_GAS 400
 
 // Inicialização de objetos
 DHT11 dht11(2);
