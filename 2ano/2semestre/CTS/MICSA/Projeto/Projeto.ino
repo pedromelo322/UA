@@ -98,21 +98,21 @@ void displayGasValue() {
 
 // Função para controlar o ventilador com base na temperatura e no nível de gás
 void controlFan() {
-  if (temperature >= temperatureThreshold || gasSensorValue >= gasThreshold) {
-    digitalWrite(FAN_PIN, LOW); 
-    forceChange = (temperature >= temperatureThreshold) ? 1 : 2;
-    for (int i = 0; i < 3; i++) { // Repete o som 3 vezes
+  if (temperature >= temperatureThreshold || gasSensorValue >= gasThreshold) {  //verificar se algum valor passou o respetivo threshold
+    digitalWrite(FAN_PIN, LOW);   //ligar o ventoinha
+    forceChange = (temperature >= temperatureThreshold) ? 1 : 2; // verifica qual dos valores passou o threshold e força a mudança do display
+    for (int i = 0; i < 3; i++) { // Buzzer toca 3 vezes
       tone(BUZZER_PIN, 1000); 
-      delay(200);
+      delay(200);   //tempo de toque do buzzer
       noTone(BUZZER_PIN);
       if (i < 2) {
-        delay(200);
+        delay(200); //tempo de espera entre toques
       }
     }
   } else {
-    digitalWrite(FAN_PIN, HIGH);
-    noTone(BUZZER_PIN);
-    forceChange = 0;
+    digitalWrite(FAN_PIN, HIGH); //desligar o ventilador
+    noTone(BUZZER_PIN); //desligar o buzzer
+    forceChange = 0; //repor o display para o modo normal
   }
 }
 
