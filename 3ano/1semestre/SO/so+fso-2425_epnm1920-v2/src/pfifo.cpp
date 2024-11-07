@@ -32,6 +32,11 @@ void term_pfifo(PriorityFIFO* pfifo)
    require (pfifo != NULL, "NULL pointer to FIFO");  // a false value indicates a program error
    require (is_closed_pfifo(pfifo), "FIFO open");
 
+
+   mutex_destroy(&pfifo->access);
+   cond_destroy(&pfifo->notEmpty);
+   cond_destroy(&pfifo->notFull);
+
 }
 
 /* --------------------------------------- */
