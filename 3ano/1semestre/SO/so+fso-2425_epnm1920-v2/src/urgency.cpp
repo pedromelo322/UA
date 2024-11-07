@@ -171,6 +171,9 @@ int doctor_iteration(int id) // return value can be used to request termination
 void patient_goto_urgency(int id)
 {
    new_patient(&hd->all_patients[id]);
+   pthread_mutex_init(&hd->all_patients[id].acesso, NULL);
+   pthread_cond_init(&hd->all_patients[id].waiting, NULL);
+
    check_valid_name(hd->all_patients[id].name);
    printf("\e[30;01mPatient %s (number %d): get to hospital\e[0m\n", hd->all_patients[id].name, id);
    insert_pfifo(&hd->triage_queue, id, 1); // all elements in triage queue with the same priority!
