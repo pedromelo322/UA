@@ -321,6 +321,8 @@ int main(int argc, char *argv[])
 
    for (int i = 0; i < npatients; i++){
       pthread_join(pthd[i], NULL);
+      pthread_mutex_destroy(&hd->all_patients[i].acesso);
+      pthread_cond_destroy(&hd->all_patients[i].waiting);
       printf("Paciente %d foi terminado\n", i);
    }
 
