@@ -1,0 +1,1 @@
+-Wall -msse2 -msse -maes -lbsd -lcrypto

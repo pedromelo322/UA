@@ -1,0 +1,5 @@
+Script started on 2024-10-26 21:08:04+01:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="238" LINES="58"]
+[?2004h]0;pedro@Legion-Besta: ~/Documents/UA/3ano/1semestre/IA/Projeto1/ia2025-tpi-1-pedromelo1316/skelpython[01;32mpedro@Legion-Besta[00m:[01;34m~/Documents/UA/3ano/1semestre/IA/Projeto1/ia2025-tpi-1-pedromelo1316/skelpython[00m$ exit
+[?2004lexit
+
+Script done on 2024-10-26 21:08:06+01:00 [COMMAND_EXIT_CODE="0"]
