@@ -20,7 +20,7 @@ int main(void)
   {
     bwRandomDelay(100, 100000);
     printf("After the fork, in the parent: PID = %d, PPID = %d\n", getpid(), getppid());
-    //pwait(NULL);
+    pwait(NULL);
   }
 
   return EXIT_SUCCESS;
