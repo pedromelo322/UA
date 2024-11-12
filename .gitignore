@@ -1,2 +1,5 @@
 *.vht
 *.vho
+log.txt
+venv/
+*.mp4
