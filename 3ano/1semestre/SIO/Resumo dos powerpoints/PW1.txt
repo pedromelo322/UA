@@ -1,0 +1,32 @@
+Aqui está um resumo simplificado e integrado dos tópicos de segurança discutidos:
+
+1. **Modelos de Defesa**:
+   - **Modelo de Defesa de Perímetro**: Baseia-se na proteção da organização contra ameaças externas. Assume que usuários internos são confiáveis, mas não protege contra ataques vindos de dentro, o que é uma limitação.
+   - **Defesa em Profundidade**: Adota camadas múltiplas de segurança (física, lógica, etc.) para proteger contra ameaças externas e internas. É mais robusto, mas exige coordenação e pode ser caro.
+   - **Modelo Zero Trust**: Elimina a confiança automática. Cada acesso, seja interno ou externo, deve ser autenticado e autorizado. Ideal para sistemas modernos, mas exige um redesenho de segurança.
+
+2. **Domínios de Segurança**:
+   - Os domínios organizam a segurança em camadas ou grupos para que cada parte da organização tenha controles de segurança coerentes. Eles podem ser hierárquicos (vários níveis) ou planos (no mesmo nível).
+
+3. **Políticas e Controles de Segurança**:
+   - **Políticas**: Definem as diretrizes do que é permitido e como a segurança deve ser gerenciada.
+   - **Controles**: Implementam essas políticas usando mecanismos, processos e técnicas específicas. Eles podem ser preventivos, detectivos ou corretivos.
+
+4. **Mecanismos de Segurança**:
+   - São ferramentas específicas, como firewalls, autenticação, criptografia, para aplicar políticas e controles de segurança.
+
+Em resumo, as **políticas** estabelecem o que precisa ser protegido e como; **mecanismos** e **controles** garantem que essas políticas sejam aplicadas; **domínios** ajudam a organizar essa segurança de forma lógica. Os **modelos de defesa** são diferentes estratégias que determinam como a segurança é aplicada de acordo com as ameaças e necessidades do ambiente. O **Zero Trust** é a abordagem mais moderna, desafiando as ideias tradicionais para um ambiente mais seguro.
+
+CIA:
+
+Confidencialidade (C):
+
+    Significado: Garantir que a informação seja acessada apenas por pessoas autorizadas.
+    
+Integridade (I):
+
+    Significado: Manter a exatidão e a completude dos dados ao longo de seu ciclo de vida.
+    
+Disponibilidade (A):
+
+    Significado: Garantir que a informação e os sistemas estejam acessíveis quando necessários por usuários autorizados.

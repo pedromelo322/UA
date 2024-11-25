@@ -1,0 +1,17 @@
+A secção "Criptografia Assimétrica" explora conceitos fundamentais de sistemas de criptografia que utilizam **pares de chaves**: uma **chave privada** (secreta e pessoal) e uma **chave pública** (disponível para todos). Esses sistemas permitem **confidencialidade**, sem necessidade de troca prévia de segredos, e **autenticação**, garantindo integridade e a identidade do remetente.
+
+### Conceitos Principais:
+- **Cifras assimétricas** são mais lentas em relação às cifras simétricas, mas eliminam a necessidade de troca direta de chaves.
+- **Criptografia híbrida** combina as vantagens dos dois tipos, usando uma chave assimétrica para proteger uma chave simétrica aleatória, que é usada para cifrar os dados.
+- **Randomização** nas encriptações assimétricas (como o RSA) evita que mensagens idênticas resultem em resultados iguais, usando métodos como o **OAEP** para gerar resultados aleatórios.
+
+### Protocolos e Técnicas Importantes:
+- **Acordo de Chave Diffie-Hellman** (e sua versão com **Curvas Elípticas - ECDH**) permitem que duas partes compartilhem chaves simétricas de forma segura, sem troca explícita.
+- **Criptografia com Curvas Elípticas (ECC)** oferece segurança similar à de sistemas tradicionais, mas com tamanhos de chave menores, tornando-a mais eficiente.
+
+### **Assinaturas Digitais:**
+- Permitem autenticação do conteúdo e do autor, além de garantir **não-repúdio**.
+- São criadas usando a chave privada do assinante, com qualquer pessoa capaz de verificar sua autenticidade usando a chave pública.
+- Em vez de encriptar todo o texto, um **hash** do texto é assinado para aumentar a eficiência.
+
+A seção conclui com a importância da criptografia assimétrica para proteger comunicações seguras e garantir a autenticidade e integridade das informações, especialmente em ambientes de troca aberta como a Internet.

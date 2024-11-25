@@ -1,0 +1,40 @@
+### **Resumo: National Cybersecurity Framework (QNRCS) e Subsequentemente**
+
+**1. QNRCS (Quadro Nacional de Referência para a Cibersegurança):**
+- **Objetivos:**
+  - **Identificar**: Conhecer o contexto organizacional, ativos críticos e riscos associados.
+  - **Proteger**: Medidas para proteger processos e ativos.
+  - **Detectar**: Identificação de incidentes em tempo hábil.
+  - **Responder**: Medidas apropriadas para lidar com incidentes detectados.
+  - **Recuperar**: Ações para restaurar serviços e processos.
+
+**2. Conceitos Chave em Segurança (ISO/IEC 27032):**
+- **Baseado em Riscos**: Foca na minimização de riscos.
+- **Consideração de Stakeholders** e **Inventário de Ativos**: Gerenciar serviços e produtos críticos.
+
+**3. Gestão de Riscos e Investimentos:**
+- Decisões baseadas em riscos para determinar vulnerabilidades, controles e investimentos em segurança.
+
+**4. Abordagem "Crown Jewels" (Joias da Coroa):**
+- Identificação de ativos críticos (dados sensíveis, servidores, sistemas essenciais).
+- Proteger ativos principais e expandir as proteções com base em avaliação de riscos.
+
+**5. Plano de Segurança:**
+- Documento vivo que descreve a postura de segurança, incluindo autenticação, backups, controle de acesso e políticas.
+- Deve ser aceito pela organização, revisado periodicamente e assinado por um responsável de segurança.
+
+**6. Resposta a Incidentes e Coordenação:**
+- **CERT/CSIRT** para coordenação de incidentes em nível nacional e organizacional.
+- Colaboração com entidades como **ENISA** e **forças policiais** para melhorar a resiliência e resposta.
+
+**7. Detecção e Pesquisa de Ameaças (Threat Research & CTI):**
+- **Inteligência de Ameaças** para entender como ameaças evoluem, monitorar dark web, relatórios oficiais e previsões.
+- Ajustar alertas e regras com base em incidentes e ameaças detectadas.
+
+---
+
+### **Resumo Essencial:**
+- **QNRCS** e normas de segurança ajudam a estruturar e avaliar a segurança com base em riscos, ativos críticos e processos de recuperação.
+- O **plano de segurança** é central para manter a postura e maturidade da organização em termos de defesa.
+- **Resposta a incidentes** é apoiada por **CERT/CSIRT** para garantir resposta coordenada.
+- **Pesquisa de Ameaças** (CTI) ajusta políticas e mecanismos com base em inteligência de ameaças.

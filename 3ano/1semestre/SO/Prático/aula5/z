@@ -1,0 +1,50 @@
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin
+dhcpcd:x:100:65534:DHCP Client Daemon,,,:/usr/lib/dhcpcd:/bin/false
+messagebus:x:101:106::/nonexistent:/usr/sbin/nologin
+syslog:x:102:107::/nonexistent:/usr/sbin/nologin
+systemd-resolve:x:996:996:systemd Resolver:/:/usr/sbin/nologin
+uuidd:x:103:108::/run/uuidd:/usr/sbin/nologin
+usbmux:x:104:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+tss:x:105:110:TPM software stack,,,:/var/lib/tpm:/bin/false
+systemd-oom:x:995:995:systemd Userspace OOM Killer:/:/usr/sbin/nologin
+tcpdump:x:106:113::/nonexistent:/usr/sbin/nologin
+avahi-autoipd:x:107:114:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin
+kernoops:x:108:65534:Kernel Oops Tracking Daemon,,,:/:/usr/sbin/nologin
+whoopsie:x:109:115::/nonexistent:/bin/false
+dnsmasq:x:110:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+avahi:x:111:116:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+cups-pk-helper:x:112:118:user for cups-pk-helper service,,,:/nonexistent:/usr/sbin/nologin
+sssd:x:113:119:SSSD system user,,,:/var/lib/sss:/usr/sbin/nologin
+speech-dispatcher:x:114:29:Speech Dispatcher,,,:/run/speech-dispatcher:/bin/false
+fwupd-refresh:x:115:121:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+saned:x:116:123::/var/lib/saned:/usr/sbin/nologin
+geoclue:x:117:124::/var/lib/geoclue:/usr/sbin/nologin
+cups-browsed:x:118:118::/nonexistent:/usr/sbin/nologin
+hplip:x:119:7:HPLIP system user,,,:/run/hplip:/bin/false
+polkitd:x:994:994:polkit:/nonexistent:/usr/sbin/nologin
+rtkit:x:120:125:RealtimeKit,,,:/proc:/usr/sbin/nologin
+colord:x:121:126:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+gnome-initial-setup:x:122:65534::/run/gnome-initial-setup/:/bin/false
+gdm:x:123:127:Gnome Display Manager:/var/lib/gdm3:/bin/false
+nm-openvpn:x:124:128:NetworkManager OpenVPN,,,:/var/lib/openvpn/chroot:/usr/sbin/nologin
+pedro:x:1000:1000:Pedro Melo:/home/pedro:/bin/bash
+_flatpak:x:125:130:Flatpak system-wide installation helper,,,:/nonexistent:/usr/sbin/nologin

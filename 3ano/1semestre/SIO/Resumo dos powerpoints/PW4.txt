@@ -1,0 +1,32 @@
+### **Resumo Explicativo sobre Criptografia Moderna**
+
+A **criptografia** é uma disciplina que visa proteger a confidencialidade, a integridade e a autenticidade das informações, utilizando técnicas matemáticas para transformar dados legíveis em um formato ilegível, conhecido como **cifra**. A criptografia moderna é dividida em duas abordagens principais: **simétrica** e **assimétrica**, além de envolver conceitos como **confusão**, **difusão** e **cifras de bloco** ou **fluxo**.
+
+#### **Criptografia Simétrica**
+A criptografia simétrica usa a **mesma chave** tanto para cifrar quanto para decifrar a informação. O principal benefício da criptografia simétrica é sua **eficiência** e **rapidez**, tornando-a a escolha ideal para a criptografia de grandes volumes de dados. Exemplos incluem algoritmos como **AES** e **DES**. Os modos de operação de cifras simétricas, como **ECB**, **CBC**, **OFB**, **CFB** e **CTR**, fornecem maneiras de aplicar a cifra em diferentes contextos (como blocos ou fluxos de dados), abordando questões de segurança, como a **reutilização de chaves** ou a **repetição de padrões** em blocos de dados.
+
+**Modos de Cifra**:
+- **ECB** (Electronic Codebook): Cada bloco é cifrado independentemente, mas é vulnerável à repetição de padrões.
+- **CBC** (Cipher Block Chaining): Introduz aleatoriedade através de um **vetor de inicialização (IV)** e usa **feedback** do bloco anterior, evitando padrões repetitivos.
+- **OFB, CFB, CTR**: Modos de **fluxo** que utilizam diferentes formas de gerar sequências de bits pseudo-aleatórias para cifrar os dados.
+  
+#### **Criptografia Assimétrica**
+Ao contrário da criptografia simétrica, a **criptografia assimétrica** utiliza **duas chaves**: uma chave pública para cifrar a mensagem e uma chave privada para decifrá-la. Este método resolve o problema da distribuição segura de chaves, uma das limitações da criptografia simétrica. **RSA** e **ECC** são exemplos clássicos de algoritmos assimétricos, usados para garantir a segurança em sistemas de comunicação e autenticação.
+
+#### **Técnicas de Criptografia**
+- **Confusão**: Refere-se à complexidade da relação entre os **bits da chave**, o **plaintext** e o **ciphertext**. A ideia é que pequenas mudanças na chave ou no plaintext devem resultar em grandes mudanças no ciphertext.
+- **Difusão**: Significa que a mudança de um bit no plaintext deve afetar muitos bits no ciphertext, de forma que a informação seja espalhada e difícil de identificar.
+- **Avalanche Effect**: Um princípio relacionado à difusão, que assegura que pequenas alterações no texto claro resultem em grandes e imprevisíveis mudanças no texto cifrado.
+
+#### **Criptografia de Bloco vs. Criptografia de Fluxo**
+- **Cifras de Bloco**: Trabalham com blocos fixos de dados (normalmente 128 bits). Os algoritmos mais comuns, como **AES** e **DES**, operam com transformações de **substituição** e **permutação**. Exemplos de modos de operação incluem **ECB**, **CBC** e **CTR**.
+- **Cifras de Fluxo**: Operam sobre dados bit a bit, geralmente XORando o plaintext com um **keystream** gerado de forma pseudo-aleatória. Exemplos incluem **RC4** e os modos **OFB** e **CFB**.
+
+#### **Ataques em Criptografia**
+A **criptanálise** é o processo de quebrar sistemas criptográficos. Existem várias abordagens:
+- **Ataques de Força Bruta**: Tentativa de todas as combinações possíveis de chaves até encontrar a correta.
+- **Ataques por Conhecimento de Texto Plano**: Quando o atacante conhece um texto claro e tenta deduzir a chave ou o algoritmo.
+- **Ataques de Frequência**: Usados para ciphers simples, como o **César**, que são vulneráveis pela análise de padrões de ocorrência de letras no texto.
+
+#### **Conclusão**
+A criptografia moderna é fundamental para a segurança de sistemas de comunicação e armazenamento de dados, envolvendo tanto algoritmos simétricos quanto assimétricos, cada um adequado para diferentes necessidades. Enquanto a criptografia simétrica é eficiente e amplamente usada para grandes volumes de dados, a criptografia assimétrica resolve o problema de distribuição de chaves. Técnicas como **confusão**, **difusão** e **avalanche effect** são essenciais para garantir a resistência a ataques e tornar a criptografia mais robusta. Além disso, a escolha entre **cifras de bloco** e **fluxo** depende da aplicação e dos requisitos de desempenho e segurança.

@@ -1,0 +1,42 @@
+### **Resumo Explicativo: Digests, Controle de Integridade e Derivação de Chaves**
+
+Esta secção abrange três componentes principais da criptografia: **funções de resumo (digests)**, **controle de integridade de mensagens (MIC e MAC)** e **derivação de chaves**. Vamos explorar como cada um desses conceitos se inter-relaciona e sua importância para a segurança de sistemas.
+
+#### **Funções de Resumo (Digests)**
+As **funções de resumo** geram um valor fixo (digest) a partir de dados de comprimento variável. Este valor é exclusivo para os dados fornecidos e serve como uma "impressão digital" que representa o conteúdo original de forma compacta. As principais propriedades dessas funções incluem:
+
+- **Resistência à pré-imagem**: Dado um digest, é impossível determinar a entrada original.
+- **Resistência à segunda pré-imagem**: Não é possível encontrar duas entradas diferentes que resultem no mesmo digest.
+- **Resistência a colisões**: É impossível encontrar duas entradas diferentes que produzem o mesmo digest.
+
+Essas propriedades tornam os digests ideais para verificar a integridade de dados. Contudo, o processo de gerar um digest é **irreversível** e **muito sensível a pequenas alterações nos dados**. Assim, mesmo mudanças mínimas em um texto gerarão digests completamente diferentes, tornando esses valores úteis para detectar alterações.
+
+#### **Controle de Integridade de Mensagens (MIC e MAC)**
+O **controle de integridade** garante que os dados não foram alterados, intencionalmente ou acidentalmente. As duas abordagens principais são:
+
+- **MIC (Message Integrity Code)**: Um valor de controle simples, que é a aplicação de uma função de resumo sobre os dados. O **MIC** é calculado pelo remetente e enviado com a mensagem. O receptor recalcula o MIC e compara-o com o valor enviado para verificar se a mensagem foi alterada.
+  
+- **MAC (Message Authentication Code)**: Uma versão mais segura do MIC, pois inclui uma chave secreta na função de resumo. Apenas as partes que possuem a chave podem gerar e verificar o **MAC**. Isso torna o **MAC** resistente a alterações maliciosas, pois um atacante sem a chave não pode gerar um MAC válido para dados modificados.
+
+Os **MACs** podem ser implementados de várias maneiras, incluindo o uso de funções de resumo como MD5, SHA-1 ou SHA-3, além de técnicas como HMAC (Hash-based MAC). Quando usados com **encriptação**, existem diferentes modos, como **Encrypt-then-MAC** e **MAC-then-Encrypt**, que oferecem níveis variados de segurança, dependendo da ordem de processamento dos dados.
+
+#### **Derivação de Chaves**
+A **derivação de chaves** é um processo fundamental em criptografia, onde uma chave de um formato básico (geralmente uma senha ou segredo compartilhado) é convertida em uma chave criptográfica adequada para ser usada em algoritmos de criptografia. A derivação de chaves resolve o problema de **entropia baixa** de senhas e outros segredos, que são vulneráveis a ataques de força bruta.
+
+Existem várias abordagens de derivação de chaves:
+
+- **PBKDF2 (Password-Based Key Derivation Function 2)**: Uma função que deriva uma chave a partir de uma senha com um número de **iterações** (ou rodadas) para aumentar a dificuldade computacional e proteger contra ataques de dicionário.
+  
+- **scrypt**: Uma função mais avançada de derivação de chave que não só aumenta o custo computacional, mas também exige **grande uso de memória**, tornando-a resistente a ataques com hardware especializado (como ASICs).
+
+Ambas as funções utilizam um **salt** (valor aleatório) para garantir que a mesma senha resulte em chaves diferentes, prevenindo ataques de pré-imagem.
+
+#### **Relações Entre os Conceitos**
+- **Funções de resumo e controle de integridade**: As funções de resumo (digests) são a base para garantir a integridade de dados. Elas são usadas em **MICs** para detectar alterações acidentais e em **MACs** para autenticar a integridade das mensagens de forma segura, usando chaves secretas.
+  
+- **Derivação de chaves e MACs**: As funções de derivação de chaves, como PBKDF2 e scrypt, são essenciais para gerar **chaves seguras** para operações criptográficas. Quando se utiliza um **MAC**, uma chave derivada é geralmente usada para garantir que apenas as partes autorizadas possam verificar a autenticidade da mensagem.
+  
+- **Digest e segurança**: As propriedades de resistência das funções de resumo (como resistência à colisão e à pré-imagem) tornam-nas essenciais para a segurança de sistemas de autenticação, onde a integridade e a autenticidade dos dados precisam ser verificadas.
+
+### **Conclusão**
+Esses três conceitos (digests, controle de integridade e derivação de chaves) trabalham juntos para formar um sistema robusto de segurança em comunicação e armazenamento de dados. **Digests** garantem que os dados não foram alterados, **MACs** adicionam uma camada de segurança usando chaves secretas, e **derivação de chaves** permite que segredos fracos (como senhas) se transformem em chaves criptográficas fortes para proteger dados de maneira eficaz.
