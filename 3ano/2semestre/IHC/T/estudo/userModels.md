@@ -1,4 +1,4 @@
-**Tema Central: Modelos do Utilizador e Outros Modelos de Design**
+## Tema Central: Modelos do Utilizador e Outros Modelos de Design**
 
 Esta aula foca-se em dois tipos principais de modelos:
 1.  **Modelos Mentais e Conceptuais:** Como o utilizador entende o sistema e como o designer projeta essa compreensão.
@@ -130,7 +130,7 @@ Vamos detalhar:
 
 
 
-**Tema Central: Da Visão e Cenários aos Requisitos do Sistema**
+## Tema Central: Da Visão e Cenários aos Requisitos do Sistema**
 
 
 **Recapitulação e Contexto (Slides 2-12)**
@@ -232,3 +232,379 @@ Vamos detalhar:
 *   Os requisitos podem ser Funcionais (o quê) ou Não-Funcionais (como bem).
 *   A priorização de requisitos é essencial para gerir o desenvolvimento.
 *   As informações sobre o Trabalho 1 são práticas e visam esclarecer dúvidas comuns.
+
+
+
+
+
+
+
+
+
+
+
+
+## Tema Central: Prototipagem de Baixa Fidelidade (Lo-Fi Prototyping)**
+
+A aula introduz o conceito de prototipagem, as suas vantagens, os diferentes níveis de fidelidade e depois aprofunda as técnicas e utilidade da prototipagem de baixa fidelidade, com um foco especial em protótipos de papel e no processo de teste.
+
+Vamos detalhar os slides:
+
+**Contexto e Ligação com Etapas Anteriores (Slides 2-5)**
+
+*   **Slide 2 (Esta semana em IHC):** Situa a aula no contexto do ciclo de design. Os alunos estão a apresentar a análise de contexto e requisitos (W4, W5, W6 no diagrama) e esta aula prepara para a próxima fase: produzir soluções de design (W7, W9, W10, W11).
+*   **Slide 3 (Outline de Hoje):**
+    *   O que fazer com os requisitos?
+    *   A utilidade da prototipagem.
+    *   Apresentações de artigos.
+    *   O diagrama do ciclo de design destaca a passagem da especificação de requisitos para a produção de soluções de design.
+*   **Slide 4 (Cartoon Dilbert):** Ilustra humoristicamente o perigo de ter muitos requisitos sem considerar a usabilidade. A prototipagem ajuda a testar se os requisitos se traduzem numa experiência "fácil de usar".
+*   **Slide 5 (Como passar dos requisitos para o design da interface?):** A resposta é: **Prototipamos!**
+
+**Pensar Sobre Prototipagem (Slides 6-12)**
+
+*   **Slide 7 (O que é um protótipo?):** "Algo para testar, explorar ou comunicar ideias de design para uma *coisa* que está a ser desenhada." É uma representação inicial e experimental.
+*   **Slide 8 (Para quê?):** Permite criar e refinar uma interface com base no feedback do utilizador **antes** da implementação (que é mais cara e demorada).
+*   **Slide 9 (Porque Devemos Prototipar UIs?):**
+    *   Testar e comunicar designs de interface.
+    *   Poupar tempo e dinheiro (identificar problemas cedo).
+    *   Trazer os utilizadores para o processo de design.
+    *   Permite desenhar para diferentes dispositivos e plataformas.
+*   **Slide 10 (O que os Protótipos Podem Fornecer?):**
+    *   Identificar problemas de usabilidade.
+    *   Identificar requisitos funcionais em falta ou mal especificados.
+    *   Ajudar a decidir entre alternativas de design.
+    *   Ajudar a definir prioridades.
+*   **Slide 11 (Níveis de Fidelidade):**
+    *   Refere-se ao nível de detalhe e realismo do protótipo em termos de Design Visual, Conteúdo e Interatividade.
+    *   **Baixa Fidelidade (Low Fidelity - Lo-Fi):** Simples, muitas vezes desenhado à mão, focado na estrutura e fluxo.
+    *   **Alta Fidelidade (High Fidelity - Hi-Fi):** Mais detalhado, parece-se e comporta-se mais como o produto final.
+*   **Slide 12 (Como Escolher o Nível de Fidelidade?):**
+    *   Deve corresponder à fase atual do projeto e às questões que precisam de resposta.
+    *   **Lo-Fi no início:** Para obter uma primeira perceção de como os utilizadores reagem, testar conceitos.
+    *   **Hi-Fi mais tarde:** Quando já há bom feedback, para refinar detalhes de investimento extra ou padrões de interação mais complexos.
+
+**Prototipagem de Baixa Fidelidade (Lo-Fi Prototyping) (Slides 13-24)**
+
+*   **Slide 14 (Utilidade dos Protótipos Lo-Fi):**
+    *   Rápidos e baratos de criar.
+    *   Obtêm feedback dos utilizadores sobre aspetos gerais.
+    *   Fáceis de modificar, mesmo durante os testes com utilizadores.
+    *   Valiosos para testar o modelo conceptual da UI.
+    *   Estima-se que permitem detetar até 80% dos problemas de usabilidade.
+*   **Slide 15 (Adequados para recolher dados sobre):**
+    *   Conceitos e terminologia.
+    *   Navegação.
+    *   Conteúdos.
+    *   Estrutura.
+    *   Funcionalidades.
+*   **Slide 16 (Técnicas e Ferramentas Comuns):**
+    *   **Protótipos de Papel (Paper Prototypes):** Representações simples, desenhadas à mão.
+    *   **Wireframes:** Esboços digitais da estrutura e layout, sem detalhes de design.
+    *   **Ferramentas Digitais:** Software que permite criar protótipos Lo-Fi digitais, fáceis de partilhar e modificar.
+
+*   **Prototipagem em Papel (Paper Prototyping) (Slides 17-24):**
+    *   **Slide 18 (Definição - Carolyn Snyder):** Variação de teste de usabilidade onde utilizadores representativos realizam tarefas realistas interagindo com uma versão em papel da interface, manipulada por uma pessoa que "faz de computador" (sem explicar como a interface deve funcionar).
+    *   **Slide 19 (Utilidade):** Bom compromisso para obter feedback inicial e iterar rapidamente sobre escolhas de design (evita o "dois meses da minha vida, desperdiçados" do cartoon).
+    *   **Slide 20 (Vantagens):**
+        *   Rápido e barato.
+        *   Adequado para colaboração e criação de entendimento partilhado.
+        *   Não requer treino especial.
+        *   Sem constrangimentos técnicos.
+    *   **Slide 21 (Vantagens - Feedback Mais Criativo):**
+        *   Designs inacabados encorajam discussão aberta e criatividade.
+        *   Sinalizam que as ideias ainda estão a evoluir.
+        *   Removem o fator de intimidação da tecnologia (não se pode "partir" nada).
+        *   Utilizadores sentem-se mais à vontade para sugerir mudanças.
+    *   **Slide 22 (Vantagens - Sem Feedback Detalhista/Irrelevante - "Nitpicky"):**
+        *   Protótipos de alta fidelidade convidam a feedback sobre detalhes visuais menores (cor, alinhamento).
+        *   Protótipos de papel encorajam feedback sobre conceitos e funcionalidade, em vez de estética.
+    *   **Slide 23 (Lembrete):** Se mostrar uma UI 100% bonita a um não-programador, ele pensará que o sistema está quase pronto (o que raramente é o caso). O aspeto "inacabado" do papel ajuda a gerir expectativas.
+    *   **Slide 24 (Desvantagens):**
+        *   Falta de realismo / não responsivo (alguém tem de simular).
+        *   Requer teste presencial com um moderador.
+        *   Os resultados devem ser interpretados com cuidado (devido à natureza artificial).
+
+**O Processo de Prototipagem (e Teste) (Slides 25-42)**
+
+*   **Design de Tarefas (Task Design - Slides 26-31):**
+    *   **Slide 26:** Antes de desenhar o protótipo, pensar nas tarefas que ele vai suportar. Ao testar, não se observa apenas o utilizador a fazer o que quer; dão-se-lhe tarefas específicas.
+    *   **Slide 27 (Diretrizes para Escolher Tarefas):**
+        *   Baseadas nos objetivos das Personas.
+        *   Cobrir questões importantes para o sucesso do sistema.
+        *   Ter um âmbito apropriado (não apenas uma ação por ecrã).
+        *   Ter um conjunto finito e previsível de soluções possíveis.
+        *   Ter um ponto final claro que o utilizador reconheça.
+        *   Suscitar ação, não apenas opinião.
+    *   **Slide 28 (Importância de Escolher Tarefas):** Guia decisões de design, garante que o protótipo suporta ações reais, foca em interações essenciais, ajuda a identificar falhas no fluxo de trabalho.
+    *   **Slide 29 (Maus Exemplos de Tarefas):** Demasiado abertas, vagas ou longas. Ex: "Explore o website e diga o que acha."
+    *   **Slide 30 (Bons Exemplos de Tarefas):** Específicas, com objetivo claro e, idealmente, mensuráveis. Ex: "Encontre e compre um par de sapatilhas Asics de corrida por menos de $100."
+    *   **Slide 31 (Mais Diretrizes):** Pensar na ordem das tarefas, evitar linguagem que revele o método (Mau: "Vá ao Menu Ficheiro e Exporte para PDF" vs. Bom: "Guarde o documento atual como PDF"). Usar imagens pode ajudar.
+
+*   **Construir o Protótipo (Slides 32-36):**
+    *   **Slide 33 (Fundo do Protótipo - Prototype Background):** O "ecrã" base onde os elementos da interface são colocados (pode ser um desenho de um telemóvel, tablet, janela de browser).
+    *   **Slide 34 (Conteúdo do Protótipo - Prototype Content):** Não precisa de muito detalhe nem ser muito realista:
+        *   Texto pode ser linhas (Lorem Ipsum em papel).
+        *   Imagens podem ser caixas com palavras (ex: "logo", "foto do produto").
+        *   Geralmente, não é necessária cor.
+        *   Tamanhos de janelas, fontes, etc., não precisam ser finais.
+    *   **Slides 35, 36 (Exemplos):** Mostram vários protótipos de papel, ilustrando a simplicidade e foco na estrutura e elementos interativos.
+
+*   **Avaliar um Protótipo (Slides 37-42):**
+    *   **Slide 38 (Lembrar as Tarefas?):** As tarefas definidas para desenhar o protótipo são muito úteis para o teste. Melhoram o teste de usabilidade (interação significativa) e encorajam feedback realista.
+    *   **Slide 39 (Usar Tarefas Durante o Teste):**
+        *   Atenção à ordem das tarefas (lógica, narrativa).
+        *   Apresentar tarefas por escrito (para o utilizador poder reler).
+        *   Apresentar uma tarefa de cada vez.
+    *   **Slide 40 (Quem está na Sessão de Teste?):**
+        *   O "Computador" (pessoa que manipula o protótipo de papel).
+        *   O Facilitador (guia o utilizador, dá as tarefas, faz perguntas).
+        *   O Observador (tira notas, não interfere).
+        *   ...e o Utilizador!
+    *   **Slide 41 (Anatomia de uma Sessão de Teste):**
+        *   Receber o participante e explicar o contexto.
+        *   Dar as tarefas, uma a uma.
+        *   Observar o participante a usar o protótipo e recolher feedback.
+        *   Encorajar o "pensar em voz alta" (think aloud).
+        *   Discutir opiniões e ideias no final.
+    *   **Slide 42 (Exemplo de Avaliação de Protótipo):** Link para um vídeo do NNgroup (Jakob Nielsen's group), que são uma referência em usabilidade.
+
+**Ferramentas para Prototipagem (Além do Papel) (Slides 43-48)**
+
+*   **Slide 44 (Prototipagem para além do papel):** Os mesmos procedimentos podem ser usados com ferramentas que oferecem mais interatividade e um aspeto mais polido (mas ainda Lo-Fi ou Mid-Fi).
+*   **Slide 45 (Balsamiq):** Ferramenta popular para wireframing e prototipagem Lo-Fi digital com um aspeto "desenhado à mão".
+*   **Slide 46 (Figma):** Ferramenta de design colaborativo muito poderosa, pode ser usada para Lo-Fi, mas é mais conhecida para Hi-Fi.
+*   **Slide 47 (Quant UX):** Ferramenta que parece integrar análise quantitativa com prototipagem (ex: heatmaps).
+*   **Slide 48 (Rapid Prototyping):** Apresenta diferentes abordagens (Sketching & Paper, Digital, Native) e links para vídeos do Google for Startups.
+
+**Take Away Geral da Aula:**
+
+*   A prototipagem é uma etapa essencial para transformar requisitos em algo testável e iterável.
+*   A prototipagem de baixa fidelidade, especialmente em papel, é uma forma rápida, barata e eficaz de obter feedback inicial sobre conceitos, estrutura e funcionalidade.
+*   As vantagens da prototipagem Lo-Fi incluem a promoção de feedback criativo e o foco em aspetos conceptuais em vez de detalhes estéticos.
+*   O design de tarefas realistas e bem definidas é crucial tanto para guiar a criação do protótipo como para a sua avaliação com utilizadores.
+*   Existem ferramentas digitais que podem auxiliar na criação de protótipos Lo-Fi, oferecendo mais opções de interatividade e partilha.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Perguntas:**
+
+1.  **What is the subject of the ISO standard 13407 (1999)?**
+    A norma ISO 13407:1999 (posteriormente substituída e integrada na ISO 9241-210:2010 e depois ISO 9241-210:2019) trata dos **"Processos de design centrado no ser humano para sistemas interativos"**. Ela fornece orientação sobre as atividades do design centrado no humano ao longo do ciclo de vida dos sistemas interativos baseados em computador.
+
+2.  **What are the benefits of using a Human-Centered Design (HCD) approach in developing interactive systems?**
+    Os benefícios incluem:
+    *   **Maior usabilidade:** Sistemas mais fáceis de aprender e usar, mais eficientes e satisfatórios.
+    *   **Maior satisfação do utilizador:** Resultando em maior aceitação e uso do sistema.
+    *   **Redução de erros:** Interfaces claras e intuitivas diminuem a probabilidade de erros do utilizador.
+    *   **Redução de custos de desenvolvimento e suporte:** Identificar e corrigir problemas de usabilidade cedo é mais barato do que corrigi-los após o lançamento. Menos necessidade de suporte técnico.
+    *   **Aumento da produtividade:** Utilizadores conseguem realizar as suas tarefas de forma mais eficaz e eficiente.
+    *   **Melhor adequação às necessidades reais dos utilizadores:** O sistema é projetado para resolver os problemas certos da maneira certa.
+    *   **Vantagem competitiva:** Produtos com melhor experiência do utilizador destacam-se no mercado.
+
+3.  **Personas are a method that can be used in the design of interactive systems; explain what are personas and their benefits.**
+    *   **O que são Personas:** Personas são personagens fictícias, arquétipos de utilizadores, criadas com base em **pesquisa com utilizadores reais** para representar os diferentes grupos de utilizadores que podem interagir com um produto ou serviço. Elas têm nomes, idades, objetivos, motivações, frustrações, competências técnicas e, por vezes, uma breve história ou citação.
+    *   **Benefícios:**
+        *   **Empatia:** Ajudam a equipa de design a colocar-se no lugar dos utilizadores.
+        *   **Foco:** Mantêm o foco nas necessidades e objetivos dos utilizadores durante todo o processo.
+        *   **Comunicação:** Criam uma linguagem comum e um entendimento partilhado sobre quem são os utilizadores.
+        *   **Tomada de Decisão:** Ajudam a priorizar funcionalidades e a tomar decisões de design ("A Persona Joana precisaria disto?").
+        *   **Defesa de Decisões:** Permitem justificar escolhas de design com base nas necessidades das personas.
+
+4.  **How should personas be developed?**
+    Personas devem ser desenvolvidas através de um processo que envolve:
+    1.  **Recolha de Dados (Pesquisa com Utilizadores):** Através de entrevistas, observações, questionários, análise de dados de uso, etc., para entender os utilizadores reais.
+    2.  **Identificação de Padrões:** Analisar os dados recolhidos para identificar padrões de comportamento, objetivos, necessidades e frustrações entre os utilizadores.
+    3.  **Criação de Arquétipos:** Agrupar utilizadores com padrões semelhantes em arquétipos distintos.
+    4.  **Definição das Personas:** Para cada arquétipo, criar uma persona detalhada com nome, foto (opcional), dados demográficos, objetivos, motivações, cenário de uso, competências técnicas, frustrações, etc.
+    5.  **Validação e Refinamento:** Partilhar as personas com a equipa e stakeholders para garantir que são representações realistas e úteis, e refiná-las conforme necessário.
+    6.  **Uso Contínuo:** As personas devem ser usadas ativamente ao longo de todo o processo de design e desenvolvimento.
+
+5.  **There are several types of personas; explain the main difference between fictional personas and the other types of personas.**
+    A principal diferença reside na **base da sua criação**:
+    *   **Fictional Personas (Personas Ad-hoc ou de Assunção):** São criadas com base nas **suposições, intuições e experiências da equipa de design**, sem pesquisa formal com utilizadores reais. São as menos fiáveis e devem ser usadas com muita cautela, idealmente apenas como um ponto de partida muito inicial se não houver recursos para pesquisa.
+    *   **Outros Tipos de Personas (ex: Goal-directed, Role-based, Engaging):** São fundamentalmente **baseadas em pesquisa com utilizadores reais**. Os dados recolhidos através de métodos como entrevistas, observações, etc., são analisados para criar representações fiéis dos grupos de utilizadores.
+
+6.  **Describe a minimal set of characteristics that can be used to define a persona.**
+    Um conjunto mínimo de características inclui:
+    *   **Nome Fictício e Foto (opcional, mas ajuda a humanizar)**
+    *   **Dados Demográficos Chave:** Idade, ocupação, nível de experiência com tecnologia relevante.
+    *   **Objetivos Principais (Goals):** O que a persona quer alcançar ao usar o sistema/produto.
+    *   **Motivações:** As razões por detrás dos seus objetivos.
+    *   **Frustrações/Pontos Problemáticos (Pain Points):** Dificuldades ou problemas que a persona enfrenta atualmente.
+    *   **Um breve Cenário ou Citação:** Algo que capture a sua essência ou contexto principal de uso.
+
+7.  **What is a scenario? And why are they useful in the design of interactive systems?**
+    *   **O que é um Cenário:** Um cenário é uma **narrativa curta e focada** que descreve como uma persona específica usa um sistema ou produto para atingir um objetivo particular num determinado contexto. Responde a perguntas como: Quem? O quê? Quando? Onde? Porquê? E Como (de forma geral)?
+    *   **Porque são úteis:**
+        *   **Exploração de Design:** Ajudam a explorar e a visualizar como o sistema será usado na prática.
+        *   **Comunicação:** Facilitam a comunicação de ideias de design e requisitos dentro da equipa e com stakeholders.
+        *   **Foco no Utilizador:** Mantêm o foco nas tarefas e objetivos do utilizador.
+        *   **Identificação de Requisitos:** Ajudam a identificar funcionalidades necessárias e potenciais problemas.
+        *   **Base para Testes:** Servem como base para definir tarefas em testes de usabilidade.
+
+8.  **Scenarios may also be used in usability evaluation; give an example.**
+    Sim, cenários são fundamentais para testes de usabilidade. Eles fornecem o contexto e as tarefas que os participantes do teste irão realizar.
+    *   **Exemplo:** Para testar um novo website de uma biblioteca, um cenário pode ser:
+        "A *Joana (Persona)* é uma estudante universitária que precisa de encontrar o livro 'Interação Humano-Computador' de Alan Dix para um trabalho. Ela quer verificar se o livro está disponível na biblioteca e, se estiver, reservá-lo para levantar amanhã. Por favor, use o protótipo do website da biblioteca para tentar realizar esta tarefa."
+        O facilitador então observa como o participante tenta completar os objetivos da Joana descritos no cenário.
+
+9.  **How are personas related to scenarios?**
+    Personas e cenários estão intrinsecamente ligados:
+    *   **Personas são os "atores" dos cenários.** Cada cenário é escrito do ponto de vista de uma persona específica, refletindo os seus objetivos, motivações e contexto.
+    *   Os cenários descrevem **o que as personas fazem ou querem fazer** com o sistema. Sem personas, os cenários seriam genéricos e menos eficazes.
+
+10. **What should be considered when writing a scenario?**
+    Ao escrever um cenário, deve-se considerar:
+    *   **Persona:** Quem é o utilizador (usar a persona definida).
+    *   **Objetivo:** Qual é o objetivo principal da persona nesta interação.
+    *   **Motivação:** Porque é que a persona quer atingir esse objetivo.
+    *   **Contexto:** Onde, quando e em que circunstâncias a interação ocorre.
+    *   **Ações (Gerais):** Os passos principais que a persona executa, mas de forma "agnóstica à solução" (focando no "o quê", não no "como" específico da interface).
+    *   **Resultado Esperado:** O que acontece quando a persona atinge o seu objetivo.
+    *   **Clareza e Concisão:** O cenário deve ser fácil de entender e focado.
+
+11. **What is the difference among scenarios, user stories and use cases?**
+    Embora todos se relacionem com a interação do utilizador, têm propósitos e formatos diferentes:
+    *   **Cenários:** Narrativas ricas em contexto, focadas na experiência do utilizador (persona) a atingir um objetivo. Usados por designers de UX para explorar e comunicar o design.
+    *   **User Stories (Histórias de Utilizador):** Declarações curtas no formato "Como um <tipo de utilizador>, eu quero <objetivo> para que <razão/benefício>". Usadas em metodologias ágeis para definir requisitos de forma concisa para a equipa de desenvolvimento. Focam no valor para o utilizador.
+    *   **Use Cases (Casos de Uso):** Descrições mais formais e detalhadas das interações entre um ator (utilizador ou outro sistema) e o sistema para alcançar um objetivo específico. Incluem passos, pré-condições, pós-condições, fluxos alternativos. Usados por analistas de sistemas e programadores para especificar e testar funcionalidades.
+
+12. **What do scenarios, user stories and use cases have in common?**
+    Todos eles:
+    *   Visam capturar e descrever as **necessidades e objetivos dos utilizadores** em relação a um sistema.
+    *   Descrevem algum tipo de **interação entre um utilizador (ou ator) e o sistema**.
+    *   São ferramentas para ajudar a equipa a **entender e a construir o sistema certo**.
+    *   Colocam o foco no que o sistema deve permitir que o utilizador faça.
+
+13. **After defining scenarios, it is necessary to analyze the main tasks to be performed in the context of the scenario. This analysis can be done informally by asking questions; indicate a minimum set of questions.**
+    Um conjunto mínimo de perguntas para análise informal de tarefas inclui (baseado nas aulas):
+    1.  **Quem vai usar o sistema?** (Revisitar personas)
+    2.  **Que tarefas realizam atualmente (sem o novo sistema)?** (Para entender o fluxo de trabalho existente)
+    3.  **Que novas tarefas são desejadas (com o novo sistema)?**
+    4.  **Onde são as tarefas realizadas?** (Contexto físico e ambiental)
+    (Outras perguntas úteis incluem: Como as tarefas são aprendidas? Com que frequência são realizadas? Que ferramentas são usadas? Quais as restrições de tempo?)
+
+14. **Task analysis is a very useful and may be done using Hierarchical task Analysis (HTA); what are its main characteristics?**
+    As principais características da Análise Hierárquica de Tarefas (HTA) são:
+    *   **Decomposição Hierárquica:** A tarefa principal é decomposta em sub-tarefas, e estas podem ser novamente decompostas, formando uma estrutura de árvore.
+    *   **Foco em Objetivos (Goals):** Cada tarefa e sub-tarefa representa um objetivo que o utilizador pretende alcançar.
+    *   **Planos (Plans):** Descrevem como as sub-tarefas são ordenadas e executadas para atingir o objetivo da tarefa pai (ex: sequência, seleção, iteração).
+    *   **Nível de Detalhe:** A decomposição continua até um nível de detalhe considerado útil para o propósito da análise.
+    *   **Representação Gráfica e Textual:** Frequentemente representada por um diagrama em árvore e acompanhada por descrições textuais.
+
+15. **What for may task analysis be used?**
+    A análise de tarefas pode ser usada para:
+    *   **Design de Interfaces de Utilizador:** Informar o layout, navegação e funcionalidade da interface.
+    *   **Desenvolvimento de Manuais e Materiais de Formação:** Estruturar o conteúdo com base em como as tarefas são realizadas.
+    *   **Identificação de Requisitos:** Detalhar os requisitos funcionais do sistema.
+    *   **Avaliação de Usabilidade:** Ajudar a definir tarefas para testes e a identificar potenciais problemas.
+    *   **Redesenho de Processos:** Analisar fluxos de trabalho existentes para identificar ineficiências e oportunidades de melhoria.
+    *   **Alocação de Funções:** Decidir que partes de uma tarefa devem ser automatizadas pelo sistema e quais devem ser realizadas pelo utilizador.
+
+16. **Think of some everyday task and perform HTA using its graphical form.**
+    **Tarefa: Fazer um Café Expresso numa Máquina Manual**
+
+    ```mermaid
+    graph TD
+        0("0. Fazer Café Expresso") --> P0("Plano 0: Fazer 1.0-6.0 em sequência")
+        P0 --> 1("1. Preparar Máquina e Ingredientes")
+        P0 --> 2("2. Moer Café")
+        P0 --> 3("3. Preparar Porta-filtro")
+        P0 --> 4("4. Extrair Café")
+        P0 --> 5("5. Limpar Porta-filtro")
+        P0 --> 6("6. Desligar Máquina (opcional)")
+
+        1 --> P1("Plano 1: Fazer 1.1-1.3")
+        P1 --> 1.1("1.1 Ligar máquina e aquecer")
+        P1 --> 1.2("1.2 Colocar água no reservatório (se necessário)")
+        P1 --> 1.3("1.3 Pegar no café em grão")
+
+        3 --> P3("Plano 3: Fazer 3.1-3.3")
+        P3 --> 3.1("3.1 Colocar café moído no porta-filtro")
+        P3 --> 3.2("3.2 Nivelar e calcar o café")
+        P3 --> 3.3("3.3 Encaixar porta-filtro na máquina")
+
+        4 --> P4("Plano 4: Fazer 4.1-4.2")
+        P4 --> 4.1("4.1 Colocar chávena sob o porta-filtro")
+        P4 --> 4.2("4.2 Acionar extração e parar quando atingir volume desejado")
+    ```
+
+17. **What type of plans may an HTA include?**
+    Uma HTA pode incluir vários tipos de planos para descrever a execução das sub-tarefas:
+    *   **Sequência:** As sub-tarefas são executadas numa ordem específica (ex: Fazer 1, depois 2, depois 3).
+    *   **Seleção (Condicional):** Apenas uma de várias sub-tarefas é executada, dependendo de uma condição (ex: SE chávena suja ENTÃO Lavar chávena SENÃO Usar chávena).
+    *   **Iteração (Repetição):** Uma sub-tarefa ou conjunto de sub-tarefas é repetida até que uma condição seja satisfeita (ex: ENQUANTO houver roupa suja FAZER Colocar na máquina).
+    *   **Paralelo/Concorrente:** Duas ou mais sub-tarefas podem ser executadas ao mesmo tempo ou em qualquer ordem (embora mais difícil de modelar explicitamente em HTA simples).
+    *   **Opcional:** Uma sub-tarefa pode ou não ser executada.
+
+18. **What are the main information sources for a task analysis?**
+    As principais fontes de informação são:
+    *   **Observação dos Utilizadores:** Observar utilizadores a realizar as tarefas no seu ambiente natural ou num ambiente simulado.
+    *   **Entrevistas com Utilizadores e Especialistas no Domínio:** Questionar sobre como realizam as tarefas, os seus objetivos, problemas, etc.
+    *   **Documentação Existente:** Manuais, guias de procedimentos, especificações de sistemas anteriores.
+    *   **Análise de Sistemas Semelhantes:** Estudar como tarefas são realizadas em sistemas concorrentes ou comparáveis.
+    *   **Questionários:** Para recolher dados de um grande número de utilizadores.
+    *   **Diários de Utilização (User Diaries):** Pedir aos utilizadores para registarem as suas atividades e experiências ao longo do tempo.
+
+19. **Are task analysis methods objective? Why?**
+    Os métodos de análise de tarefas **não são totalmente objetivos**, embora se esforcem por sê-lo.
+    *   **Porquê:**
+        *   **Interpretação do Analista:** A forma como o analista observa, regista e, principalmente, decompõe as tarefas envolve um grau de interpretação e julgamento subjetivo.
+        *   **Escolha do Nível de Detalhe:** A decisão de até onde decompor uma tarefa é muitas vezes subjetiva e depende do objetivo da análise.
+        *   **Seleção de Participantes:** A escolha dos utilizadores a observar ou entrevistar pode introduzir enviesamentos.
+        *   **Efeito do Observador:** A presença de um observador pode alterar o comportamento do utilizador (efeito Hawthorne).
+    Contudo, ao seguir metodologias estruturadas, usar múltiplas fontes de dados e ter vários analistas a rever o trabalho, pode-se aumentar a fiabilidade e reduzir a subjetividade.
+
+20. **When to stop decomposition is an important issue in applying HTA. State a rule that can be used to make that decision.**
+    Uma regra comum é a **regra PxC (Probabilidade x Custo)**:
+    *   **P (Probability):** A probabilidade de o utilizador cometer um erro ao executar a sub-tarefa.
+    *   **C (Cost):** O custo ou consequência desse erro.
+    *   **Regra:** Se o produto P x C for abaixo de um determinado limiar aceitável, a decomposição dessa sub-tarefa pode parar. Se for alto, a sub-tarefa provavelmente precisa de mais decomposição ou de um design cuidadoso para mitigar o erro.
+    Outras heurísticas incluem: parar quando a sub-tarefa é uma ação simples e bem compreendida, quando não há mais decisões importantes a serem tomadas pelo utilizador dentro dela, ou quando uma maior decomposição não adiciona valor significativo para o objetivo da análise.
+
+21. **What is the Wizard of Oz method? Give an example of a situation in which it can be useful.**
+    *   **O que é:** O método Wizard of Oz é uma técnica de prototipagem e teste onde o utilizador interage com uma interface que aparenta ser totalmente funcional e autónoma, mas cujas respostas e comportamentos são, na verdade, simulados em tempo real por um ser humano (o "mágico" ou "wizard") escondido, sem o conhecimento do utilizador.
+    *   **Exemplo de utilidade:**
+        *   **Testar uma interface de voz (VUI) antes de desenvolver o complexo motor de reconhecimento de fala e processamento de linguagem natural.** O utilizador fala com o sistema, o "mágico" ouve o pedido através de um microfone e digita ou seleciona uma resposta apropriada que é então vocalizada pelo sistema (ou mostrada no ecrã). Isto permite testar o fluxo da conversação, a clareza dos comandos e a utilidade das respostas sem o custo de implementar a tecnologia subjacente completa.
+        *   Testar sistemas baseados em Inteligência Artificial complexa.
+
+22. **What are the main characteristics of participatory design?**
+    As principais características do Design Participativo são:
+    *   **Colaboração Ativa dos Utilizadores:** Os utilizadores não são apenas sujeitos de estudo, mas sim parceiros ativos e co-criadores ao longo de todo o processo de design.
+    *   **Empoderamento dos Utilizadores:** Dar voz aos utilizadores e permitir que as suas perspetivas e conhecimentos influenciem diretamente o design.
+    *   **Iteração e Aprendizagem Mútua:** O processo é iterativo, com designers e utilizadores a aprenderem uns com os outros.
+    *   **Foco na Experiência e Contexto do Utilizador:** Valorizar o conhecimento prático e as experiências vividas pelos utilizadores.
+    *   **Uso de Ferramentas e Técnicas Acessíveis:** Utilizar métodos que facilitem a participação de não-designers (ex: protótipos de baixa fidelidade, workshops).
+    *   **Objetivo de Melhoria:** Não apenas criar um produto, mas também melhorar a situação de trabalho ou de vida dos utilizadores.
+
+23. **What techniques may be used in the scope of participatory design to get information from the users?**
+    Várias técnicas podem ser usadas, incluindo:
+    *   **Workshops de Co-design (Co-design Workshops):** Sessões colaborativas onde utilizadores e designers trabalham juntos para gerar ideias, esboçar soluções e criar protótipos.
+    *   **Prototipagem de Baixa Fidelidade Conjunta:** Utilizadores participam ativamente na criação e modificação de protótipos (ex: com papel, post-its, legos).
+    *   **Card Sorting (com utilizadores):** Pedir aos utilizadores para organizarem cartões com itens de conteúdo ou funcionalidades em grupos que façam sentido para eles, ajudando a definir a arquitetura de informação.
+    *   **Storytelling e Criação de Cenários Conjunta:** Utilizadores partilham as suas histórias e ajudam a construir cenários de uso.
+    *   **Mapas de Jornada do Utilizador (User Journey Mapping) Colaborativos:** Utilizadores ajudam a mapear a sua experiência atual e a ideal.
+    *   **Brainstorming com Utilizadores.**
+
+24. **What is the Fitts law? Why is it useful in the design of User Interfaces?**
+    *   **O que é a Lei de Fitts:** É um modelo matemático preditivo do movimento humano, que estabelece que o **tempo (T) necessário para mover rapidamente para uma área alvo é uma função da razão entre a distância (D) ao alvo e a largura (W) do alvo**. Matematicamente, T = a + b log₂(D/W + 1), onde 'a' e 'b' são constantes empíricas.
+    *   **Porque é útil no design de UIs:**
+        *   **Dimensionamento e Posicionamento de Alvos:** Ajuda a tomar decisões informadas sobre o tamanho de botões, ícones e outros elementos interativos, e sobre a sua localização no ecrã.
+        *   **Otimização da Eficiência:** Para aumentar a velocidade de seleção:
+            *   **Diminuir D:** Colocar elementos relacionados próximos uns dos outros, ou elementos frequentemente usados em locais de fácil acesso.
+            *   **Aumentar W:** Tornar os alvos maiores, especialmente os mais importantes ou frequentemente usados.
+        *   **Design de Menus:** Explica porque menus em cascata podem ser lentos se os sub-itens forem pequenos e distantes, ou porque os cantos e bordas do ecrã são alvos "infinitamente grandes" numa direção (ex: menu Apple no canto superior esquerdo).
+        *   **Previsão de Desempenho:** Permite comparar diferentes layouts de interface em termos do tempo estimado para realizar certas tarefas de apontar e clicar.
