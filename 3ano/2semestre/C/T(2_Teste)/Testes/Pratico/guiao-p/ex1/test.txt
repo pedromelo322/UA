@@ -1,0 +1,8 @@
+t1 : " Miguel "
+print t1
+t2 : input (" Nome : ")
+print t2
+print t1 +" "+ t2
+print ( t1 /" i "/" iii ")
+t1 : trim "
+ "+( t1 - " igu ")+"print t1
