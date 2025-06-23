@@ -1,0 +1,6 @@
+print [1,2,3];          -- escreve tuplo de números na consola
+a := [5];               -- guarda tuplo de números na variável a
+print a;                -- escreve na consola a tuplo de números armazenado na variável a
+print ;                 -- escreve linha em branco
+a := [5,4,3,2,1] ;    -- guarda tuplo de números na variável a
+print a, [1];           -- escreve na consola os tuplos de números (a e [1]) separados por um espaço
