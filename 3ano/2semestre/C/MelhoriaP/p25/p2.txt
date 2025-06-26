@@ -1,0 +1,13 @@
+::- p2.txt -::
+xX2:=10h*4m/2s-(4m%2s+3h) ;
+write xX2;
+
+t := 02h07m2024s; ::- not an error, equivalent to: 02h40m44s -::
+write 1h1m1s ,+1h1m1s, -1h1m1s;
+
+write t,+t,-t, t-t, t+(-t);
+
+write;
+
+write t, h t, m t, s t, m t * s t - t * m t; ::- prefix operators h, m, and s -::
+
