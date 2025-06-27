@@ -1,0 +1,22 @@
+acho que era fazer:
+
+
+while ... do 
+
+...
+
+
+end
+
+
+
+e 
+
+
+do ...
+
+while ... end
+
+
+
+mas não tenho a certeza
