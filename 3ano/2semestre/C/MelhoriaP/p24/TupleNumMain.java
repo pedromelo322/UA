@@ -1,58 +1,49 @@
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.*;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import java.io.*;
 
 public class TupleNumMain {
    public static void main(String[] args) {
-      for(int i = 0; i < args.length; i++){
 
       
-         try {
-            Scanner sc = new Scanner(new File(args[i]));
-            String lineText = null;
-            int numLine = 1;
-            if (sc.hasNextLine())
-               lineText = sc.nextLine();
-            TupleNumParser parser = new TupleNumParser(null);
-            // replace error listener:
-            //parser.removeErrorListeners(); // remove ConsoleErrorListener
-            //parser.addErrorListener(new ErrorHandlingListener());
-            VIinterpreter visitor0 = new VIinterpreter();
-            while(lineText != null) {
-               // create a CharStream that reads from standard input:
-               CharStream input = CharStreams.fromString(lineText + "\n");
-               // create a lexer that feeds off of input CharStream:
-               TupleNumLexer lexer = new TupleNumLexer(input);
-               lexer.setLine(numLine);
-               lexer.setCharPositionInLine(0);
-               // create a buffer of tokens pulled from the lexer:
-               CommonTokenStream tokens = new CommonTokenStream(lexer);
-               // create a parser that feeds off the tokens buffer:
-               parser.setInputStream(tokens);
-               // begin parsing at main rule:
-               ParseTree tree = parser.main();
-               if (parser.getNumberOfSyntaxErrors() == 0) {
-                  // print LISP-style tree:
-                  // System.out.println(tree.toStringTree(parser));
-                  visitor0.visit(tree);
-               }
-               if (sc.hasNextLine())
-                  lineText = sc.nextLine();
-               else
-                  lineText = null;
-               numLine++;
-            }
-         }
-         catch(RecognitionException e) {
-            e.printStackTrace();
-            System.exit(1);
+
+      try {
+         Scanner sc = new Scanner(new File(args[0]));
+         StringBuilder content = new StringBuilder();
+         while (sc.hasNextLine()){
+            content.append(sc.nextLine()).append('\n');
          }
 
-         catch(FileNotFoundException e) {
-            e.printStackTrace();
-            System.exit(1);
+
+         // create a CharStream that reads from standard input:
+         CharStream input = CharStreams.fromString(content.toString());
+         // create a lexer that feeds off of input CharStream:
+         TupleNumLexer lexer = new TupleNumLexer(input);
+         // create a buffer of tokens pulled from the lexer:
+         CommonTokenStream tokens = new CommonTokenStream(lexer);
+         // create a parser that feeds off the tokens buffer:
+         TupleNumParser parser = new TupleNumParser(tokens);
+         // replace error listener:
+         //parser.removeErrorListeners(); // remove ConsoleErrorListener
+         //parser.addErrorListener(new ErrorHandlingListener());
+         // begin parsing at main rule:
+         ParseTree tree = parser.main();
+         if (parser.getNumberOfSyntaxErrors() == 0) {
+            // print LISP-style tree:
+            // System.out.println(tree.toStringTree(parser));
+            VIinterpreter visitor0 = new VIinterpreter();
+            visitor0.visit(tree);
          }
+      }
+      catch(IOException e) {
+         e.printStackTrace();
+         System.exit(1);
+      }
+      catch(RecognitionException e) {
+         e.printStackTrace();
+         System.exit(1);
       }
    }
 }

@@ -4,8 +4,7 @@
 -- c ;
 -- end;
 
--- devid funcionar mas não funciona 
--- então estou a usar
+-- para fazer a de cima modificas a main se não então estou a usar
 -- while x do: a; b; c; end;
 
 
@@ -22,12 +21,12 @@ print "Initial tuple: ", a, ";";
 
 -- This loop will continue as long as the tuple is not empty and not all zeros
 -- Each iteration decreases the values in the tuple
---while a do:
---    print "Current tuple: ", a, ";";
+while a do:
+    print "Current tuple: ", a, ";";
     -- Subtract [5, 3, 2, 1]; from the tuple in each iteration
---    a := a - [5, 3, 2, 1];
---end;
-while a do: print "Current tuple: ", a, ";"; a := a - [5, 3, 2, 1]; end;
+    a := a - [5, 3, 2, 1];
+end;
+
 
 -- This will print the final tuple (should be all zeros)
 print "Final tuple: ", a, ";";
@@ -36,9 +35,9 @@ print "Final tuple: ", a, ";";
 b := [];
 print "Empty tuple: ", b, ";";
 
---while b do:
---    print "This should not execute";
---end;
+while b do:
+    print "This should not execute";
+end;
 
 while b do: print "This should not execute"; end;
 
@@ -46,20 +45,20 @@ while b do: print "This should not execute"; end;
 c := [0, 0, 0];
 print "Zero tuple: ", c, ";";
 
--- while c do:
---     print "This should not execute";
--- end;
+while c do:
+    print "This should not execute";
+end;
 
 while c do: print "This should not execute"; end;
 
 -- Example that removes elements one by one
- d := [3, 2, 1];
- print "Starting with: ", d, ";";
+d := [3, 2, 1];
+print "Starting with: ", d, ";";
 
--- while d do:
---     print "Current tuple: ", d, ";";
---     d := tail d;
--- end;
+while d do:
+    print "Current tuple: ", d, ";";
+    d := tail d;
+end;
 
 while d do: print "Current tuple: ", d, ";"; d := tail d; end;
 
