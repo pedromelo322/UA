@@ -1,0 +1,3 @@
+print read; -- pede um tuplo de números ao utilizador e escreve-a na consola
+soma := (read + read);
+print soma;

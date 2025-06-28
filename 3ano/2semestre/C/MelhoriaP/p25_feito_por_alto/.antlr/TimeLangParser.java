@@ -1,4 +1,4 @@
-// Generated from /home/pedromelo1316/Documents/UA/3ano/2semestre/C/MelhoriaP/p25/TimeLang.g4 by ANTLR 4.13.1
+// Generated from /home/pedromelo1316/Documents/UA/3ano/2semestre/C/MelhoriaP/p25_feito_por_alto/TimeLang.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
