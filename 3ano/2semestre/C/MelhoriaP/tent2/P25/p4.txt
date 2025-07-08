@@ -1,0 +1,14 @@
+t:= 10s;
+
+while t do 
+  write t;
+  t := t - 1s;
+end;
+
+
+t:= 10s;
+
+do
+  write t;
+  t := t - 1s;
+end while t;

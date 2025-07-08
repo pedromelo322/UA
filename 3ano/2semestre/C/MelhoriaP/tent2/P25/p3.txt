@@ -1,0 +1,3 @@
+::- Parte do ficheiro p3.txt -::
+write read "time";
+write read + read;

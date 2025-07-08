@@ -1,0 +1,10 @@
+::- p1.txt (possible multiline comment!!!) -::
+
+write 4h3m2s; ::- write time in terminal -::
+write 28h3m2s; ::- write time in terminal (always: totalSeconds%(60*60*24))-::
+t := 1h1m20s; ::- guarda time in variable t -::
+write t; ::- write variable t value in terminal -::
+write; ::- write empty line -::
+t:=0h0m1s; ::- stores time in variable t (not an error!) -::
+write t, 2h2m2s; ::- write in terminal two values separated by a space -::
+::-totalSeconds = sec + 60*(min + 60 hour) -::
