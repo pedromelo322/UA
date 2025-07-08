@@ -1,0 +1,14 @@
+--p2.txt
+xx2:= [1,2,3,4]; 
+print xx2;
+print xx2 + [4,3,2,1];  --[5,5,5,5]
+print xx2 - xx2;        --[0,0,0,0]
+print +xx2;             --[1,2,3,4]
+print -xx2;             --[-1,-2,-3,-4]
+print head xx2;         --[1]
+print tail xx2;         --[2,3,4]
+print sum xx2;          --[10]
+print average xx2;      --[2.5]
+print head xx2 + tail xx2 - average xx2 + sum xx2;  --[10.5,3,4]
+print [], sum [];
+print [3] + (head ([3]+[1]) + tail [5,3] + sum (xx2+[1])+ average [5,3]);
