@@ -1,0 +1,11 @@
+*COM* p2.txt
+display 1-4+5i+8;
+r1 <= 2;
+i1 <= i;
+display r1 * r1 * i1;
+display r1 + i1:i1 - r1;
+display -r1;
+display -i1;
+c1 <= 1 - i1;
+c2 <= -(c1 + r1 - i1 * i);
+display c2;

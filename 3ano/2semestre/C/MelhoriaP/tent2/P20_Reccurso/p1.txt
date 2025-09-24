@@ -1,0 +1,6 @@
+*COM* p1.trt
+display 2+3i; *COM* escreve na consola o número 2+3i
+display 4; *COM* escreve na consola o númего 4
+display i; *COM* escreve na consola o número i
+c <= 4.3-i; *COM* guarda o número 4.3-i na variável c
+display c; *COM* escreve na consola o número armazenado na variável c

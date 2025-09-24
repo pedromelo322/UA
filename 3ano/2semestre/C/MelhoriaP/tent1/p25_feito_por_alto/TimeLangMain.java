@@ -1,51 +1,47 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import java.io.*;
 
 public class TimeLangMain {
    public static void main(String[] args) {
       try {
+
+         StringBuilder str = new StringBuilder();
          Scanner sc = new Scanner(new File(args[0]));
-         String lineText = null;
-         int numLine = 1;
-         if (sc.hasNextLine())
-            lineText = sc.nextLine();
-         TimeLangParser parser = new TimeLangParser(null);
+
+         while (sc.hasNextLine()) {
+            str.append(sc.nextLine() + "\n");
+         }
+
+
+         // create a CharStream that reads from standard input:
+         CharStream input = CharStreams.fromString(str.toString());
+         // create a lexer that feeds off of input CharStream:
+         TimeLangLexer lexer = new TimeLangLexer(input);
+         // create a buffer of tokens pulled from the lexer:
+         CommonTokenStream tokens = new CommonTokenStream(lexer);
+         // create a parser that feeds off the tokens buffer:
+         TimeLangParser parser = new TimeLangParser(tokens);
          // replace error listener:
          //parser.removeErrorListeners(); // remove ConsoleErrorListener
          //parser.addErrorListener(new ErrorHandlingListener());
-         VIinterpreter visitor0 = new VIinterpreter();
-         while(lineText != null) {
-            // create a CharStream that reads from standard input:
-            CharStream input = CharStreams.fromString(lineText + "\n");
-            // create a lexer that feeds off of input CharStream:
-            TimeLangLexer lexer = new TimeLangLexer(input);
-            lexer.setLine(numLine);
-            lexer.setCharPositionInLine(0);
-            // create a buffer of tokens pulled from the lexer:
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            // create a parser that feeds off the tokens buffer:
-            parser.setInputStream(tokens);
-            // begin parsing at main rule:
-            ParseTree tree = parser.main();
-            if (parser.getNumberOfSyntaxErrors() == 0) {
-               // print LISP-style tree:
-               // System.out.println(tree.toStringTree(parser));
-               visitor0.visit(tree);
-            }
-            if (sc.hasNextLine())
-               lineText = sc.nextLine();
-            else
-               lineText = null;
-            numLine++;
+         // begin parsing at main rule:
+         ParseTree tree = parser.main();
+         if (parser.getNumberOfSyntaxErrors() == 0) {
+            // print LISP-style tree:
+            // System.out.println(tree.toStringTree(parser));
+            VIinterpreter visitor0 = new VIinterpreter();
+            visitor0.visit(tree);
          }
       }
-      catch(RecognitionException e) {
+      catch(IOException e) {
          e.printStackTrace();
          System.exit(1);
       }
-      catch(FileNotFoundException e) {
+      catch(RecognitionException e) {
          e.printStackTrace();
          System.exit(1);
       }

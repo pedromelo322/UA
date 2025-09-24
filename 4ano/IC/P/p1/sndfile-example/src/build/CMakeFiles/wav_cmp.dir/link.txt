@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -std=c++20 -O3 -Wl,--dependency-file=CMakeFiles/wav_cmp.dir/link.d CMakeFiles/wav_cmp.dir/wav_cmp.cpp.o -o /home/pedromelo1316/Documents/UA/4ano/IC/P/p1/sndfile-example/bin/wav_cmp  -lsndfile
