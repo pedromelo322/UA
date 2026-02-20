@@ -1,0 +1,145 @@
+!
+!
+!
+
+!
+! Last configuration change at 14:57:04 UTC Wed Jan 21 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname Lisbon
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+!
+mpls traffic-eng tunnels
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+class-map match-all CLIENTE2_AF
+ match access-group 102
+!
+policy-map QOS_POLICY
+ class CLIENTE2_AF
+  bandwidth 10000
+  set ip dscp af31
+ class class-default
+  fair-queue
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.0.0.1 255.255.255.255
+!
+interface Tunnel1
+ description Tunel_Cliente_L1                                     
+ ip unnumbered Loopback0
+ tunnel mode mpls traffic-eng
+ tunnel destination 10.0.0.2
+ tunnel mpls traffic-eng priority 7 7
+ tunnel mpls traffic-eng bandwidth 10000
+ tunnel mpls traffic-eng path-option 1 dynamic
+!
+interface FastEthernet0/0
+ ip address 10.0.1.1 255.255.255.252
+ speed auto
+ duplex auto
+ mpls traffic-eng tunnels
+ service-policy output QOS_POLICY
+ ip rsvp bandwidth 100000
+!
+interface FastEthernet0/1
+ ip address 10.0.1.5 255.255.255.252
+ speed auto
+ duplex auto
+ mpls traffic-eng tunnels
+ service-policy output QOS_POLICY
+ ip rsvp bandwidth 100000
+!
+interface FastEthernet1/0
+ ip address 10.0.1.21 255.255.255.252
+ ip policy route-map CLIENTE1_TO_TE
+ speed auto
+ duplex auto
+!
+interface FastEthernet1/1
+ no ip address
+ shutdown
+ speed auto
+ duplex auto
+!
+router ospf 1
+ network 10.0.0.0 0.0.255.255 area 0
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+access-list 101 permit udp any any eq 4790
+access-list 102 permit udp any any eq 4789
+!
+route-map CLIENTE1_TO_TE permit 10
+ match ip address 101
+ set interface Tunnel1
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end
+

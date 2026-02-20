@@ -1,0 +1,31 @@
+As perguntas que me recordo do teste deste ano de AC: 
+🔹 Gestão de Redes e Sistemas
+Qual a diferença entre CMIS e CMIP?
+Porque é que a gestão de redes e sistemas foi lecionada agora em mestrado e não antes?
+O que é o modelo TMN e qual a sua relação com o modelo OSI?
+Quais são as camadas da arquitetura TMN e qual a função de cada uma?
+
+🔹 BGP / MP-BGP
+O que significa o BGP ser um protocolo do tipo path-vector?
+Porque foi necessário evoluir o BGP de AS numbers de 2 bytes para 4 bytes?
+O que são route reflectors em BGP e para que servem?
+Num sistema autónomo multi-homed de trânsito, como podem ser usados atributos BGP como Local Preference, Multi-Exit Discriminator (MED) e outro(n me lembro qual)?
+
+🔹 QoS (Quality of Service)
+Quais são os principais princípios/funções da Qualidade de Serviço (QoS)?
+Qual a diferença entre shaping e policing no controlo de tráfego?
+O que é o modelo IntServ e porque utiliza mecanismos de reserva de recursos?
+O Assured Forwarding (AF) é utilizado no modelo IntServ? Justifique.
+Os mecanismos de leaky bucket são frequentemente usados em redes comerciais? Porquê?
+
+🔹 MPLS
+Para que serve o label stacking em MPLS
+
+🔹 Datacenters / VXLAN / EVPN
+O que é o VXLAN e que problema resolve em datacenters modernos?
+O que é o BGP EVPN e para que serve?
+Porque é que o BGP EVPN é usado em conjunto com VXLAN?
+
+🔹 CDNs e Web
+O que é o DNS redirection e para que é utilizado CDN?
+O que é o mecanismo de Conditional GET no protocolo HTTP e qual a sua vantagem?

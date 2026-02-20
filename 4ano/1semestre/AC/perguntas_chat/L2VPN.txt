@@ -1,0 +1,69 @@
+I. Arquitetura de Data Center (Spine-and-Leaf)
+
+    Qual é a principal limitação das topologias clássicas de "Three-Tier" (Access, Aggregation, Core) que levou à adoção da arquitetura CLOS? (Dica: Bottlenecks de escalabilidade e STP).
+
+    Descreva a topologia Spine-and-Leaf. Como se conectam os dispositivos? (Todos os Leafs ligam a todos os Spines, Spines não ligam a Spines).
+
+    Numa arquitetura Spine-and-Leaf, onde reside tipicamente o gateway de Layer 3 para os servidores? (Na camada Leaf).
+
+    Que tipo de protocolo de roteamento (IGP) é usado no Underlay (entre Spines e Leafs)? (OSPF ou IS-IS, tipicamente).
+
+II. VXLAN (Data Plane)
+
+    O que é o VXLAN e que tipo de encapsulamento utiliza? (MAC-in-UDP).
+
+    Qual é a limitação das VLANs (802.1Q) que o VXLAN resolve? (O limite de 4096 IDs vs 16 milhões de VNIs).
+
+    Qual o tamanho do campo VNI (VXLAN Network Identifier)? (24 bits).
+
+    O que é um VTEP (VXLAN Tunnel Endpoint) e qual a sua função? (Encapsulamento e desencapsulamento).
+
+    Qual é o porto UDP padrão para o VXLAN? (4789).
+
+    Explique o problema do método Flood and Learn (F&L) nativo do VXLAN. Porque é ineficiente em grandes escalas? (Inundação de tráfego BUM - Broadcast, Unknown Unicast, Multicast).
+
+    O VXLAN requer alterações na rede física (Underlay) para transportar as frames L2 estendidas? (Não, apenas requer conectividade IP/UDP).
+
+    Qual é o overhead (em bytes) adicionado pelo encapsulamento VXLAN ao pacote original? (50 Bytes: Ethernet+IP+UDP+VXLAN).
+
+III. BGP EVPN (Control Plane)
+
+    O que significa EVPN e qual o seu papel numa rede VXLAN? (Fornecer o Control Plane para eliminar o Flood and Learn).
+
+    Que família de endereços (Address Family) do MP-BGP é utilizada para EVPN? (L2VPN EVPN).
+
+    No BGP EVPN, como são descobertos os endereços MAC dos hosts finais? (Via BGP UPDATEs, não via flooding de dados).
+
+    O que é o atributo MP_REACH_NLRI no contexto de EVPN?
+
+    Descreva a Rota Tipo-2 (MAC/IP Advertisement Route). Que informação transporta? (MAC, IP e o VTEP de destino/Next-Hop).
+
+    Para que serve a Rota Tipo-3 (Inclusive Multicast Ethernet Tag Route)? (Para gerir tráfego BUM e criar túneis de Ingress Replication).
+
+    O que é o mecanismo de Ingress Replication em túneis de broadcast?
+
+    Como é que o BGP EVPN permite a redução de tráfego ARP na rede (ARP Suppression)?
+
+    Quando um novo Leaf é adicionado à rede, que tipo de rota BGP EVPN é enviada para anunciar a sua presença aos outros VTEPs? (Tipo-3).
+
+IV. L3 VPN sobre EVPN e Integração
+
+    É possível encaminhar tráfego de Layer 3 (Routing) usando EVPN? Como?
+
+    O que é a Rota Tipo-5 (IP Prefix Route) e qual a sua função em cenários de L3VPN? (Anunciar prefixos IP/Sub-redes para roteamento inter-VXLAN ou externo).
+
+    Compare o MPLS L3VPN clássico com o L3VPN sobre VXLAN/EVPN. (Transporte MPLS vs Transporte IP/UDP; Labels vs VNIs).
+
+    No modelo EVPN com VXLAN, o Control Plane é ________ e o Data Plane é ________. (BGP; VXLAN).
+
+V. Operação e Design
+
+    Onde deve ser configurado o Route Reflector numa topologia Spine-and-Leaf com iBGP EVPN? (Geralmente nos Spines).
+
+    O que é o atributo Extended Community de Encapsulamento no BGP EVPN? (Indica se o túnel é VXLAN, MPLS ou PBB).
+
+    Se um VTEP receber um pacote destinado a um MAC que ele aprendeu via BGP EVPN rota Tipo-2, como é que ele sabe para que IP enviar o pacote encapsulado? (Olha para o Next-Hop da rota BGP).
+
+    Como é garantida a separação de tráfego entre diferentes Tenants (Clientes) numa infraestrutura VXLAN/EVPN? (Uso de diferentes VNIs e VRFs mapeadas).
+
+    O que significa "Overlay" e "Underlay" neste contexto? (Overlay = Rede lógica VXLAN/EVPN; Underlay = Rede física IP de transporte).

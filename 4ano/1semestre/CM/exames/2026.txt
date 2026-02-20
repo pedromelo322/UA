@@ -1,0 +1,15 @@
+Estrutura de um superframe em rede 802 15 4 ieee zigbee
+Papel do controlador numa sdn
+LoRaWan vs SigFox
+Rfd numa rede zigbee e limitações
+Fhss em bluetooth
+Standalone e in band em nb-iot
+Sdp bluetooth
+desvantagens 1G para as futuras (acho que eram as 2 principais)
+diferencas 4G e 5G
+Network SLicing em 5G, importancia (pergunta de 5 valores)
+Processo ligacao de uma estacao wifi
+Porque existem quatro campos para endereços nos cabeçalhos de pacotes Wi-Fi?
+uma parte qualquer de SND que onde tinham falar de northbound e southbound
+
+

@@ -1,0 +1,258 @@
+#Core Router
+
+interface FastEthernet0/0
+ ip address 192.0.1.10 255.255.255.0
+ ip ospf 1 area 0
+ no shut
+!
+interface FastEthernet0/1
+ ip address 192.0.2.10 255.255.255.0
+ ip ospf 1 area 0
+ no shut
+!
+interface FastEthernet1/0
+ ip address 192.0.3.10 255.255.255.0
+ ip ospf 1 area 0
+ no shut
+end
+wr
+
+#########
+
+#PE1
+
+vtysh
+conf t
+int eth0
+ip add 192.0.1.1/24
+ip ospf 1 area 0
+no shutdow
+int lo
+ip add 192.0.0.1/32
+ip ospf 1 area 0
+router ospf 1
+end
+wr
+exit
+
+---
+
+ip link add vrf2000 type vrf table 2000
+ip link add vrf3000 type vrf table 3000
+ip link set vrf2000 up
+ip link set vrf3000 up
+
+
+ip link add br202 type bridge
+ip link set br202 master vrf2000
+
+ip link add br302 type bridge
+ip link set br302 master vrf3000
+
+ip addr add 10.2.2.1/16 dev br202
+ip addr add 10.3.3.1/16 dev br302
+
+ip link add vni202 type vxlan local 192.0.0.1 dstport 4789 id 202 nolearning
+ip link add vni302 type vxlan local 192.0.0.1 dstport 4789 id 302 nolearning
+
+ip link set vni202 master br202
+ip link set vni202 type bridge_slave neigh_suppress on learning off
+
+ip link set vni302 master br302
+ip link set vni302 type bridge_slave neigh_suppress on learning off
+
+ip link add link eth1 name eth1.2 type vlan id 2;
+ip link add link eth2 name eth2.2 type vlan id 2;
+
+ip link set eth1.2 master br202
+ip link set eth2.2 master br302
+
+
+ip link set eth1.2 up
+ip link set vni202 up
+ip link set br202 up
+
+ip link set eth2.2 up
+ip link set vni302 up
+ip link set br302 up
+
+
+---
+
+vtysh
+conf t
+vrf vrf2000
+vni 2000
+vrf vrf2000
+vni 2000
+
+router bgp 100
+neighbor EVPN peer-group
+neighbor EVPN remote-as 100
+neighbor EVPN update-source 192.0.0.1
+neighbor 192.0.0.2 peer-group EVPN
+neighbor 192.0.0.3 peer-group EVPN
+!
+address-family l2vpn evpn
+neighbor EVPN activate
+neighbor EVPN route-reflector-client
+advertise-all-vni
+end
+wr
+
+#########
+
+#PE2
+
+vtysh
+conf t
+int eth0
+ip add 192.0.2.2/24
+ip ospf 1 area 0
+no shutdow
+int lo
+ip add 192.0.0.2/32
+ip ospf 1 area 0
+router ospf 1
+end
+wr
+exit
+
+---
+
+ip link add vrf2000 type vrf table 2000
+ip link add vrf3000 type vrf table 3000
+ip link set vrf2000 up
+ip link set vrf3000 up
+
+
+ip link add br202 type bridge
+ip link set br202 master vrf2000
+
+ip link add br302 type bridge
+ip link set br302 master vrf3000
+
+ip addr add 10.2.2.2/16 dev br202
+ip addr add 10.3.3.2/16 dev br302
+
+ip link add vni202 type vxlan local 192.0.0.2 dstport 4789 id 202 nolearning
+ip link add vni302 type vxlan local 192.0.0.2 dstport 4789 id 302 nolearning
+
+ip link set vni202 master br202
+ip link set vni202 type bridge_slave neigh_suppress on learning off
+
+ip link set vni302 master br302
+ip link set vni302 type bridge_slave neigh_suppress on learning off
+
+ip link add link eth1 name eth1.2 type vlan id 2;
+ip link add link eth2 name eth2.2 type vlan id 2;
+
+ip link set eth1.2 master br202
+ip link set eth2.2 master br302
+
+
+ip link set eth1.2 up
+ip link set vni202 up
+ip link set br202 up
+
+ip link set eth2.2 up
+ip link set vni302 up
+ip link set br302 up
+
+---
+
+vtysh
+conf t
+vrf vrf2000
+vni 2000
+
+vrf vrf2000
+vni 2000
+
+router bgp 100
+neighbor 192.0.0.1 remote-as internal
+neighbor 192.0.0.1 update-source 192.0.0.2
+address-family l2vpn evpn
+neighbor 192.0.0.1 activate
+advertise-all-vni
+
+end
+wr
+
+#########
+
+#PE3
+
+vtysh
+conf t
+int eth0
+ip add 192.0.3.3/24
+ip ospf 1 area 0
+no shutdow
+int lo
+ip add 192.0.0.3/32
+ip ospf 1 area 0
+router ospf 1
+end
+wr
+exit
+
+---
+
+ip link add vrf2000 type vrf table 2000
+ip link add vrf3000 type vrf table 3000
+ip link set vrf2000 up
+ip link set vrf3000 up
+
+
+ip link add br202 type bridge
+ip link set br202 master vrf2000
+
+ip link add br302 type bridge
+ip link set br302 master vrf3000
+
+ip addr add 10.2.2.3/16 dev br202
+ip addr add 10.3.3.3/16 dev br302
+
+ip link add vni202 type vxlan local 192.0.0.3 dstport 4789 id 202 nolearning
+ip link add vni302 type vxlan local 192.0.0.3 dstport 4789 id 302 nolearning
+
+ip link set vni202 master br202
+ip link set vni202 type bridge_slave neigh_suppress on learning off
+
+ip link set vni302 master br302
+ip link set vni302 type bridge_slave neigh_suppress on learning off
+
+ip link add link eth1 name eth1.2 type vlan id 2;
+ip link add link eth2 name eth2.2 type vlan id 2;
+
+ip link set eth1.2 master br202
+ip link set eth2.2 master br302
+
+
+ip link set eth1.2 up
+ip link set vni202 up
+ip link set br202 up
+
+ip link set eth2.2 up
+ip link set vni302 up
+ip link set br302 up
+
+---
+
+vtysh
+conf t
+vrf vrf2000
+vni 2000
+
+vrf vrf2000
+vni 2000
+
+router bgp 100
+neighbor 192.0.0.1 remote-as internal
+neighbor 192.0.0.1 update-source 192.0.0.3
+address-family l2vpn evpn
+neighbor 192.0.0.1 activate
+advertise-all-vni
+end
+wr

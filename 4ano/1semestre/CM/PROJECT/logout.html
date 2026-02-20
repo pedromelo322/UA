@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessão Ativa</title>
+    <style>
+        /* O teu estilo verde bonito */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .logout-container { background: rgba(255, 255, 255, 0.95); padding: 50px 40px; border-radius: 20px; width: 100%; max-width: 420px; text-align: center; }
+        h2 { color: #27ae60; margin-bottom: 10px; font-size: 28px; font-weight: 700; }
+        .logout-btn { display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; margin-top: 20px;}
+        .info-box { background: rgba(39, 174, 96, 0.1); border-radius: 12px; padding: 15px; margin-top: 25px; color: #27ae60; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div style="font-size: 50px;">✅</div>
+        
+        <h2>Ligação Estabelecida!</h2>
+        <p style="color:#666;">Está ligado à rede Wi-Fi com sucesso</p>
+
+        <div style="margin: 20px 0; text-align: left; background: #f8f9fa; padding: 15px; border-radius: 10px;">
+            <p><strong>Estado:</strong> <span style="color:#27ae60">Online</span></p>
+            <p><strong>Utilizador:</strong> $PORTAL_USER$</p>
+            <p><strong>Endereço IP:</strong> $PORTAL_CLIENTIP$</p>
+            <p><strong>Tempo Restante:</strong> $PORTAL_REMAININGTIME$</p>
+            <p><strong>Zona:</strong> $PORTAL_ZONE$</p>
+        </div>
+
+        <form method="post" action="http://192.168.50.1:8002/index.php?zone=$PORTAL_ZONE$">
+            <input name="logout_id" type="hidden" value="$PORTAL_SESSIONID$">
+            <input name="zone" type="hidden" value="$PORTAL_ZONE$">
+            
+            <button type="submit" name="logout" class="logout-btn">
+                Terminar Sessão
+            </button>
+        </form>
+
+        <div class="info-box">
+            Mantenha esta janela aberta para ver o estado ou sair.
+        </div>
+    </div>
+</body>
+</html>

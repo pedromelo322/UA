@@ -1,0 +1,113 @@
+I. Fundamentos e Modelos de Gestão
+
+    Quais são as três principais motivações para a implementação de sistemas de gestão de redes? (Custo, Eficiência, Melhor Serviço/Conhecimento).
+
+    No modelo Manager/Agent (Gestor/Agente), qual é o papel de cada um?
+
+    O que é uma MIB (Management Information Base) e onde reside? (No Agente/Equipamento).
+
+    O que distingue a gestão baseada em Web da gestão tradicional baseada em consolas dedicadas?
+
+    Defina o acrónimo FCAPS (modelo ISO).
+
+    Qual a diferença entre a área de Fault Management (Falhas) e Performance Management (Desempenho)?
+
+    A área de Configuration Management serve apenas para configurar equipamentos inicialmente? (Não, também para manter, alterar e terminar conexões/estados).
+
+    Em que área do FCAPS se enquadra a monitorização de logs de acesso e autenticação? (Security Management).
+
+II. Protocolos: SNMP (Simple Network Management Protocol)
+
+    O SNMP utiliza TCP ou UDP? Em que modelo de operação se baseia (Conexão ou Sem conexão)?
+
+    Quais são as operações básicas do SNMP? (Get, GetNext, Set, Trap).
+
+    O que é um Trap SNMP e em que difere de uma resposta a um Get? (Mensagem iniciada pelo agente, assíncrona, informa eventos/alarmes).
+
+    Discuta o compromisso (trade-off) entre Polling (sondagem) e Traps.
+
+        Polling: Controlo total, mas alto consumo de largura de banda e atraso na deteção.
+
+        Traps: Eficiente, mas pode perder eventos (UDP) ou inundar a rede em caso de falha grave.
+
+    Como funcionava a segurança nas primeiras versões do SNMP (v1/v2)? (Community Strings: public/private).
+
+    O que é a árvore OID (Object Identifier)?
+
+    Porque é que o SNMP se tornou o padrão de facto em detrimento do CMIP? (Simplicidade, implementação leve, time-to-market).
+
+III. Protocolos: CMIS/CMIP (OSI)
+
+    Qual a diferença entre CMIS (Service) e CMIP (Protocol)? (CMIS é a interface abstrata/serviço, CMIP é a implementação/pacotes na rede).
+
+    O CMIP é orientado a objetos ou a variáveis simples?
+
+    Indique duas vantagens teóricas do CMIP sobre o SNMP. (Suporte a ações complexas, Scoping/Filtering, Orientado a Conexão/Fiável).
+
+    O que são as GDMOs no contexto do CMIP?
+
+IV. RMON (Remote Monitoring)
+
+    O que é uma Probe (Sonda) RMON e como difere de um agente SNMP normal? (Opera em modo promíscuo, analisa tráfego da rede, funciona offline do gestor).
+
+    Para que serve o grupo de "Matrix" no RMON?
+
+    O RMON precisa que o gestor esteja sempre conectado? (Não, tem recolha preemptiva e armazenamento local).
+
+V. Codificação de Dados (ASN.1)
+
+    O que é a ASN.1 (Abstract Syntax Notation One)?
+
+    Explique o formato de codificação TLV (Type-Length-Value).
+
+    No exemplo dos slides, se o Tipo é '2' (Integer) e o Valor é '259', quantos bytes de comprimento (Length) são necessários? (2 bytes, pois 259 > 255).
+
+VI. Gestão Baseada em Políticas (PBM) & COPS
+
+    Qual é o objetivo principal da Gestão Baseada em Políticas (PBM)? (Gerir a rede globalmente através de regras de alto nível, não equipamento a equipamento).
+
+    Defina PDP (Policy Decision Point) e PEP (Policy Enforcement Point). Quem decide e quem executa?
+
+    O protocolo COPS (Common Open Policy Service) utiliza TCP ou UDP? Porquê? (TCP, precisa de fiabilidade e sincronização de estado).
+
+    Quais são os dois modelos de funcionamento do COPS?
+
+        Outsourcing: O PEP pergunta ao PDP o que fazer quando chega um pedido (ex: RSVP).
+
+        Configuration (Provisioning): O PDP empurra configurações para o PEP (ex: DiffServ).
+
+    O COPS mantém estado (stateful)? (Sim, sincronização entre PDP e PEP).
+
+VII. TMN (Telecommunications Management Network)
+
+    Qual é o objetivo da arquitetura TMN definida pelo ITU-T?
+
+    Como se relaciona a TMN com o modelo OSI? (Usa conceitos e protocolos de gestão OSI, como CMIP, na sua base).
+
+    Identifique as 5 camadas da pirâmide lógica da TMN (de baixo para cima) e a função de cada uma:
+
+        NEL (Network Element Layer): O equipamento físico.
+
+        EML (Element Management Layer): Gestão individual do equipamento.
+
+        NML (Network Management Layer): Visão da rede como um todo (rotas, topologia).
+
+        SML (Service Management Layer): Gestão dos serviços vendidos aos clientes (SLA, faturação).
+
+        BML (Business Management Layer): Gestão do negócio/estratégia.
+
+    Onde reside a fronteira entre a gestão técnica e a gestão de negócio na TMN? (Entre SML e BML).
+
+    O que é a DCN (Data Communication Network) na arquitetura física TMN? (A rede separada por onde flui o tráfego de gestão).
+
+    Qual a interface padrão entre Sistemas de Operação (OS) na TMN? (Interface X ou Q3).
+
+    Como mapear a funcionalidade FCAPS na matriz TMN? (As funções FCAPS atravessam verticalmente as camadas lógicas da TMN).
+
+VIII. Integração e Evolução
+
+    O que é um Bandwidth Broker numa arquitetura DiffServ e como se relaciona com PBM? (É um PDP que gere a admissão e configuração de QoS).
+
+    O conceito de SDN (Software Defined Networking) pode ser visto como uma evolução de que modelo de gestão? (Modelo PEP-PDP / Gestão baseada em Políticas, onde o controlador é o PDP e os switches são PEPs).
+
+    É possível usar SNMP e CMIP no mesmo sistema de gestão? Como? (Sim, através de Proxies ou Gateways de tradução).

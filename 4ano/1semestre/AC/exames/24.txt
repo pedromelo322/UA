@@ -1,0 +1,36 @@
+       
+Grupo I
+
+    1. Qual o processo que tem o nome de self-healing, em redes de comunicação de núcleo?
+    2. Para que serve o AS number?Pode querer desenvolver soluções de multimédia sem buffering? 
+    3. Em temos de QoS, qual a diferença entre policing e shaping?
+    4. Acha que o RED é utilizado frequentemente nas redes comerciais? Porquê?
+    5. O que é a chamada arquitectura spine-and-leaf?
+    6. Pode definir FECs em MPLS associadas ao endereço MAC destino?
+    7. Para que é usado o DNS redirection em CDNs?
+    8. O RTSP é uma tecnologia que controla os erros da transmissão?
+    9. MGCP/H.248 é um dos protocolos usados em VolP. O que é que faz?
+    10. Porque é que se usa transcodificação num sistema VolP?
+    11. Para que usa probes RMON?
+
+
+
+Grupo II
+
+    A) Para preferências em BGP, prefere usar que atributo? Porque prefere esse atributo entre as diversas opcoes que tem?
+    B) Que motivos teria para escolher entre o modo downstream on-demand e o modo downstream unsolicited, quando falamos de mecanismos estabelecimento de LSPs?
+    C) Discuta porque pode preferir um modelo de leaky bucket em vez de token bucket, em termos de implementação de QoS.
+    D) Explique porque usamos BGP EVPN e VXLAN. Não há uma redundância de funções?
+    E) Pode querer desenvolver soluções de multimédia sem buffering? 
+    F) Discuta porque temos duas funçoes de transição distintas a interligar redes teletonicas e redes IP no caso de chamadas telefónicas.
+    G) O SNMP é um sistema simples para gestão. Acha que devemos continuar a usa-lo mesmo em sistemas que tenham de correr CMIS (p.ex. deixando o CMIP de lado)?
+
+
+
+Grupo III
+
+       
+    a) Em abstrato, que tipo de serviços de interligação entre a rede IP e a rede telefónica
+       consegue sugerir? Dê um exempo comereial de cada um deles.
+    b) Que razões usaria para selecionar entre o uso de RSVP-TE ou CR-LDP?
+    c) Descreva o seu entendimento da relação entre a matriz de gestão TMN e o modelo FCAPS.
