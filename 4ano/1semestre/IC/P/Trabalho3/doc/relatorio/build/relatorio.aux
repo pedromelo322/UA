@@ -1,0 +1,89 @@
+\relax 
+\providecommand\babel@aux[2]{}
+\@nameuse{bbl@beforestart}
+\catcode `"\active 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\babel@aux{portuguese}{}
+\babel@aux{portuguese}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introdução}{4}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Contexto e Motivação}{4}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Objetivos do Trabalho}{4}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Abordagem Metodológica}{4}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Estrutura do Relatório}{4}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Análise e Caracterização da Fonte}{4}{section.2}\protected@file@percent }
+\newlabel{sec:analise}{{2}{4}{Análise e Caracterização da Fonte}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Estrutura do Ficheiro SafeTensors}{5}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Análise do Formato BF16}{5}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Limites Teóricos: Entropia de Shannon}{5}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Análise Global do Payload}{5}{subsubsection.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Análise de Correlação Sequencial}{5}{subsubsection.2.3.2}\protected@file@percent }
+\newlabel{eq:conditional}{{2.3.2}{5}{Análise de Correlação Sequencial}{subsubsection.2.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Análise Estrutural Diferenciada: \textit  {Byte-Splitting}}{6}{subsection.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparação de Entropia por Canal após \textit  {Byte-Splitting}}}{6}{table.1}\protected@file@percent }
+\newlabel{tab:split_results}{{1}{6}{Comparação de Entropia por Canal após \textit {Byte-Splitting}}{table.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1}Validação Visual: Histogramas de Frequência}{6}{subsubsection.2.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Histograma do Byte Mais Significativo (MSB). Observa-se uma distribuição fortemente concentrada em torno de valores específicos, típica de pesos de redes neuronais normalizados. Esta concentração justifica o valor baixo de $H \approx 2.71$ bits/byte.}}{7}{figure.1}\protected@file@percent }
+\newlabel{fig:hist_msb}{{1}{7}{Histograma do Byte Mais Significativo (MSB). Observa-se uma distribuição fortemente concentrada em torno de valores específicos, típica de pesos de redes neuronais normalizados. Esta concentração justifica o valor baixo de $H \approx 2.71$ bits/byte}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Histograma do Byte Menos Significativo (LSB). A distribuição aproxima-se da uniforme (plana), característica de dados com elevada aleatoriedade. Este comportamento explica a entropia de $H \approx 7.96$ bits/byte, muito próxima do máximo teórico.}}{7}{figure.2}\protected@file@percent }
+\newlabel{fig:hist_lsb}{{2}{7}{Histograma do Byte Menos Significativo (LSB). A distribuição aproxima-se da uniforme (plana), característica de dados com elevada aleatoriedade. Este comportamento explica a entropia de $H \approx 7.96$ bits/byte, muito próxima do máximo teórico}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2}Interpretação Física dos Resultados}{7}{subsubsection.2.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Síntese e Estratégia de Compressão}{8}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Benchmarking de Compressores Existentes}{8}{section.3}\protected@file@percent }
+\newlabel{sec:benchmark}{{3}{8}{Benchmarking de Compressores Existentes}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Metodologia de Teste}{8}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Desempenho de Compressores de Uso Geral no Ficheiro \texttt  {model.safetensors}}}{9}{table.2}\protected@file@percent }
+\newlabel{tab:benchmark}{{2}{9}{Desempenho de Compressores de Uso Geral no Ficheiro \texttt {model.safetensors}}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Análise dos Resultados}{9}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Taxa de Compressão}{9}{subsubsection.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Tempo de Processamento}{9}{subsubsection.3.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Consumo de Memória}{9}{subsubsection.3.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Conclusões do Benchmarking}{9}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Implementação do Codec}{9}{section.4}\protected@file@percent }
+\newlabel{sec:implementacao}{{4}{9}{Implementação do Codec}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Arquitetura Geral}{10}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Formato do Ficheiro Comprimido}{10}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Estratégia para o Canal MSB}{10}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Avaliação de Técnicas de Predição}{10}{subsubsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Preditor Linear (Delta)}{10}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Preditor XOR}{11}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Decisão de Engenharia}{11}{subsubsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Codificação de Entropia}{11}{subsubsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Codificação de Huffman (Estática)}{11}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Codificação Aritmética}{11}{section*.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparação de Algoritmos de Codificação Entrópica (Canal MSB)}}{11}{table.3}\protected@file@percent }
+\newlabel{tab:entropy_bench}{{3}{11}{Comparação de Algoritmos de Codificação Entrópica (Canal MSB)}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Estratégia para o Canal LSB}{11}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Modo FAST: Armazenamento Direto (Raw)}{12}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Modo BEST: Codificação Aritmética}{12}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Impacto da Compressão do Canal LSB no Modo BEST}}{12}{table.4}\protected@file@percent }
+\newlabel{tab:best_comparison}{{4}{12}{Impacto da Compressão do Canal LSB no Modo BEST}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Modos de Operação}{12}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Gestão de Memória}{13}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}Otimização do Tamanho de Bloco}{13}{subsubsection.4.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Impacto do Tamanho dos Blocos no Desempenho do Codec}}{13}{table.5}\protected@file@percent }
+\newlabel{tab:block_size}{{5}{13}{Impacto do Tamanho dos Blocos no Desempenho do Codec}{table.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Resultados Experimentais}{13}{section.5}\protected@file@percent }
+\newlabel{sec:resultados}{{5}{13}{Resultados Experimentais}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Conjunto de Dados de Teste}{13}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Ficheiros de Teste Utilizados}}{14}{table.6}\protected@file@percent }
+\newlabel{tab:test_files}{{6}{14}{Ficheiros de Teste Utilizados}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Resultados Consolidados}{14}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Resultados dos Testes de Compressão para Todos os Modelos}}{14}{table.7}\protected@file@percent }
+\newlabel{tab:testes_resultados}{{7}{14}{Resultados dos Testes de Compressão para Todos os Modelos}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Verificação de Integridade}{14}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Comparação com Benchmarks}{14}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Comparação do Codec Desenvolvido com Compressores de Uso Geral}}{15}{table.8}\protected@file@percent }
+\newlabel{tab:comparison}{{8}{15}{Comparação do Codec Desenvolvido com Compressores de Uso Geral}{table.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Análise e Discussão}{15}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}Taxa de Compressão}{15}{subsubsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}Desempenho Temporal}{15}{subsubsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}Comparação do Pico de RAM}{15}{subsubsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.4}Escalabilidade}{16}{subsubsection.5.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusões}{16}{section.6}\protected@file@percent }
+\newlabel{sec:conclusoes}{{6}{16}{Conclusões}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Síntese do Trabalho Realizado}{16}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Principais Resultados}{16}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Considerações Finais}{16}{subsection.6.3}\protected@file@percent }
+\gdef \@abspage@last{16}

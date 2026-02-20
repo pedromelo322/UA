@@ -1,0 +1,71 @@
+=== Teste RÁPIDO (fast) para model_1.safetensors em Fri Dec 19 06:53:18 PM WET 2025 ===
+Tamanho original:
+-rw-rw-r-- 1 pedromelo pedromelo 421M Nov 30 17:30 data/model_1.safetensors
+-rw-rw-r-- 1 pedromelo pedromelo 440449768 Nov 30 17:30 data/model_1.safetensors
+--------------------------------------------------------
+Codificação em modo 'fast':
+Modo: FAST (Huffman + LSB Raw)
+Bloco 50 Ratio: 1.13:1Bloco 100 Ratio: 1.13:1Bloco 150 Ratio: 1.13:1Bloco 200 Ratio: 1.13:1Bloco 250 Ratio: 1.13:1Bloco 300 Ratio: 1.13:1Bloco 350 Ratio: 1.12:1Bloco 400 Ratio: 1.12:1
+Final: 373.69 MB. Ratio: 1.124:1
+	Command being timed: "./bin/encoder data/model_1.safetensors output/model_1.sc fast"
+	User time (seconds): 0.61
+	System time (seconds): 0.40
+	Percent of CPU this job got: 86%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5908
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1219
+	Voluntary context switches: 28
+	Involuntary context switches: 62
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 765320
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Tamanho do arquivo codificado (model_1.sc):
+-rw-rw-r-- 1 pedromelo pedromelo 374M Dec 19 18:53 output/model_1.sc
+-rw-rw-r-- 1 pedromelo pedromelo 391840289 Dec 19 18:53 output/model_1.sc
+--------------------------------------------------------
+Decodificação:
+A descodificar... Modo: FAST (Huffman)
+Concluído.
+	Command being timed: "./bin/decoder output/model_1.sc output/model_1_restored_fast.safetensors"
+	User time (seconds): 0.85
+	System time (seconds): 0.73
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.59
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6360
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 243822
+	Voluntary context switches: 1
+	Involuntary context switches: 85
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 860256
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Tamanho do arquivo restaurado (fast):
+-rw-rw-r-- 1 pedromelo pedromelo 421M Dec 19 18:53 output/model_1_restored_fast.safetensors
+-rw-rw-r-- 1 pedromelo pedromelo 440449768 Dec 19 18:53 output/model_1_restored_fast.safetensors
+--------------------------------------------------------
+Comparação MD5 (Original vs. Restaurado fast):
+4820b548390ec49cd32eb2680558cb98  data/model_1.safetensors
+4820b548390ec49cd32eb2680558cb98  output/model_1_restored_fast.safetensors
+=== Teste RÁPIDO (fast) CONCLUÍDO para model_1.safetensors ===
+

@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -std=c++20 -O3 CMakeFiles/wav_quant_enc.dir/wav_quant_enc.cpp.o CMakeFiles/Common.dir/bit_stream.cpp.o CMakeFiles/Common.dir/byte_stream.cpp.o -o /home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/bin/wav_quant_enc  -lsndfile 

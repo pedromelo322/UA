@@ -1,0 +1,23 @@
+\babel@toc {portuguese}{}\relax 
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{3}{section.1}%
+\contentsline {section}{\numberline {2}Análise e Caracterização da Fonte}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Estrutura do Ficheiro SafeTensors}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Análise Estatística Global}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Análise por Separação de Bytes (Descoberta Chave)}{3}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Benchmarking de Compressores Existentes}{4}{section.3}%
+\contentsline {section}{\numberline {4}Implementação do Codec Split-Stream}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Arquitetura Geral}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Canal MSB: Codificação Entrópica}{5}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Avaliação de Técnicas Preditivas}{5}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Seleção do Codificador de Entropia}{5}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Canal LSB: RLE com Fallback}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modos de Operação}{5}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Resultados Experimentais}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Desempenho do Codec Desenvolvido}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Validação da Integridade}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Comparação com Compressores Existentes}{6}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Discussão}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Análise dos Resultados}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Limitações e Trabalho Futuro}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Conclusões}{6}{section.7}%

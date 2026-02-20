@@ -1,0 +1,908 @@
+\documentclass[a4paper, 11pt, portuguese]{article}
+
+% Pacotes essenciais
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage{amsmath}    % Para fórmulas matemáticas
+\usepackage{amssymb}    % Para símbolos matemáticos
+\usepackage{graphicx}   % Para incluir gráficos e imagens
+\usepackage{hyperref}   % Para links clicáveis
+\usepackage{geometry}   % Para margens
+\usepackage{booktabs}   % Para tabelas bonitas
+\usepackage{listings}   % Para blocos de código
+\usepackage{xcolor}     % Para cores no código
+\usepackage{float}      % Para posicionamento fixo de figuras [H]
+
+% Configuração das margens
+\geometry{
+ a4paper,
+ margin=2.5cm,
+}
+
+% Configuração do estilo para blocos de código (Para formatar os comandos)
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  commentstyle=\color{codegray},
+  keywordstyle=\color{blue},
+  breaklines=true,
+  frame=single,
+  captionpos=b,
+  upquote=true,
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+           {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+           {â}{{{\^a}}}1 {ê}{{{\^e}}}1 {ô}{{{\^o}}}1
+           {Â}{{{\^A}}}1 {Ê}{{{\^E}}}1 {Ô}{{{\^O}}}1
+           {ã}{{{\~a}}}1 {õ}{{{\~o}}}1
+           {Ã}{{{\~A}}}1 {Õ}{{{\~O}}}1
+           {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1,
+}
+
+% Configuração do idioma para Português de Portugal
+\selectlanguage{portuguese}
+
+\title{
+    \includegraphics[width=0.4\textwidth]{Imagens/ua.pdf} \\ \vspace{1.5cm}
+    \textbf{Relatório do Trabalho Laboratorial nº 1} \\
+    \large Informação e Codificação (2025/26)
+}
+\author{
+    \textbf{Pedro Miguel Miranda de Melo} (114208) \\
+    \textit{Departamento de Eletrónica, Telecomunicações e Informática (DETI)} \\
+    \textit{Universidade de Aveiro}
+}
+\date{Outubro de 2025}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+% ----------------------------------------------------------------------------------
+% SECÇÃO 1: INTRODUÇÃO
+% ----------------------------------------------------------------------------------
+\section{Introdução}
+
+Este relatório descreve os passos e as decisões tomadas no desenvolvimento do software para o Trabalho Laboratorial nº 1 da unidade curricular de Informação e Codificação (2025/26), do Departamento de Eletrónica, Telecomunicações e Informática (DETI) da Universidade de Aveiro.
+O trabalho foi implementado em C++, utilizando a biblioteca \texttt{libsndfile} e o \textit{wrapper} \texttt{sndfile.hh} para manipulação de ficheiros áudio WAV. O código-fonte completo do projeto está disponível publicamente no repositório GitHub: \url{https://github.com/pedromelo1316/IC-Trabalho1}.
+
+% ----------------------------------------------------------------------------------
+% SECÇÃO 2: PARTE I - FERRAMENTAS DE ANÁLISE E QUANTIZAÇÃO
+% ----------------------------------------------------------------------------------
+\section{Parte I: Ferramentas de Análise e Quantização}
+
+\subsection{Programa \texttt{wav\_hist}}
+
+A classe \texttt{WAVHist} foi modificada para calcular e apresentar o histograma dos canais MID e SIDE, bem como suportar \textit{bins} mais largos ($2^k$ valores).
+
+\subsubsection{Compilação, Execução e Visualização}
+
+A compilação do executável \texttt{wav\_hist} é realizada utilizando o \texttt{g++} e ligando à biblioteca \texttt{libsndfile}.
+
+A utilização do programa em linha de comando segue o seguinte formato, onde os argumentos são opcionais:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_hist (Argumento Channel Opcional)]
+./wav_hist <input file> [channel] [k] [--save]
+\end{lstlisting}
+O parâmetro \texttt{k} define o expoente para o tamanho do bin ($2^k$). Se o argumento \texttt{channel} for omitido, o programa analisa todos os canais.
+
+\paragraph{Exemplos de Teste}
+Abaixo estão exemplos de comandos usados para testar as funcionalidades com um ficheiro estéreo (\texttt{sample.wav}), demonstrando as diversas opções de bin size e exportação.
+
+\begin{enumerate}
+    \item \textbf{Modo Dump (Output Terminal - Todos os Canais):} Executa o programa sem especificar canal ou o expoente $k$. Os histogramas de \textbf{L, R, MID e SIDE} são impressos no terminal na resolução máxima (bin size 1, $k=0$ por omissão).
+    \begin{lstlisting}[language=bash]
+./wav_hist sample.wav
+    \end{lstlisting}
+    
+    \item \textbf{Exportação da Linha Base (Bin size 1):} Utiliza o flag \texttt{--save} para exportar os histogramas de \textbf{L, R, MID e SIDE} para ficheiros \texttt{.txt} na resolução máxima.
+        \begin{lstlisting}[language=bash]
+./wav_hist sample.wav --save
+        \end{lstlisting}
+    Os histogramas gerados podem ser visualizados na Figura~\ref{fig:sample_bin1}, que apresenta os gráficos para cada canal com bin size 1.
+
+    \subsubsection{Histogramas com Bin Size 1 (Resolução Máxima)}
+
+    \begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin1_ch0.png}
+        \caption{Canal Esquerdo (L)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin1_ch1.png}
+        \caption{Canal Direito (R)}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin1_mid.png}
+        \caption{Canal MID}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin1_side.png}
+        \caption{Canal SIDE}
+    \end{minipage}
+    \caption{Histogramas dos canais L, R, MID e SIDE com bin size 1 (k=0)}
+    \label{fig:sample_bin1}
+    \end{figure}
+    \item \textbf{Exportação com Bins mais largos (k = 6):} Exporta os histogramas (L, R, MID, SIDE) para ficheiros \texttt{.txt} com o expoente $k=6$, resultando num \textit{bin size} de $2^6 = 64$.
+    \begin{lstlisting}[language=bash]
+./wav_hist sample.wav 6 --save
+    \end{lstlisting}
+    Os histogramas gerados podem ser visualizados na Figura~\ref{fig:sample_bin64}, que apresenta os gráficos para cada canal com bin size 64.
+
+    \subsubsection{Histogramas com Bin Size 64 (k=6)}
+
+    \begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin64_ch0.png}
+        \caption{Canal Esquerdo (L)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin64_ch1.png}
+        \caption{Canal Direito (R)}
+    \end{minipage}
+
+    \vspace{0.5cm}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin64_mid.png}
+        \caption{Canal MID}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Imagens/sample_bin64_side.png}
+        \caption{Canal SIDE}
+    \end{minipage}
+    \caption{Histogramas dos canais L, R, MID e SIDE com bin size 64 (k=6)}
+    \label{fig:sample_bin64}
+    \end{figure}
+
+    \item \textbf{Dump Terminal (Canal Específico + MID/SIDE):} Exibe no terminal o histograma do canal Direito (1), do canal MID e do canal SIDE, com o expoente $k=4$ (bin size 16).
+    \begin{lstlisting}[language=bash]
+./wav_hist sample.wav 1 4
+    \end{lstlisting}
+\end{enumerate}
+
+\paragraph{Visualização de Histograma}
+Os dados exportados via flag \texttt{--save} são representados graficamente, por exemplo, usando o \texttt{gnuplot}. Os ficheiros de saída terão o formato \url{<filename>_bin<size>_ch<channel>.txt}.
+
+\begin{lstlisting}[language=bash, caption=Comando de visualização Gnuplot para comparação de Bins mais largos]
+gnuplot
+# Exemplo para comparar o canal Esquerdo (L) na resolucao maxima e bin size 64:
+plot "sample_bin1_ch0.txt" using 1:2 with points title "L_bin_1", \
+     "sample_bin64_ch0.txt" using 1:2 with points title "L_bin_64"
+\end{lstlisting}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Imagens/hist_bin64_1.png}
+\caption{Comparação dos histogramas do canal esquerdo (L) com bin size 1 e bin size 64}
+\label{fig:hist_comparison}
+\end{figure}
+
+\paragraph{Análise da Comparação de Bins}
+A Figura~\ref{fig:hist_comparison} compara diretamente o histograma do canal esquerdo obtido com a resolução máxima (\texttt{bin size = 1}) e com \textit{bins} mais largos (\texttt{bin size = 64}). A análise desta comparação permite retirar duas conclusões importantes:
+\begin{itemize}
+    \item \textbf{Preservação da Forma Geral:} Mesmo com a aglutinação de 64 valores de amostra num único \textit{bin}, a forma geral da distribuição de probabilidade é claramente preservada. A maior concentração de amostras em torno do valor zero e a decadência simétrica para valores de maior amplitude são visíveis em ambos os gráficos.
+    \item \textbf{Perda de Detalhe:} A utilização de \textit{bins} mais largos resulta numa perda de detalhe de grão fino. O histograma com \texttt{bin size=1} revela picos de ocorrência para valores de amostra específicos, enquanto o de \texttt{bin size=64} suaviza estas variações, mostrando apenas a tendência geral da distribuição.
+\end{itemize}
+Esta técnica é útil para analisar a distribuição macroscópica da energia do sinal sem ruído visual, onde se reduz a precisão da informação em troca de uma representação mais simples dos dados.
+
+
+
+\subsubsection{Canais MID e SIDE e Recuperação Exata}
+
+Os canais MID (\textit{mono}) e SIDE (\textit{diferença}) são calculados através da \textbf{divisão inteira}:
+\begin{align}
+    \text{MID} &= \left\lfloor \frac{L + R}{2} \right\rfloor \\
+    \text{SIDE} &= \left\lfloor \frac{L - R}{2} \right\rfloor
+\end{align}
+onde $L$ e $R$ são amostras inteiras.
+
+A recuperação exata de $L$ e $R$ é garantida pelas seguintes equações, que incorporam o bit de resto ($\mathbf{\rho} \in \{0, 1\}$), representando a paridade:
+\begin{align*}
+    \mathbf{L} &= \mathbf{MID + SIDE + \mathbf{\rho}} \\
+    \mathbf{R} &= \mathbf{MID - SIDE}
+\end{align*}
+Esta relação prova que o esquema MID/SIDE é \textbf{lossless} (sem perdas) se o bit $\mathbf{\rho} = (L+R) \pmod 2$ for também transmitido.
+
+\paragraph{Verificação Numérica}
+A Tabela~\ref{tab:mid_side_verification} demonstra numericamente a exatidão do processo.
+\begin{table}[htbp]
+\centering
+\caption{Verificação Numérica da Transformação MID/SIDE Lossless.}
+\label{tab:mid_side_verification}
+\begin{tabular}{@{}rr c rrrr c rr@{}}
+\toprule
+\multicolumn{2}{c}{\textbf{Originais}} & & \multicolumn{4}{c}{\textbf{Transformação}} & & \multicolumn{2}{c}{\textbf{Recuperados}} \\
+\cmidrule{1-2} \cmidrule{4-7} \cmidrule{9-10}
+\textbf{$L$} & \textbf{$R$} & & \textbf{$L+R$} & \textbf{$\rho$} & \textbf{MID} & \textbf{SIDE} & & \textbf{$L'$} & \textbf{$R'$} \\
+\midrule
+100 & 50 & & 150 & 0 & 75 & 25 & & 100 & 50 \\
+101 & 50 & & 151 & 1 & 75 & 25 & & 101 & 50 \\
+-80 & 20 & & -60 & 0 & -30 & -50 & & -80 & 20 \\
+-81 & 20 & & -61 & 1 & -31 & -51 & & -81 & 20 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Como se pode observar na tabela, em todos os casos os valores recuperados ($L', R'$) são iguais aos originais ($L, R$), confirmando que o método é \textit{lossless}. O bit de paridade $\rho$ é crucial para corrigir o erro de arredondamento da divisão inteira nos casos em que a soma $L+R$ é ímpar.
+
+\subsubsection{Bins de Histograma mais largos}
+
+A implementação de \textit{bins} mais largos (de tamanho $2^k$) foi realizada através da função \texttt{getBin} na classe \texttt{WAVHist}. O programa aceita o valor $k$ como argumento, e o \texttt{binSize} é calculado como $2^k$. Para um \texttt{binSize} dado, o valor de um bin é determinado pelo seu ponto de partida:
+$$
+\text{Bin}_{\text{value}} = \left\lfloor \frac{\text{Amostra}}{2^k} \right\rfloor \times 2^k
+$$
+O resultado final no \texttt{dump} representa a soma das ocorrências na gama $[\text{Bin}_{\text{value}}, \text{Bin}_{\text{value}} + 2^k - 1]$.
+
+\subsection{Programa \texttt{wav\_quant} (Quantização Uniforme)}
+
+O programa \texttt{wav\_quant} implementa a \textbf{quantização uniforme escalar} de um ficheiro WAV de 16 bits, reduzindo o número de bits de precisão para $B$ (onde $1 \le B \le 16$). O ficheiro de saída é também um ficheiro WAV (PCM 16-bit).
+
+\subsubsection{Sintaxe e Lógica}
+
+A utilização do programa segue o formato:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_quant]
+./wav_quant <wavFileIn> <wavFileOut> [bits]
+\end{lstlisting}
+Onde \texttt{[bits]} é o número de bits de precisão final desejado ($B$), sendo o valor por omissão $B=8$.
+
+A quantização é realizada utilizando o método de \textbf{arredondamento} ao múltiplo mais próximo do passo de quantização ($\Delta$). O passo é calculado pela relação:
+$$
+\Delta = 2^{16 - B}
+$$
+A amostra quantizada $x_q$ é calculada por:
+$$
+x_q = \left\lfloor \frac{x}{\Delta} + 0.5 \right\rfloor \cdot \Delta
+$$
+Esta abordagem minimiza o erro médio quadrático, fornecendo a melhor representação possível para o número de bits escolhido.
+
+\paragraph{Exemplos de Teste}
+Abaixo estão exemplos de comandos para quantizar um ficheiro \texttt{input.wav}:
+
+\begin{enumerate}
+    \item \textbf{Quantização por Omissão (8 bits):} Reduz a precisão de 16 para 8 bits. Este teste é fundamental para a análise de erro na próxima secção.
+    \begin{lstlisting}[language=bash]
+./wav_quant sample.wav sample_8bit.wav
+    \end{lstlisting}
+
+    \item \textbf{Quantização Agressiva (4 bits):} Demonstra a aplicação da quantização com um baixo número de bits, maximizando a distorção.
+    \begin{lstlisting}[language=bash]
+./wav_quant sample.wav sample_4bit.wav 4
+    \end{lstlisting}
+\end{enumerate}
+
+
+\subsection{Programa \texttt{wav\_cmp} (Métricas de Erro)}
+
+O programa \texttt{wav\_cmp} tem como objetivo calcular e reportar as métricas de erro introduzidas no áudio por um processo de transformação com perdas (como a quantização realizada em \texttt{wav\_quant}). O programa compara um ficheiro original (\texttt{original\_file}) com a sua versão modificada (\texttt{processed\_file}).
+
+\subsubsection{Sintaxe e Métricas de Erro}
+
+A sintaxe de utilização é a seguinte:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_cmp]
+./wav_cmp <original_file> <processed_file>
+\end{lstlisting}
+
+As métricas são calculadas para cada canal (L, R) e para o \textbf{Canal MID} (a média dos canais), que é tratado como um canal distinto.
+
+\paragraph{1. Erro Quadrático Médio (MSE ou $L^2$ norm)}
+O MSE (Mean Squared Error) representa a potência média do ruído de erro (diferença entre a amostra original $x[n]$ e a amostra processada $x_q[n]$):
+$$
+\text{MSE} = \frac{1}{N} \sum_{n=1}^{N} (x[n] - x_q[n])^2
+$$
+
+\paragraph{2. Erro Absoluto Máximo ($L^\infty$ norm)}
+O erro absoluto máximo ($E_{\max}$) é o valor absoluto do maior erro encontrado, representando o pior caso de distorção introduzida:
+$$
+E_{\max} = \max_n |x[n] - x_q[n]|
+$$
+
+\paragraph{3. Relação Sinal-Ruído (SNR)}
+O SNR (Signal-to-Noise Ratio) é a métrica mais comum para avaliar a qualidade de um sinal degradado. É dado pela razão da potência do sinal original ($P_{\text{sinal}}$) pela potência do ruído (MSE), expressa em decibéis (dB):
+$$
+\text{SNR} = 10 \log_{10} \left( \frac{P_{\text{sinal}}}{P_{\text{ruído}}} \right) \quad \text{onde } P_{\text{ruído}} = \text{MSE}
+$$
+A potência média do sinal é calculada por:
+$$
+P_{\text{sinal}} = \frac{1}{N} \sum_{n=1}^{N} x[n]^2
+$$
+
+
+
+\paragraph{Exemplo de Teste}
+Para demonstrar o impacto da quantização de 16 para 8 bits (utilizando o ficheiro \texttt{output\_8bit.wav} gerado pelo \texttt{wav\_quant}):
+
+\begin{lstlisting}[language=bash]
+./wav_cmp sample.wav sample_8bit.wav
+\end{lstlisting}
+
+
+
+\subsubsection{Resultados Experimentais}
+
+A seguir são apresentados os resultados obtidos na comparação entre o ficheiro original (\texttt{sample.wav}) e a sua versão quantizada para 8 bits (\texttt{sample\_8bit.wav}):
+
+\begin{lstlisting}[caption=Resultados das métricas de erro para quantização de 8 bits (16 para 8 bits)]
+Audio Comparison Results:
+========================
+
+Channel 0:
+  Mean Squared Error (L2):     5453.610956
+  Max Absolute Error (LLinf.):  128.000000
+  Signal-to-Noise Ratio (SNR): 41.317584 dB
+
+Channel 1:
+  Mean Squared Error (L2):     5455.157326
+  Max Absolute Error (Linf.):  128.000000
+  Signal-to-Noise Ratio (SNR): 41.336981 dB
+
+MID Channel (Average of Channels):
+  Mean Squared Error (L2):     2720.671028
+  Max Absolute Error (Linf.):  128.000000
+  Signal-to-Noise Ratio (SNR): 43.752264 dB
+
+Total samples processed per channel: 529200
+Number of channels: 2
+MID channel samples processed: 529200
+\end{lstlisting}
+
+\paragraph{Análise dos Resultados}
+
+Os resultados mostram que:
+
+\begin{itemize}
+    \item \textbf{MSE similar entre canais:} Os canais esquerdo (L) e direito (R) apresentam valores de MSE muito próximos ($\approx$5454), indicando que a quantização afeta ambos os canais de forma equivalente.
+    
+    \item \textbf{Erro máximo constante:} O erro absoluto máximo de 128 corresponde exatamente à metade do passo de quantização  ($\Delta = 2^{16-8} = 256$), confirmando o comportamento esperado da quantização uniforme.
+    
+    \item \textbf{SNR superior no canal MID:} O canal MID apresenta um SNR de 43.75 dB, superior aos canais individuais ($\approx$41.33 dB). Este resultado é esperado devido ao efeito de \textit{averaging} que reduz o ruído não correlacionado entre canais.
+    
+    \item \textbf{MSE reduzido no canal MID:} O MSE do canal MID ($\approx$2721) é aproximadamente metade do MSE dos canais individuais, demonstrando que a conversão MID/SIDE pode oferecer melhor eficiência de codificação.
+\end{itemize}
+
+
+\subsection{Programa \texttt{wav\_effects} (Efeitos de Áudio)}
+
+O programa \texttt{wav\_effects} foi implementado para introduzir diversos efeitos de áudio, servindo como uma demonstração prática do processamento de sinal em domínio do tempo. O programa utiliza uma abordagem de linha de comando para selecionar o efeito e passar os seus parâmetros.
+
+\subsubsection{Sintaxe e Efeitos Implementados}
+
+A sintaxe geral de utilização é a seguinte:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_effects]
+./wav_effects <input.wav> <output.wav> <effect> [parameters]
+\end{lstlisting}
+
+Abaixo estão detalhados os efeitos implementados e as suas fórmulas fundamentais.
+
+\paragraph{1. Eco Simples (\texttt{echo})}
+Amostra de saída $y[k]$ é a soma da amostra original $x[k]$ com uma versão atrasada e atenuada da mesma.
+$$
+y[k] = x[k] + g \cdot x[k - D]
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_echo.wav echo 500 0.5
+\end{lstlisting}
+(Exemplo: $D = 500$ ms de atraso, $g = 0.5$ de ganho)
+
+\paragraph{2. Eco Múltiplo com Feedback (\texttt{multi\_echo})}
+Este efeito implementa um filtro de feedback, onde o eco é alimentado de volta na entrada, criando uma sucessão de ecos decadentes.
+$$
+y[k] = x[k] + g \cdot y[k - D]
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_multiecho.wav multi_echo 100 0.7
+\end{lstlisting}
+(Exemplo: $D = 100$ ms de atraso, $g = 0.7$ de ganho)
+
+\paragraph{3. Modulação de Amplitude (\texttt{amp\_mod})}
+Este efeito multiplica a amostra de áudio $x(t)$ por um sinal modulador de frequência $f_m$ e profundidade $\alpha$:
+$$
+y(t) = x(t) \cdot (1 + \alpha \cdot \cos(2 \pi f_m t))
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_am.wav amp_mod 4.0 0.8
+\end{lstlisting}
+(Exemplo: $f_m = 4.0$ Hz, $\alpha = 0.8$ de profundidade)
+
+\paragraph{4. Delay Variável no Tempo (\texttt{time\_var\_delay})}
+Este efeito utiliza a fórmula do eco simples, mas o atraso $D$ é alterado aleatoriamente a cada segundo entre $0.5$ e $2.0$ segundos.
+$$
+y[k] = x[k] + g \cdot x[k - D_{\text{aleatório}}]
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_tvd.wav time_var_delay 0.6
+\end{lstlisting}
+(Exemplo: $g = 0.6$ de ganho)
+
+\paragraph{5. Tremolo (\texttt{tremolo})}
+O efeito de tremolo modula a amplitude do sinal com um LFO (Low-Frequency Oscillator), criando uma variação de volume.
+$$
+y(t) = x(t) \cdot \left( (1 - \alpha) + \alpha \cdot \frac{1 + \sin(2 \pi f_m t)}{2} \right)
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_tremolo.wav tremolo 5.0 0.7
+\end{lstlisting}
+(Exemplo: $f_m = 5.0$ Hz, $\alpha = 0.7$ de profundidade)
+
+\paragraph{6. Vibrato (\texttt{vibrato})}
+O vibrato modula a frequência do sinal através de um delay variável no tempo, controlado por um LFO.
+$$
+y(t) = x(t - d(t)) \quad \text{onde } d(t) = \frac{\alpha}{1000} \cdot \sin(2 \pi f_m t)
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_vibrato.wav vibrato 5.0 2.0
+\end{lstlisting}
+(Exemplo: $f_m = 5.0$ Hz, $\alpha = 2.0$ ms de profundidade)
+
+\paragraph{7. Filtro Passa-Baixo (\texttt{low\_pass})}
+Implementa um filtro IIR (Infinite Impulse Response) passa-baixo de primeira ordem.
+$$
+y[k] = \alpha \cdot x[k] + (1 - \alpha) \cdot y[k-1]
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_lp.wav low_pass 0.3
+\end{lstlisting}
+(Exemplo: $\alpha = 0.3$)
+
+\paragraph{8. Filtro Passa-Alto (\texttt{high\_pass})}
+Implementa um filtro IIR passa-alto de primeira ordem.
+$$
+y[k] = \alpha \cdot (y[k-1] + x[k] - x[k-1])
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_hp.wav high_pass 0.8
+\end{lstlisting}
+(Exemplo: $\alpha = 0.8$)
+
+\paragraph{9. Distorção (\texttt{distortion})}
+Aplica um ganho ao sinal e depois corta-o (hard clipping) num determinado limiar, introduzindo harmónicos.
+$$
+y[k] = \text{clip}(x[k] \cdot g, -T, T)
+$$
+\begin{lstlisting}[language=bash]
+./wav_effects input.wav output_dist.wav distortion 10.0 15000
+\end{lstlisting}
+(Exemplo: $g = 10.0$ de ganho, $T = 15000$ de limiar)
+
+
+
+% ----------------------------------------------------------------------------------
+% SECÇÃO 3: PARTE II - CODEC DE QUANTIZAÇÃO
+% ----------------------------------------------------------------------------------
+\section{Parte II: Codec de Quantização Escalar com Empacotamento de Bits}
+
+Nesta segunda parte, foi desenvolvido um codec completo, composto por um codificador (\texttt{wav\_quant\_enc}) e um descodificador (\texttt{wav\_quant\_dec}). Este sistema utiliza a quantização uniforme da Parte I e as classes \texttt{BitStream} e \texttt{ByteStream} para criar uma representação compacta (comprimida) do áudio.
+
+\subsection{Codificador \texttt{wav\_quant\_enc}}
+
+O codificador é responsável por ler um ficheiro WAV, aplicar a quantização e escrever o resultado num formato binário comprimido.
+
+\subsubsection{Algoritmo de Codificação}
+O processo de codificação segue quatro passos fundamentais:
+\begin{enumerate}
+    \item \textbf{Passo 1: Quantização Uniforme:} As amostras do ficheiro WAV (16 bits) são lidas e quantizadas para um número de bits de precisão $B$, usando a mesma lógica do programa \texttt{wav\_quant}. A amostra quantizada $x_q$ é obtida a partir da amostra original $x$ através de:
+    $$
+    x_q = \left\lfloor \frac{x}{\Delta} + 0.5 \right\rfloor \cdot \Delta \quad , \quad \Delta = 2^{16 - B}
+    $$
+    
+    \item \textbf{Passo 2: Mapeamento para Intervalo Não-Negativo:} As amostras quantizadas, que são valores com sinal, são mapeadas para um índice de quantização $i_q$ (um inteiro não-negativo no intervalo $[0, 2^B - 1]$). Este mapeamento é feito através da seguinte transformação:
+    $$
+    i_q = \frac{x_q}{\Delta} + 2^{B-1}
+    $$
+    
+    \item \textbf{Passo 3: Escrita do Header:} Para que o descodificador possa reconstruir o ficheiro WAV, é necessário guardar metadados essenciais. O codificador escreve um cabeçalho no início do ficheiro de saída contendo: o número de bits ($B$), o número de canais, a taxa de amostragem e o número total de frames.
+    
+    \item \textbf{Passo 4: Empacotamento de Bits:} Cada amostra mapeada (agora o índice $i_q$ de $B$ bits) é escrita no ficheiro de saída usando a função \texttt{write\_n\_bits(índice, B)} da classe \texttt{BitStream}. Isto garante que não há desperdício de espaço (ex: uma amostra de 4 bits ocupa exatamente 4 bits no ficheiro, e não um byte inteiro).
+\end{enumerate}
+
+\subsubsection{Sintaxe e Exemplos}
+A sintaxe do codificador é análoga à do \texttt{wav\_quant}:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_quant\_enc]
+./wav_quant_enc <wavFileIn> <encodedFileOut> [bits]
+\end{lstlisting}
+
+\paragraph{Exemplos de Teste:}
+\begin{lstlisting}[language=bash, caption=Codificação para 8 e 4 bits]
+# Codificar para 8 bits (valor por omissao)
+./bin/wav_quant_enc sample.wav sample_8bit.enc
+
+# Codificar para 4 bits
+./bin/wav_quant_enc sample.wav sample_4bit.enc 4
+\end{lstlisting}
+
+\subsection{Descodificador \texttt{wav\_quant\_dec}}
+
+O descodificador realiza o processo inverso: lê o ficheiro binário comprimido e reconstrói o ficheiro WAV quantizado.
+
+\subsubsection{Algoritmo de Descodificação}
+\begin{enumerate}
+    \item \textbf{Passo 1: Leitura do Header:} O descodificador começa por ler os metadados (bits $B$, canais, sample rate, frames) do cabeçalho do ficheiro codificado usando o \texttt{BitStream}.
+    
+    \item \textbf{Passo 2: Leitura e Desmapeamento:} O programa lê o fluxo de bits em blocos de $B$ bits usando \texttt{read\_n\_bits(B)} para obter o índice $i_q$. Cada índice é desmapeado de volta para o seu valor de amostra quantizada $x_q$, invertendo o processo do Passo 2 da codificação:
+    $$
+    x_q = (i_q - 2^{B-1}) \cdot \Delta
+    $$
+    
+    \item \textbf{Passo 3: Reconstrução do Ficheiro WAV:} Com os metadados do cabeçalho e as amostras reconstruídas $x_q$, é criado um novo ficheiro WAV com as mesmas propriedades do original (antes da compressão), mas com os dados de áudio quantizados.
+\end{enumerate}
+
+\subsubsection{Sintaxe e Exemplos}
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_quant\_dec]
+./wav_quant_dec <encodedFileIn> <wavFileOut>
+\end{lstlisting}
+
+\paragraph{Exemplos de Teste:}
+\begin{lstlisting}[language=bash, caption=Descodificação dos ficheiros de 8 e 4 bits]
+# Descodificar o ficheiro de 8 bits
+./bin/wav_quant_dec sample_8bit.enc sample_8bit_dec.wav
+
+# Descodificar o ficheiro de 4 bits
+./bin/wav_quant_dec sample_4bit.enc sample_4bit_dec.wav
+\end{lstlisting}
+
+\subsection{Análise de Desempenho e Compressão}
+
+\subsubsection{Métricas de Compressão}
+A taxa de compressão é a razão entre o tamanho do ficheiro original e o tamanho do ficheiro comprimido.
+
+\begin{table}[H]
+\centering
+\caption{Análise de Compressão do Codec BitStream}
+\label{tab:compressao_bitstream}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Ficheiro} & \textbf{Tamanho Original} & \textbf{Tamanho Comprimido} & \textbf{Taxa de Compressão} \\ \midrule
+sample\_8bit.enc & 2,116,844 bytes & 1,058,415 bytes & 2 : 1 \\
+sample\_4bit.enc & 2,116,844 bytes & 529,215 bytes & 4 : 1 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Análise dos Resultados:}
+A taxa de compressão obtida é exatamente a esperada: ao reduzir a precisão de 16 para 8 bits (metade), o tamanho do ficheiro é reduzido para metade (2:1). Ao reduzir para 4 bits (um quarto), a taxa de compressão é de 4:1. Isto confirma a eficiência do empacotamento de bits.
+
+\subsubsection{Métricas de Qualidade de Áudio}
+Para avaliar a perda de qualidade, comparamos o ficheiro original com as versões descodificadas usando o \texttt{wav\_cmp}.
+
+\begin{table}[H]
+\centering
+\caption{Métricas de Qualidade para Diferentes Valores de $B$}
+\label{tab:qualidade_bitstream}
+\begin{tabular}{@{}llrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Canal} & \textbf{B = 8 bits} & \textbf{B = 4 bits} \\ \midrule
+\textbf{MSE} & Canal 0 & 5455.03 & 1,403,654.17 \\
+ & Canal 1 & 5457.54 & 1,400,161.70 \\
+ & MID & 2721.89 & 702,538.78 \\ \midrule
+\textbf{Max Abs Error} & Todos & 255.00 & 4095.00 \\ \midrule
+\textbf{SNR (dB)} & Canal 0 & 41.32 dB & 17.21 dB \\
+ & Canal 1 & 41.34 dB & 17.24 dB \\
+ & MID & 43.75 dB & 19.63 dB \\ \bottomrule
+\end{tabular}
+\end{table}
+Os resultados de erro (MSE, Max Abs Error, SNR), medidos com o programa \texttt{wav\_cmp}, são praticamente idênticos aos obtidos na análise do \texttt{wav\_quant}. Isto prova que o ciclo de codificação/descodificação com \texttt{BitStream} é \textbf{lossless} em relação aos dados quantizados. A única perda de informação ocorre na etapa de quantização, como esperado.
+
+\subsubsection{Análise de Tempo de Processamento}
+Os tempos de execução para codificar e descodificar o ficheiro \texttt{sample.wav} (duração de 12 segundos) foram medidos.
+
+\begin{table}[H]
+\centering
+\caption{Tempos de Execução do Codec (ms)}
+\label{tab:tempos_codec}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Processo} & \textbf{B = 8 bits} & \textbf{B = 4 bits} \\ \midrule
+Codificação (\texttt{wav\_quant\_enc}) & 22.20 ms & 18.60 ms \\
+Descodificação (\texttt{wav\_quant\_dec}) & 32.56 ms & 16.28 ms \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Conclusões sobre Desempenho:}
+O codec é extremamente rápido, processando um ficheiro de 12 segundos em dezenas de milissegundos. O tempo de processamento é dominado pela leitura/escrita de ficheiros, sendo a lógica de quantização e empacotamento de bits computacionalmente muito leve.
+
+\subsection{Comparação com Codec \texttt{wav\_quant}}
+Ambos os sistemas (\texttt{wav\_quant} e o codec \texttt{wav\_quant\_enc}/\texttt{dec}) aplicam a mesma quantização, mas produzem saídas diferentes.
+
+\begin{table}[H]
+\centering
+\caption{Comparação: \texttt{wav\_quant} vs. Codec BitStream (para B=8)}
+\label{tab:comparacao_codecs}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Característica} & \textbf{\texttt{wav\_quant}} & \textbf{Codec BitStream} \\ \midrule
+\textbf{Ficheiro de Saída} & WAV (PCM 16-bit) & Binário customizado (.enc) \\
+\textbf{Tamanho (8 bits)} & 2,116,844 bytes & 1,058,421 bytes \\
+\textbf{Compressão Real} & Nenhuma (1:1) & Sim (2:1) \\
+\textbf{Compatibilidade} & Alta (qualquer player) & Nenhuma (requer decoder) \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Vantagens do Codec BitStream:}
+A principal vantagem é a \textbf{compressão real}. Enquanto o \texttt{wav\_quant} reduz a precisão mas mantém a estrutura de 16 bits por amostra no ficheiro WAV, o codec utiliza o \texttt{BitStream} para eliminar os bits redundantes, resultando numa poupança de espaço significativa e diretamente proporcional à redução de bits.
+
+
+
+
+
+\section{Parte III: Codec de Áudio com Transformada DCT}
+
+Nesta secção, é apresentado um codec com perdas para ficheiros de áudio mono, baseado na Transformada Discreta de Cosseno (DCT). A estratégia de compressão adotada baseia-se na \textbf{preservação dos coeficientes de baixa frequência mais significativos e no descarte dos de alta frequência}, que, por norma, contribuem menos para a perceção auditiva da energia do sinal.
+
+O sistema é composto por um codificador (\texttt{mono\_dct\_enc}) e um descodificador (\texttt{mono\_dct\_dec}), que processam o áudio em blocos para alcançar a compressão.
+
+\subsection{Codificador \texttt{mono\_dct\_enc}}
+
+O codificador transforma o sinal de áudio do domínio do tempo para o domínio da frequência, descarta os coeficientes menos relevantes e escreve os restantes de forma compacta num ficheiro binário.
+
+\subsubsection{Algoritmo de Codificação}
+\begin{enumerate}
+    \item \textbf{Leitura e Preparação:} O ficheiro WAV mono é lido e dividido em blocos de amostras $x[n]$ de tamanho $N$ (\texttt{blockSize}).
+
+    \item \textbf{Cálculo de Coeficientes a Manter:} O utilizador especifica uma taxa de bits alvo por amostra (parâmetro \texttt{bits}, e.g., 4 bits/amostra). Com base nisto, e sabendo que cada coeficiente guardado ocupa 32 bits, o programa calcula o número de coeficientes a preservar ($N_c$) por bloco:
+    $$
+    N_c = \left\lfloor \frac{\texttt{bits} \times \texttt{blockSize}}{32} \right\rfloor
+    $$
+    Esta abordagem liga diretamente o parâmetro de entrada à taxa de compressão final.
+
+    \item \textbf{Escrita do Cabeçalho:} Um cabeçalho é escrito no ficheiro de saída, contendo os metadados essenciais: taxa de amostragem, número de \textit{frames}, \texttt{blockSize} ($N$) e o número de coeficientes a manter ($N_c$).
+
+    \item \textbf{Transformada DCT:} Para cada bloco $x[n]$, é aplicada a DCT (Tipo-II) para obter os coeficientes de frequência $C[k]$.
+    
+    \item \textbf{Normalização e Truncação:} Os $N_c$ primeiros coeficientes $C[k]$ (baixas frequências) são normalizados por um fator de $1/(2N)$ para cancelar o ganho da transformada. Os restantes coeficientes são descartados.
+    $$
+    C'_{\text{norm}}[k] = \frac{C[k]}{2N}, \quad \text{para } k \in [0, N_c - 1]
+    $$
+    
+    \item \textbf{Empacotamento de Bits:} Cada coeficiente normalizado é arredondado para o inteiro de 32 bits mais próximo e escrito no ficheiro de saída usando a classe \texttt{BitStream}. Apenas os $N_c$ coeficientes são escritos.
+\end{enumerate}
+
+\subsubsection{Sintaxe e Exemplos}
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do mono\_dct\_enc]
+./mono_dct_enc <input.wav> <output.bin> <blockSize> [bits]
+\end{lstlisting}
+
+\paragraph{Exemplos de Teste:}
+\begin{lstlisting}[language=bash, caption=Codificação com blockSize=1024 para 8 e 4 bits/amostra]
+# Codificar para uma média de 8 bits/amostra
+./bin/mono_dct_enc sample_mono.wav sample_mono_8bit.enc 1024 8
+
+# Codificar para uma média de 4 bits/amostra
+./bin/mono_dct_enc sample_mono.wav sample_mono_4bit.enc 1024 4
+\end{lstlisting}
+
+\subsection{Descodificador \texttt{mono\_dct\_dec}}
+O descodificador reconstrói o sinal de áudio a partir do ficheiro binário comprimido.
+
+\subsubsection{Algoritmo de Descodificação}
+\begin{enumerate}
+    \item \textbf{Leitura do Cabeçalho:} Os metadados (taxa de amostragem, \textit{frames}, \texttt{blockSize} $N$, e o número de coeficientes a ler $N_c$) são lidos do cabeçalho.
+    
+    \item \textbf{Reconstrução dos Coeficientes:} Para cada bloco, é criado um vetor de coeficientes de tamanho $N$, inicializado a zero. O programa lê os $N_c$ coeficientes do \texttt{BitStream} e preenche com eles o início do vetor. Os restantes $N-N_c$ coeficientes permanecem a zero.
+    
+    \item \textbf{Transformada Inversa DCT:} É aplicada a DCT Inversa (IDCT) a cada bloco de coeficientes reconstruído. Como a normalização foi feita no codificador, o resultado da IDCT já está na escala correta.
+    
+    \item \textbf{Reconstrução do Ficheiro WAV:} As amostras de áudio reconstruídas são arredondadas para o inteiro de 16 bits mais próximo e escritas num novo ficheiro WAV.
+\end{enumerate}
+
+\subsection{Análise de Desempenho e Compressão}
+
+Foi utilizado um ficheiro mono (\texttt{sample\_mono.wav}) com um tamanho de 1.1 MB para os testes, com um \texttt{blockSize} de 1024.
+
+\subsubsection{Métricas de Compressão}
+A taxa de compressão teórica para $B$ bits por amostra é de $16/B : 1$.
+\begin{table}[H]
+\centering
+\caption{Análise de Compressão do Codec DCT (blockSize=1024)}
+\label{tab:compressao_dct}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Bits Alvo} & \textbf{Tamanho Original} & \textbf{Tamanho Comprimido} & \textbf{Taxa de Compressão} \\ \midrule
+8 bits (16 $\to$ 8) & 1,058,478 bytes & 529,424 bytes & 2 : 1 \\
+4 bits (16 $\to$ 4) & 1,058,478 bytes & 264,720 bytes & 4 : 1 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Métricas de Qualidade de Áudio}
+A qualidade foi avaliada comparando o ficheiro original com as versões descodificadas para diferentes taxas de bits.
+
+\begin{table}[H]
+\centering
+\caption{Métricas de Qualidade para o Codec DCT (blockSize=1024)}
+\label{tab:qualidade_dct}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{bits = 8} & \textbf{bits = 4} \\ \midrule
+\textbf{MSE} & 573,319.39 & 3,319,399.79 \\
+\textbf{Max Abs Error} & 15,582.00 & 28,885.00 \\
+\textbf{SNR (dB)} & \textbf{20.52 dB} & \textbf{12.89 dB} \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Análise dos Resultados:}
+Os resultados obtidos demonstram a eficácia da compressão no domínio da frequência através da truncação de coeficientes.
+\begin{itemize}
+    \item \textbf{Qualidade vs. Compressão:} Confirma-se o \textit{trade-off} esperado entre a qualidade do áudio e a taxa de compressão. Ao duplicar a compressão (de 8 para 4 bits), o MSE aumenta significativamente e o SNR diminui cerca de 7.6 dB, indicando uma maior perda de informação.
+    \item \textbf{Resultados de Qualidade:} Com uma compressão de 2:1 (8 bits/amostra), obtém-se um SNR de 20.52 dB. Este valor é considerado aceitável para aplicações com perdas, indicando que a maior parte da energia do sinal original foi preservada nos coeficientes mantidos.
+    \item \textbf{Degradação Graciosa:} Mesmo com uma compressão mais agressiva de 4:1 (4 bits/amostra), o SNR mantém-se em 12.89 dB. Embora a qualidade seja visivelmente inferior, a estrutura fundamental do sinal de áudio é preservada.
+    \item \textbf{Eficiência da DCT:} Estes resultados provam o princípio da compactação de energia da DCT: a maior parte da energia de um sinal de áudio está concentrada num pequeno número de coeficientes de baixa frequência. Ao preservar apenas estes, é possível obter uma representação compacta e razoavelmente fiel do sinal original.
+\end{itemize}
+
+\subsubsection{Análise de Tempo de Processamento}
+Os tempos de execução foram medidos para os testes de codificação e descodificação.
+\begin{table}[H]
+\centering
+\caption{Tempos de Execução do Codec DCT (ms)}
+\label{tab:tempos_dct}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Processo} & \textbf{bits = 8} & \textbf{bits = 4} \\ \midrule
+Codificação (\texttt{mono\_dct\_enc}) & 15.9 ms & 14.1 ms \\
+Descodificação (\texttt{mono\_dct\_dec}) & 21.2 ms & 16.3 ms \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Conclusões sobre Desempenho:}
+O codec é computacionalmente eficiente, com tempos de codificação na ordem dos 15 milissegundos para um ficheiro de áudio de 12 segundos. A codificação para 4 bits é marginalmente mais rápida devido à menor quantidade de dados escritos em disco. A utilização de um plano pré-calculado pela biblioteca FFTW contribui significativamente para este bom desempenho.
+
+
+% ----------------------------------------------------------------------------------
+% SECÇÃO EXTRA: ANÁLISE DO SINAL DE ERRO (VERSÃO CORRIGIDA)
+% ----------------------------------------------------------------------------------
+\section{Análise Extra: Estudo do Sinal de Erro}
+
+Para uma análise mais aprofundada da natureza da distorção introduzida pelos codecs, foi desenvolvido um programa adicional, o \texttt{wav\_error}. Este programa permite isolar e analisar a distribuição estatística do sinal de erro, fornecendo uma visão qualitativa que complementa as métricas numéricas como o SNR.
+
+\subsection{Programa \texttt{wav\_error}}
+
+\subsubsection{Funcionalidade e Utilização}
+O programa \texttt{wav\_error} compara dois ficheiros de áudio (um original e um processado) e gera um terceiro ficheiro WAV contendo o sinal de erro, calculado como a diferença amostra a amostra:
+$$
+\text{erro}[n] = \text{original}[n] - \text{processado}[n]
+$$
+A sintaxe de utilização é a seguinte:
+\begin{lstlisting}[language=bash, caption=Sintaxe de Uso do wav\_error]
+./wav_error <ficheiro_original.wav> <ficheiro_processado.wav> <ficheiro_erro_saida.wav>
+\end{lstlisting}
+O ficheiro de erro gerado pode depois ser analisado com o programa \texttt{wav\_hist} para se obter o histograma da distribuição do erro.
+
+\subsection{Análise Comparativa dos Histogramas de Erro}
+
+\subsubsection{Erro de Quantização Uniforme (4 bits vs. 8 bits)}
+
+A Figura~\ref{fig:erro_quant_comp} compara os histogramas do erro de quantização para 8 e 4 bits.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_quant_8bit_bin_ch0_hist.png}
+    \caption{Erro de Quantização (8 bits)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_quant_4bit_bin_ch0_hist.png}
+    \caption{Erro de Quantização (4 bits)}
+\end{minipage}
+\caption{Comparação do histograma do erro de quantização uniforme para 8 e 4 bits.}
+\label{fig:erro_quant_comp}
+\end{figure}
+
+\paragraph{Análise:} Ambos os histogramas apresentam uma \textbf{distribuição retangular (uniforme)}, o que valida visualmente o modelo teórico do ruído de quantização. A principal diferença é a largura da distribuição: para 8 bits ($\Delta=256$), o erro está confinado ao intervalo $[-128, 128]$, enquanto para 4 bits ($\Delta=4096$), o erro espalha-se pelo intervalo $[-2048, 2048]$. Isto demonstra graficamente o aumento drástico da magnitude do erro quando a precisão é reduzida.
+
+\subsubsection{Erro de Quantização no Canal MID (4 bits vs. 8 bits)}
+
+A Figura~\ref{fig:erro_mid_comp} mostra os histogramas de erro para o canal MID.
+
+\paragraph{Análise:} Confirma-se que o erro no canal MID exibe uma \textbf{distribuição triangular}. Este resultado é esperado, pois o erro do MID é a média dos erros (uniformemente distribuídos) dos canais L e R. Tal como no caso anterior, a base do triângulo para 4 bits é muito mais larga, indicando erros de maior amplitude.
+
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_quant_8bit_bin_mid_hist.png}
+    \caption{Erro do Canal MID (8 bits)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_quant_4bit_bin_mid_hist.png}
+    \caption{Erro do Canal MID (4 bits)}
+\end{minipage}
+\caption{Comparação do histograma do erro no canal MID para 8 e 4 bits.}
+\label{fig:erro_mid_comp}
+\end{figure}
+
+
+\subsubsection{Erro de Compressão DCT (4 bits vs. 8 bits)}
+
+A Figura~\ref{fig:erro_dct_comp} compara os histogramas do erro do codec DCT.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_dct_8bit_bin_ch0_hist.png}
+    \caption{Erro do Codec DCT (8 bits)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_dct_4bit_bin_ch0_hist.png}
+    \caption{Erro do Codec DCT (4 bits)}
+\end{minipage}
+\caption{Comparação do histograma do erro do codec DCT para 8 e 4 bits.}
+\label{fig:erro_dct_comp}
+\end{figure}
+
+\paragraph{Análise:} A distribuição do erro da compressão DCT é fundamentalmente diferente da quantização uniforme. Apresenta uma \textbf{distribuição em forma de sino com um pico muito acentuado em zero} (semelhante a uma distribuição de Laplace). Isto indica que a maioria dos erros são nulos ou muito próximos de zero, com a probabilidade de ocorrência a diminuir drasticamente para erros de maior amplitude. A distribuição para 4 bits é visivelmente mais "larga" e menos "pontiguda", o que significa que, embora a maioria dos erros ainda sejam pequenos, a probabilidade de erros maiores ocorrer é mais elevada, justificando a menor qualidade (SNR).
+
+\subsubsection{Comparação Direta: Quantização Uniforme vs. Compressão DCT}
+
+A Figura~\ref{fig:quant_vs_dct} coloca lado a lado a natureza do erro dos dois codecs para uma taxa de compressão equivalente (8 bits/amostra).
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_quant_8bit_bin_ch0_hist.png}
+    \caption{Erro da Quantização Uniforme (8 bits)}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Imagens/erro_dct_8bit_bin_ch0_hist.png}
+    \caption{Erro do Codec DCT (8 bits)}
+\end{minipage}
+\caption{Comparação da distribuição do erro entre os dois codecs.}
+\label{fig:quant_vs_dct}
+\end{figure}
+
+\paragraph{Análise Final:}
+Esta comparação visual demonstra a natureza fundamentalmente distinta do erro introduzido por cada codec. 
+O erro da quantização uniforme (Figura~\ref{fig:quant_vs_dct}, esquerda) é "não-estruturado" e equiprovável dentro dos seus limites, validando o modelo teórico. Em contraste, o erro do codec DCT (Figura~\ref{fig:quant_vs_dct}, direita) é altamente "estruturado", com uma distribuição acentuadamente concentrada em zero, o que significa que o codec tenta ativamente minimizar a magnitude do erro.
+
+É crucial notar que embora a distribuição do erro do DCT seja teoricamente mais vantajosa do ponto de vista percetual, o SNR medido para o codec de quantização uniforme foi significativamente superior (41.3 dB vs. 20.5 dB para 8 bits). Esta discrepância ocorre porque o codec DCT desenvolvido é um modelo simplificado que não implementa modelos percetuais avançadas.
+
+A conclusão principal a retirar é que, embora a quantização uniforme tenha tido um melhor desempenho numérico neste teste específico, o codec DCT demonstra uma estratégia de gestão de erro muito mais sofisticada. É esta estratégia de concentrar o erro em valores pequenos que, quando combinada com modelos percetuais, permite aos codecs modernos alcançar uma qualidade de áudio superior a taxas de compressão muito mais elevadas.
+
+\section{Conclusões}
+
+Este trabalho permitiu uma exploração prática e aprofundada dos conceitos fundamentais de codificação de áudio, desde a análise de sinal até à implementação de codecs com e sem perdas.
+
+Na \textbf{Parte I}, foram desenvolvidas ferramentas essenciais em C++ que serviram de base para as restantes secções. A análise de histogramas com \texttt{wav\_hist}, incluindo a transformação para canais MID/SIDE, demonstrou como a representação do sinal pode ser otimizada, observando-se que o canal MID concentra a maior parte da energia e apresenta um SNR superior após a quantização. O programa \texttt{wav\_cmp} forneceu as métricas quantitativas (MSE, SNR) cruciais para avaliar a degradação da qualidade de forma objetiva.
+
+A \textbf{Parte II} focou-se na implementação de um codec de quantização escalar com empacotamento de bits. O sistema \texttt{wav\_quant\_enc}/\texttt{dec} provou a eficácia da classe \texttt{BitStream}, alcançando as taxas de compressão teóricas (e.g., 2:1 para 8 bits) ao eliminar a redundância de dados. Confirmou-se que o ciclo de codificação/descodificação é \textit{lossless} em relação aos dados quantizados, isolando a perda de qualidade exclusivamente na etapa de quantização.
+
+Finalmente, na \textbf{Parte III}, foi desenvolvido um codec baseado na DCT, que demonstrou a eficácia da compressão no domínio da frequência ao preservar seletivamente os coeficientes mais significativos. A abordagem de truncação de coeficientes provou ser eficaz, resultando num codec com um bom balanço entre a taxa de compressão e a qualidade do áudio.
+
+Em suma, o projeto proporcionou uma base sólida sobre os desafios e as técnicas de compressão de áudio, desde a manipulação de bits até às transformadas de frequência.
+
+
+\bibliographystyle{plain}
+\bibliography{referencias} % Cria um ficheiro referencias.bib se precisares de citar fontes externas
+
+\end{document}

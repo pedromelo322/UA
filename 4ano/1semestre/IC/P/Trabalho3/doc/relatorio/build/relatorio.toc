@@ -1,0 +1,55 @@
+\babel@toc {portuguese}{}\relax 
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Contexto e Motivação}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Objetivos do Trabalho}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Abordagem Metodológica}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Estrutura do Relatório}{4}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Análise e Caracterização da Fonte}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Estrutura do Ficheiro SafeTensors}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Análise do Formato BF16}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Limites Teóricos: Entropia de Shannon}{5}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Análise Global do Payload}{5}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Análise de Correlação Sequencial}{5}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Análise Estrutural Diferenciada: \textit {Byte-Splitting}}{6}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Validação Visual: Histogramas de Frequência}{6}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Interpretação Física dos Resultados}{7}{subsubsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.5}Síntese e Estratégia de Compressão}{8}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Benchmarking de Compressores Existentes}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Metodologia de Teste}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Análise dos Resultados}{9}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Taxa de Compressão}{9}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Tempo de Processamento}{9}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Consumo de Memória}{9}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Conclusões do Benchmarking}{9}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Implementação do Codec}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Arquitetura Geral}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Formato do Ficheiro Comprimido}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Estratégia para o Canal MSB}{10}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Avaliação de Técnicas de Predição}{10}{subsubsection.4.3.1}%
+\contentsline {paragraph}{Preditor Linear (Delta)}{10}{section*.2}%
+\contentsline {paragraph}{Preditor XOR}{11}{section*.3}%
+\contentsline {subsubsection}{\numberline {4.3.2}Decisão de Engenharia}{11}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Codificação de Entropia}{11}{subsubsection.4.3.3}%
+\contentsline {paragraph}{Codificação de Huffman (Estática)}{11}{section*.4}%
+\contentsline {paragraph}{Codificação Aritmética}{11}{section*.5}%
+\contentsline {subsection}{\numberline {4.4}Estratégia para o Canal LSB}{11}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Modo FAST: Armazenamento Direto (Raw)}{12}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Modo BEST: Codificação Aritmética}{12}{subsubsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.5}Modos de Operação}{12}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Gestão de Memória}{13}{subsection.4.6}%
+\contentsline {subsubsection}{\numberline {4.6.1}Otimização do Tamanho de Bloco}{13}{subsubsection.4.6.1}%
+\contentsline {section}{\numberline {5}Resultados Experimentais}{13}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Conjunto de Dados de Teste}{13}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Resultados Consolidados}{14}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Verificação de Integridade}{14}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Comparação com Benchmarks}{14}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Análise e Discussão}{15}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Taxa de Compressão}{15}{subsubsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.2}Desempenho Temporal}{15}{subsubsection.5.5.2}%
+\contentsline {subsubsection}{\numberline {5.5.3}Comparação do Pico de RAM}{15}{subsubsection.5.5.3}%
+\contentsline {subsubsection}{\numberline {5.5.4}Escalabilidade}{16}{subsubsection.5.5.4}%
+\contentsline {section}{\numberline {6}Conclusões}{16}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Síntese do Trabalho Realizado}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Principais Resultados}{16}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Considerações Finais}{16}{subsection.6.3}%

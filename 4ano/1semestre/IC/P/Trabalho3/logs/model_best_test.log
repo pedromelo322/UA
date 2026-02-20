@@ -1,0 +1,71 @@
+=== Teste MELHOR (best) para model.safetensors em Fri Dec 19 07:00:24 PM WET 2025 ===
+Tamanho original:
+-rw-rw-r-- 1 pedromelo pedromelo 943M Nov 28 21:24 data/model.safetensors
+-rw-rw-r-- 1 pedromelo pedromelo 988097824 Nov 28 21:24 data/model.safetensors
+--------------------------------------------------------
+Codificação em modo 'best':
+Modo: BEST (Arithmetic MSB+LSB paralelo)
+Bloco 50 Ratio: 1.51:1Bloco 100 Ratio: 1.51:1Bloco 150 Ratio: 1.51:1Bloco 200 Ratio: 1.51:1Bloco 250 Ratio: 1.50:1Bloco 300 Ratio: 1.50:1Bloco 350 Ratio: 1.50:1Bloco 400 Ratio: 1.50:1Bloco 450 Ratio: 1.50:1Bloco 500 Ratio: 1.50:1Bloco 550 Ratio: 1.50:1Bloco 600 Ratio: 1.50:1Bloco 650 Ratio: 1.50:1Bloco 700 Ratio: 1.50:1Bloco 750 Ratio: 1.50:1Bloco 800 Ratio: 1.50:1Bloco 850 Ratio: 1.50:1Bloco 900 Ratio: 1.50:1
+Final: 629.53 MB. Ratio: 1.497:1
+	Command being timed: "./bin/encoder data/model.safetensors output/model.sc best"
+	User time (seconds): 21.62
+	System time (seconds): 0.68
+	Percent of CPU this job got: 190%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.69
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6676
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1110
+	Voluntary context switches: 1747
+	Involuntary context switches: 2604
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 1289288
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Tamanho do arquivo codificado (model.sc):
+-rw-rw-r-- 1 pedromelo pedromelo 630M Dec 19 19:00 output/model.sc
+-rw-rw-r-- 1 pedromelo pedromelo 660114586 Dec 19 19:00 output/model.sc
+--------------------------------------------------------
+Decodificação:
+A descodificar... Modo: BEST (Arithmetic)
+Concluído.
+	Command being timed: "./bin/decoder output/model.sc output/model_restored_best.safetensors"
+	User time (seconds): 53.17
+	System time (seconds): 0.77
+	Percent of CPU this job got: 142%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:37.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6556
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1549
+	Voluntary context switches: 1888
+	Involuntary context switches: 3309
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 1929896
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Tamanho do arquivo restaurado (best):
+-rw-rw-r-- 1 pedromelo pedromelo 943M Dec 19 19:01 output/model_restored_best.safetensors
+-rw-rw-r-- 1 pedromelo pedromelo 988097824 Dec 19 19:01 output/model_restored_best.safetensors
+--------------------------------------------------------
+Comparação MD5 (Original vs. Restaurado best):
+6ab8bc8234ce3e3ad591d52621d8c327  data/model.safetensors
+6ab8bc8234ce3e3ad591d52621d8c327  output/model_restored_best.safetensors
+=== Teste MELHOR (best) CONCLUÍDO para model.safetensors ===
+

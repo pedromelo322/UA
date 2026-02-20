@@ -1,0 +1,8 @@
+To build:
+	cd src; make; cd ..
+
+To test:
+	cd test
+	../bin/text2bin text-bits bin-bits // converts textual binary digits into binary bits
+	../bin/bin2text bin-bits text-out // converts binary bits into textual binary digits
+	cmp text-bits text-out // compares the original and recovered text files; should be silent
