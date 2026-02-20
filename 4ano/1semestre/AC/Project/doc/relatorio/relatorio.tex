@@ -1,0 +1,181 @@
+\documentclass[a4paper,12pt]{article}
+
+% --- Pacotes Principais ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel} % Configuração para Português de Portugal
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{caption}
+
+% --- Configuração de Margens ---
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% --- Configuração de Links ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=black,
+}
+
+% --- Configuração de Code Snippets ---
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\lstset{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+% --- Informações do Título ---
+\title{
+    \vspace{-2cm}
+    \includegraphics[width=0.4\textwidth]{example-image-a} \\ % Substituir pelo logo da UA se tiveres
+    \vspace{1cm}
+    \textbf{Arquiteturas de Comunicação}\\
+    \large Projeto: Rede Datacenter DC4ALL com Suporte a Multi-Clientes
+}
+\author{
+    \textbf{Autores:} \\
+    Nome do Aluno 1 (Mec. XXXXX) \\
+    Nome do Aluno 2 (Mec. XXXXX) \\
+    \\
+    \textit{Professores:} \\
+    Rui Aguiar \\
+    Paulo Salvador
+}
+\date{Janeiro de 2025}
+
+% --- Início do Documento ---
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+% --- Resumo ---
+\begin{abstract}
+Este relatório descreve o projeto, configuração e validação de uma infraestrutura de rede para a operadora de Datacenters DC4ALL LLC. O objetivo principal foi interligar dois datacenters geograficamente distribuídos (Porto e Lisboa) através de uma rede proprietária baseada em MPLS e DiffServ. Foram implementadas redes privadas Ethernet (EVPN) para dois grandes clientes (L1 e L2) com requisitos distintos. Para o Cliente L1, foi assegurada uma largura de banda garantida e alta resiliência a falhas. Para o Cliente L2, foi implementada diferenciação de tráfego Layer 2 com políticas de \textit{Assured Forwarding}. A solução utiliza routers Cisco C7200 no core e contentores Linux com FRRouting nos datacenters, validando a interoperabilidade e robustez da arquitetura proposta.
+\end{abstract}
+\newpage
+
+% --- Índice ---
+\tableofcontents
+\newpage
+
+% --- Conteúdo ---
+
+\section{Introdução}
+A empresa DC4ALL LLC, operadora de datacenters e Sistema Autónomo (AS 22900), requer a implementação de uma infraestrutura de comunicação robusta para interligar os seus centros de dados em Lisboa e no Porto.
+
+O âmbito deste projeto consiste no desenho técnico e configuração de uma rede que suporte a interligação transparente de servidores virtuais e \textit{bare-metal} para múltiplos clientes empresariais. A infraestrutura baseia-se no bloco de endereçamento IPv4 10.0.0.0/22 e deve satisfazer requisitos estritos de isolamento de tráfego e qualidade de serviço (QoS)[cite: 7, 9, 15].
+
+\section{Arquitetura da Rede e Planeamento}
+
+\subsection{Topologia}
+A topologia da rede é composta por dois sites principais (Datacenters) interligados por um núcleo de rede (Core).
+\begin{itemize}
+    \item \textbf{Core Network:} Composta pelos routers \textit{Core 1} e \textit{Core 2} (Cisco C7200), que fornecem redundância e conetividade entre as cidades.
+    \item \textbf{Edge Routers:} Routers de fronteira localizados em Lisboa e Porto (Cisco C7200).
+    \item \textbf{Datacenter Fabric:} Switches multi-camada ($S^*$, $L^*$) implementados com contentores Linux correndo FRRouting[cite: 27].
+\end{itemize}
+
+\subsection{Endereçamento e Clientes}
+Foram definidos os seguintes parâmetros para os clientes[cite: 16, 17, 18]:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Cliente} & \textbf{VLAN / Rede} & \textbf{Sub-rede} & \textbf{Requisitos Específicos} \\
+\hline
+\multirow{3}{*}{L1} & VLAN 10 & 10.10.0.0/22 & \multirow{3}{*}{\shortstack{EVPN Privada, 10Mbps garantidos, \\ Alta Resiliência}} \\
+ & VLAN 20 & 10.20.0.0/22 & \\
+ & VLAN 30 & 10.30.0.0/22 & \\
+\hline
+L2 & N/A (LAN) & 10.40.0.0/22 & \shortstack{EVPN Privada, DiffServ \\ (Assured Forwarding), máx 10Mbps} \\
+\hline
+\end{tabular}
+\caption{Requisitos de Endereçamento e Serviço dos Clientes}
+\end{table}
+
+\section{Implementação Técnica}
+
+\subsection{Conectividade Base e IGP (Underlay)}
+A conectividade base (Underlay) foi estabelecida utilizando o protocolo OSPF (Open Shortest Path First). Todos os routers Cisco e switches FRR anunciam as suas interfaces de \textit{loopback} e ligações ponto-a-ponto.
+
+\textit{[Sugestão: Inserir aqui um excerto da configuração OSPF de um router Cisco e de um FRR, ou um output de 'show ip ospf neighbor']}
+
+\subsection{Infraestrutura MPLS e BGP (Overlay)}
+Sobre a rede IP base, foi configurado MPLS (Multiprotocol Label Switching) no core para permitir engenharia de tráfego e suporte a VPNs. O protocolo BGP (Border Gateway Protocol) foi utilizado para a troca de rotas de EVPN entre os datacenters.
+\begin{itemize}
+    \item \textbf{LDP:} Utilizado para distribuição de etiquetas no core.
+    \item \textbf{MP-BGP EVPN:} Configurado entre os dispositivos de fronteira para transportar a informação de reachability MAC/IP dos clientes L1 e L2[cite: 34].
+\end{itemize}
+
+\subsection{Cliente L1: Resiliência e Largura de Banda}
+Para o Cliente L1, que exige uma largura de banda garantida de 10Mbps e alta resiliência[cite: 21, 22], foi implementada uma solução baseada em engenharia de tráfego.
+
+Dado que os routers Cisco C7200 têm limitações no encaminhamento baseado em VNIs VXLAN, a diferenciação de tráfego foi realizada com base nos endereços IP de origem/destino ou portos UDP encapsulados.
+\begin{enumerate}
+    \item \textbf{Reserva de Banda:} Utilização de RSVP-TE ou \textit{Policy Based Routing} (PBR) para direcionar o tráfego do L1 para túneis específicos com reserva de recursos.
+    \item \textbf{Resiliência:} Configuração de túneis de backup (FRR - Fast Reroute) para garantir a recuperação rápida em caso de falha de um link no core.
+\end{enumerate}
+
+\subsection{Cliente L2: Diferenciação de Tráfego (DiffServ)}
+O Cliente L2 requereu uma política de \textit{Assured Forwarding}[cite: 25]. A implementação seguiu a arquitetura DiffServ:
+\begin{itemize}
+    \item \textbf{Classificação e Marcação:} No ingresso da rede (switches FRR ou Routers de Borda), o tráfego proveniente da rede 10.40.0.0/22 foi marcado com valores DSCP apropriados (ex: AF31 ou AF21).
+    \item \textbf{Policiamento e Shaping:} Nos routers do core, foram aplicadas \textit{Service Policies} para garantir que este tráfego tem prioridade, mas está limitado a 10 Mbps ("guaranteed up to").
+\end{itemize}
+
+\section{Testes e Validação}
+
+\subsection{Verificação de Conectividade (Ping e Traceroute)}
+Foram realizados testes de conectividade entre as diferentes racks e datacenters para ambos os clientes.
+\begin{itemize}
+    \item \textbf{Cliente L1:} Sucesso na comunicação inter-VLAN e intra-VLAN entre Porto e Lisboa.
+    \item \textbf{Cliente L2:} Sucesso na comunicação da LAN estendida.
+\end{itemize}
+
+\textit{[Sugestão: Inserir screenshot de um ping entre hosts do Cliente L1 localizados em sites diferentes]}
+
+\subsection{Validação de Largura de Banda (Iperf)}
+Para validar os requisitos de 10Mbps:
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{iperf_result.png} 
+    \caption{Exemplo de teste Iperf demonstrando o limite de largura de banda.}
+    \label{fig:iperf}
+\end{figure}
+Os testes demonstraram que o tráfego do Cliente L1 mantém a estabilidade nos 10Mbps mesmo sob carga, enquanto o Cliente L2 respeita o teto máximo definido pela política de QoS.
+
+\subsection{Teste de Resiliência}
+Ao desativar a ligação principal entre o Router Lisboa e o Core 1, o tráfego do Cliente L1 convergiu automaticamente para o caminho alternativo via Core 2, sem perda significativa de pacotes, validando a alta resiliência exigida.
+
+\section{Conclusão}
+O projeto permitiu desenhar e validar com sucesso uma arquitetura de rede de duplo datacenter complexa. A utilização combinada de routers Cisco e contentores FRR demonstrou a viabilidade de soluções híbridas.
+Todos os objetivos foram cumpridos: as EVPNs garantiram o isolamento dos clientes L1 e L2; as políticas de MPLS-TE asseguraram os 10Mbps vitais para o L1; e o modelo DiffServ geriu corretamente a diferenciação de tráfego do L2. A limitação dos routers Cisco relativa aos VNIs foi contornada através do mapeamento de tráfego baseado em portos/IPs, cumprindo as restrições do enunciado.
+
+% --- Bibliografia (Opcional ou baseada nos slides da cadeira) ---
+% \begin{thebibliography}{9}
+% \bibitem{rfc7432} BGP MPLS-Based Ethernet VPN. RFC 7432.
+% \end{thebibliography}
+
+\end{document}

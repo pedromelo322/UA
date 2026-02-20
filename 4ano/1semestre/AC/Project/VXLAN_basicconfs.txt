@@ -1,0 +1,79 @@
+#PE1
+
+vtysh
+conf t
+int eth0
+ip add 192.0.1.1/24
+ip ospf 1 area 0
+no shutdow
+router ospf 1
+end
+wr
+
+
+ip link add link eth1 name eth1.2 type vlan id 2
+ip link add link eth1 name eth1.3 type vlan id 3
+ip link set up dev eth1.2
+ip link set up dev eth1.3
+
+ip link add vxlan102 type vxlan id 102 remote 192.0.2.2 dstport 4789
+ip link add vxlan103 type vxlan id 103 remote 192.0.2.2 dstport 4789
+ip link set up dev vxlan102
+ip link set up dev vxlan103
+
+brctl addbr br102
+brctl addif br102 vxlan102
+brctl addif br102 eth1.2
+brctl stp br102 off
+
+brctl addbr br103
+brctl addif br103 vxlan103
+brctl addif br103 eth1.3
+brctl stp br103 off
+
+ip link set up dev br102
+ip link set up dev br103
+
+ip -d link show vxlan102
+ip -d link show vxlan103
+
+---
+
+#PE2
+
+vtysh
+conf t
+int eth0
+ip add 192.0.2.2/24
+ip ospf 1 area 0
+no shutdow
+router ospf 1
+end
+wr
+
+
+ip link add link eth1 name eth1.2 type vlan id 2
+ip link add link eth1 name eth1.3 type vlan id 3
+ip link set up dev eth1.2
+ip link set up dev eth1.3
+
+ip link add vxlan102 type vxlan id 102 remote 192.0.1.1 dstport 4789
+ip link add vxlan103 type vxlan id 103 remote 192.0.1.1 dstport 4789
+ip link set up dev vxlan102
+ip link set up dev vxlan103
+
+brctl addbr br102
+brctl addif br102 vxlan102
+brctl addif br102 eth1.2
+brctl stp br102 off
+
+brctl addbr br103
+brctl addif br103 vxlan103
+brctl addif br103 eth1.3
+brctl stp br103 off
+
+ip link set up dev br102
+ip link set up dev br103
+
+ip -d link show vxlan102
+ip -d link show vxlan103

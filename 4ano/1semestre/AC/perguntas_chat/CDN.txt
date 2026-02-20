@@ -1,0 +1,69 @@
+I. Conceitos Fundamentais e Motivação
+
+    O que é uma Rede de Sobreposição (Overlay Network) e como se aplica ao conceito de CDN?
+
+    Quais são os três principais problemas da Internet "padrão" que as CDNs visam resolver? (Latência, Congestionamento, Escalabilidade/Flash Crowds).
+
+    Qual é a diferença fundamental entre um Web Cache (Proxy) tradicional e uma CDN? (Dica: Quem paga/configura? Reativo vs Proativo).
+
+    Porque é que aumentar apenas a capacidade dos servidores na origem (Server Farms) não resolve o problema de latência para utilizadores distantes?
+
+    Porque é que as redes Peer-to-Peer (P2P) não são a solução padrão para distribuição de conteúdo comercial, apesar de serem eficientes em largura de banda? (Dica: Gestão, Garantia de Serviço, Disponibilidade).
+
+    O que é um Flash Crowd? Dê um exemplo de como uma CDN mitiga este fenómeno.
+
+II. Arquitetura e Componentes
+
+    Defina Surrogate Server (ou Edge Server) no contexto de uma CDN.
+
+    Quais são os dois componentes lógicos principais de uma aplicação numa CDN de 2ª geração em diante? (Execução na Edge vs Execução na Origin).
+
+    Explique a função da Infraestrutura de Distribuição numa CDN. É Push ou Pull?
+
+    O que é a Infraestrutura de Redirecionamento (Request Routing)?
+
+    O que significa "Offloading" no contexto de uma CDN? (Ex: Offloading de SSL, de aplicações, de base de dados).
+
+III. Mecanismos de Redirecionamento (DNS)
+
+    Descreva passo-a-passo como funciona o Redirecionamento por DNS.
+
+    Qual é a função do registo CNAME no funcionamento de uma CDN?
+
+    Como é que o servidor DNS da CDN sabe qual é o servidor Edge mais próximo do cliente? (Dica: Endereço IP do Local DNS resolver vs Cliente).
+
+    Quais são as limitações do redirecionamento por DNS? (Dica: TTL, cache de DNS, precisão da localização).
+
+    Além do DNS, que outras técnicas de redirecionamento existem? (Ex: HTTP Redirection, URL Rewriting, Anycast).
+
+    O que é o Conditional GET no HTTP e como ajuda na eficiência das caches da CDN?
+
+IV. Evolução e Gerações
+
+    Qual era o foco principal das CDNs de 1ª Geração (anos 90)? (Conteúdo estático).
+
+    O que mudou significativamente nas CDNs de 2ª Geração? (Conteúdo dinâmico, streaming).
+
+    Como é que as CDNs de 3ª Geração se relacionam com a Cloud e a Segurança (WAF/DDoS)?
+
+    O que caracteriza a 4ª Geração de CDNs? (Integração com Mobile, MEC - Mobile Edge Computing).
+
+V. Operação e Estratégias
+
+    Como é que uma CDN lida com conteúdo dinâmico (não cacheável)? (Dica: Otimização de rota até à origem, TCP optimization).
+
+    Em cenários de Streaming de Vídeo, qual a vantagem da CDN sobre um servidor centralizado?
+
+    O que acontece quando um Edge Server não tem o conteúdo solicitado pelo cliente? (Cache Miss).
+
+    Como é mantida a consistência do conteúdo entre a Origem e os Edge Servers? (TTL, Invalidação, Atualização proativa).
+
+    Onde são tipicamente colocados os servidores da CDN? (IXPs, dentro dos ISPs - PoPs).
+
+    Como é que o "DNS Redirection" ajuda no balanceamento de carga global?
+
+    Qual a importância do TTL (Time To Live) nas respostas DNS de uma CDN? Porque é geralmente baixo?
+
+    O que é o Anycast e como pode ser usado em CDNs (vs Unicast)?
+
+    Numa arquitetura CDN, quem mantém o controlo sobre o conteúdo: o ISP ou o Provedor de Conteúdo (Content Provider)?

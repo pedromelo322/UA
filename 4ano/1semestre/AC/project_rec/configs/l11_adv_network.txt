@@ -1,0 +1,107 @@
+bash-5.1# cat /etc/init.d/adv_network 
+#!/bin/bash
+# 1. Criar a VRF para o Cliente 1 (Tabela ID 1001 - número arbitrário)
+ip link add vrf_cl1 type vrf table 1001
+ip link set vrf_cl1 up
+
+# 2. Criar a VRF para o Cliente 2 (Tabela ID 1002)
+ip link add vrf_cl2 type vrf table 1002
+ip link set vrf_cl2 up
+
+
+
+
+# Criar a Bridge (O "Switch Virtual" para a VLAN 10)
+ip link add br_v10 type bridge
+
+# Associar a Bridge à VRF do Cliente 1 (CRUCIAL para o isolamento)
+ip link set br_v10 master vrf_cl1
+
+# Criar o Túnel VXLAN para a VLAN 10
+ip link add vxlan10010 type vxlan id 10010 local 10.0.0.21 dstport 4790 nolearning
+
+# Ligar o Túnel à Bridge
+ip link set vxlan10010 master br_v10
+
+# Tratar da interface física (eth1)
+ip link add link eth1 name eth1.10 type vlan id 10
+ip link set eth1.10 master br_v10
+
+# Ligar tudo
+ip link set vxlan10010 up
+ip link set br_v10 up
+ip link set eth1.10 up
+
+
+
+
+# Criar a Bridge (O "Switch Virtual" para a VLAN 20)
+ip link add br_v20 type bridge
+
+# Associar a Bridge à VRF do Cliente 1 (CRUCIAL para o isolamento)
+ip link set br_v20 master vrf_cl1
+
+# Criar o Túnel VXLAN para a VLAN 20
+ip link add vxlan10020 type vxlan id 10020 local 10.0.0.21 dstport 4790 nolearning
+
+# Ligar o Túnel à Bridge
+ip link set vxlan10020 master br_v20
+
+# Tratar da interface física (eth1)
+ip link add link eth1 name eth1.20 type vlan id 20
+ip link set eth1.20 master br_v20
+
+# Ligar tudo
+ip link set vxlan10020 up
+ip link set br_v20 up
+ip link set eth1.20 up
+
+
+
+
+
+# Criar a Bridge (O "Switch Virtual" para a VLAN 30)
+ip link add br_v30 type bridge
+
+# Associar a Bridge à VRF do Cliente 1 (CRUCIAL para o isolamento)
+ip link set br_v30 master vrf_cl1
+
+# Criar o Túnel VXLAN para a VLAN 30
+ip link add vxlan10030 type vxlan id 10030 local 10.0.0.21 dstport 4790 nolearning
+
+# Ligar o Túnel à Bridge
+ip link set vxlan10030 master br_v30
+
+# Tratar da interface física (eth1)
+ip link add link eth1 name eth1.30 type vlan id 30
+ip link set eth1.30 master br_v30
+
+# Ligar tudo
+ip link set vxlan10030 up
+ip link set br_v30 up
+ip link set eth1.30 up
+
+
+
+
+# Criar a Bridge do Cliente 2
+ip link add br_cl2 type bridge
+
+# Associar à VRF do Cliente 2
+ip link set br_cl2 master vrf_cl2
+
+# Criar o Túnel VXLAN para o Cliente 2
+ip link add vxlan20000 type vxlan id 20000 local 10.0.0.21 dstport 4789 nolearning
+
+# Ligar o Túnel à Bridge
+ip link set vxlan20000 master br_cl2
+
+# Tratar da interface física
+# Ligamos a interface física DIRETA à bridge (sem sub-interfaces)
+ip link set eth1 master br_cl2
+
+# Ligar tudo
+ip link set vxlan20000 up
+ip link set br_cl2 up
+ip link set eth1 up
+

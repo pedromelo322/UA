@@ -1,0 +1,91 @@
+I. Conceitos Fundamentais e Requisitos
+
+    Quais são os quatro principais parâmetros de rede que definem a Qualidade de Serviço (Packet Loss, Bandwidth, Delay, Jitter)?
+
+    O que distingue uma aplicação Elástica de uma Inelástica? Dê exemplos.
+
+    Porque é que o aumento puro da largura de banda (overprovisioning) nem sempre resolve problemas de QoS?
+
+    O que é o Jitter e como é que aplicações de voz/vídeo lidam com ele (ex: Buffering)?
+
+    Qual a diferença entre Adaptive e Rigid em aplicações inelásticas?
+
+II. Mecanismos de Controlo de Tráfego (Traffic Conditioning)
+
+    Qual a diferença fundamental entre Policing (Policiamento) e Shaping (Conformação)?
+
+    Em que ponto da rede (entrada ou saída) é tipicamente aplicado o Policing? E o Shaping?
+
+    Descreva o funcionamento do algoritmo Leaky Bucket. O que acontece se o balde encher?
+
+    Descreva o funcionamento do algoritmo Token Bucket. O que representam os tokens?
+
+    Qual a principal vantagem do Token Bucket sobre o Leaky Bucket em relação a tráfego com rajadas (bursts)?
+
+    Se a taxa de chegada de pacotes for maior que a taxa de saída num Leaky Bucket, o que acontece ao atraso (delay)?
+
+    Num Token Bucket, o que determina a dimensão máxima de uma rajada permitida?
+
+III. Gestão de Congestionamento e Filas (Queueing & Dropping)
+
+    O que é o mecanismo Tail Drop e qual o seu principal problema (sincronização global do TCP)?
+
+    Como funciona o RED (Random Early Detection) e como evita a sincronização global?
+
+    O RED descarta pacotes apenas quando a fila está cheia?
+
+    O que é o WRED (Weighted RED) e como permite diferenciar tráfego (ex: descartar tráfego menos prioritário primeiro)?
+
+    Explique a diferença entre escalonamento FIFO e Priority Queueing (PQ).
+
+    Qual o risco do Priority Queueing para as filas de menor prioridade (starvation)?
+
+    Como funciona o Fair Queueing (FQ)?
+
+    O que adiciona o Weighted Fair Queueing (WFQ) ao FQ e como gere a largura de banda?
+
+IV. Arquitetura Integrated Services (IntServ)
+
+    O modelo IntServ foca-se em fluxos individuais ou em agregados de tráfego?
+
+    Quais são as duas classes de serviço principais do IntServ (Guaranteed Service vs Controlled Load)?
+
+    Qual a função do protocolo RSVP na arquitetura IntServ?
+
+    O RSVP é um protocolo de roteamento?
+
+    O que significa o RSVP usar "soft states" nos routers?
+
+    Descreva o processo de admissão de chamadas (Call Admission) no IntServ.
+
+    O que são os objetos TSpec e RSpec numa mensagem RSVP?
+
+    Qual a diferença entre as mensagens PATH e RESV do RSVP? Quem envia qual?
+
+    Porque é que o IntServ tem problemas de escalabilidade no núcleo (core) da rede?
+
+V. Arquitetura Differentiated Services (DiffServ)
+
+    O modelo DiffServ foca-se em fluxos individuais ou em agregados de tráfego?
+
+    Onde é realizada a classificação e o condicionamento de tráfego numa rede DiffServ (Edge vs Core)?
+
+    O que é o campo DSCP (Differentiated Services Code Point) e onde se localiza no cabeçalho IP?
+
+    O que é um PHB (Per-Hop Behavior)?
+
+    Descreva o PHB Expedited Forwarding (EF). Para que tipo de tráfego é usado (ex: VoIP)?
+
+    Descreva o PHB Assured Forwarding (AF). Como funcionam as classes e os níveis de descarte (drop precedence)?
+
+    O que é o PHB Default (Best Effort)?
+
+    Porque é que o DiffServ é considerado mais escalável que o IntServ?
+
+    O DiffServ garante QoS fim-a-fim de forma absoluta?
+
+VI. Integração e Comparação
+
+    Compare IntServ e DiffServ em termos de: Granularidade (fluxo vs classe), Sinalização (dinâmica vs estática/provisionada) e Estado nos routers.
+
+    É possível usar IntServ e DiffServ em conjunto (ex: IntServ na periferia, DiffServ no núcleo)? Como?

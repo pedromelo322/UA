@@ -1,0 +1,36 @@
+Current configuration:
+!
+frr version 8.4_git
+frr defaults traditional
+hostname l11
+no ipv6 forwarding
+!
+interface eth0
+ description Link_to_Spine_S1
+ ip address 10.0.1.26/30
+ ip ospf 1 area 0
+exit
+!
+interface lo
+ ip address 10.0.0.21/32
+ ip ospf 1 area 0
+exit
+!
+router bgp 22900
+ bgp router-id 10.0.0.21
+ no bgp default ipv4-unicast
+ neighbor 10.0.0.11 remote-as 22900
+ neighbor 10.0.0.11 update-source 10.0.0.21
+ !
+ address-family l2vpn evpn
+  neighbor 10.0.0.11 activate
+  advertise-all-vni
+ exit-address-family
+exit
+!
+router ospf 1
+ ospf router-id 10.0.0.21
+exit
+!
+end
+

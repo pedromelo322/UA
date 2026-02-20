@@ -1,0 +1,10 @@
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/Common.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/text2bin.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/bin2text.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/wav_quant_enc.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/wav_quant_dec.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/mono_dct_enc.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/mono_dct_dec.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/wav_error.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/edit_cache.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/bit_stream/src/build/CMakeFiles/rebuild_cache.dir

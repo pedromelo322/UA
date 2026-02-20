@@ -1,0 +1,8 @@
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_cp.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_hist.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_dct.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_quant.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_cmp.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/wav_effects.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/edit_cache.dir
+/home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/src/build/CMakeFiles/rebuild_cache.dir

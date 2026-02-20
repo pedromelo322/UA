@@ -1,0 +1,213 @@
+I. Conceitos Básicos e Terminologia (1-15)
+
+    Qual é a principal função do protocolo BGP na Internet atual?
+
+    O BGP opera sobre qual protocolo da camada de transporte e em que porto?
+
+    O que define um Sistema Autónomo (AS)?
+
+    Qual é a diferença fundamental entre IGP e EGP?
+
+    Qual é o intervalo de números de AS (2 bytes) reservados para uso privado?
+
+    O que acontece quando uma sessão TCP do BGP é estabelecida (estado Established)?
+
+    Porque é que o BGP é considerado um protocolo Path-Vector e não Distance-Vector puro?
+
+    Como é representado um AS number de 4 bytes na notação "asdot" (ex: AS 65546)?
+
+    O que significa um AS ser Single-homed (Stub)?
+
+    O que distingue um Multi-homed Non-transit AS de um Multi-homed Transit AS?
+
+    Em que situação são enviadas mensagens KEEPALIVE numa sessão BGP?
+
+    O que acontece numa sessão BGP quando é detetado um erro de protocolo?
+
+    O que contém uma mensagem OPEN do BGP?
+
+    Qual a função da mensagem UPDATE no BGP?
+
+    O que significa "Withdraw Routes" numa mensagem UPDATE?
+
+II. Relações de Vizinhança: eBGP vs iBGP (16-25)
+
+    Qual a definição técnica de um vizinho eBGP?
+
+    Qual a definição técnica de um vizinho iBGP?
+
+    Qual é a regra fundamental de reencaminhamento de rotas aprendidas via iBGP para outros vizinhos iBGP (regra do split-horizon do iBGP)?
+
+    Porque é que, por defeito, é necessária uma malha completa (full mesh) de sessões iBGP dentro de um AS?
+
+    Um router BGP altera o atributo AS-Path quando anuncia uma rota a um vizinho iBGP?
+
+    Um router BGP altera o atributo AS-Path quando anuncia uma rota a um vizinho eBGP?
+
+    O que é um ASBR (Autonomous System Border Router)?
+
+    O TTL (Time to Live) dos pacotes BGP é geralmente modificado em sessões eBGP?
+
+    É possível estabelecer uma vizinhança BGP entre endereços de Loopback? Qual a vantagem?
+
+    Se um router receber uma rota via eBGP, para que tipos de vizinhos (iBGP/eBGP) ele a pode reanunciar?
+
+III. Atributos de Caminho BGP (26-55)
+
+    Quais são as quatro categorias de atributos BGP?
+
+    Cite três atributos que são Well-known Mandatory.
+
+    O que significa um atributo ser Optional Transitive?
+
+    Se um router BGP não reconhecer um atributo Optional Non-transitive, o que deve fazer?
+
+    Qual a função principal do atributo AS-PATH na prevenção de loops?
+
+    O que indica o atributo ORIGIN com o valor "INCOMPLETE"?
+
+    O que acontece ao atributo NEXT-HOP quando uma rota é anunciada via eBGP?
+
+    Por defeito, o atributo NEXT-HOP é alterado quando uma rota é anunciada de um vizinho eBGP para um vizinho iBGP?
+
+    O que faz o comando/configuração next-hop-self numa sessão iBGP?
+
+    Qual é o objetivo do atributo LOCAL_PREFERENCE?
+
+    O atributo LOCAL_PREFERENCE é propagado para fora do AS?
+
+    Num cenário de múltiplas saídas para a Internet, um valor mais alto de LOCAL_PREFERENCE indica preferência ou não?
+
+    O que é o atributo MED (Multi-Exit Discriminator)?
+
+    O MED é utilizado para influenciar o tráfego de entrada ou de saída do AS?
+
+    Um valor de MED mais baixo é preferível ou preterível?
+
+    O atributo MED é transitivo entre Sistemas Autónomos não adjacentes?
+
+    O atributo WEIGHT é um atributo padrão do BGP?
+
+    Qual o alcance (scope) do atributo WEIGHT?
+
+    O que é o atributo COMMUNITY?
+
+    O que faz a comunidade no-export?
+
+    O que faz a comunidade no-advertise?
+
+    Qual o formato padrão de uma comunidade BGP?
+
+    Para que serve o atributo ATOMIC_AGGREGATE?
+
+    Que informação contém o atributo AGGREGATOR?
+
+    O que acontece às rotas mais específicas quando ocorre uma agregação com ATOMIC_AGGREGATE?
+
+    Como pode o atributo COMMUNITY ser usado para implementar políticas de roteamento num ISP?
+
+    O que distingue o atributo ORIGIN "IGP" do "EGP"?
+
+    O atributo AS4_PATH é de que categoria (Transitive/Non-transitive)?
+
+    Se um router "antigo" (apenas 2-byte AS) receber um AS-Path com AS de 4 bytes, o que vê no AS-Path?
+
+    O que é o AS 23456 (AS_TRANS)?
+
+IV. Seleção de Caminhos (Best Path Selection) (56-65)
+
+    Qual é o primeiro critério de desempate no algoritmo de seleção de caminhos da Cisco (Weight)?
+
+    Se o Weight for igual, qual é o segundo atributo verificado?
+
+    O BGP prefere um caminho com AS-PATH mais longo ou mais curto?
+
+    Entre uma rota aprendida via eBGP e uma via iBGP (para o mesmo prefixo), qual é a preferida?
+
+    Como é que o atributo ORIGIN influencia a seleção de caminhos?
+
+    O que significa "Shortest Path" no contexto da seleção BGP (não confundir com OSPF)?
+
+    Se todos os atributos BGP forem iguais, como é usado o custo do IGP para desempatar?
+
+    Qual o impacto do Router ID na seleção final do caminho se tudo o resto for igual?
+
+    É possível fazer balanceamento de carga (ECMP) com BGP? Em que condições?
+
+    Porque é que o BGP seleciona apenas um melhor caminho por defeito?
+
+V. Escalabilidade e Soluções Avançadas (66-80)
+
+    Qual é o principal problema de escalabilidade do iBGP numa rede grande?
+
+    O que é um Route Reflector (RR)?
+
+    Um Route Reflector obedece à regra de não reanunciar rotas aprendidas de um iBGP para outro iBGP?
+
+    O que é um Route Reflector Client?
+
+    O que é um Cluster em terminologia de Route Reflector?
+
+    Como é que os Route Reflectors evitam loops de roteamento dentro do AS? (Atributos específicos).
+
+    É necessário que os clientes de um Route Reflector tenham sessões BGP entre si?
+
+    O que é o mecanismo de BGP Synchronization?
+
+    Porque é que a sincronização BGP é geralmente desligada (no synchronization) nas redes modernas?
+
+    O que é a redistribuição de rotas (IGP em BGP e vice-versa)?
+
+    Porque é perigoso redistribuir todas as rotas BGP (Internet) para dentro de um IGP (ex: OSPF)?
+
+    O que é um Confederation em BGP? (Conceito geral mencionado no contexto de escalabilidade).
+
+    Como resolver conflitos de roteamento entre BGP e IGP num cenário sem redistribuição completa? (Dica: Túneis).
+
+    Como funcionam os BGP Route Maps?
+
+    Para que servem as Regular Expressions (Regex) na filtragem de AS-Paths?
+
+VI. AS de 4 Bytes e Compatibilidade (81-85)
+
+    Porque foi necessário criar AS Numbers de 4 bytes?
+
+    Quantos números de AS existem aproximadamente com 4 bytes?
+
+    Como é que um router "NEW" (suporta 4-bytes) comunica com um router "OLD" (suporta 2-bytes)?
+
+    Onde é guardada a informação real do caminho de 4 bytes quando atravessa um domínio de 2 bytes? (Atributo AS4_PATH).
+
+    O que acontece ao atributo AGGREGATOR num cenário misto de 2 e 4 bytes?
+
+VII. MP-BGP (Multi-Protocol BGP) (86-100)
+
+    O que é o MP-BGP?
+
+    O BGP-4 original suporta nativamente IPv6?
+
+    Quais são os dois novos atributos opcionais introduzidos pelo MP-BGP?
+
+    O que significa a sigla NLRI?
+
+    O que contém o atributo MP_REACH_NLRI?
+
+    O que contém o atributo MP_UNREACH_NLRI?
+
+    O que são os códigos AFI (Address Family Identifier) e SAFI (Subsequent Address Family Identifier)?
+
+    Como é negociada a capacidade de MP-BGP entre dois routers? (Mensagem OPEN).
+
+    O MP-BGP utiliza sessões TCP diferentes para IPv4 e IPv6?
+
+    No contexto de IPv6 sobre MP-BGP, o atributo Next-Hop deve ter que formato?
+
+    O que é o 6PE?
+
+    O que é o 6VPE?
+
+    Como o MP-BGP suporta VPNs de Layer 3 (L3VPN)?
+
+    O MP-BGP pode ser usado para transportar informação de Multicast?
+
+    O que acontece à sessão BGP se um router enviar uma Capability MP-BGP que o vizinho não suporta/entende?

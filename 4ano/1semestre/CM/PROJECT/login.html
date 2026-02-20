@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Wi-Fi Seguro</title>
+    <style>
+        /* O teu estilo original mantém-se aqui */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .login-container { background: rgba(255, 255, 255, 0.95); padding: 50px 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); width: 100%; max-width: 400px; text-align: center; }
+        h2 { color: #333; margin-bottom: 10px; font-size: 28px; font-weight: 700; }
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group input { width: 100%; padding: 15px; border: 2px solid #e1e5e9; border-radius: 12px; font-size: 15px; }
+        input[type="submit"] { width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 10px; }
+        .error-message { color: #e74c3c; font-size: 13px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Bem-vindo à Rede</h2>
+        <p style="color:#666; margin-bottom:30px;">Insira as credenciais para aceder</p>
+
+        <form method="post" action="http://192.168.50.1:8002/index.php?zone=$PORTAL_ZONE$">
+            <div class="input-group">
+                <input name="auth_user" type="text" placeholder="Utilizador" required>
+            </div>
+            <div class="input-group">
+                <input name="auth_pass" type="password" placeholder="Senha" required>
+            </div>
+
+            <input name="redirurl" type="hidden" value="$PORTAL_REDIRURL$">
+            <input name="zone" type="hidden" value="$PORTAL_ZONE$">
+
+            <input name="accept" type="submit" value="Entrar na Rede">
+        </form>
+
+        <div class="error-message">$PORTAL_MESSAGE$</div>
+    </div>
+</body>
+</html>

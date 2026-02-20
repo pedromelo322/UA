@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -std=c++20 -O3 CMakeFiles/wav_dct.dir/wav_dct.cpp.o -o /home/pedromelo/Documents/UA/4ano/IC/P/IC-Trabalho1/sndfile-example/bin/wav_dct  -lsndfile -lfftw3 

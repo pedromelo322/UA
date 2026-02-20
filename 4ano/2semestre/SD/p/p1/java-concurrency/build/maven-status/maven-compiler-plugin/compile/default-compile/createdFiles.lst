@@ -1,0 +1,13 @@
+deti/sd/ex1/Counter.class
+deti/sd/ex2/HeavyTask.class
+deti/sd/ex3/DataProcessor.class
+deti/sd/ex2/Gateway.class
+deti/sd/ex4/SystemController.class
+deti/sd/ex1/CounterTest.class
+deti/sd/ex1/AtomicCounter.class
+deti/sd/ex3/DataPacket.class
+deti/sd/ex3/DistributedBufferSystem.class
+deti/sd/ex1/MutexCounter.class
+deti/sd/ex4/DistributedWorker.class
+deti/sd/ex1/UnsafeCounter.class
+deti/sd/ex3/NetworkProducer.class

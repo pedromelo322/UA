@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro de Autenticação</title>
+    <style>
+        /* Estilo Vermelho */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .error-container { background: rgba(255, 255, 255, 0.95); padding: 50px 40px; border-radius: 20px; width: 100%; max-width: 420px; text-align: center; }
+        h2 { color: #c0392b; margin-bottom: 15px; font-size: 26px; font-weight: 700; }
+        .retry-btn { display: inline-block; padding: 15px 40px; background: #667eea; color: white; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 20px;}
+        .error-message-box { background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 25px; color: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div style="font-size: 50px;">❌</div>
+        <h2>Erro de Autenticação</h2>
+        
+        <div class="error-message-box">
+            <strong>$PORTAL_MESSAGE$</strong>
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+            Verifique se o Caps Lock está ligado ou se o horário permitido já terminou.
+        </p>
+
+        <a href="javascript:history.back()" class="retry-btn">
+            ← Tentar Novamente
+        </a>
+    </div>
+</body>
+</html>

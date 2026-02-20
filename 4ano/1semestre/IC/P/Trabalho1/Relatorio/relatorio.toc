@@ -1,0 +1,79 @@
+\babel@toc {portuguese}{}\relax 
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Introdução}{3}{section.1}%
+\contentsline {section}{\numberline {2}Parte I: Ferramentas de Análise e Quantização}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Programa \texttt {wav\_hist}}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Compilação, Execução e Visualização}{3}{subsubsection.2.1.1}%
+\contentsline {paragraph}{Exemplos de Teste}{3}{section*.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}Histogramas com Bin Size 1 (Resolução Máxima)}{3}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Histogramas com Bin Size 64 (k=6)}{5}{subsubsection.2.1.3}%
+\contentsline {paragraph}{Visualização de Histograma}{5}{section*.3}%
+\contentsline {paragraph}{Análise da Comparação de Bins}{6}{section*.4}%
+\contentsline {subsubsection}{\numberline {2.1.4}Canais MID e SIDE e Recuperação Exata}{6}{subsubsection.2.1.4}%
+\contentsline {paragraph}{Verificação Numérica}{7}{section*.5}%
+\contentsline {subsubsection}{\numberline {2.1.5}Bins de Histograma mais largos}{7}{subsubsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.2}Programa \texttt {wav\_quant} (Quantização Uniforme)}{7}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Sintaxe e Lógica}{7}{subsubsection.2.2.1}%
+\contentsline {paragraph}{Exemplos de Teste}{8}{section*.6}%
+\contentsline {subsection}{\numberline {2.3}Programa \texttt {wav\_cmp} (Métricas de Erro)}{8}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Sintaxe e Métricas de Erro}{8}{subsubsection.2.3.1}%
+\contentsline {paragraph}{1. Erro Quadrático Médio (MSE ou $L^2$ norm)}{8}{section*.7}%
+\contentsline {paragraph}{2. Erro Absoluto Máximo ($L^\infty $ norm)}{8}{section*.8}%
+\contentsline {paragraph}{3. Relação Sinal-Ruído (SNR)}{8}{section*.9}%
+\contentsline {paragraph}{Exemplo de Teste}{9}{section*.10}%
+\contentsline {subsubsection}{\numberline {2.3.2}Resultados Experimentais}{9}{subsubsection.2.3.2}%
+\contentsline {paragraph}{Análise dos Resultados}{9}{section*.11}%
+\contentsline {subsection}{\numberline {2.4}Programa \texttt {wav\_effects} (Efeitos de Áudio)}{9}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Sintaxe e Efeitos Implementados}{10}{subsubsection.2.4.1}%
+\contentsline {paragraph}{1. Eco Simples (\texttt {echo})}{10}{section*.12}%
+\contentsline {paragraph}{2. Eco Múltiplo com Feedback (\texttt {multi\_echo})}{10}{section*.13}%
+\contentsline {paragraph}{3. Modulação de Amplitude (\texttt {amp\_mod})}{10}{section*.14}%
+\contentsline {paragraph}{4. Delay Variável no Tempo (\texttt {time\_var\_delay})}{10}{section*.15}%
+\contentsline {paragraph}{5. Tremolo (\texttt {tremolo})}{10}{section*.16}%
+\contentsline {paragraph}{6. Vibrato (\texttt {vibrato})}{11}{section*.17}%
+\contentsline {paragraph}{7. Filtro Passa-Baixo (\texttt {low\_pass})}{11}{section*.18}%
+\contentsline {paragraph}{8. Filtro Passa-Alto (\texttt {high\_pass})}{11}{section*.19}%
+\contentsline {paragraph}{9. Distorção (\texttt {distortion})}{11}{section*.20}%
+\contentsline {section}{\numberline {3}Parte II: Codec de Quantização Escalar com Empacotamento de Bits}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Codificador \texttt {wav\_quant\_enc}}{11}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Algoritmo de Codificação}{12}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Sintaxe e Exemplos}{12}{subsubsection.3.1.2}%
+\contentsline {paragraph}{Exemplos de Teste:}{12}{lstlisting.8}%
+\contentsline {subsection}{\numberline {3.2}Descodificador \texttt {wav\_quant\_dec}}{12}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Algoritmo de Descodificação}{12}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Sintaxe e Exemplos}{13}{subsubsection.3.2.2}%
+\contentsline {paragraph}{Exemplos de Teste:}{13}{lstlisting.10}%
+\contentsline {subsection}{\numberline {3.3}Análise de Desempenho e Compressão}{13}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Métricas de Compressão}{13}{subsubsection.3.3.1}%
+\contentsline {paragraph}{Análise dos Resultados:}{13}{section*.23}%
+\contentsline {subsubsection}{\numberline {3.3.2}Métricas de Qualidade de Áudio}{13}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Análise de Tempo de Processamento}{14}{subsubsection.3.3.3}%
+\contentsline {paragraph}{Conclusões sobre Desempenho:}{14}{section*.24}%
+\contentsline {subsection}{\numberline {3.4}Comparação com Codec \texttt {wav\_quant}}{14}{subsection.3.4}%
+\contentsline {paragraph}{Vantagens do Codec BitStream:}{14}{section*.25}%
+\contentsline {section}{\numberline {4}Parte III: Codec de Áudio com Transformada DCT}{15}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Codificador \texttt {mono\_dct\_enc}}{15}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Algoritmo de Codificação}{15}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Sintaxe e Exemplos}{15}{subsubsection.4.1.2}%
+\contentsline {paragraph}{Exemplos de Teste:}{16}{lstlisting.12}%
+\contentsline {subsection}{\numberline {4.2}Descodificador \texttt {mono\_dct\_dec}}{16}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Algoritmo de Descodificação}{16}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}Análise de Desempenho e Compressão}{16}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Métricas de Compressão}{16}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Métricas de Qualidade de Áudio}{16}{subsubsection.4.3.2}%
+\contentsline {paragraph}{Análise dos Resultados:}{17}{section*.27}%
+\contentsline {subsubsection}{\numberline {4.3.3}Análise de Tempo de Processamento}{17}{subsubsection.4.3.3}%
+\contentsline {paragraph}{Conclusões sobre Desempenho:}{17}{section*.28}%
+\contentsline {section}{\numberline {5}Análise Extra: Estudo do Sinal de Erro}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Programa \texttt {wav\_error}}{17}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Funcionalidade e Utilização}{17}{subsubsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.2}Análise Comparativa dos Histogramas de Erro}{18}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Erro de Quantização Uniforme (4 bits vs. 8 bits)}{18}{subsubsection.5.2.1}%
+\contentsline {paragraph}{Análise:}{18}{section*.29}%
+\contentsline {subsubsection}{\numberline {5.2.2}Erro de Quantização no Canal MID (4 bits vs. 8 bits)}{18}{subsubsection.5.2.2}%
+\contentsline {paragraph}{Análise:}{18}{section*.30}%
+\contentsline {subsubsection}{\numberline {5.2.3}Erro de Compressão DCT (4 bits vs. 8 bits)}{18}{subsubsection.5.2.3}%
+\contentsline {paragraph}{Análise:}{20}{section*.31}%
+\contentsline {subsubsection}{\numberline {5.2.4}Comparação Direta: Quantização Uniforme vs. Compressão DCT}{20}{subsubsection.5.2.4}%
+\contentsline {paragraph}{Análise Final:}{20}{section*.32}%
+\contentsline {section}{\numberline {6}Conclusões}{21}{section.6}%

@@ -1,0 +1,4 @@
+LOCK usa exclusão mutua -> só uma thread pode acessar o recurso compartilhado por vez, as outras threads ficam bloqueadas esperando a liberação do recurso.
+AtomicValue é non-blocking -> permite que múltiplas threads acessem o recurso compartilhado simultaneamente, sem bloqueios, utilizando operações atômicas para garantir a consistência dos dados. (Try until sucess)
+
+AtomicValue é melhor para cenários com pouca probabilidade de conflito, onde as threads raramente tentam acessar o recurso compartilhado ao mesmo tempo.

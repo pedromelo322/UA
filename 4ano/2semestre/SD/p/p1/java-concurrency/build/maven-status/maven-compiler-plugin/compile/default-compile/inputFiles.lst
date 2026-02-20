@@ -1,0 +1,13 @@
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex1/AtomicCounter.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex1/Counter.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex1/CounterTest.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex1/MutexCounter.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex1/UnsafeCounter.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex2/Gateway.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex2/HeavyTask.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex3/DataPacket.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex3/DataProcessor.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex3/DistributedBufferSystem.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex3/NetworkProducer.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex4/DistributedWorker.java
+/home/pedromelo/Documents/UA/4ano/2semestre/SD/p/p1/java-concurrency/src/main/java/deti/sd/ex4/SystemController.java
