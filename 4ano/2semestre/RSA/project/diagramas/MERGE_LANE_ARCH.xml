@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0">
   <diagram id="arquitetura_veiculo" name="Arquitetura de Veículo">
-    <mxGraphModel dx="2583" dy="715" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2680" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,16 +11,13 @@
         <mxCell id="g_net" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#82b366;dashed=1;dashPattern=8 8;strokeWidth=1.5;verticalAlign=top;align=left;spacingTop=5;spacingLeft=10;fontColor=#000000;" value="&amp;nbsp;&amp;nbsp;&lt;b&gt;Camada de rede (Docker Compose)&lt;/b&gt;" vertex="1">
           <mxGeometry height="310" width="580" x="20" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="g_vis" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9673a6;dashed=1;dashPattern=8 8;strokeWidth=1.5;verticalAlign=top;align=left;spacingTop=5;spacingLeft=10;fontColor=#000000;" value="&lt;b&gt;Camada de visualização&lt;/b&gt;" vertex="1">
+        <mxCell id="g_vis" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#EA6B66;dashed=1;dashPattern=8 8;strokeWidth=1.5;verticalAlign=top;align=left;spacingTop=5;spacingLeft=10;fontColor=#000000;" value="&lt;b&gt;Camada de visualização&lt;/b&gt;" vertex="1">
           <mxGeometry height="130" width="580" x="20" y="480" as="geometry" />
         </mxCell>
-        <mxCell id="g_logic" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#f6b26b;dashed=1;dashPattern=8 8;strokeWidth=1.5;verticalAlign=top;align=left;spacingTop=5;spacingLeft=10;fontColor=#000000;" value="&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;b&gt;Camada de lógica de veículo (Python)&lt;/b&gt;" vertex="1">
-          <mxGeometry height="410" width="340" x="680" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="WctDM4kYcdMaWbCMHhSz-1" edge="1" parent="1" source="coord" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#6c8ebf;fillColor=#dae8fc;" target="bridge">
+        <mxCell id="WctDM4kYcdMaWbCMHhSz-1" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1.5;strokeColor=#0050EF;fillColor=#dae8fc;dashed=1;" target="bridge">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint y="85" />
+              <mxPoint y="215" />
               <mxPoint y="550" />
             </Array>
           </mxGeometry>
@@ -61,40 +58,19 @@
         <mxCell id="dash" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font color=&quot;#006600&quot;&gt;&lt;b&gt;dashboard.html&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;Canvas road map&lt;br&gt;MCM event log&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="160" x="380" y="520" as="geometry" />
         </mxCell>
-        <mxCell id="vl_veh" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;vehicle.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;ponto de entrada&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="710" y="110" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_sim" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;simulation.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;_move_loop - CAM&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="710" y="200" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_prot" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;protocol.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;MC / Road&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="710" y="290" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_cam" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font color=&quot;#a80036&quot;&gt;&lt;b&gt;cam_builder.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;puro / sem efeitos&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="880" y="290" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_comm" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font color=&quot;#006600&quot;&gt;&lt;b&gt;comms.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;NeighbourTable&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="710" y="380" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_geo" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font color=&quot;#006600&quot;&gt;&lt;b&gt;geo.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;conflict / braking&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="880" y="380" as="geometry" />
-        </mxCell>
-        <mxCell id="vl_mcm" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font color=&quot;#a80036&quot;&gt;&lt;b&gt;mcm_builder.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;puro / sem efeitos&lt;/font&gt;" vertex="1">
-          <mxGeometry height="50" width="120" x="880" y="200" as="geometry" />
-        </mxCell>
-        <mxCell id="e1" edge="1" parent="1" source="coord" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;" target="zenoh">
+        <mxCell id="e1" edge="1" parent="1" source="coord" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;startArrow=classic;startFill=1;dashed=1;" target="zenoh">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" target="vmc">
+        <mxCell id="e2" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.096;exitY=1.006;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=classic;startFill=1;" target="vmc">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.4;exitY=1;exitDx=0;exitDy=0;" target="va">
+        <mxCell id="e3" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.4;exitY=1;exitDx=0;exitDy=0;startArrow=classic;startFill=1;" target="va">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e4" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.6;exitY=1;exitDx=0;exitDy=0;" target="vb">
+        <mxCell id="e4" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.6;exitY=1;exitDx=0;exitDy=0;startArrow=classic;startFill=1;" target="vb">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e5" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" target="vc">
+        <mxCell id="e5" edge="1" parent="1" source="zenoh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;exitX=0.921;exitY=1.001;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=classic;startFill=1;" target="vc">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e6" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6a00ff;strokeWidth=1.5;endArrow=classic;startArrow=classic;startFill=1;">
@@ -121,7 +97,7 @@
         <mxCell id="e12" edge="1" parent="1" source="vtzb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6a00ff;strokeWidth=1.5;startArrow=classic;endArrow=classic;" target="vtzc">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e13" edge="1" parent="1" source="vtzmc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;" target="bridge">
+        <mxCell id="e13" edge="1" parent="1" source="vtzmc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#0050EF;strokeWidth=1.5;endArrow=classic;" target="bridge">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="90" y="470" />
@@ -132,25 +108,63 @@
         <mxCell id="e14" edge="1" parent="1" source="bridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;verticalAlign=bottom;spacingBottom=2;labelBackgroundColor=none;" target="dash" value="&lt;font color=&quot;#333333&quot;&gt;ws://8765&lt;/font&gt;">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e15" edge="1" parent="1" source="vl_veh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;" target="vl_sim">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e16" edge="1" parent="1" source="vl_sim" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;" target="vl_prot">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e17" edge="1" parent="1" source="vl_prot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;" target="vl_cam">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e20" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;" target="vl_mcm">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="830" y="225" as="sourcePoint" />
+        <mxCell id="proj1" edge="1" parent="1" source="vc" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1.5;strokeColor=#F6B26B;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-17">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="680" y="60.000000000000114" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="proj1" edge="1" parent="1" source="vc" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1.5;strokeColor=#f6b26b;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" target="g_logic">
-          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        <mxCell id="proj2" edge="1" parent="1" source="vc" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1.5;strokeColor=#F6B26B;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-17">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="680" y="470" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="proj2" edge="1" parent="1" source="vc" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1.5;strokeColor=#f6b26b;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="g_logic">
-          <mxGeometry height="50" relative="1" width="50" as="geometry" />
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-17" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#f6b26b;dashed=1;dashPattern=8 8;strokeWidth=1.5;verticalAlign=top;align=left;spacingTop=5;spacingLeft=10;fontColor=#000000;" value="&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;b&gt;Camada de lógica de veículo (Python)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="310" width="480" x="680" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-18" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;vehicle.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;ponto de entrada&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="860" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-19" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;simulation.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;_move_loop - CAM&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="860" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-20" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font color=&quot;#0050ef&quot;&gt;&lt;b&gt;protocol.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;MC / Road&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="860" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-21" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font color=&quot;#006600&quot;&gt;&lt;b&gt;comms.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;NeighbourTable&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="700" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-22" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font color=&quot;#006600&quot;&gt;&lt;b&gt;geo.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;conflict / braking&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="700" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-23" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font color=&quot;#a80036&quot;&gt;&lt;b&gt;mcm_builder.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;puro / sem efeitos&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="1020" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-24" parent="1" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font color=&quot;#a80036&quot;&gt;&lt;b&gt;cam_builder.py&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#333333&quot;&gt;puro / sem efeitos&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="120" x="1020" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-25" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;" target="wTnUmHKlv-0s6lKts7dL-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-26" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0050ef;strokeWidth=1.5;endArrow=classic;" target="wTnUmHKlv-0s6lKts7dL-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-27" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;" target="wTnUmHKlv-0s6lKts7dL-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-28" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#b85450;strokeWidth=1.5;endArrow=classic;" target="wTnUmHKlv-0s6lKts7dL-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-29" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-30" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-31" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wTnUmHKlv-0s6lKts7dL-32" edge="1" parent="1" source="wTnUmHKlv-0s6lKts7dL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#82b366;strokeWidth=1.5;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="wTnUmHKlv-0s6lKts7dL-22">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  5 JUN 2026 19:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  5 JUN 2026 20:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -790,11 +790,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 215--216
  []
 
 [3]
-<figuras/MERGE_LANE_ARCH.png, id=217, 1032.85875pt x 594.22pt>
+<figuras/MERGE_LANE_ARCH.png, id=217, 1173.38374pt x 594.22pt>
 File: figuras/MERGE_LANE_ARCH.png Graphic file (type png)
 <use figuras/MERGE_LANE_ARCH.png>
 Package pdftex.def Info: figuras/MERGE_LANE_ARCH.png  used on input line 244.
-(pdftex.def)             Requested size: 455.24411pt x 261.91096pt.
+(pdftex.def)             Requested size: 455.24411pt x 230.53894pt.
  [4{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
 Overfull \hbox (4.84885pt too wide) in paragraph at lines 256--263
 []\T1/lmr/m/n/10.95 (-20) Materializada por \T1/lmtt/m/n/10.95 docker-compose \
@@ -904,7 +904,7 @@ pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></u
 sr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb>
-Output written on relatorio.pdf (13 pages, 633833 bytes).
+Output written on relatorio.pdf (13 pages, 636678 bytes).
 PDF statistics:
  392 PDF objects out of 1000 (max. 8388607)
  328 compressed objects within 4 object streams
