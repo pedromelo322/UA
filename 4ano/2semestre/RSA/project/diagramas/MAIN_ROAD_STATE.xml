@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Gemini">
+  <diagram id="road_diagram" name="Road_Vehicle_State_Machine">
+    <mxGraphModel dx="1885" dy="953" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IDLE" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="IDLE&#xa;(_slowed_down=False)&#xa;Sem negociação ativa" vertex="1">
+          <mxGeometry height="70" width="180" x="400" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="EVALUATING" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="EVALUATING&#xa;in_conflict?" vertex="1">
+          <mxGeometry height="80" width="140" x="420" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="HAS_BEHIND" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Has vehicle&#xa;behind?" vertex="1">
+          <mxGeometry height="80" width="120" x="620" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="CHAIN_PROPAGATING" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="CHAIN_PROPAGATING&#xa;Envia SLOWDOWN_REQ&#xa;para o veículo de trás" vertex="1">
+          <mxGeometry height="70" width="180" x="400" y="314" as="geometry" />
+        </mxCell>
+        <mxCell id="WAITING_ACK" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="WAITING_ACK&#xa;Aguarda SLOWDOWN_GRANT" vertex="1">
+          <mxGeometry height="60" width="190" x="395" y="421" as="geometry" />
+        </mxCell>
+        <mxCell id="CAN_BRAKE_SELF" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Self can_brake?" vertex="1">
+          <mxGeometry height="80" width="120" x="800" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="OWN_BRAKING" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Own braking ok?" vertex="1">
+          <mxGeometry height="80" width="120" x="430" y="519" as="geometry" />
+        </mxCell>
+        <mxCell id="WAITING_CONFIRMATION" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="WAITING_CONFIRMATION&#xa;Aguarda MERGE_CONFIRMED" vertex="1">
+          <mxGeometry height="60" width="200" x="759" y="528" as="geometry" />
+        </mxCell>
+        <mxCell id="COMMITTED" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="COMMITTED&#xa;(_slowed_down=True)&#xa;Decelerating to _pending_speed" vertex="1">
+          <mxGeometry height="70" width="200" x="759" y="627" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" edge="1" parent="1" source="IDLE" target="EVALUATING" value="Recebe MERGE_REQUEST">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" edge="1" parent="1" source="EVALUATING" target="IDLE" value="Not in_conflict&#xa;Envia MERGE_GRANT(ok)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="200" />
+              <mxPoint x="350" y="140" />
+              <mxPoint x="350" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3" edge="1" parent="1" source="EVALUATING" target="HAS_BEHIND" value="in_conflict&#xa;Set _pending_speed">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t4" edge="1" parent="1" source="HAS_BEHIND" target="CHAIN_PROPAGATING" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t5" edge="1" parent="1" source="HAS_BEHIND" target="CAN_BRAKE_SELF" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6" edge="1" parent="1" source="CHAIN_PROPAGATING" target="WAITING_ACK">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" edge="1" parent="1" source="WAITING_ACK" target="IDLE" value="Fail&#xa;Envia GRANT(fail)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="451" />
+              <mxPoint x="280" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t8" edge="1" parent="1" source="WAITING_ACK" target="OWN_BRAKING" value="Ok">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" edge="1" parent="1" source="CAN_BRAKE_SELF" target="IDLE" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="980" y="360" />
+              <mxPoint x="980" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xxy4degu1c7wpHFJ19rj-3" connectable="0" parent="t9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="No&lt;br&gt;Envia MERGE_GRANT(fail)" vertex="1">
+          <mxGeometry relative="1" x="-0.4353" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t10" edge="1" parent="1" source="CAN_BRAKE_SELF" style="entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="WAITING_CONFIRMATION" value="Yes&#xa;Envia MERGE_GRANT(ok)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t11" edge="1" parent="1" source="OWN_BRAKING" target="WAITING_CONFIRMATION" value="Yes&#xa;Envia MERGE_GRANT(ok)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" edge="1" parent="1" source="OWN_BRAKING" target="IDLE" value="No&#xa;Envia GRANT(fail)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="559" />
+              <mxPoint x="220" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t14" edge="1" parent="1" source="WAITING_CONFIRMATION" target="COMMITTED" value="MERGE_CONFIRMED(ok)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" edge="1" parent="1" source="WAITING_CONFIRMATION" target="IDLE" value="MERGE_CONFIRMED(abort)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="560" />
+              <mxPoint x="1060" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t13" edge="1" parent="1" source="COMMITTED" target="IDLE" value="EXECUTION_STATUS&#xa;_pending=None, _slowed=False">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="720" />
+              <mxPoint x="140" y="720" />
+              <mxPoint x="140" y="75" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

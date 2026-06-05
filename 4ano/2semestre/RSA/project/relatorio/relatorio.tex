@@ -1,0 +1,540 @@
+\documentclass[11pt,a4paper]{article}
+
+% ─── Codificação e idioma ────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{lmodern}
+
+% ─── Layout ──────────────────────────────────────────────────────────────────
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+
+% ─── Figuras e tabelas ───────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\graphicspath{{figuras/}}
+
+% ─── Código e pseudo-código ──────────────────────────────────────────────────
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\definecolor{codebg}{rgb}{0.97,0.97,0.97}
+\definecolor{codekw}{rgb}{0.10,0.10,0.60}
+\definecolor{codecm}{rgb}{0.30,0.55,0.30}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{codecm}\itshape,
+  breaklines=true,
+  frame=single,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  language=Python,
+}
+
+% ─── Matemática e hyperlinks ─────────────────────────────────────────────────
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+% ─── Macro para marcar texto ainda por escrever ──────────────────────────────
+\newcommand{\todo}[1]{\par\noindent\textcolor{red}{\small[\textbf{TODO:} #1]}\par}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ─── Capa ────────────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{1.5cm}
+  {\Large\textsc{Universidade de Aveiro}}\\[0.3cm]
+  {\large Departamento de Eletrónica, Telecomunicações e Informática}\\[2.5cm]
+
+  {\large Redes e Sistemas Autónomos}\\[1.5cm]
+
+  \rule{\linewidth}{0.4mm}\\[0.6cm]
+  {\Huge\bfseries Cooperative Lane Merge\\[0.3cm]}
+  {\Large via Comunicação V2V}\\[0.4cm]
+  \rule{\linewidth}{0.4mm}\\[1.5cm]
+
+  {\large\itshape Sistema autónomo de apoio à inserção cooperativa em faixa de rodagem}\\[3cm]
+
+  {\large Pedro Melo \quad n.º 114208}\\[2cm]
+
+  {\large \today}\\[1cm]
+
+  \begin{tabular}{rl}
+    \textbf{Repositório:} & \href{https://example.com}{\color{blue}(inserir URL)} \\[0.2cm]
+    \textbf{Vídeo da demo:} & \href{https://example.com}{\color{blue}(inserir URL / Discord)} \\
+  \end{tabular}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Introdução}
+\label{sec:intro}
+
+O aumento da densidade de tráfego nas entradas de autoestrada torna a inserção de
+veículos provenientes de rampas de acesso um dos pontos mais críticos para a fluidez
+e a segurança rodoviária. Tradicionalmente, esta manobra depende do julgamento
+individual de cada condutor, o que frequentemente origina travagens bruscas, paragens
+na rampa ou inserções forçadas que propagam ondas de congestionamento para a via
+principal.
+
+Este projeto, desenvolvido no âmbito da unidade curricular de Redes e Sistemas
+Autónomos, explora como a comunicação Veículo-a-Veículo (V2V) pode substituir esse
+julgamento individual por uma \textbf{negociação cooperativa e distribuída}, sem
+qualquer entidade central de controlo. O cenário estudado é o de um veículo --- o
+\emph{Merge Car} (MC) --- que se aproxima da via principal a partir de uma rampa de
+acesso e necessita de coordenar a sua inserção com os veículos que já circulam nessa
+via. Em vez de impor a sua entrada, o MC inicia um protocolo de coordenação de manobra
+em que os veículos afetados são identificados em tempo real, decidem cooperativamente
+um abrandamento controlado e concedem ao MC uma janela temporal segura para a inserção.
+
+A solução assenta integralmente em mensagens normalizadas ETSI C-ITS:
+\emph{Cooperative Awareness Messages} (CAM) para a consciência situacional periódica e
+\emph{Manoeuvre Coordination Messages} (MCM) para a negociação da manobra. A pilha de
+comunicação é fornecida pelo Vanetza-NAP, o transporte de mensagens pelo middleware
+Zenoh, e toda a lógica dos veículos corre em containers Docker independentes,
+garantindo que cada veículo é um nó autónomo que só conhece a sua vizinhança através
+das CAMs que recebe. Uma dashboard web em tempo real permite observar a negociação e a
+manobra à medida que decorrem.
+
+Este relatório descreve os objetivos do trabalho (Secção~\ref{sec:objetivos}), a
+arquitetura do sistema (Secção~\ref{sec:arquitetura}), a implementação detalhada do
+protocolo e dos algoritmos de decisão (Secção~\ref{sec:implementacao}), o fluxo da
+demonstração (Secção~\ref{sec:demo}) e os resultados obtidos nos vários cenários
+testados (Secção~\ref{sec:resultados}), incluindo casos com dois veículos a inserir-se
+em simultâneo.
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Objetivos}
+\label{sec:objetivos}
+
+\subsection{Problema}
+
+A inserção de um veículo proveniente de uma rampa de acesso na via principal é uma das
+manobras com maior potencial de conflito da circulação rodoviária. Sem cooperação entre
+veículos, o condutor que vem da rampa só dispõe da sua própria perceção visual para
+encontrar uma folga: quando esta não existe, vê-se obrigado a forçar a entrada, a travar
+bruscamente ou mesmo a parar no final da rampa à espera de espaço. Cada uma destas
+reações tem custos:
+
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \textbf{Inserção forçada} --- obriga os veículos da via principal a travagens de
+        emergência, comprometendo a segurança;
+  \item \textbf{Paragem na rampa} --- elimina a velocidade de aproximação necessária para
+        uma inserção suave e cria risco de colisão traseira na própria rampa;
+  \item \textbf{Travagens reativas} --- propagam-se para montante sob a forma de ondas de
+        choque, degradando a fluidez de todo o troço.
+\end{itemize}
+
+A raiz do problema é a \emph{falta de informação antecipada e de coordenação}: os
+veículos da via principal só percebem a intenção de inserção quando o veículo da rampa já
+está praticamente sobre o ponto de conflito, deixando pouca margem para uma resposta
+suave.
+
+\subsection{Objetivo geral}
+
+O objetivo central deste trabalho é demonstrar que a comunicação Veículo-a-Veículo (V2V)
+permite resolver este problema através de uma \textbf{negociação cooperativa, distribuída
+e antecipada}, sem qualquer entidade central de controlo e assente exclusivamente em
+mensagens normalizadas ETSI C-ITS (CAM e MCM). Pretende-se que o veículo da rampa --- o
+\emph{Merge Car} (MC) --- anuncie a sua intenção com antecedência suficiente para que os
+veículos afetados se ajustem de forma coordenada e lhe abram uma janela temporal segura,
+substituindo a reação tardia por uma manobra planeada.
+
+\subsection{Objetivos específicos}
+
+Para concretizar o objetivo geral, definiram-se os seguintes objetivos específicos:
+
+\begin{enumerate}[noitemsep,topsep=2pt,label=\textbf{O\arabic*.}]
+  \item \textbf{Consciência situacional contínua} --- cada veículo difunde periodicamente
+        a sua posição, velocidade, aceleração e dimensões via CAM, construindo uma visão
+        local do tráfego sem qualquer configuração prévia da vizinhança.
+  \item \textbf{Protocolo de negociação de manobra} --- definir e implementar um protocolo
+        distribuído sobre MCM que permita ao MC pedir autorização e aos restantes veículos
+        responder cooperativamente.
+  \item \textbf{Deteção de conflito} --- determinar, em cada veículo da via principal e em
+        tempo real, se irá efetivamente partilhar a zona de conflito com o MC, combinando
+        a geometria da estrada com uma janela temporal de ocupação.
+  \item \textbf{Abrandamento coordenado em cadeia} --- quando há conflito, calcular uma
+        velocidade-alvo viável e propagar o pedido de abrandamento aos veículos a montante,
+        de modo a abrir a folga necessária sem travagens bruscas.
+  \item \textbf{Garantia de segurança} --- assegurar que a manobra nunca compromete a
+        segurança: se a negociação não concluir a tempo, o MC recorre a um mecanismo de
+        \emph{stop-and-wait} no final da rampa e volta a tentar.
+  \item \textbf{Suporte a múltiplos veículos a inserir-se} --- estender o protocolo a
+        cenários com dois veículos a fundir-se simultaneamente a partir da rampa.
+  \item \textbf{Observabilidade} --- disponibilizar uma visualização em tempo real da
+        simulação e da troca de mensagens, para validação e demonstração do protocolo.
+\end{enumerate}
+
+\subsection{Síntese}
+
+A Tabela~\ref{tab:objetivos} resume como cada objetivo específico é concretizado na
+implementação, remetendo para a secção correspondente.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{@{}p{0.34\linewidth}p{0.50\linewidth}c@{}}
+    \toprule
+    \textbf{Objetivo} & \textbf{Mecanismo de concretização} & \textbf{Secção} \\
+    \midrule
+    O1 -- Consciência situacional &
+      Beaconing CAM a 100\,ms + \texttt{NeighbourTable} com janela de 200\,ms &
+      \ref{sec:implementacao} \\
+    O2 -- Protocolo de negociação &
+      6 subtipos de MCM (\textsc{merge\_request}, \textsc{slowdown\_request/grant},
+      \textsc{merge\_grant}, \textsc{merge\_confirmed}, \textsc{execution\_status}) &
+      \ref{sec:implementacao} \\
+    O3 -- Deteção de conflito &
+      Projeção geométrica (\texttt{project\_t}) + sobreposição temporal entre a ocupação
+      do MC e a entrada/saída do veículo na zona &
+      \ref{sec:implementacao} \\
+    O4 -- Abrandamento em cadeia &
+      Velocidade-alvo por busca binária (\texttt{\_solve\_target\_speed}) e propagação de
+      \textsc{slowdown\_request} ao veículo de trás &
+      \ref{sec:implementacao} \\
+    O5 -- Garantia de segurança &
+      Verificação cinemática de travagem (\texttt{can\_brake\_in\_time}) e paragem em
+      \texttt{stop\_t} com retentativa &
+      \ref{sec:implementacao} \\
+    O6 -- Múltiplos MC &
+      Mesmo protocolo na rampa: o MC propaga \textsc{slowdown\_request} ao veículo atrás
+      na rampa &
+      \ref{sec:implementacao} \\
+    O7 -- Observabilidade &
+      Ponte Zenoh$\rightarrow$WebSocket (\texttt{bridge.py}) e dashboard HTML em tempo real &
+      \ref{sec:implementacao} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Mapeamento dos objetivos específicos para os mecanismos de implementação.}
+  \label{tab:objetivos}
+\end{table}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Arquitetura}
+\label{sec:arquitetura}
+
+O sistema está organizado em quatro camadas com responsabilidades bem separadas, tal
+como ilustra a Figura~\ref{fig:arch}. Esta secção fixa o vocabulário (nós, papéis,
+tópicos e mensagens) que a Secção~\ref{sec:implementacao} utiliza para detalhar a
+implementação.
+
+\subsection{Visão geral em camadas}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{MERGE_LANE_ARCH.png}
+  \caption{Arquitetura em camadas do sistema.}
+  \label{fig:arch}
+\end{figure}
+
+\begin{description}[leftmargin=1.4em,topsep=2pt,itemsep=3pt]
+  \item[\textbf{Camada de orquestração.}] Um único processo, o \texttt{coordinator.py}
+        (GUI Tkinter), lê os ficheiros de cenário \texttt{scenarios/*.json}, publica o
+        cenário escolhido no router Zenoh e aguarda que todos os veículos ativos
+        reportem a conclusão. É o ponto de entrada da demonstração, mas \emph{não}
+        participa na negociação --- apenas dá o pontapé de saída e recolhe o estado de
+        cada veículo.
+  \item[\textbf{Camada de rede.}] Materializada por \texttt{docker-compose} sobre a
+        rede Docker externa \texttt{vanetzalan0}. Contém o \emph{router Zenoh}
+        (canal do coordinator) e, por cada veículo, um par de containers: um container
+        \textbf{Vanetza-NAP}, que implementa a pilha ETSI C-ITS (codificação/
+        descodificação ASN.1 e difusão pelo ``ar''), e um container \textbf{Python},
+        que corre a lógica do veículo. É nesta camada que vivem as \emph{stations}
+        10--13.
+  \item[\textbf{Camada de lógica de veículo (Python).}] É o cérebro de cada nó,
+        organizado em módulos: \texttt{vehicle.py} (ponto de entrada),
+        \texttt{simulation.py} (laço de movimento e emissão de CAM),
+        \texttt{protocol.py} (a classe \texttt{MergeProtocol}, que concentra toda a
+        negociação), apoiados por \texttt{geo.py} (geometria e modelo de travagem),
+        \texttt{comms.py} (sessões Zenoh e \texttt{NeighbourTable}) e pelos
+        construtores puros de mensagens \texttt{cam\_builder.py} e
+        \texttt{mcm\_builder.py}. Esta camada é o objeto central da
+        Secção~\ref{sec:implementacao}.
+  \item[\textbf{Camada de visualização.}] O \texttt{bridge.py} subscreve o tráfego V2X
+        (CAM e MCM) descodificado, mantém o estado de cada veículo e difunde, a cada
+        100\,ms, uma trama JSON por WebSocket (porta 8765) para a
+        \texttt{dashboard.html}, que desenha as estradas, os veículos e o registo de
+        eventos MCM em tempo real.
+\end{description}
+
+\paragraph{Nota sobre os dois planos Zenoh.} Para simplicidade, a Figura~\ref{fig:arch}
+representa um único bloco ``Zenoh Router''. Na realidade existem \emph{dois} planos de
+comunicação distintos: (i)~o tráfego V2X (CAM/MCM) de cada veículo flui pelo broker
+Zenoh do seu \emph{próprio} container Vanetza-NAP (\texttt{tcp/<ip>:7447}), simulando o
+meio rádio local; (ii)~as mensagens de controlo da demonstração (cenário, \emph{ready},
+\emph{done}) passam pelo router central \texttt{192.168.98.5:7446}. Assim, nenhum
+veículo comunica com outro por um canal partilhado privilegiado --- toda a coordenação
+inter-veicular acontece exclusivamente através de mensagens C-ITS difundidas pelo
+respetivo Vanetza.
+
+\subsection{Nós e topologia}
+
+O cenário envolve \textbf{quatro veículos} --- o Merge Car (MC) e os veículos da via
+principal A, B e C. Cada veículo é, na prática, um \emph{par de containers} (Vanetza-NAP
++ Python) com uma identidade C-ITS fixa, resumida na Tabela~\ref{tab:nos}. A estes
+juntam-se três nós de infraestrutura: o router Zenoh, o \texttt{bridge.py} e a
+dashboard. Toda a topologia assenta na rede Docker \texttt{vanetzalan0}.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}llllc@{}}
+    \toprule
+    \textbf{Veículo} & \textbf{Papel} & \textbf{Station ID} & \textbf{MAC} &
+      \textbf{IP Vanetza} \\
+    \midrule
+    MC & Merge Car (rampa)      & 10 & \texttt{6e:06:e0:03:00:10} & \texttt{192.168.98.10} \\
+    A  & Via principal          & 11 & \texttt{6e:06:e0:03:00:11} & \texttt{192.168.98.11} \\
+    B  & Via principal          & 12 & \texttt{6e:06:e0:03:00:12} & \texttt{192.168.98.12} \\
+    C  & Via principal          & 13 & \texttt{6e:06:e0:03:00:13} & \texttt{192.168.98.13} \\
+    \midrule
+    \multicolumn{2}{@{}l}{Router Zenoh (coordinator)} & --- & --- & \texttt{192.168.98.5:7446} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Nós do sistema: identidade C-ITS e endereçamento. Cada veículo expõe ainda o
+  broker Zenoh do seu Vanetza na porta \texttt{7447}.}
+  \label{tab:nos}
+\end{table}
+
+Cada container Python liga-se ao broker Zenoh do seu próprio Vanetza
+(\texttt{VANETZA\_ZENOH\_URL}) para o tráfego V2X e ao router central
+(\texttt{COORDINATOR\_ZENOH\_URL}) para o canal de orquestração. A geração nativa de
+CAM no Vanetza está \textbf{desativada} (\texttt{VANETZA\_CAM\_PERIODICITY=0}): toda a
+emissão de CAM é controlada pela camada Python, garantindo um \emph{tick} de simulação
+coerente entre movimento e \emph{beaconing}.
+
+\subsection{Mapa de tópicos Zenoh}
+
+A comunicação entre as camadas reduz-se a um pequeno conjunto de tópicos Zenoh
+(Tabela~\ref{tab:topicos}). Os tópicos \texttt{vanetza/in/*} e \texttt{vanetza/out/*}
+representam, respetivamente, a injeção de uma mensagem na pilha C-ITS e a sua receção
+após passar pelo ``ar''; os tópicos \texttt{coordinator/*} constituem o canal de
+controlo da demonstração.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}lllp{0.34\linewidth}@{}}
+    \toprule
+    \textbf{Tópico} & \textbf{Publica} & \textbf{Subscreve} & \textbf{Conteúdo} \\
+    \midrule
+    \texttt{vanetza/in/cam}  & Veículo (Python) & Vanetza-NAP & CAM a difundir (dict JSON) \\
+    \texttt{vanetza/out/cam} & Vanetza-NAP & Veículos, \texttt{bridge} & CAM recebida do ar \\
+    \texttt{vanetza/in/mcm}  & Veículo (Python) & Vanetza-NAP & MCM a difundir (dict JSON) \\
+    \texttt{vanetza/out/mcm} & Vanetza-NAP & Veículos, \texttt{bridge} & MCM recebida do ar \\
+    \midrule
+    \texttt{coordinator/scenario}      & \texttt{coordinator} & Veículos, \texttt{bridge} & Cenário completo (JSON) \\
+    \texttt{coordinator/ready/<sid>}   & Veículo & \texttt{coordinator} & \emph{Heartbeat}: veículo vivo \\
+    \texttt{coordinator/done/<sid>}    & Veículo & \texttt{coordinator} & Veículo concluiu o cenário \\
+    \bottomrule
+  \end{tabular}
+  \caption{Mapa de tópicos Zenoh. \texttt{<sid>} é o \emph{Station ID} do veículo.}
+  \label{tab:topicos}
+\end{table}
+
+\subsection{Modelo de papéis}
+
+Uma decisão central da arquitetura é que \textbf{todos os veículos correm exatamente o
+mesmo código}. Não existe um binário ``MC'' e outro ``veículo da estrada'': o papel
+\emph{emerge em tempo de execução} do tipo de estrada onde o veículo é colocado pelo
+cenário. Um veículo posicionado numa estrada do tipo \texttt{ramp} com campo
+\texttt{merges\_into} ativa o comportamento de Merge Car dentro do
+\texttt{MergeProtocol}; o mesmo código numa estrada \texttt{main} responde como veículo
+alvo da negociação. Esta unificação tem duas consequências importantes: (i)~os cenários
+multi-MC são suportados sem código adicional --- basta colocar dois veículos na rampa
+(ver cenários 04--06); e (ii)~toda a lógica de negociação vive numa única classe,
+descrita em detalhe na Secção~\ref{sec:implementacao}.
+
+Coerentemente, \textbf{nenhum veículo tem conhecimento pré-configurado da sua
+vizinhança}. Quem está à frente, quem está atrás, quem entra em conflito e em que
+estrada cada um circula é inferido em tempo real a partir das posições GPS recebidas nas
+CAM e da geometria das estradas definida no cenário.
+
+\subsection{Tipos de mensagens trocadas}
+
+Apenas dois tipos de mensagem ETSI C-ITS são usados (Tabela~\ref{tab:mensagens}). A
+\textbf{CAM} é o \emph{beaconing} periódico que sustenta a consciência situacional; a
+\textbf{MCM} implementa o protocolo de negociação e desdobra-se em seis subtipos. Cada
+MCM transporta no \texttt{basicContainer} os campos \texttt{mcmType}, \texttt{itssRole}
+e \texttt{manoeuvreId} que, em conjunto, identificam o subtipo --- nomeadamente, o
+intervalo do \texttt{manoeuvreId} distingue um \textsc{merge\_grant} (0--127) de um
+\textsc{slowdown\_grant} (128--255), que de outra forma seriam indistinguíveis.
+
+\begin{table}[H]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{@{}lccclp{0.30\linewidth}@{}}
+    \toprule
+    \textbf{Subtipo} & \textbf{mcmType} & \textbf{itssRole} & \textbf{manoeuvreId} &
+      \textbf{Direção} & \textbf{Propósito} \\
+    \midrule
+    \textsc{merge\_request} & 1 & 1 & 0--127 & MC $\rightarrow$ todos &
+      Pedir autorização; inclui zona de conflito e janela de ocupação \\
+    \textsc{slowdown\_request} & 1 & 3 & 0--127 & em conflito $\rightarrow$ de trás &
+      Propagar pedido de abrandamento na cadeia (via \texttt{executantID}) \\
+    \textsc{slowdown\_grant} & 2 & 3 & \textbf{128--255} & atrás $\rightarrow$ à frente &
+      Confirmar/recusar a aceitação do abrandamento \\
+    \textsc{merge\_grant} & 2 & 3 & \textbf{0--127} & cada veículo $\rightarrow$ MC &
+      Conceder a passagem ao MC, individualmente \\
+    \textsc{merge\_confirmed} & 2 & 1 & 0--127 & MC $\rightarrow$ todos &
+      Confirmar (\emph{agree}) ou abortar a manobra \\
+    \textsc{execution\_status} & 7 & 1 & 0--127 & MC $\rightarrow$ todos &
+      MC já entrou na via; veículos retomam a velocidade \\
+    \bottomrule
+  \end{tabular}
+  \caption{CAM (\emph{beaconing} periódico) e os seis subtipos de MCM do protocolo.
+  \texttt{itssRole}: 1 = \emph{coordinatingItss}, 3 = \emph{targetVehicle}.}
+  \label{tab:mensagens}
+\end{table}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Implementação}
+\label{sec:implementacao}
+
+\todo{Secção central — nível de detalhe alto. Cada subsecção será preenchida com
+referências às funções reais, fórmulas e pseudo-código.}
+
+\subsection{Stack e fluxo de uma mensagem}
+\todo{Python build\_cam/build\_mcm $\rightarrow$ vanetza/in/* $\rightarrow$ Vanetza-NAP
+(codec ASN.1/UPER) $\rightarrow$ ar $\rightarrow$ vanetza/out/* $\rightarrow$ callbacks.
+Escalas do codec: lat/lon $\times10^7$, speed $\times100$, accel $\times10$; sentinels.}
+
+\subsection{Beaconing e NeighbourTable}
+\todo{build\_cam (campos ETSI, sentinels de \emph{unavailable}); make\_cam\_callback;
+janela de 200~ms na NeighbourTable; vizinhança 100\% derivada de CAMs.}
+
+\subsection{Geometria}
+\todo{haversine, project\_t (projeção paramétrica $t\in[0,1]$), compute\_bearing,
+road\_length, is\_on\_road, find\_vehicle\_behind ($\leq$200~m), conflict\_zone\_t,
+interpolação linear de movimento. Incluir fórmulas.}
+
+\subsection{Modelo cinemático}
+\todo{advance\_speed ($\pm4$~m/s$^2$), predict\_motion, time\_to\_cover\_distance,
+can\_brake\_in\_time, merge\_entry\_margin, mc\_stop\_t. Fórmulas e justificação das
+margens.}
+
+\subsection{Construtores de MCM}
+\todo{Funções puras de mcm\_builder.py: estrutura de cada subtipo (basicContainer,
+vehicleManoeuvreContainer, TRR/waypoints, manoeuvreAdvice, temporalCharacteristics,
+responseContainer); endereçamento via executantID; intervalos de manoeuvreId
+(MERGE\_GRANT 0--127 vs SLOWDOWN\_GRANT 128--255).}
+
+\subsection{O protocolo \texttt{MergeProtocol}}
+
+\subsubsection{Lado do Merge Car (rampa)}
+\todo{\_tick\_ramp, cálculo do ETA e horizonte de 4~s, \_maybe\_send\_merge\_request
+(janela de ocupação), recolha de grants (grants\_received), \_on\_all\_granted
+$\rightarrow$ MERGE\_CONFIRMED, retry/cooldown, paragem em stop\_t, slowdown na rampa
+(multi-MC). Referir Figura~\ref{fig:mc-fsm}.}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{mc_state_machine.png}
+  \caption{Máquina de estados do Merge Car.}
+  \label{fig:mc-fsm}
+\end{figure}
+
+\subsubsection{Lado do veículo da estrada principal}
+\todo{\_on\_merge\_request (deteção de conflito), cálculo da velocidade-alvo,
+propagação SLOWDOWN\_REQUEST / \_on\_slowdown\_request, fim-de-cadeia +
+\_on\_slowdown\_grant, envio de MERGE\_GRANT, aplicação do abrandamento em
+MERGE\_CONFIRMED, retoma em EXECUTION\_STATUS. Referir Figura~\ref{fig:road-fsm}.}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{MAIN_ROAD_STATES.png}
+  \caption{Máquina de estados do veículo na via principal.}
+  \label{fig:road-fsm}
+\end{figure}
+
+\subsection{Algoritmos de decisão e pseudo-código}
+\todo{(a) Deteção de conflito (overlap temporal); (b) busca binária da velocidade-alvo
+\_solve\_target\_speed; (c) propagação em cadeia do abrandamento. Um ambiente
+\texttt{algorithm} por algoritmo.}
+
+\subsection{Diagrama de sequência do protocolo}
+\todo{Explicação passo-a-passo com base na Figura~\ref{fig:seq}: MERGE\_REQUEST
+$\rightarrow$ MERGE\_GRANT directos $\rightarrow$ SLOWDOWN\_REQUEST/GRANT em cadeia
+$\rightarrow$ MERGE\_GRANT $\rightarrow$ MERGE\_CONFIRMED $\rightarrow$
+EXECUTION\_STATUS; ramo alternativo ABORT.}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{SCENARIO1_SEQ_DIAGRAM.png}
+  \caption{Diagrama de sequência do protocolo (cenário com o veículo B em conflito).}
+  \label{fig:seq}
+\end{figure}
+
+\subsection{Orquestração e visualização}
+\todo{coordinator.py (GUI Tkinter, dispatch de cenários via Zenoh, ready/done, Demo
+Mode, Draw Exag); bridge.py (Zenoh$\rightarrow$WebSocket, classificação de MCM, estados
+visuais, merge\_point por interseção geométrica); dashboard.html; run.sh.}
+
+\subsection{Modo Demo}
+\todo{DemoMergeProtocol: pausas configuráveis antes de processar cada MCM relevante
+para tornar a negociação observável passo a passo.}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Fluxo da Demonstração}
+\label{sec:demo}
+
+\subsection{Preparação}
+\todo{run.sh; escolher cenário no coordinator; dashboard aberta.}
+
+\subsection{Timeline}
+\todo{Ponto de partida $\rightarrow$ MERGE\_REQUEST ao atingir o horizonte de 4~s
+$\rightarrow$ decisões em função das mensagens recebidas $\rightarrow$ abrandamento/merge
+$\rightarrow$ retoma de velocidade. Como termina a demo.}
+
+\subsection{Aleatoriedade e variáveis}
+\todo{Aleatório: manoeuvreId do SLOWDOWN\_GRANT (128--255), jitter de rede e ordem de
+chegada de CAMs/MCMs. Controlável: cenário (posições iniciais), Demo Mode + pausa, Draw
+Exag, speed limits e comprimentos no JSON.}
+
+\subsection{Cenários}
+\todo{Tabela dos 6 cenários: 01 standard; 02 colisão B; 03 colisão A+B+C; 04 2-MC
+standard; 05 2-MC colisão B; 06 2-MC colisão todos — com o resultado esperado de cada.}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Resultados}
+\label{sec:resultados}
+
+\todo{Por cenário: comportamento observado (conflito, cadeia de abrandamento, merge sem
+colisão) com evidência (screenshots da dashboard + logs anotados). Validação dos casos
+de colisão (sem protocolo colidiria; com protocolo é seguro). Caso de abort + retry.
+Caso fallback stop-and-wait. Multi-MC (cadeia também na rampa). Discussão: limitações e
+simplificações do modelo.}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\section{Conclusão}
+\label{sec:conclusao}
+
+\todo{Síntese do alcançado vs objetivos; lições aprendidas; trabalho futuro.}
+
+% ═════════════════════════════════════════════════════════════════════════════
+\bibliographystyle{plain}
+\bibliography{referencias}
+
+\end{document}

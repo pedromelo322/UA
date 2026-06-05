@@ -1,0 +1,56 @@
+1.De acordo com os conceitos e funcionamento de CDNs e redes peer-to-peer, explique quais são
+as maiores semelhanças e diferenças entre estas redes.
+
+Semelhanças:
+- Tanto a CDN e as redes P2P destribuem conteudo por vários dispositivos para não estarem dependentes de um unico servidor central
+
+
+Diferenças:
+- Na p2p cada peer é simultanemante cliente e servidor enquanto na CDN são entidades separadas
+- Na p2p a capacidada aumento com mais nós a tentar acedr a um ficheiro, enquanto na CDN piora
+- Na CDN a conecção é feita na mesma de um nó para um servidor, mas na p2p um nó poode pedir um conteudo a vários nós
+
+
+
+2.Num protocolo peer-to-peer não estruturado, que mecanismos podem ser usados para procurar
+um conteúdo raro? 
+O problema do flooding é que pode não encontrar conteudo raro.
+Para isso pode se usar k-random walkers.
+
+
+3.No protocolo de distribuição de conteúdos peer-to-peer BitTorrent, como é que este consegue
+incentivar os peer nodes a participar na rede e partilhar os conteúdos?
+
+Usa-se o tit-for-tat, basicamente um nó só partilha para um nó se este também tiver a partilhar
+
+
+4.Na manutenção da informação de conteúdos utilizando uma DHT, como se tem informação do
+local para incluir a localização de um conteúdo? 
+
+Cada nó faz o hash da sua public key, isso vai ser o seu NodeID, quando eu dou hash do conteudo vai-me dar o CID, fica responsavel pelo conteudo um nó com NodeID superior ou igual ao CID.
+
+
+
+5.Numa rede de veículos numa cidade, com percursos distintos, utilizaria um protocolo de
+encaminhamento Location Aware Routing ou Batman? Justifique.
+
+Numa rede de veiculos numa cidade, utilizaria o LAR porque permite centrar o request apenas em uma aria de previsão onde o carro vai estar, e não tenho de estar a dar flood na rede com OGMs
+
+
+6.De que forma o Batman consegue manter informação da qualidade das ligações atualizada?
+Justifique.
+
+Batman usa uma sliding window, (ex 8 pacotes), o no A recebe OGMS dos outros nós da network a partir dos seus vizinhos, vamos supor que recebeu 5 OGMs de D pelo vizinho B e 8 OGMs de D pelo vizinho C, ele sabe que o melhor caminho para D é por C, porque é por onde recebeu mais OGMs
+
+
+7.Nos mecanismos de aprendizagem é possível chegar a uma decisão ótima se estes forem
+distribuídos na rede? Justifique.
+
+É possivel chegar a uma decisão ótima local, mas não a uma decisão otima generalizada.
+Ou seja um modelo treinado com dados de um determinado local, vai ser bom naquele local, mas se for testado em outro, já vai obter uma má performance.
+
+8.Num mecanismo de federated learning, os modelos locais podem ser diferentes? De que forma
+permitem ter uma convergência na aprendizagem? Justifique.
+
+Sim os modelos locais podem ser diferentes se os dados com que forem treinados forem diferentes.
+No entanto é possivel obter convergencia a partir de um nó central que calcula a média dos gradiantes para isso pode se usar FedAvg, Q-FedAvg ou FedOPT

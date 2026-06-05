@@ -1,0 +1,24 @@
+Teste 1
+
+5.Numa rede de veículos numa cidade, com percursos distintos, utilizaria um protocolo de
+encaminhamento Location Aware Routing ou Batman? Justifique.
+
+Numa rede de veiculos numa cidade, utilizaria o LAR porque permite centrar o request apenas em uma aria de previsão onde o carro vai estar, e não tenho de estar a dar flood na rede com OGMs
+
+
+6.De que forma o Batman consegue manter informação da qualidade das ligações atualizada?
+Justifique.
+
+Batman usa uma sliding window, (ex 8 pacotes), o no A recebe OGMS dos outros nós da network a partir dos seus vizinhos, vamos supor que recebeu 5 OGMs de D pelo vizinho B e 8 OGMs de D pelo vizinho C, ele sabe que o melhor caminho para D é por C, porque é por onde recebeu mais OGMs
+
+
+Teste 2
+
+5.Numa rede de veículos numa cidade, com percursos semelhantes, por diferentes locais utilizaria
+um protocolo de encaminhamento AODV ou Batman? Justifique.
+
+Batman, AODV usa flooding o que é pode sobrecarregar a rede
+
+6.De que forma o OLSR consegue obter informação dos Multipoint relays atualizada? Justifique.
+
+Pela mensaagem Hello periodica que os nos emitem, onde mandam o node que selecionaram o MPR

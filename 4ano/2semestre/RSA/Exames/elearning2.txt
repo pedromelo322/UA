@@ -1,0 +1,41 @@
+1.Qual a importância dos rendez-vous peers e relay peers em sistemas peer-to-peer? Como se
+distinguem? 
+
+o Rend-vouzs e os realys servem para facilitar a comunicação entre os peers para trocarem dados.
+
+O Rend-vouz serve para indicar a um peer qual é o peer que tem o conteudo que ele está á procura (descovery)
+O Relay serve para um nó que está dentro de uma firewall ou NAT poder comunicar com outros peers (datastream)
+
+2.Num protocolo peer-to-peer estruturado, qual a diferença na pesquisa de um conteúdo raro ou
+com muitas réplicas disponíveis na rede peer-to-peer?
+
+Absolutamente nenhum, a indicação de onde está o conteudo é sempre feita da mesma maneira, o nó responsavel por apontar para os nós com o conteudo é determiando sempre da mesma maneira, a unica diferença é que para um conteudo popular vai retornar muito mais resultados do que para um conteudo raro
+
+3.No protocolo de distribuição de conteúdos peer-to-peer IPFS, como é que este consegue
+incentivar os peer nodes a participar na rede e partilhar os conteúdos?
+
+Uso de BitSwap, em que existe um debt ratio, quanto maior a divida menor a probabilidade de receber, o que influencia os nodes a partilahrem pacotes
+
+4.Na pesquisa da informação de conteúdos utilizando uma DHT, como é que um nó consegue
+localizar qual o nó da DHT que contém informação do conteúdo?
+
+Na sua FingerTable procura pelo primeiro nó com o NodeID maior igual ao CID do documento, se não encontrar vai ao mais proxuimo e pede para esse no ver a sua finger table e sempre assim até encontrar
+
+5.Numa rede de veículos numa cidade, com percursos semelhantes, por diferentes locais utilizaria
+um protocolo de encaminhamento AODV ou Batman? Justifique.
+
+Batman, AODV usa flooding o que é pode sobrecarregar a rede
+
+6.De que forma o OLSR consegue obter informação dos Multipoint relays atualizada? Justifique.
+
+Pela mensaagem Hello periodica que os nos emitem, onde mandam o node que selecionaram o MPR
+
+7.Nos mecanismos de aprendizagem, em que situações e cenários faz sentido ter um modelo
+centralizado? Justifique. 
+
+Quando queremos obter uma boa generalização e não temos preocupações com privacidade, latencia, largura de banda ou conectividade
+
+
+8. Num mecanismo de federated learning, qual a influência dos algoritmos de agregação dos
+modelos? Justifique. 
+Afeta a precisão, tempo de convergencia, numero de rounds e o network overhead

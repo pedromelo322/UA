@@ -1,0 +1,561 @@
+{
+    "mfl-ghostC-2-ml-app-mnist-raspberrypi-72-5202": {
+        "0": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:06,297",
+            "msg": "server_address: 10.1.1.1:5200"
+        },
+        "1": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:06,403",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/get_data (SUCCESSFUL)"
+        },
+        "2": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:06,404",
+            "msg": "Connection to server try number 0"
+        },
+        "3": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,408",
+            "msg": "Opened insecure gRPC connection (no certificates were passed)"
+        },
+        "4": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,409",
+            "msg": "ChannelConnectivity.IDLE"
+        },
+        "5": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,410",
+            "msg": "ChannelConnectivity.CONNECTING"
+        },
+        "6": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,420",
+            "msg": "ChannelConnectivity.TRANSIENT_FAILURE"
+        },
+        "7": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,622",
+            "msg": "gRPC channel closed"
+        },
+        "8": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:06,623",
+            "msg": "Status: StatusCode.UNAVAILABLE"
+        },
+        "9": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:06,623",
+            "msg": "Details: failed to connect to all addresses; last error: UNKNOWN: ipv4:10.1.1.1:5200: Failed to connect to remote host: Connection refused"
+        },
+        "10": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:06,723",
+            "msg": "Connection to server try number 1"
+        },
+        "11": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,724",
+            "msg": "Opened insecure gRPC connection (no certificates were passed)"
+        },
+        "12": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,725",
+            "msg": "ChannelConnectivity.IDLE"
+        },
+        "13": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,725",
+            "msg": "ChannelConnectivity.CONNECTING"
+        },
+        "14": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,780",
+            "msg": "ChannelConnectivity.TRANSIENT_FAILURE"
+        },
+        "15": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:06,983",
+            "msg": "gRPC channel closed"
+        },
+        "16": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:06,983",
+            "msg": "Status: StatusCode.UNAVAILABLE"
+        },
+        "17": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:06,983",
+            "msg": "Details: failed to connect to all addresses; last error: UNKNOWN: ipv4:10.1.1.1:5200: Failed to connect to remote host: Connection refused"
+        },
+        "18": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:07,084",
+            "msg": "Connection to server try number 2"
+        },
+        "19": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,084",
+            "msg": "Opened insecure gRPC connection (no certificates were passed)"
+        },
+        "20": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,087",
+            "msg": "ChannelConnectivity.IDLE"
+        },
+        "21": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,088",
+            "msg": "ChannelConnectivity.CONNECTING"
+        },
+        "22": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,092",
+            "msg": "ChannelConnectivity.TRANSIENT_FAILURE"
+        },
+        "23": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,294",
+            "msg": "gRPC channel closed"
+        },
+        "24": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:07,295",
+            "msg": "Status: StatusCode.UNAVAILABLE"
+        },
+        "25": {
+            "lvl": "ERROR",
+            "time": "2026-03-24 13:34:07,295",
+            "msg": "Details: failed to connect to all addresses; last error: UNKNOWN: ipv4:10.1.1.1:5200: Failed to connect to remote host: Connection refused"
+        },
+        "26": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:07,395",
+            "msg": "Connection to server try number 3"
+        },
+        "27": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,395",
+            "msg": "Opened insecure gRPC connection (no certificates were passed)"
+        },
+        "28": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,396",
+            "msg": "ChannelConnectivity.IDLE"
+        },
+        "29": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,399",
+            "msg": "ChannelConnectivity.CONNECTING"
+        },
+        "30": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:07,411",
+            "msg": "ChannelConnectivity.READY"
+        },
+        "31": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,230",
+            "msg": "Received message"
+        },
+        "32": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,238",
+            "msg": "----------------  EVALUATE  ----------------- "
+        },
+        "33": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:30,238",
+            "msg": "CONFIG: {'val_steps': 5, 'epoch_global': '1'}"
+        },
+        "34": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,419",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/evaluate (SUCCESSFUL)"
+        },
+        "35": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,419",
+            "msg": "Evaluate Duration: 0.1192173957824707"
+        },
+        "36": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:30,419",
+            "msg": "losses_evaluate: 27.249189376831055"
+        },
+        "37": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:30,419",
+            "msg": "num_examples_evaluate: 1600"
+        },
+        "38": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:30,419",
+            "msg": "metrics_evaluate: {'accuracy': 0.0}"
+        },
+        "39": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,420",
+            "msg": "Sent reply"
+        },
+        "40": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,859",
+            "msg": "Received message"
+        },
+        "41": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:30,860",
+            "msg": "----------------  Train  ----------------- "
+        },
+        "42": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:30,860",
+            "msg": "CONFIG: {'batch_size': '32', 'epochs': '32', 'epoch_global': '2'}"
+        },
+        "43": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:52,438",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/fit (SUCCESSFUL)"
+        },
+        "44": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:52,453",
+            "msg": "Fit Duration: 21.553049325942993"
+        },
+        "45": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:52,453",
+            "msg": "number_examples_fit: 6400"
+        },
+        "46": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:52,453",
+            "msg": "metrics_fit: {'loss': 8.295800398627762e-06, 'accuracy': 1.0}"
+        },
+        "47": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:52,455",
+            "msg": "Sent reply"
+        },
+        "48": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,476",
+            "msg": "Received message"
+        },
+        "49": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,477",
+            "msg": "----------------  EVALUATE  ----------------- "
+        },
+        "50": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:54,477",
+            "msg": "CONFIG: {'val_steps': 5, 'epoch_global': '2'}"
+        },
+        "51": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,622",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/evaluate (SUCCESSFUL)"
+        },
+        "52": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,622",
+            "msg": "Evaluate Duration: 0.10491228103637695"
+        },
+        "53": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:54,622",
+            "msg": "losses_evaluate: 0.8249730467796326"
+        },
+        "54": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:54,622",
+            "msg": "num_examples_evaluate: 1600"
+        },
+        "55": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:54,622",
+            "msg": "metrics_evaluate: {'accuracy': 0.6625000238418579}"
+        },
+        "56": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,623",
+            "msg": "Sent reply"
+        },
+        "57": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,962",
+            "msg": "Received message"
+        },
+        "58": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:34:54,963",
+            "msg": "----------------  Train  ----------------- "
+        },
+        "59": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:34:54,963",
+            "msg": "CONFIG: {'batch_size': '32', 'epochs': '32', 'epoch_global': '3'}"
+        },
+        "60": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:16,037",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/fit (SUCCESSFUL)"
+        },
+        "61": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:16,051",
+            "msg": "Fit Duration: 21.048215866088867"
+        },
+        "62": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:16,052",
+            "msg": "number_examples_fit: 6400"
+        },
+        "63": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:16,052",
+            "msg": "metrics_fit: {'loss': 5.8274640650779475e-06, 'accuracy': 1.0}"
+        },
+        "64": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:16,053",
+            "msg": "Sent reply"
+        },
+        "65": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:18,471",
+            "msg": "Received message"
+        },
+        "66": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:18,472",
+            "msg": "----------------  EVALUATE  ----------------- "
+        },
+        "67": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:18,472",
+            "msg": "CONFIG: {'val_steps': 5, 'epoch_global': '3'}"
+        },
+        "68": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:18,619",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/evaluate (SUCCESSFUL)"
+        },
+        "69": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:18,619",
+            "msg": "Evaluate Duration: 0.10733294486999512"
+        },
+        "70": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:18,619",
+            "msg": "losses_evaluate: 1.34078049659729"
+        },
+        "71": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:18,619",
+            "msg": "num_examples_evaluate: 1600"
+        },
+        "72": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:18,619",
+            "msg": "metrics_evaluate: {'accuracy': 0.6256250143051147}"
+        },
+        "73": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:18,620",
+            "msg": "Sent reply"
+        },
+        "74": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:19,238",
+            "msg": "Received message"
+        },
+        "75": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:19,239",
+            "msg": "----------------  Train  ----------------- "
+        },
+        "76": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:19,239",
+            "msg": "CONFIG: {'batch_size': '32', 'epochs': '32', 'epoch_global': '4'}"
+        },
+        "77": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:42,180",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/fit (SUCCESSFUL)"
+        },
+        "78": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:42,194",
+            "msg": "Fit Duration: 22.91531538963318"
+        },
+        "79": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:42,194",
+            "msg": "number_examples_fit: 6400"
+        },
+        "80": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:42,194",
+            "msg": "metrics_fit: {'loss': 2.5913125227816636e-06, 'accuracy': 1.0}"
+        },
+        "81": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:42,196",
+            "msg": "Sent reply"
+        },
+        "82": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:43,264",
+            "msg": "Received message"
+        },
+        "83": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:43,265",
+            "msg": "----------------  EVALUATE  ----------------- "
+        },
+        "84": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:43,265",
+            "msg": "CONFIG: {'val_steps': 10, 'epoch_global': '4'}"
+        },
+        "85": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:43,509",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/evaluate (SUCCESSFUL)"
+        },
+        "86": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:43,509",
+            "msg": "Evaluate Duration: 0.20316076278686523"
+        },
+        "87": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:43,509",
+            "msg": "losses_evaluate: 0.2782057821750641"
+        },
+        "88": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:43,509",
+            "msg": "num_examples_evaluate: 1600"
+        },
+        "89": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:43,509",
+            "msg": "metrics_evaluate: {'accuracy': 0.9337499737739563}"
+        },
+        "90": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:43,510",
+            "msg": "Sent reply"
+        },
+        "91": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:44,074",
+            "msg": "Received message"
+        },
+        "92": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:35:44,075",
+            "msg": "----------------  Train  ----------------- "
+        },
+        "93": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:35:44,075",
+            "msg": "CONFIG: {'batch_size': '32', 'epochs': '32', 'epoch_global': '5'}"
+        },
+        "94": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:05,596",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/fit (SUCCESSFUL)"
+        },
+        "95": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:05,611",
+            "msg": "Fit Duration: 21.496564388275146"
+        },
+        "96": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:05,611",
+            "msg": "number_examples_fit: 6400"
+        },
+        "97": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:05,611",
+            "msg": "metrics_fit: {'loss': 1.7813501926866593e-06, 'accuracy': 1.0}"
+        },
+        "98": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:05,613",
+            "msg": "Sent reply"
+        },
+        "99": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,253",
+            "msg": "Received message"
+        },
+        "100": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,254",
+            "msg": "----------------  EVALUATE  ----------------- "
+        },
+        "101": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:09,254",
+            "msg": "CONFIG: {'val_steps': 10, 'epoch_global': '5'}"
+        },
+        "102": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,406",
+            "msg": "http://ml-app-mnist-raspberrypi-72:5000/internal/evaluate (SUCCESSFUL)"
+        },
+        "103": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,406",
+            "msg": "Evaluate Duration: 0.11269664764404297"
+        },
+        "104": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:09,406",
+            "msg": "losses_evaluate: 0.8674840331077576"
+        },
+        "105": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:09,407",
+            "msg": "num_examples_evaluate: 1600"
+        },
+        "106": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:09,407",
+            "msg": "metrics_evaluate: {'accuracy': 0.7799999713897705}"
+        },
+        "107": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,407",
+            "msg": "Sent reply"
+        },
+        "108": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,531",
+            "msg": "Received message"
+        },
+        "109": {
+            "lvl": "DEBUG",
+            "time": "2026-03-24 13:36:09,539",
+            "msg": "gRPC channel closed"
+        },
+        "110": {
+            "lvl": "INFO",
+            "time": "2026-03-24 13:36:09,539",
+            "msg": "Disconnect and shut down"
+        }
+    },
+    "mfl-manager-ml-app-mnist-raspberrypi-72": {},
+    "ml-app-mnist-raspberrypi-72": {}
+}

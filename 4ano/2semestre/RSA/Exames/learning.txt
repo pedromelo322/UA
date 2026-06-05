@@ -1,0 +1,26 @@
+Teste 1
+
+7.Nos mecanismos de aprendizagem é possível chegar a uma decisão ótima se estes forem
+distribuídos na rede? Justifique.
+
+É possivel chegar a uma decisão ótima local, mas não a uma decisão otima generalizada.
+Ou seja um modelo treinado com dados de um determinado local, vai ser bom naquele local, mas se for testado em outro, já vai obter uma má performance.
+
+8.Num mecanismo de federated learning, os modelos locais podem ser diferentes? De que forma
+permitem ter uma convergência na aprendizagem? Justifique.
+
+Sim os modelos locais podem ser diferentes se os dados com que forem treinados forem diferentes.
+No entanto é possivel obter convergencia a partir de um nó central que calcula a média dos gradiantes para isso pode se usar FedAvg, Q-FedAvg ou FedOPT
+
+
+Teste 2
+
+7.Nos mecanismos de aprendizagem, em que situações e cenários faz sentido ter um modelo
+centralizado? Justifique. 
+
+Quando queremos obter uma boa generalização e não temos preocupações com privacidade, latencia, largura de banda ou conectividade
+
+
+8. Num mecanismo de federated learning, qual a influência dos algoritmos de agregação dos
+modelos? Justifique. 
+Afeta a precisão, tempo de convergencia, numero de rounds e o network overhead

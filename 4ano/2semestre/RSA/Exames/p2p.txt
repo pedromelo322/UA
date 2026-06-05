@@ -1,0 +1,59 @@
+Teste 1
+
+1.De acordo com os conceitos e funcionamento de CDNs e redes peer-to-peer, explique quais são
+as maiores semelhanças e diferenças entre estas redes.
+
+Semelhanças:
+- Tanto a CDN e as redes P2P destribuem conteudo por vários dispositivos para não estarem dependentes de um unico servidor central
+
+
+Diferenças:
+- Na p2p cada peer é simultanemante cliente e servidor enquanto na CDN são entidades separadas
+- Na p2p a capacidada aumento com mais nós a tentar acedr a um ficheiro, enquanto na CDN piora
+- Na CDN a conecção é feita na mesma de um nó para um servidor, mas na p2p um nó poode pedir um conteudo a vários nós
+
+
+
+2.Num protocolo peer-to-peer não estruturado, que mecanismos podem ser usados para procurar
+um conteúdo raro? 
+O problema do flooding é que pode não encontrar conteudo raro.
+Para isso pode se usar k-random walkers.
+
+
+3.No protocolo de distribuição de conteúdos peer-to-peer BitTorrent, como é que este consegue
+incentivar os peer nodes a participar na rede e partilhar os conteúdos?
+
+Usa-se o tit-for-tat, basicamente um nó só partilha para um nó se este também tiver a partilhar
+
+
+4.Na manutenção da informação de conteúdos utilizando uma DHT, como se tem informação do
+local para incluir a localização de um conteúdo? 
+
+Cada nó faz o hash da sua public key, isso vai ser o seu NodeID, quando eu dou hash do conteudo vai-me dar o CID, fica responsavel pelo conteudo um nó com NodeID superior ou igual ao CID.
+
+
+Teste 2
+
+1.Qual a importância dos rendez-vous peers e relay peers em sistemas peer-to-peer? Como se
+distinguem? 
+
+o Rend-vouzs e os realys servem para facilitar a comunicação entre os peers para trocarem dados.
+
+O Rend-vouz serve para indicar a um peer qual é o peer que tem o conteudo que ele está á procura (descovery)
+O Relay serve para um nó que está dentro de uma firewall ou NAT poder comunicar com outros peers (datastream)
+
+2.Num protocolo peer-to-peer estruturado, qual a diferença na pesquisa de um conteúdo raro ou
+com muitas réplicas disponíveis na rede peer-to-peer?
+
+Absolutamente nenhum, a indicação de onde está o conteudo é sempre feita da mesma maneira, o nó responsavel por apontar para os nós com o conteudo é determiando sempre da mesma maneira, a unica diferença é que para um conteudo popular vai retornar muito mais resultados do que para um conteudo raro
+
+3.No protocolo de distribuição de conteúdos peer-to-peer IPFS, como é que este consegue
+incentivar os peer nodes a participar na rede e partilhar os conteúdos?
+
+Uso de BitSwap, em que existe um debt ratio, quanto maior a divida menor a probabilidade de receber, o que influencia os nodes a partilahrem pacotes
+
+4.Na pesquisa da informação de conteúdos utilizando uma DHT, como é que um nó consegue
+localizar qual o nó da DHT que contém informação do conteúdo?
+
+Na sua FingerTable procura pelo primeiro nó com o NodeID maior igual ao CID do documento, se não encontrar vai ao mais proxuimo e pede para esse no ver a sua finger table e sempre assim até encontrar
+
