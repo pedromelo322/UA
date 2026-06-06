@@ -55,14 +55,24 @@ Progresso por secção:
 - [x] Capa + **1. Introdução** (redigida).
 - [x] **2. Objetivos** (problema, objetivo geral, objetivos específicos O1–O7, tabela
       objetivo$\rightarrow$mecanismo `tab:objetivos`).
-- [ ] **3. Arquitetura** — *próximo passo sugerido* (curta; fixa vocabulário para a Implementação).
-- [ ] **4. Implementação** (a mais detalhada).
-- [ ] **5. Fluxo da demo** · [ ] **6. Resultados** · [ ] **7. Conclusão**.
+- [x] **3. Arquitetura** (curta; fixa vocabulário para a Implementação).
+- [x] **4. Implementação** (a mais detalhada).
+- [x] **5. Fluxo da demo** (Preparação, Timeline do cenário 01 com log MCM real,
+      Aleatoriedade e variáveis, tabela `tab:cenarios` com o comportamento real dos
+      6 cenários). Figura `fig:coordinator` fica como placeholder `\todo` (print por tirar).
+- [ ] **6. Resultados** · [ ] **7. Conclusão**.
 
 Secções por preencher continuam como placeholders `\todo{...}`.
 
+**Comportamento real dos 6 cenários** (confirmado por logs; nomes dos ficheiros ≠
+desfecho): registado em `~/.claude/.../memory/merge-lane-scenario-outcomes.md`. Em
+resumo — 01: B abranda, MC entra entre A e B (limpo); 02: B não trava no recheck →
+abort/retry, MC entre B e C; 03: B e C não travam, MC entra no fim; 04–06: 2 MC na
+rampa (negociam sequencialmente + cadeia na rampa `SLOWDOWN_REQUEST MC→A`). As rondas
+`MERGE_CONFIRMED(ABORT)`/retry são a salvaguarda O5.
+
 Falta obter do utilizador: **link do repo**, **link do vídeo**, **screenshots da
-dashboard** dos 6 cenários (para Resultados).
+dashboard** dos 6 cenários (para Resultados) + print da GUI do coordinator (`fig:coordinator`).
 
 ## Notas de fidelidade (código vs documentação)
 
