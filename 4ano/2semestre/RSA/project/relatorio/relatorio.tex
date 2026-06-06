@@ -20,8 +20,14 @@
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{caption}
+\usepackage{subcaption}
 \captionsetup{font=small,labelfont=bf}
 \graphicspath{{figuras/}}
+
+% Placeholder de screenshot da dashboard (compila sem o ficheiro existir);
+% substituir por \includegraphics quando os prints estiverem prontos.
+\newcommand{\phshot}[1]{\fbox{\begin{minipage}[c][2.7cm][c]{\linewidth}%
+  \centering\color{gray}\footnotesize[screenshot: #1]\end{minipage}}}
 
 % ─── Código e pseudo-código ──────────────────────────────────────────────────
 \usepackage{listings}
@@ -1284,11 +1290,228 @@ cada cenário constam da Secção~\ref{sec:resultados}.
 \section{Resultados}
 \label{sec:resultados}
 
-\todo{Por cenário: comportamento observado (conflito, cadeia de abrandamento, merge sem
-colisão) com evidência (screenshots da dashboard + logs anotados). Validação dos casos
-de colisão (sem protocolo colidiria; com protocolo é seguro). Caso de abort + retry.
-Caso fallback stop-and-wait. Multi-MC (cadeia também na rampa). Discussão: limitações e
-simplificações do modelo.}
+Esta secção apresenta a validação do sistema: a metodologia seguida
+(Secção~\ref{sec:res-metodo}), a evidência visual recolhida em cada um dos seis
+cenários (Secção~\ref{sec:res-cenarios}), a verificação transversal dos mecanismos de
+segurança que sustentam os objetivos (Secção~\ref{sec:res-seguranca}), uma síntese do
+grau de concretização de cada objetivo (Secção~\ref{sec:res-sintese}) e, por fim, uma
+discussão honesta das limitações e simplificações do modelo
+(Secção~\ref{sec:res-limitacoes}).
+
+\subsection{Metodologia de validação}
+\label{sec:res-metodo}
+
+Os resultados foram obtidos correndo cada um dos seis cenários
+(Secção~\ref{sec:demo-cenarios}) a partir da GUI do \emph{coordinator}
+(\textbf{Run Selected}), com a \texttt{dashboard.html} aberta e o registo de MCM
+ativo, exatamente como descrito no fluxo da demonstração
+(Secção~\ref{sec:demo-prep}). O critério de \textbf{sucesso} é qualitativo mas
+inequívoco: o MC \emph{insere-se sempre sem colisão}, a abertura da folga resulta de um
+\emph{abrandamento cooperativo e antecipado} (veículos a passar a \textsc{slowing} na
+dashboard) e \textbf{nunca} de uma travagem de emergência ou de uma inserção forçada ---
+e, no limite, o MC opta por esperar (\emph{stop-and-wait}) em vez de forçar a entrada.
+
+Importa notar que a dinâmica é \textbf{determinística} por construção
+(Secção~\ref{sec:fundamentos}): aceleração limitada e simétrica, movimento por
+interpolação exata e decisões assentes em fórmulas fechadas. O desfecho de cada cenário
+é, por isso, reprodutível entre corridas --- as únicas fontes de variação são as já
+discutidas na Secção~\ref{sec:demo-rand} (o \texttt{manoeuvre\_id} aleatório do
+\textsc{slowdown\_grant} e o \emph{jitter}/ordem de chegada das mensagens), nenhuma das
+quais altera o resultado final.
+
+\subsection{Resultados por cenário}
+\label{sec:res-cenarios}
+
+A Figura~\ref{fig:res-grid} reúne, num momento-chave de cada corrida, o estado da
+\emph{dashboard} para os seis cenários. Em todos eles o desfecho confirma o
+comportamento esperado, resumido na Tabela~\ref{tab:cenarios}
+(Secção~\ref{sec:demo-cenarios}): uma inserção segura, com a folga aberta por
+abrandamento cooperativo.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{01 standard}
+    \caption{01 --- MC entre A e B (corrida limpa).}
+    \label{fig:res-01}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{02 colision\_b}
+    \caption{02 --- abort/retry; MC entre B e C.}
+    \label{fig:res-02}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{03 colision\_all}
+    \caption{03 --- aborts até abrir folga; MC no fim.}
+    \label{fig:res-03}
+  \end{subfigure}
+
+  \vspace{0.6em}
+
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{04 2mcs\_standard}
+    \caption{04 --- 2 MC; A (2.\textsuperscript{o}) entra no fim.}
+    \label{fig:res-04}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{05 2mcs\_colision\_b}
+    \caption{05 --- cadeia na rampa MC$\rightarrow$A.}
+    \label{fig:res-05}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.32\linewidth}
+    \phshot{06 2mcs\_collision\_all}
+    \caption{06 --- MC após C, A após o MC.}
+    \label{fig:res-06}
+  \end{subfigure}
+  \caption{Estado da \emph{dashboard} no momento-chave de cada um dos seis cenários
+  (\emph{merge point}, zona de conflito e veículos coloridos pelo estado). O desfecho de
+  cada um consta da Tabela~\ref{tab:cenarios}.}
+  \label{fig:res-grid}
+\end{figure}
+
+\paragraph{Cenários de via principal (01--03).} Os três primeiros formam uma escalada
+deliberada de dificuldade, obtida aproximando sucessivamente os veículos da via
+principal do \emph{merge point}. No \textbf{01} apenas B entra em conflito e
+\emph{consegue} abrandar a tempo (cadeia B$\rightarrow$C), abrindo a folga para o MC se
+inserir entre A e B numa única ronda. No \textbf{02}, B já não trava a tempo no
+\emph{recheck}, o que despoleta as rondas de \emph{abort}/\emph{retry} descritas adiante
+até o MC entrar entre B e C. No \textbf{03}, nem B nem C conseguem abrandar o suficiente,
+e o MC repete a negociação --- recorrendo, no limite, ao \emph{stop-and-wait} --- até a
+folga se abrir naturalmente, acabando por entrar no fim da via. A transição visível na
+dashboard é a mesma em todos: os veículos em conflito passam a \textsc{slowing} e a zona
+de conflito é respeitada.
+
+\paragraph{Cenários multi-MC (04--06).} Os três últimos repetem a escalada, mas com
+\emph{dois} veículos a inserir-se a partir da rampa (A passa a arrancar também na rampa,
+como segundo Merge Car). Confirmam-se duas propriedades do protocolo: (i)~os dois MC
+negoceiam de forma \textbf{independente e sequencial}, cada um na sua própria sessão
+(\texttt{manoeuvre\_id} distinto), pelo que o segundo MC só inicia a sua negociação
+depois de o primeiro se ter inserido; e (ii)~a \textbf{cadeia de abrandamento aplica-se
+também na rampa} --- nos cenários 05 e 06 observa-se o \textsc{slowdown\_request}
+MC$\rightarrow$A na própria rampa (O6), o mesmo mecanismo da via principal aplicado entre
+os dois MC.
+
+\subsection{Validação dos mecanismos de segurança}
+\label{sec:res-seguranca}
+
+Para além do desfecho de cada cenário, interessa verificar que são os
+\emph{mecanismos} corretos a produzi-lo. Os cenários foram desenhados precisamente para
+exercitar, isoladamente, cada uma das salvaguardas do protocolo.
+
+\paragraph{Deteção de conflito seletiva (O3).} No cenário 01, A e C concedem
+\textsc{merge\_grant} de imediato, enquanto só B abranda: confirma-se que a deteção de
+conflito (Algoritmo~\ref{alg:conflito}) distingue corretamente os veículos cuja janela de
+ocupação se sobrepõe à do MC daqueles que apenas partilham a via. O sistema não impõe
+abrandamentos desnecessários --- preserva a fluidez, abrandando o mínimo de veículos
+indispensável.
+
+\paragraph{Conflito resolvido vs.\ travagem de emergência.} Os nomes dos cenários
+(\texttt{colision\_*}) designam o conflito que \textbf{ocorreria sem protocolo}: sem
+coordenação, os veículos da via principal só perceberiam a intenção de inserção tarde
+demais, sendo forçados a uma travagem reativa ou obrigando o MC a forçar a entrada. Não
+foi executado um \emph{baseline} sem protocolo (a simulação assume sempre veículos
+cooperantes), pelo que a comparação é \emph{qualitativa}; o que os resultados demonstram
+positivamente é que, \emph{com} protocolo, o abrandamento é sempre antecipado (decidido
+ao horizonte de $\texttt{CONFLICT\_HORIZON\_S}=4$\,s) e que o desfecho é, em todos os
+seis cenários, uma inserção segura.
+
+\paragraph{Abort e retentativa (O5).} Os cenários 02 e 03 validam a salvaguarda central:
+quando o \emph{recheck} de \texttt{can\_brake\_in\_time} (Secção~\ref{sec:lado-estrada})
+revela que um veículo já não trava a tempo, a cadeia devolve um \emph{grant} de recusa, o
+MC difunde \textsc{merge\_confirmed}(abort), repõe o estado e volta a tentar após o
+\texttt{RETRY\_COOLDOWN\_S}=$1$\,s. Estas rondas sucessivas, observáveis no registo de
+MCM, são a prova de que o sistema \textbf{nunca força a entrada}: repete a negociação até
+esta ser comprovadamente segura.
+
+\paragraph{Fallback \emph{stop-and-wait} (O5).} No limite da escalada (cenário 03), a
+folga pode não abrir antes de o MC alcançar o seu ponto de paragem (\texttt{stop\_t},
+Secção~\ref{sec:fundamentos}). Nesse caso o MC imobiliza-se no final da rampa e continua a
+renegociar (estado \textbf{STOPPED WAITING GRANTS}), em vez de avançar para um conflito ---
+a última linha de defesa da garantia de segurança.
+
+\paragraph{Cadeia na rampa e múltiplos MC (O6).} Os cenários 05 e 06 exercitam o caso em
+que o próprio MC, parado ou em conflito, tem outro Merge Car atrás de si na rampa:
+\texttt{\_maybe\_send\_ramp\_slowdown} propaga-lhe um \textsc{slowdown\_request}
+(MC$\rightarrow$A), demonstrando que a cadeia de abrandamento --- e, com ela, todo o
+protocolo --- é agnóstica ao tipo de estrada, funcionando sem código adicional na rampa
+tal como na via principal.
+
+\subsection{Síntese: objetivos validados}
+\label{sec:res-sintese}
+
+A Tabela~\ref{tab:res-objetivos} cruza cada objetivo específico (O1--O7) com a evidência
+concreta que o valida e com o(s) cenário(s) onde melhor se observa. Enquanto a
+Tabela~\ref{tab:objetivos} mapeava cada objetivo para o \emph{mecanismo} que o
+implementa, esta foca-se na \emph{evidência de validação}.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}p{0.26\linewidth}p{0.50\linewidth}c@{}}
+    \toprule
+    \textbf{Objetivo} & \textbf{Evidência observada} & \textbf{Cenário} \\
+    \midrule
+    O1 -- Consciência situacional &
+      Veículos povoam mutuamente a \texttt{NeighbourTable} e aparecem na dashboard sem
+      qualquer configuração prévia da vizinhança & todos \\
+    O2 -- Protocolo de negociação &
+      Troca completa dos seis subtipos de MCM no registo (cf.\ log da
+      Secção~\ref{sec:demo-timeline}) & todos \\
+    O3 -- Deteção de conflito &
+      Só os veículos sobrepostos abrandam; A e C concedem \emph{grant} imediato & 01 \\
+    O4 -- Abrandamento em cadeia &
+      Propagação \textsc{slowdown\_request}/\textsc{grant} B$\rightarrow$C; folga aberta
+      sem travagem brusca & 01--03 \\
+    O5 -- Garantia de segurança &
+      Rondas \textsc{merge\_confirmed}(abort)/retry e \emph{stop-and-wait}; nunca há
+      inserção forçada & 02, 03 \\
+    O6 -- Múltiplos MC &
+      Duas sessões independentes e sequenciais; cadeia na rampa MC$\rightarrow$A &
+      04--06 \\
+    O7 -- Observabilidade &
+      Dashboard em tempo real com estradas, zona de conflito, estados e registo de MCM &
+      todos \\
+    \bottomrule
+  \end{tabular}
+  \caption{Objetivos específicos e a evidência que os valida nas corridas dos cenários.}
+  \label{tab:res-objetivos}
+\end{table}
+
+\subsection{Limitações e simplificações}
+\label{sec:res-limitacoes}
+
+Os resultados devem ser lidos à luz das simplificações assumidas, que delimitam o alcance
+das conclusões e apontam o trabalho futuro (Secção~\ref{sec:conclusao}):
+
+\begin{itemize}[topsep=2pt,itemsep=3pt]
+  \item \textbf{Modelo cinemático determinístico.} A dinâmica longitudinal usa aceleração
+        constante e simétrica ($\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2})
+        e ignora a dinâmica lateral da mudança de via, perfis de conforto e a variabilidade
+        do comportamento humano. As velocidades-alvo calculadas são fisicamente atingíveis
+        no modelo, mas não modelam a suavidade (\emph{jerk}) de uma travagem real.
+  \item \textbf{Geometria planar e posições exatas.} As estradas são segmentos de reta e a
+        projeção paramétrica é feita diretamente em graus (Secção~\ref{sec:fundamentos}); o
+        movimento é interpolação exata sobre o segmento, pelo que \texttt{is\_on\_road} pode
+        usar um limiar de $0{,}05$\,m. Não há, portanto, ruído de GPS, curvatura da estrada
+        nem erro de localização --- condições mais benignas do que as de um sistema real.
+  \item \textbf{Canal rádio idealizado.} O transporte por Zenoh sobre a rede Docker não
+        modela perda de pacotes, alcance limitado nem contenção MAC para além da janela de
+        $200$\,ms da \texttt{NeighbourTable} (que tolera uma CAM perdida). O comportamento
+        sob degradação realista do canal V2X fica por avaliar.
+  \item \textbf{Escala reduzida.} Validou-se com quatro veículos e um único ponto de
+        inserção. O protocolo é distribuído e não tem entidade central, mas o seu
+        comportamento com densidades de tráfego elevadas, cadeias longas ou múltiplos
+        pontos de \emph{merge} concorrentes não foi testado.
+  \item \textbf{Ausência de segurança aplicacional.} As MCM não são autenticadas nem
+        protegidas contra adulteração; assume-se que todos os participantes são cooperantes
+        e honestos --- um pressuposto inadequado para um \emph{deployment} real, onde um
+        veículo malicioso poderia anunciar conflitos ou \emph{grants} falsos.
+\end{itemize}
+
+Nenhuma destas simplificações invalida o resultado central --- a demonstração de que a
+negociação cooperativa via V2V resolve a inserção em rampa de forma segura e antecipada
+---, mas cada uma delimita o seu domínio de validade e sugere uma direção de evolução.
 
 % ═════════════════════════════════════════════════════════════════════════════
 \section{Conclusão}

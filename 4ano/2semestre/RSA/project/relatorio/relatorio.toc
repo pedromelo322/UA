@@ -53,4 +53,16 @@
 \contentsline {paragraph}{Variáveis controláveis.}{24}{section*.40}%
 \contentsline {subsection}{\numberline {5.4}Cenários}{24}{subsection.5.4}%
 \contentsline {section}{\numberline {6}Resultados}{25}{section.6}%
-\contentsline {section}{\numberline {7}Conclusão}{25}{section.7}%
+\contentsline {subsection}{\numberline {6.1}Metodologia de validação}{25}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Resultados por cenário}{26}{subsection.6.2}%
+\contentsline {paragraph}{Cenários de via principal (01--03).}{26}{section*.43}%
+\contentsline {paragraph}{Cenários multi-MC (04--06).}{27}{section*.44}%
+\contentsline {subsection}{\numberline {6.3}Validação dos mecanismos de segurança}{27}{subsection.6.3}%
+\contentsline {paragraph}{Deteção de conflito seletiva (O3).}{27}{section*.45}%
+\contentsline {paragraph}{Conflito resolvido vs.\ travagem de emergência.}{27}{section*.46}%
+\contentsline {paragraph}{Abort e retentativa (O5).}{27}{section*.47}%
+\contentsline {paragraph}{Fallback \emph {stop-and-wait} (O5).}{27}{section*.48}%
+\contentsline {paragraph}{Cadeia na rampa e múltiplos MC (O6).}{27}{section*.49}%
+\contentsline {subsection}{\numberline {6.4}Síntese: objetivos validados}{28}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Limitações e simplificações}{28}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Conclusão}{29}{section.7}%
