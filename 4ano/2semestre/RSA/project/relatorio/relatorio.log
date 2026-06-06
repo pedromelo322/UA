@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  6 JUN 2026 12:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  6 JUN 2026 13:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -731,8 +731,8 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
 dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}] (./relator
 io.toc
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-1.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+8.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -832,91 +832,157 @@ Overfull \hbox (34.24564pt too wide) in paragraph at lines 417--438
  [][] 
  []
 
-
-Overfull \hbox (5.57126pt too wide) in paragraph at lines 461--461
-[]\T1/lmr/m/n/10 (-20) [\T1/lmr/bx/n/10 (-20) TODO: \T1/lmr/m/n/10 (-20) ha-ver
--sine, pro-ject_t (pro-je-ção pa-ra-mé-trica $\OML/lmm/m/it/10 t \OMS/lmsy/m/n/
-10 2 \OT1/lmr/m/n/10 (-20) [0\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 1]$\T1/lm
-r/m/n/10 (-20) ), com-pute_bearing, road_length, is_on_road,
+[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathit.enc}]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 508.
+ [9] [10{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}] [11]
+Overfull \hbox (2.7094pt too wide) in paragraph at lines 657--664
+ []\T1/lmr/bx/n/10.95 (-20) Endereçamento e res-pos-tas.[] \T1/lmr/m/n/10.95 (-
+20) Os pe-di-dos di-ri-gi-dos (\T1/lmr/m/sc/10.95 (-20) merge_request\T1/lmr/m/
+n/10.95 (-20) , \T1/lmr/m/sc/10.95 (-20) slow-down_request\T1/lmr/m/n/10.95 (-2
+0) )
  []
 
-[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 474.
-<figuras/mc_state_machine.png, id=265, 711.65875pt x 602.25pt>
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 665.
+
+LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
+(Font)              using `T1/lmr/bx/n' instead on input line 706.
+
+
+Overfull \hbox (85.67041pt too wide) in paragraph at lines 706--715
+\T1/lmr/m/n/10.95 (-20) e em se-guida quanto tempo ocu-pará a zona, $[] \OT1/lm
+r/m/n/10.95 (-20) = []([]\OML/lmm/m/it/10.95 ; v[]; []\OT1/lmr/m/n/10.95 (-20) 
+)$\T1/lmr/m/n/10.95 (-20) .
+ []
+
+
+Overfull \hbox (10.98956pt too wide) in paragraph at lines 706--715
+\T1/lmr/m/n/10.95 (-20) A ja-nela $\OT1/lmr/m/n/10.95 (-20) [ []\OML/lmm/m/it/1
+0.95 ;  [] \OT1/lmr/m/n/10.95 (-20) + [] ]$ \T1/lmr/m/n/10.95 (-20) (em ms) vi-
+aja nos cam-pos \T1/lmtt/m/n/10.95 tRROccupancyStartTime/EndTime\T1/lmr/m/n/10.
+95 (-20) ,
+ []
+
+[12]
+Overfull \hbox (7.02971pt too wide) in paragraph at lines 716--725
+\T1/lmr/bx/n/10.95 (-20) DED\T1/lmr/m/n/10.95 (-20) . Se em vez disso che-gar u
+m \T1/lmr/m/sc/10.95 (-20) merge_grant\T1/lmr/m/n/10.95 (-20) (recusar) (\T1/lm
+tt/m/n/10.95 on_merge_grant \T1/lmr/m/n/10.95 (-20) com \T1/lmtt/m/n/10.95 succ
+ess=False\T1/lmr/m/n/10.95 (-20) ),
+ []
+
+<figuras/mc_state_machine.png, id=311, 711.65875pt x 602.25pt>
 File: figuras/mc_state_machine.png Graphic file (type png)
 <use figuras/mc_state_machine.png>
-Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 484.
+Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 737.
 (pdftex.def)             Requested size: 386.96027pt x 327.4616pt.
-
-Overfull \hbox (39.64513pt too wide) in paragraph at lines 493--493
-\T1/lmr/m/n/10 (-20) DOWN_REQUEST / _on_slowdown_request, fim-de-cadeia + _on_s
-lowdown_grant, en-vio de MERGE_GRANT,
+[13]
+Overfull \hbox (15.45114pt too wide) in paragraph at lines 745--751
+\T1/lmr/m/n/10.95 (-20) Um veí-culo da via prin-ci-pal está nor-mal-mente em \T
+1/lmr/bx/n/10.95 (-20) IDLE \T1/lmr/m/n/10.95 (-20) (Fi-gura []3[]). Ao re-ce-b
+er um \T1/lmr/m/sc/10.95 (-20) merge_request\T1/lmr/m/n/10.95 (-20) ,
  []
 
-[9{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc} <./figuras/mc_state_machi
-ne.png>]
-<figuras/MAIN_ROAD_STATES.png, id=275, 1080.035pt x 691.58376pt>
+
+Overfull \hbox (24.78482pt too wide) detected at line 754
+[] \OT1/lmr/m/n/10.95 = [](\OML/lmm/m/it/10.95 v; v; d[]\OT1/lmr/m/n/10.95 )\OM
+L/lmm/m/it/10.95 ;  [] \OT1/lmr/m/n/10.95 = [](\OML/lmm/m/it/10.95 v; v; d[]\OT
+1/lmr/m/n/10.95 )\OML/lmm/m/it/10.95 ;
+ []
+
+[14 <./figuras/mc_state_machine.png>]
+Overfull \hbox (17.54471pt too wide) in paragraph at lines 772--776
+[]\T1/lmr/bx/n/10.95 (-20) não há veí-culo atrás \T1/lmr/m/n/10.95 (-20) (fim d
+a ca-deia) $\OMS/lmsy/m/n/10.95 !$ \T1/lmr/m/n/10.95 (-20) ve-ri-fica a pró-pri
+a vi-a-bi-li-dade com \T1/lmtt/m/n/10.95 can_brake_in_time\T1/lmr/m/n/10.95 (-2
+0) :
+ []
+
+<figuras/MAIN_ROAD_STATES.png, id=329, 1080.035pt x 691.58376pt>
 File: figuras/MAIN_ROAD_STATES.png Graphic file (type png)
 <use figuras/MAIN_ROAD_STATES.png>
-Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 497.
+Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 798.
 (pdftex.def)             Requested size: 455.24411pt x 291.5079pt.
-
-Overfull \hbox (14.64188pt too wide) in paragraph at lines 505--505
-[]\T1/lmr/m/n/10 (-20) [\T1/lmr/bx/n/10 (-20) TODO: \T1/lmr/m/n/10 (-20) (a) De
--te-ção de con-flito (over-lap tem-po-ral); (b) busca bi-ná-ria da velocidade-a
-lvo _solve_target_speed;
+[15 <./figuras/MAIN_ROAD_STATES.png>] [16]
+Overfull \hbox (47.24872pt too wide) in paragraph at lines 898--903
+ []\T1/lmr/bx/n/10.95 (-20) Ramo al-ter-na-tivo (ABORT).[] \T1/lmr/m/n/10.95 (-
+20) Se C não con-se-guir tra-var a tempo, de-volve \T1/lmr/m/sc/10.95 (-20) slo
+w-down_grant\T1/lmr/m/n/10.95 (-20) (recusar);
  []
 
 
-Overfull \hbox (2.6933pt too wide) in paragraph at lines 511--511
-\T1/lmr/m/n/10 (-20) rec-tos $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) SLOW-DOW
-N_REQUEST/GRANT em ca-deia $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) MERGE_GRAN
-T $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) MERGE_CONFIRMED
+Overfull \hbox (28.51991pt too wide) in paragraph at lines 898--903
+\T1/lmr/m/n/10.95 (-20) B pro-paga a re-cusa como \T1/lmr/m/sc/10.95 (-20) merg
+e_grant\T1/lmr/m/n/10.95 (-20) (recusar) ao MC. O MC re-age com \T1/lmr/m/sc/10
+.95 (-20) merge_confirmed\T1/lmr/m/n/10.95 (-20) (abort),
  []
 
-<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=277, 893.3375pt x 664.4825pt>
+<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=366, 893.3375pt x 664.4825pt>
 File: figuras/SCENARIO1_SEQ_DIAGRAM.png Graphic file (type png)
 <use figuras/SCENARIO1_SEQ_DIAGRAM.png>
 Package pdftex.def Info: figuras/SCENARIO1_SEQ_DIAGRAM.png  used on input line 
-515.
+906.
 (pdftex.def)             Requested size: 455.24411pt x 338.6281pt.
-[10 <./figuras/MAIN_ROAD_STATES.png>] [11 <./figuras/SCENARIO1_SEQ_DIAGRAM.png>
-] (./relatorio.bbl
+[17]
+Overfull \hbox (10.87135pt too wide) in paragraph at lines 928--940
+\T1/lmr/m/n/10.95 (-20) mul-ta-ne-a-mente Ze-noh e Web-Soc-ket. Subs-creve \T1/
+lmtt/m/n/10.95 vanetza/out/{cam,mcm} \T1/lmr/m/n/10.95 (-20) e \T1/lmtt/m/n/10.
+95 coordinator/scenario\T1/lmr/m/n/10.95 (-20) ,
+ []
+
+[18 <./figuras/SCENARIO1_SEQ_DIAGRAM.png>]
+Overfull \hbox (1.29707pt too wide) in paragraph at lines 944--955
+\T1/lmr/m/n/10.95 (-20) Para tor-nar a ne-go-ci-a-ção ob-ser-vá-vel passo a pas
+so, \T1/lmtt/m/n/10.95 protocol_demo.py \T1/lmr/m/n/10.95 (-20) de-fine \T1/lmt
+t/m/n/10.95 DemoMergeProtocol\T1/lmr/m/n/10.95 (-20) ,
+ []
+
+(./relatorio.bbl [19]
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [12] (./relatorio.aux)
+) [20] (./relatorio.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package rerunfilecheck Info: File `relatorio.out' has not changed.
-(rerunfilecheck)             Checksum: CF3D337B83E7603870DB554170F01A43;4897.
+(rerunfilecheck)             Checksum: 02B06F6530ED2F3A37D8AAEA678F0914;4877.
  ) 
 Here is how much of TeX's memory you used:
- 18745 strings out of 474222
- 300085 string characters out of 5748733
- 1936975 words of memory out of 5000000
- 40422 multiletter control sequences out of 15000+600000
- 660694 words of font info for 214 fonts, out of 8000000 for 9000
+ 18969 strings out of 474222
+ 303075 string characters out of 5748733
+ 1939975 words of memory out of 5000000
+ 40484 multiletter control sequences out of 15000+600000
+ 681466 words of font info for 266 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,11n,79p,1006b,591s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,14n,79p,1006b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sha
-re/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.
-pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/t
-ype1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb>
-Output written on relatorio.pdf (13 pages, 638197 bytes).
+r/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr
+6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/sha
+re/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt
+8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on relatorio.pdf (21 pages, 753981 bytes).
 PDF statistics:
- 396 PDF objects out of 1000 (max. 8388607)
- 331 compressed objects within 4 object streams
- 64 named destinations out of 1000 (max. 500000)
- 59669 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 559 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 70421 words of extra memory for PDF output out of 74296 (max. 10000000)
 

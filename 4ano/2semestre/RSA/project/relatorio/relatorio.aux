@@ -39,33 +39,73 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Implementação}{8}{section.4}\protected@file@percent }
 \newlabel{sec:implementacao}{{4}{8}{Implementação}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Stack e fluxo de uma mensagem}{8}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Beaconing e NeighbourTable}{8}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Geometria}{9}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{9}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{9}{subsection.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}O protocolo \texttt  {MergeProtocol}}{9}{subsection.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}Lado do Merge Car (rampa)}{9}{subsubsection.4.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Máquina de estados do Merge Car.}}{9}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:mc-fsm}{{2}{9}{Máquina de estados do Merge Car}{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da estrada principal}{10}{subsubsection.4.6.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Máquina de estados do veículo na via principal.}}{10}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:road-fsm}{{3}{10}{Máquina de estados do veículo na via principal}{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Algoritmos de decisão e pseudo-código}{10}{subsection.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Diagrama de sequência do protocolo}{10}{subsection.4.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de sequência do protocolo (cenário com o veículo B em conflito).}}{11}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:seq}{{4}{11}{Diagrama de sequência do protocolo (cenário com o veículo B em conflito)}{figure.caption.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Orquestração e visualização}{11}{subsection.4.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Modo Demo}{11}{subsection.4.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Fluxo da Demonstração}{11}{section.5}\protected@file@percent }
-\newlabel{sec:demo}{{5}{11}{Fluxo da Demonstração}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Preparação}{11}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Timeline}{11}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:stack-fluxo}{{4.1}{8}{Stack e fluxo de uma mensagem}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Escalas e \emph  {sentinels} do codec.}{9}{section*.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Escalas aplicadas pelo \emph  {codec} Vanetza entre a representação SI dos construtores e os inteiros ASN.1/UPER.}}{9}{table.caption.10}\protected@file@percent }
+\newlabel{tab:escalas}{{6}{9}{Escalas aplicadas pelo \emph {codec} Vanetza entre a representação SI dos construtores e os inteiros ASN.1/UPER}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Beaconing e \texttt  {NeighbourTable}}{9}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:beaconing}{{4.2}{9}{Beaconing e \texttt {NeighbourTable}}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Geometria}{10}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:geometria}{{4.3}{10}{Geometria}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Distância e projeção.}{10}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pertença a uma estrada.}{10}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Vizinho de trás e zona de conflito.}{10}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{10}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:cinematica}{{4.4}{10}{Modelo cinemático}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Integração da velocidade.}{10}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Viabilidade de travagem.}{11}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dimensionamento da zona de conflito.}{11}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ponto de paragem do MC.}{11}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{11}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:mcm-builders}{{4.5}{11}{Construtores de MCM}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Endereçamento e respostas.}{12}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Desambiguação por \texttt  {manoeuvreId}.}{12}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}O protocolo \texttt  {MergeProtocol}}{12}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:protocolo}{{4.6}{12}{O protocolo \texttt {MergeProtocol}}{subsection.4.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}Lado do Merge Car (rampa)}{12}{subsubsection.4.6.1}\protected@file@percent }
+\newlabel{sec:lado-mc}{{4.6.1}{12}{Lado do Merge Car (rampa)}{subsubsection.4.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Construção do \textsc  {merge\_request}.}{13}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Recolha de \emph  {grants} e decisão.}{13}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Salvaguarda \emph  {stop-and-wait} e cadeia na rampa.}{13}{section*.22}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Máquina de estados do Merge Car.}}{14}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:mc-fsm}{{2}{14}{Máquina de estados do Merge Car}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da via principal}{14}{subsubsection.4.6.2}\protected@file@percent }
+\newlabel{sec:lado-estrada}{{4.6.2}{14}{Lado do veículo da via principal}{subsubsection.4.6.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Sem conflito.}{14}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Com conflito.}{14}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Propagação a montante.}{15}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Execução e retoma.}{15}{section*.27}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Máquina de estados do veículo na via principal.}}{15}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:road-fsm}{{3}{15}{Máquina de estados do veículo na via principal}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Algoritmos de decisão e pseudo-código}{16}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:algoritmos}{{4.7}{16}{Algoritmos de decisão e pseudo-código}{subsection.4.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{(a) Deteção de conflito.}{16}{section*.29}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Deteção de conflito (\texttt  {\_on\_merge\_request})}}{16}{algocf.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(b) Velocidade-alvo por busca binária.}{16}{section*.30}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Velocidade-alvo (\texttt  {\_solve\_target\_speed})}}{16}{algocf.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{(c) Propagação em cadeia.}{16}{section*.31}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Propagação em cadeia do abrandamento}}{17}{algocf.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Diagrama de sequência do protocolo}{17}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:sequencia}{{4.8}{17}{Diagrama de sequência do protocolo}{subsection.4.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ramo alternativo (ABORT).}{17}{section*.32}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de sequência do protocolo (cenário com o veículo B em conflito).}}{18}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:seq}{{4}{18}{Diagrama de sequência do protocolo (cenário com o veículo B em conflito)}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Orquestração e visualização}{18}{subsection.4.9}\protected@file@percent }
+\newlabel{sec:orquestracao}{{4.9}{18}{Orquestração e visualização}{subsection.4.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Coordenação (\texttt  {coordinator.py}).}{18}{section*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Visualização (\texttt  {bridge.py} + \texttt  {dashboard.html}).}{18}{section*.35}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{referencias}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Aleatoriedade e variáveis}{12}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Cenários}{12}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Resultados}{12}{section.6}\protected@file@percent }
-\newlabel{sec:resultados}{{6}{12}{Resultados}{section.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusão}{12}{section.7}\protected@file@percent }
-\newlabel{sec:conclusao}{{7}{12}{Conclusão}{section.7}{}}
-\gdef \@abspage@last{13}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Modo Demo}{19}{subsection.4.10}\protected@file@percent }
+\newlabel{sec:modo-demo}{{4.10}{19}{Modo Demo}{subsection.4.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Fluxo da Demonstração}{19}{section.5}\protected@file@percent }
+\newlabel{sec:demo}{{5}{19}{Fluxo da Demonstração}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Preparação}{19}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Timeline}{19}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Aleatoriedade e variáveis}{19}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Cenários}{19}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Resultados}{19}{section.6}\protected@file@percent }
+\newlabel{sec:resultados}{{6}{19}{Resultados}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusão}{20}{section.7}\protected@file@percent }
+\newlabel{sec:conclusao}{{7}{20}{Conclusão}{section.7}{}}
+\gdef \@abspage@last{21}
