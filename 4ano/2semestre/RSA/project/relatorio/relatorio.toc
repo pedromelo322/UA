@@ -13,45 +13,40 @@
 \contentsline {subsection}{\numberline {3.4}Modelo de papéis}{7}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Tipos de mensagens trocadas}{7}{subsection.3.5}%
 \contentsline {section}{\numberline {4}Implementação}{8}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Stack e fluxo de uma mensagem}{8}{subsection.4.1}%
-\contentsline {paragraph}{Escalas e \emph {sentinels} do codec.}{9}{section*.9}%
-\contentsline {subsection}{\numberline {4.2}Beaconing e \texttt {NeighbourTable}}{9}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Geometria}{10}{subsection.4.3}%
-\contentsline {paragraph}{Distância e projeção.}{10}{section*.11}%
-\contentsline {paragraph}{Pertença a uma estrada.}{10}{section*.12}%
-\contentsline {paragraph}{Vizinho de trás e zona de conflito.}{10}{section*.13}%
-\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{10}{subsection.4.4}%
-\contentsline {paragraph}{Integração da velocidade.}{10}{section*.14}%
-\contentsline {paragraph}{Viabilidade de travagem.}{11}{section*.15}%
-\contentsline {paragraph}{Dimensionamento da zona de conflito.}{11}{section*.16}%
-\contentsline {paragraph}{Ponto de paragem do MC.}{11}{section*.17}%
-\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{11}{subsection.4.5}%
-\contentsline {paragraph}{Endereçamento e respostas.}{12}{section*.18}%
-\contentsline {paragraph}{Desambiguação por \texttt {manoeuvreId}.}{12}{section*.19}%
-\contentsline {subsection}{\numberline {4.6}O protocolo \texttt {MergeProtocol}}{12}{subsection.4.6}%
-\contentsline {subsubsection}{\numberline {4.6.1}Lado do Merge Car (rampa)}{12}{subsubsection.4.6.1}%
-\contentsline {paragraph}{Construção do \textsc {merge\_request}.}{13}{section*.20}%
-\contentsline {paragraph}{Recolha de \emph {grants} e decisão.}{13}{section*.21}%
-\contentsline {paragraph}{Salvaguarda \emph {stop-and-wait} e cadeia na rampa.}{13}{section*.22}%
-\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da via principal}{14}{subsubsection.4.6.2}%
-\contentsline {paragraph}{Sem conflito.}{14}{section*.24}%
-\contentsline {paragraph}{Com conflito.}{14}{section*.25}%
-\contentsline {paragraph}{Propagação a montante.}{15}{section*.26}%
-\contentsline {paragraph}{Execução e retoma.}{15}{section*.27}%
-\contentsline {subsection}{\numberline {4.7}Algoritmos de decisão e pseudo-código}{16}{subsection.4.7}%
-\contentsline {paragraph}{(a) Deteção de conflito.}{16}{section*.29}%
-\contentsline {paragraph}{(b) Velocidade-alvo por busca binária.}{16}{section*.30}%
-\contentsline {paragraph}{(c) Propagação em cadeia.}{16}{section*.31}%
-\contentsline {subsection}{\numberline {4.8}Diagrama de sequência do protocolo}{17}{subsection.4.8}%
-\contentsline {paragraph}{Ramo alternativo (ABORT).}{17}{section*.32}%
-\contentsline {subsection}{\numberline {4.9}Orquestração e visualização}{18}{subsection.4.9}%
-\contentsline {paragraph}{Coordenação (\texttt {coordinator.py}).}{18}{section*.34}%
-\contentsline {paragraph}{Visualização (\texttt {bridge.py} + \texttt {dashboard.html}).}{18}{section*.35}%
-\contentsline {subsection}{\numberline {4.10}Modo Demo}{19}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.1}Visão geral e a negociação num relance}{8}{subsection.4.1}%
+\contentsline {paragraph}{A negociação num relance.}{9}{section*.10}%
+\contentsline {paragraph}{Ramo alternativo (ABORT).}{10}{section*.11}%
+\contentsline {subsection}{\numberline {4.2}O protocolo \texttt {MergeProtocol}}{10}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Lado do Merge Car (rampa)}{11}{subsubsection.4.2.1}%
+\contentsline {paragraph}{Construção do \textsc {merge\_request}.}{11}{section*.14}%
+\contentsline {paragraph}{Recolha de \emph {grants} e decisão.}{12}{section*.15}%
+\contentsline {paragraph}{Salvaguarda \emph {stop-and-wait} e cadeia na rampa.}{12}{section*.16}%
+\contentsline {subsubsection}{\numberline {4.2.2}Lado do veículo da via principal}{12}{subsubsection.4.2.2}%
+\contentsline {paragraph}{Deteção de conflito (O3).}{13}{section*.18}%
+\contentsline {paragraph}{Sem conflito.}{13}{section*.19}%
+\contentsline {paragraph}{Com conflito: velocidade-alvo (O4).}{14}{section*.20}%
+\contentsline {paragraph}{Propagação em cadeia (O4).}{14}{section*.21}%
+\contentsline {paragraph}{Execução e retoma.}{15}{section*.22}%
+\contentsline {subsection}{\numberline {4.3}Fundamentos geométricos e cinemáticos}{15}{subsection.4.3}%
+\contentsline {paragraph}{Distância e projeção.}{15}{section*.23}%
+\contentsline {paragraph}{Pertença a uma estrada.}{16}{section*.24}%
+\contentsline {paragraph}{Vizinho de trás e movimento.}{16}{section*.25}%
+\contentsline {paragraph}{Dinâmica longitudinal.}{16}{section*.26}%
+\contentsline {paragraph}{Viabilidade de travagem.}{16}{section*.27}%
+\contentsline {paragraph}{Dimensionamento da zona de conflito.}{16}{section*.28}%
+\contentsline {paragraph}{Ponto de paragem do MC.}{17}{section*.29}%
+\contentsline {subsection}{\numberline {4.4}Mensagens e consciência situacional}{17}{subsection.4.4}%
+\contentsline {paragraph}{Ciclo de vida de uma mensagem.}{17}{section*.30}%
+\contentsline {paragraph}{Beaconing e \texttt {NeighbourTable} (O1).}{17}{section*.31}%
+\contentsline {paragraph}{Construtores de MCM.}{18}{section*.32}%
+\contentsline {subsection}{\numberline {4.5}Orquestração, visualização e modo demo}{18}{subsection.4.5}%
+\contentsline {paragraph}{Coordenação (\texttt {coordinator.py}).}{18}{section*.33}%
+\contentsline {paragraph}{Visualização (\texttt {bridge.py} + \texttt {dashboard.html}) (O7).}{19}{section*.34}%
+\contentsline {paragraph}{Modo Demo (\texttt {DemoMergeProtocol}).}{19}{section*.35}%
 \contentsline {section}{\numberline {5}Fluxo da Demonstração}{19}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Preparação}{19}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Timeline}{19}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Aleatoriedade e variáveis}{19}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Cenários}{19}{subsection.5.4}%
-\contentsline {section}{\numberline {6}Resultados}{19}{section.6}%
+\contentsline {subsection}{\numberline {5.4}Cenários}{20}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Resultados}{20}{section.6}%
 \contentsline {section}{\numberline {7}Conclusão}{20}{section.7}%

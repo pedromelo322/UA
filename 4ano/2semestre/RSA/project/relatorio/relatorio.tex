@@ -262,7 +262,7 @@ implementação.
         10--13.
   \item[\textbf{Camada de lógica de veículo (Python).}] É o cérebro de cada nó,
         organizado em módulos: \texttt{vehicle.py} (ponto de entrada),
-        \texttt{simulation.py} (laço de movimento e emissão de CAM),
+        \texttt{simulation.py} (ciclo de movimento e emissão de CAM),
         \texttt{protocol.py} (a classe \texttt{MergeProtocol}, que concentra toda a
         negociação), apoiados por \texttt{geo.py} (geometria e modelo de travagem),
         \texttt{comms.py} (sessões Zenoh e \texttt{NeighbourTable}) e pelos
@@ -443,439 +443,66 @@ que de outra forma seriam indistinguíveis.
 \section{Implementação}
 \label{sec:implementacao}
 
-Esta secção detalha o cérebro de cada nó --- a camada de lógica de veículo em Python ---
-funções, fórmulas e fluxo de mensagens. Toda a lógica vive em
-\texttt{merge\_lane/vehicle/}: \texttt{simulation.py} corre o laço de movimento,
-\texttt{geo.py} concentra a geometria e o modelo cinemático, \texttt{cam\_builder.py} e
-\texttt{mcm\_builder.py} são construtores puros de mensagens, e \texttt{protocol.py}
-implementa o protocolo na classe \texttt{MergeProtocol}. As constantes globais
-($\texttt{DT}=0{,}1$\,s, $\texttt{DECEL}=\texttt{ACCEL}=4{,}0$\,m/s\textsuperscript{2},
-$\texttt{SAFETY\_GAP}=10$\,m, $\texttt{CONFLICT\_HORIZON}=4$\,s) reaparecem ao longo de
-toda a descrição.
+Esta secção detalha o \emph{cérebro} de cada nó --- a camada de lógica de veículo em
+Python ---, onde vive toda a negociação. Segue uma ordem \emph{top-down}: começa por uma
+vista geral do código e por uma leitura da negociação de ponta a ponta
+(Secção~\ref{sec:visao-geral}); desce depois ao protocolo e às suas máquinas de estados
+(Secção~\ref{sec:protocolo}); formaliza os fundamentos geométricos e cinemáticos que
+sustentam os cálculos (Secção~\ref{sec:fundamentos}); descreve o transporte de mensagens e
+a consciência situacional (Secção~\ref{sec:mensagens}); e termina na orquestração e
+visualização (Secção~\ref{sec:orquestracao}).
 
-\subsection{Stack e fluxo de uma mensagem}
-\label{sec:stack-fluxo}
+\subsection{Visão geral e a negociação num relance}
+\label{sec:visao-geral}
 
-O ciclo de vida de uma mensagem é uniforme para CAM e MCM e atravessa as quatro camadas
-descritas na Secção~\ref{sec:arquitetura}. Do lado emissor, o laço de simulação
-(\texttt{simulation.\_move\_loop}) invoca um construtor puro --- \texttt{build\_cam} ou um
-dos \texttt{build\_*} de \texttt{mcm\_builder.py} --- que devolve um \texttt{dict} Python.
-Esse \texttt{dict} é serializado em JSON e publicado no tópico de \emph{entrada} da pilha
-C-ITS:
+Toda a lógica vive em \texttt{merge\_lane/vehicle/}, repartida por módulos com
+responsabilidades estreitas:
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \texttt{vehicle.py} --- ponto de entrada do container;
+  \item \texttt{simulation.py} --- o ciclo de movimento (\texttt{\_move\_loop}) e a emissão
+        de CAM a cada \emph{tick};
+  \item \texttt{protocol.py} --- a classe \texttt{MergeProtocol}, que concentra \emph{toda}
+        a negociação (Secção~\ref{sec:protocolo});
+  \item \texttt{geo.py} --- geometria das estradas e modelo cinemático de travagem
+        (Secção~\ref{sec:fundamentos});
+  \item \texttt{comms.py} --- sessões Zenoh e a \texttt{NeighbourTable};
+  \item \texttt{cam\_builder.py} e \texttt{mcm\_builder.py} --- construtores puros de
+        mensagens (Secção~\ref{sec:mensagens}).
+\end{itemize}
 
-\begin{center}
-\texttt{vanetza\_session.put("vanetza/in/cam", json.dumps(cam).encode())}
-\end{center}
-
-O container Vanetza-NAP subscreve \texttt{vanetza/in/*}, aplica as escalas inteiras do
-\emph{codec}, codifica a PDU em ASN.1/UPER e difunde-a pelo ``ar''. Do lado recetor, a PDU
-volta a ser descodificada e republicada em \texttt{vanetza/out/*}, onde os \emph{callbacks}
-de cada veículo (\texttt{make\_cam\_callback}, \texttt{MergeProtocol.make\_mcm\_callback})
-e o \texttt{bridge.py} a consomem. O \emph{payload} descodificado chega encapsulado em
-\texttt{payload["fields"]} --- sob a chave \texttt{cam} para CAM e \texttt{payload} para
-MCM ---, e cada \emph{callback} começa por descartar a mensagem se o \texttt{stationID} for
-o seu próprio.
-
-\paragraph{Escalas e \emph{sentinels} do codec.} Os construtores trabalham sempre em
-unidades SI (graus, m/s, m/s\textsuperscript{2}); é o \emph{codec} do Vanetza que converte
-para as unidades inteiras do ASN.1 imediatamente antes de codificar
-(Tabela~\ref{tab:escalas}). Campos sem sensor real são preenchidos com \emph{sentinels} de
-\emph{unavailable} normalizados (e.g. \texttt{speedConfidence}=127,
-\texttt{positionConfidence}=4095, \texttt{altitudeValue}=800001,
-\texttt{vehicleLengthValue}=1023), permitindo que a PDU seja válida sem fabricar valores de
-confiança. O \texttt{generationDeltaTime} da CAM é um contador rolante de
-$\sim$65\,s (\texttt{int(time.time()*1000) \% 65536}).
+Um pequeno conjunto de \textbf{constantes globais} (Tabela~\ref{tab:constantes}), definidas
+em \texttt{geo.py} e \texttt{protocol.py}, reaparece ao longo de toda a descrição e fixa o
+comportamento temporal e cinemático do sistema.
 
 \begin{table}[H]
   \centering
   \small
   \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{@{}llll@{}}
+  \begin{tabular}{@{}llp{0.5\linewidth}@{}}
     \toprule
-    \textbf{Grandeza} & \textbf{Unidade Python} & \textbf{Fator} & \textbf{Unidade ASN.1} \\
+    \textbf{Constante} & \textbf{Valor} & \textbf{Papel} \\
     \midrule
-    Latitude / longitude        & grau decimal & $\times 10^{7}$ & $10^{-7}$ grau \\
-    Velocidade                  & m/s          & $\times 100$    & $0{,}01$ m/s (máx.\ 163{,}83) \\
-    Aceleração longitudinal     & m/s\textsuperscript{2} & $\times 10$ & $0{,}1$ m/s\textsuperscript{2} \\
-    Comprimento do veículo      & m            & $\times 10$     & $0{,}1$ m \\
+    \texttt{DT}                        & $0{,}1$\,s   & período do \emph{tick} de simulação (e de CAM) \\
+    \texttt{ACCEL} $=$ \texttt{DECEL}  & $4{,}0$\,m/s\textsuperscript{2} & taxa de aceleração e de travagem \\
+    \texttt{SAFETY\_GAP}               & $10$\,m      & folga de segurança nas margens da zona de conflito \\
+    \texttt{CONFLICT\_HORIZON\_S}      & $4$\,s       & ETA ao \emph{merge point} a que o MC inicia a negociação \\
+    \texttt{MERGE\_REQUEST\_RESEND\_S} & $1$\,s       & intervalo mínimo de reenvio do \textsc{merge\_request} \\
+    \texttt{RETRY\_COOLDOWN\_S}        & $1$\,s       & espera após um \emph{abort} antes de nova tentativa \\
     \bottomrule
   \end{tabular}
-  \caption{Escalas aplicadas pelo \emph{codec} Vanetza entre a representação SI dos
-  construtores e os inteiros ASN.1/UPER.}
-  \label{tab:escalas}
+  \caption{Constantes globais usadas ao longo da implementação.}
+  \label{tab:constantes}
 \end{table}
 
-\subsection{Beaconing e \texttt{NeighbourTable}}
-\label{sec:beaconing}
+Uma decisão estruturante --- detalhada na Secção~\ref{sec:protocolo} --- é que
+\textbf{todos os veículos correm exatamente o mesmo código}: o papel (Merge Car ou veículo
+da via principal) \emph{emerge em tempo de execução} do tipo de estrada onde o veículo é
+colocado, e nenhum veículo tem conhecimento pré-configurado da sua vizinhança.
 
-A consciência situacional (O1) assenta num \emph{beaconing} CAM síncrono com o movimento.
-Em cada \emph{tick} de $\texttt{DT}=0{,}1$\,s, o \texttt{\_move\_loop} calcula a posição
-interpolada, atualiza a velocidade e constrói \emph{uma} CAM com \texttt{build\_cam}
-(posição, rumo, velocidade, aceleração do \emph{tick} e comprimento), publicando-a em
-\texttt{vanetza/in/cam}. Como a geração nativa de CAM no Vanetza está desativada
-(\texttt{VANETZA\_CAM\_PERIODICITY=0}), há exatamente uma CAM por \emph{tick} de
-simulação, garantindo coerência temporal entre o que cada veículo \emph{faz} e o que
-\emph{anuncia}.
-
-Do lado da receção, \texttt{make\_cam\_callback} extrai do \texttt{basicVehicleContainer\-HighFrequency}
-a posição, velocidade, rumo e comprimento (revertendo o \emph{sentinel}:
-\texttt{length\_m}=$vl/10$, ou \texttt{None} se $vl=1023$) e invoca
-\texttt{NeighbourTable.update}. A \texttt{NeighbourTable} (em \texttt{comms.py}) é uma
-tabela \emph{thread-safe} que guarda apenas o estado mais recente de cada vizinho,
-carimbado com o instante de receção. O ponto central é o método
-\texttt{snapshot(max\_age\_s=0.2)}, usado por toda a lógica de protocolo: devolve somente
-as entradas recebidas nos últimos $200$\,ms. Com CAMs a cada $100$\,ms, esta janela
-tolera exatamente \emph{uma} CAM perdida antes de um vizinho ``desaparecer'' da vista, o
-que evita decisões sobre informação obsoleta. Assim, \textbf{toda} a noção de vizinhança
---- quem existe, onde está, a que velocidade --- é derivada exclusivamente das CAMs
-recebidas, sem qualquer configuração prévia (O1).
-
-\subsection{Geometria}
-\label{sec:geometria}
-
-O módulo \texttt{geo.py} traduz as posições GPS das CAMs em quantidades operacionais:
-distâncias, posições relativas ao longo de cada estrada e localização da zona de conflito.
-Todas as estradas são segmentos de reta definidos no cenário por \texttt{start} e
-\texttt{end}.
-
-\paragraph{Distância e projeção.} A distância métrica entre dois pontos GPS usa a fórmula
-de \emph{haversine} (\texttt{haversine}, $R=6\,371\,000$\,m):
-\[
-  d = 2R\,\arcsin\!\sqrt{\sin^2\!\tfrac{\Delta\varphi}{2}
-      + \cos\varphi_1\cos\varphi_2\,\sin^2\!\tfrac{\Delta\lambda}{2}} .
-\]
-A posição de um veículo ao longo de uma estrada é dada por uma \textbf{coordenada
-paramétrica} $t$, obtida pela projeção escalar do ponto sobre o segmento
-(\texttt{project\_t}), com $t=0$ no início e $t=1$ no fim:
-\[
-  t = \frac{(P - s)\cdot(e - s)}{\lVert e - s\rVert^{2}},
-  \qquad s=\texttt{start},\; e=\texttt{end},
-\]
-calculada diretamente em graus (a anisotropia lat/lon é desprezável à escala local). O
-comprimento físico do segmento, $L=\texttt{road\_length}$, converte $t$ em metros
-($\text{dist} = \Delta t \cdot L$). O rumo do segmento vem de \texttt{compute\_bearing}
-(azimute referenciado a Norte).
-
-\paragraph{Pertença a uma estrada.} Como na simulação os veículos se movem por
-interpolação exata sobre a reta, a distância entre a posição GPS e a sua projeção é
-$\sim$0\,m; \texttt{is\_on\_road} considera um veículo ``nesta estrada'' se essa distância
-for inferior a um limiar de $0{,}05$\,m (apenas para absorver erro de vírgula flutuante).
-É este teste que permite ao MC distinguir, em tempo real, quais dos vizinhos circulam na
-via principal.
-
-\paragraph{Vizinho de trás e zona de conflito.} \texttt{find\_vehicle\_behind} percorre o
-\emph{snapshot} e devolve o veículo com o maior $t_n < t_{\text{próprio}}$ que esteja na
-mesma estrada e dentro de $200$\,m --- a base da propagação em cadeia (Secção~\ref{sec:algoritmos}).
-A zona de conflito é o troço da via principal que o MC irá ocupar; \texttt{conflict\_zone\_t}
-exprime-a em coordenadas paramétricas a partir do \emph{merge point} $t_{\text{merge}}$ e de
-duas margens (em metros) calculadas no modelo cinemático (Secção~\ref{sec:cinematica}):
-\[
-  t_{\text{start}} = t_{\text{merge}} - \frac{\texttt{before\_m}}{L},
-  \qquad
-  t_{\text{end}}   = t_{\text{merge}} + \frac{\texttt{after\_m}}{L}.
-\]
-Finalmente, o movimento de cada veículo é um avanço incremental ao longo do segmento,
-$t \mathrel{+}= \texttt{speed}\cdot\texttt{DT}/L$, executado a cada \emph{tick} pelo
-\texttt{\_move\_loop}.
-
-\subsection{Modelo cinemático}
-\label{sec:cinematica}
-
-A dinâmica longitudinal é deliberadamente simples e determinística, com aceleração
-limitada e simétrica $\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2}.
-
-\paragraph{Integração da velocidade.} \texttt{advance\_speed} aproxima a velocidade do alvo
-em cada \emph{tick}, no máximo $\pm\texttt{DECEL}\cdot\texttt{DT}$, devolvendo também a
-aceleração efetiva (que é depois anunciada na CAM). Sobre esta primitiva constroem-se duas
-funções de previsão usadas na negociação:
-\begin{itemize}[noitemsep,topsep=2pt]
-  \item \texttt{predict\_motion(v, v\_alvo, horizonte)} --- integra \texttt{advance\_speed}
-        passo a passo e devolve a distância percorrida e a velocidade final, respeitando o
-        limite de aceleração (não é cinemática de velocidade constante);
-  \item \texttt{time\_to\_cover\_distance(v, v\_alvo, d)} --- o inverso: o tempo necessário
-        para cobrir $d$, ou $\infty$ se for impossível (e.g.\ parado com alvo nulo).
-\end{itemize}
-
-\paragraph{Viabilidade de travagem.} \texttt{can\_brake\_in\_time} usa a equação de
-Torricelli para verificar se um veículo consegue desacelerar de $v$ até $v_{\text{alvo}}$
-dentro da distância disponível:
-\[
-  d_{\text{trav}} = \frac{v^{2} - v_{\text{alvo}}^{2}}{2\cdot\texttt{DECEL}},
-  \qquad \text{aceita se } d_{\text{trav}} \le d_{\text{disp}} .
-\]
-Este é o teste de segurança (O5) aplicado por cada veículo no fim de cadeia antes de se
-comprometer com um abrandamento.
-
-\paragraph{Dimensionamento da zona de conflito.} As margens da zona
-(Secção~\ref{sec:geometria}), fixadas em \texttt{\_init\_merge\_geometry}, refletem o
-espaço físico que a manobra exige:
-\[
-  \texttt{before\_m} = \tfrac{L_{\text{veh}}}{2} + \texttt{SAFETY\_GAP}
-                       + \underbrace{\frac{v_{\text{main}}^{2} - v_{\text{mc}}^{2}}{2\cdot\texttt{DECEL}}}_{\texttt{merge\_entry\_margin}},
-  \qquad
-  \texttt{after\_m} = \tfrac{L_{\text{veh}}}{2} + \texttt{SAFETY\_GAP}.
-\]
-A meia-carroçaria $L_{\text{veh}}/2$ e o $\texttt{SAFETY\_GAP}=10$\,m são comuns aos dois
-lados; a montante acrescenta-se ainda a \texttt{merge\_entry\_margin}, que é precisamente a
-distância de travagem necessária para um veículo da via principal (a $v_{\text{main}}$)
-igualar a velocidade de entrada do MC (a $v_{\text{mc}}$) --- nula quando
-$v_{\text{main}}\le v_{\text{mc}}$. Esta assimetria reserva mais espaço atrás do
-\emph{merge point}, onde o diferencial de velocidade é maior.
-
-\paragraph{Ponto de paragem do MC.} Como salvaguarda (O5), o MC nunca ultrapassa um ponto
-da rampa sem ter decidido o \emph{merge}. \texttt{mc\_stop\_t} fixa essa posição
-paramétrica deixando a frente do veículo a um \emph{buffer} de $8$\,m do fim da rampa:
-\[
-  \texttt{stop\_t} = 1 - \frac{L_{\text{veh}} + 8}{L_{\text{ramp}}} .
-\]
-
-\subsection{Construtores de MCM}
-\label{sec:mcm-builders}
-
-\texttt{mcm\_builder.py} contém apenas \textbf{funções puras} (sem I/O nem chamadas Zenoh):
-recebem o estado do veículo e devolvem o \texttt{dict} da PDU. Toda a decisão de
-\emph{quando} e \emph{a quem} enviar vive em \texttt{protocol.py} (Secção~\ref{sec:protocolo}).
-Os subtipos partilham blocos comuns:
-
-\begin{itemize}[noitemsep,topsep=2pt]
-  \item \texttt{\_make\_basic\_container} --- o \texttt{basicContainer} com
-        \texttt{mcmType}, \texttt{itssRole}, \texttt{manoeuvreId}, posição e
-        \texttt{concept=0} (\emph{agreementSeeking}: negociação colaborativa, sem
-        imposição). Estes três primeiros campos identificam o subtipo
-        (cf.\ Tabela~\ref{tab:mensagens}).
-  \item \texttt{\_vehicle\_state} --- o \texttt{vehicleCurrentStateContainer} (velocidade,
-        rumo, dimensões), incluído nos pedidos.
-  \item \texttt{\_trr\_description} --- o \emph{Target Road Resource} do
-        \textsc{merge\_request}: \texttt{waypoints[0]} e \texttt{waypoints[1]} codificam o
-        \emph{início} e o \emph{fim} da zona de conflito como \emph{offsets} ($\Delta$lat,
-        $\Delta$lon) relativos à posição do MC, e \texttt{trrLength} o seu comprimento. É
-        assim que a geometria da zona viaja na mensagem e é reconstruída pelo recetor.
-  \item \texttt{\_advised\_submanoeuvre} --- a velocidade-alvo sugerida, replicada pela
-        lista de \emph{waypoints} exigida pelo schema.
-\end{itemize}
-
-\paragraph{Endereçamento e respostas.} Os pedidos dirigidos (\textsc{merge\_request},
-\textsc{slowdown\_request}) transportam uma lista \texttt{manoeuvreAdvice}, em que cada
-entrada tem um \texttt{executantID} (o \emph{stationID} do destinatário) e a sua sugestão
-de velocidade; um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu. As
-respostas (\textsc{merge\_grant}, \textsc{slowdown\_grant}, \textsc{merge\_confirmed})
-reduzem-se a um \texttt{responseContainer} com \texttt{manouevreResponse}
-($0=\text{aceitar}$, $1=\text{recusar}$).
-
-\paragraph{Desambiguação por \texttt{manoeuvreId}.} \textsc{merge\_grant} e
-\textsc{slowdown\_grant} têm \texttt{mcmType=2} e \texttt{itssRole=3} idênticos; o único
-discriminante é o intervalo do \texttt{manoeuvreId} (1 byte): \textbf{0--127} para
-\textsc{merge\_grant} e \textbf{128--255} para \textsc{slowdown\_grant}, este último
-sorteado com \texttt{random.randint(128, 255)}. Existe ainda um \texttt{build\_ack}
-(\texttt{mcmType=9}) no módulo, herança de uma versão anterior do protocolo, hoje
-\textbf{não utilizado} --- foi substituído pelo \textsc{slowdown\_grant}.
-
-\subsection{O protocolo \texttt{MergeProtocol}}
-\label{sec:protocolo}
-
-Toda a negociação está numa única classe, \texttt{MergeProtocol}, partilhada por todos os
-veículos (O2, O6). O papel \emph{emerge} em tempo de execução: \texttt{set\_current\_road}
-liga \texttt{current\_is\_ramp} quando a estrada é do tipo \texttt{ramp} com
-\texttt{merges\_into}, e é esse \emph{flag} (\texttt{\_is\_ramp()}) que encaminha cada
-veículo para o comportamento de Merge Car ou de veículo da via principal. O estado é
-protegido por um \texttt{threading.Lock}, pois o \emph{tick} de movimento (uma \emph{thread})
-e os \emph{callbacks} MCM (outra) acedem-no concorrentemente. A interface pública resume-se
-a \texttt{tick(...)}, chamado a cada \emph{tick} e que devolve
-\texttt{\{advance, target\_speed\}} ao laço de movimento, e \texttt{make\_mcm\_callback()},
-que despacha cada MCM recebida pela tripla \texttt{(mcmType, itssRole, manoeuvreId)}.
-
-\subsubsection{Lado do Merge Car (rampa)}
-\label{sec:lado-mc}
-
-O comportamento do MC concentra-se em \texttt{\_tick\_ramp}, executado a cada \emph{tick}
-(Figura~\ref{fig:mc-fsm}). Enquanto a velocidade é positiva, o MC estima o tempo até ao
-\emph{merge point} com base na fração restante da rampa:
-\[
-  \texttt{eta\_s} = \texttt{time\_to\_cover\_distance}\bigl(v,\,v_{\text{rampa}},\,(1-t)\,L_{\text{rampa}}\bigr).
-\]
-Em \textbf{CRUISING}, enquanto $\texttt{eta\_s} > \texttt{CONFLICT\_HORIZON\_S}=4$\,s, o MC
-limita-se a circular. Quando o ETA desce ao horizonte de $4$\,s, avalia os \emph{active
-peers} --- os vizinhos que \texttt{is\_on\_road} coloca na via principal:
-\begin{itemize}[noitemsep,topsep=2pt]
-  \item \textbf{sem peers ativos} $\rightarrow$ não há com quem negociar: o MC salta direto
-        para \texttt{\_on\_all\_granted} (\emph{merge} direto);
-  \item \textbf{com peers} $\rightarrow$ entra em \textbf{NEGOTIATING} e chama
-        \texttt{\_maybe\_send\_merge\_request}.
-\end{itemize}
-
-\paragraph{Construção do \textsc{merge\_request}.} A peça-chave é a \emph{janela de
-ocupação} que o MC anuncia. Estima primeiro a velocidade de entrada na via,
-$\texttt{entry\_speed}=\texttt{predict\_motion}(v, v_{\text{rampa}}, \texttt{eta\_s})$, e
-em seguida quanto tempo ocupará a zona,
-$\texttt{occupancy}=\texttt{time\_to\_cover\_distance}(\texttt{entry\_speed}, v_{\text{main}}, \texttt{after\_m})$.
-A janela $[\,\texttt{eta\_s},\ \texttt{eta\_s}+\texttt{occupancy}\,]$ (em ms) viaja nos
-campos \texttt{tRROccupancyStartTime/EndTime}, e a geometria da zona nos \emph{waypoints}
-do TRR. Cada envio incrementa \texttt{manoeuvre\_id} de forma cíclica em $[0,127]$
-(\texttt{(id+1)\%128}) e é estrangulado a um por \texttt{MERGE\_REQUEST\_RESEND\_S}=$1$\,s.
-
-\paragraph{Recolha de \emph{grants} e decisão.} Cada \textsc{merge\_grant}(aceitar) recebido
-acrescenta o emissor ao conjunto \texttt{grants\_received} (estado
-\textbf{MOVING AND WAITING GRANTS} --- o MC continua a avançar enquanto espera). Quando
-$\texttt{active\_peers} \subseteq \texttt{grants\_received}$, \texttt{\_on\_all\_granted}
-marca \texttt{merge\_decided} e difunde \textsc{merge\_confirmed}(agree), transitando para
-\textbf{MERGE DECIDED}. Se em vez disso chegar um \textsc{merge\_grant}(recusar)
-(\texttt{on\_merge\_grant} com \texttt{success=False}), o MC limpa os \emph{grants},
-difunde \textsc{merge\_confirmed}(abort) e agenda nova tentativa após
-\texttt{RETRY\_COOLDOWN\_S}=$1$\,s.
-
-\paragraph{Salvaguarda \emph{stop-and-wait} e cadeia na rampa.} Em paralelo, o MC monitoriza
-a distância ao \texttt{stop\_t}. Se $\texttt{can\_brake\_in\_time}$ indicar que está prestes
-a alcançá-lo sem ter decidido, força \texttt{target\_speed}=0 e, ao chegar, fica
-\textbf{STOPPED WAITING GRANTS} (\texttt{advance=False}), continuando a renegociar até obter
-todos os \emph{grants} (O5). Nesse estado, e relevante para cenários multi-MC (O6),
-\texttt{\_maybe\_send\_ramp\_slowdown} procura um veículo atrás \emph{na própria rampa}
-(\texttt{find\_vehicle\_behind}) e propaga-lhe um \textsc{slowdown\_request} --- a mesma
-cadeia de abrandamento da via principal, agora aplicada na rampa.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.85\linewidth]{mc_state_machine.png}
-  \caption{Máquina de estados do Merge Car.}
-  \label{fig:mc-fsm}
-\end{figure}
-
-\subsubsection{Lado do veículo da via principal}
-\label{sec:lado-estrada}
-
-Um veículo da via principal está normalmente em \textbf{IDLE} (Figura~\ref{fig:road-fsm}).
-Ao receber um \textsc{merge\_request}, entra em \texttt{\_on\_merge\_request} e \textbf{avalia
-o conflito}. Reconstrói a zona a partir dos \emph{waypoints} do TRR (somando os \emph{offsets}
-à posição do MC) e projeta-a na sua própria estrada com \texttt{project\_t}, obtendo
-$\texttt{cz\_t\_start}$ e $\texttt{cz\_t\_end}$. Calcula então os instantes em que entra e
-sai da zona,
-\[
-  \texttt{t\_enter}=\texttt{time\_to\_cover\_distance}(v,v,d_{\text{enter}}),\quad
-  \texttt{t\_exit}=\texttt{time\_to\_cover\_distance}(v,v,d_{\text{exit}}),
-\]
-e compara-os com a janela de ocupação do MC, $[\texttt{mc\_eta\_start},\texttt{mc\_eta\_end}]$.
-O conflito é uma \textbf{sobreposição temporal}:
-\[
-  \texttt{in\_conflict} = (\texttt{t\_enter} < \texttt{mc\_eta\_end}) \;\wedge\;
-                          (\texttt{t\_exit} > \texttt{mc\_eta\_start}).
-\]
-
-\paragraph{Sem conflito.} O veículo responde de imediato com \textsc{merge\_grant}(aceitar)
-ao MC e regressa a \textbf{IDLE} --- não precisa de abrandar.
-
-\paragraph{Com conflito.} Calcula a velocidade-alvo \texttt{\_calculate\_target\_speed}
-(busca binária, Secção~\ref{sec:algoritmos}) e guarda-a em \texttt{\_pending\_speed}. Depois
-procura um veículo imediatamente atrás (\texttt{find\_vehicle\_behind}):
-\begin{itemize}[noitemsep,topsep=2pt]
-  \item \textbf{há veículo atrás} $\rightarrow$ propaga a cadeia
-        (\textbf{CHAIN\_PROPAGATING}): envia-lhe \textsc{slowdown\_request} com a sua
-        sugestão e fica em \textbf{WAITING\_ACK} à espera do \textsc{slowdown\_grant};
-  \item \textbf{não há veículo atrás} (fim da cadeia) $\rightarrow$ verifica a própria
-        viabilidade com \texttt{can\_brake\_in\_time}: se consegue travar, compromete-se
-        ($\texttt{\_slowed\_down}=\text{True}$) e envia \textsc{merge\_grant}(aceitar);
-        senão, \textsc{merge\_grant}(recusar).
-\end{itemize}
-
-\paragraph{Propagação a montante.} \texttt{\_on\_slowdown\_request} replica esta lógica num
-veículo intermédio: adota a velocidade sugerida (ou $0{,}7\,v$ por omissão), e ou reenvia
-\textsc{slowdown\_request} ao seguinte, ou --- se for o fim da cadeia --- testa a sua
-travagem e responde com \textsc{slowdown\_grant}. Quando o \textsc{slowdown\_grant}
-\emph{regressa} pela cadeia, \texttt{\_on\_slowdown\_grant} confirma que a \emph{própria}
-travagem continua viável e propaga-o para a frente; o veículo no topo de cada cadeia (sem
-remetente à frente) traduz esse grant final no \textsc{merge\_grant} que envia ao MC. Assim,
-um veículo em conflito só concede a passagem ao MC depois de garantir que toda a cadeia atrás
-de si consegue abrandar em segurança.
-
-\paragraph{Execução e retoma.} O \texttt{\_pending\_speed} é apenas \emph{pendente}: só é
-efetivamente aplicado (passa a \textbf{COMMITTED}) quando chega \textsc{merge\_confirmed}(agree)
-em \texttt{\_on\_merge\_confirmed} --- a partir daí, \texttt{tick()} devolve essa velocidade
-ao laço de movimento e o veículo desacelera. Um \textsc{merge\_confirmed}(abort) cancela o
-abrandamento e devolve-o a \textbf{IDLE}. Por fim, ao receber \textsc{execution\_status}
-(\texttt{\_on\_execution\_status}, o MC já entrou na via), limpa \texttt{\_slowed\_down}/%
-\texttt{\_pending\_speed} e retoma a velocidade-limite da estrada.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\linewidth]{MAIN_ROAD_STATES.png}
-  \caption{Máquina de estados do veículo na via principal.}
-  \label{fig:road-fsm}
-\end{figure}
-
-\subsection{Algoritmos de decisão e pseudo-código}
-\label{sec:algoritmos}
-
-Três algoritmos sustentam a negociação: a deteção de conflito (O3), o cálculo da
-velocidade-alvo (O4) e a propagação em cadeia do abrandamento (O4).
-
-\paragraph{(a) Deteção de conflito.} Formaliza o teste de sobreposição temporal da
-Secção~\ref{sec:lado-estrada}: o veículo só está em conflito se a janela em que ocupa a
-zona intersetar a janela anunciada pelo MC.
-
-\begin{algorithm}[H]
-\caption{Deteção de conflito (\texttt{\_on\_merge\_request})}
-\KwIn{posição $t$, velocidade $v$, zona $[\texttt{cz\_t\_start},\texttt{cz\_t\_end}]$,
-      janela do MC $[\texttt{eta}_s,\texttt{eta}_e]$, comprimento $L_{\text{veh}}$, $L$}
-\KwOut{\texttt{in\_conflict} $\in \{\text{V},\text{F}\}$}
-$d_{\text{enter}} \leftarrow \max(0,\ (\texttt{cz\_t\_start}-t)\,L - L_{\text{veh}}/2)$\;
-$d_{\text{exit}}  \leftarrow \max(0,\ (\texttt{cz\_t\_end}-t)\,L + L_{\text{veh}}/2)$\;
-$\texttt{t\_enter} \leftarrow \texttt{time\_to\_cover\_distance}(v,v,d_{\text{enter}})$\;
-$\texttt{t\_exit}  \leftarrow \texttt{time\_to\_cover\_distance}(v,v,d_{\text{exit}})$\;
-\Return $(\texttt{t\_enter} < \texttt{eta}_e)\ \wedge\ (\texttt{t\_exit} > \texttt{eta}_s)$\;
-\end{algorithm}
-
-\paragraph{(b) Velocidade-alvo por busca binária.} \texttt{\_solve\_target\_speed} procura a
-\emph{maior} velocidade constante-objetivo que mantém a frente do veículo ainda \emph{antes}
-do início da zona no instante em que o MC a ocupa (o ETA). Usa o modelo cinemático real
-(\texttt{predict\_motion}, com aceleração limitada) e $24$ iterações de bisseção --- mais do
-que suficiente para convergência ao centímetro/segundo. Maximizar a velocidade minimiza o
-abrandamento imposto, mantendo a fluidez (O4).
-
-\begin{algorithm}[H]
-\caption{Velocidade-alvo (\texttt{\_solve\_target\_speed})}
-\KwIn{distância à zona $d$, ETA do MC \texttt{eta}, velocidade atual $v$, limite $v_{\max}$}
-\KwOut{velocidade-alvo}
-\lIf{$\texttt{eta} \le 0$ \textbf{ou} $d \le 0$}{\Return $0$}
-$lo \leftarrow 0$;\quad $hi \leftarrow \max(v, v_{\max})$\;
-\For{$24$ vezes}{
-  $mid \leftarrow (lo+hi)/2$\;
-  $(d_{\text{pred}},\,\_) \leftarrow \texttt{predict\_motion}(v,\,mid,\,\texttt{eta})$\;
-  \lIf{$d_{\text{pred}} > d$}{$hi \leftarrow mid$}
-  \lElse{$lo \leftarrow mid$}
-}
-\Return $hi$\;
-\end{algorithm}
-
-\paragraph{(c) Propagação em cadeia.} O abrandamento alastra de trás para a frente: cada
-veículo só se compromete depois de garantir que quem está atrás de si também consegue
-abrandar, e o topo da cadeia traduz esse acordo num \textsc{merge\_grant} ao MC. O
-pseudo-código abaixo unifica \texttt{\_on\_merge\_request} (cabeça), \texttt{\_on\_slowdown\_request}
-(propagação) e \texttt{\_on\_slowdown\_grant} (retorno).
-
-\begin{algorithm}[H]
-\caption{Propagação em cadeia do abrandamento}
-\KwIn{velocidade-alvo $v_{\text{alvo}}$, remetente à frente (ou MC)}
-\texttt{\_pending\_speed} $\leftarrow v_{\text{alvo}}$\;
-$b \leftarrow \texttt{find\_vehicle\_behind}(\ldots)$\;
-\eIf{$b \neq \varnothing$}{
-  enviar \textsc{slowdown\_request}$(b, v_{\text{alvo}})$\;
-  \emph{aguardar} \textsc{slowdown\_grant} de $b$ \tcp*{\texttt{\_on\_slowdown\_grant}}
-}{
-  $(\text{ok},\,d_{\text{trav}}) \leftarrow \texttt{can\_brake\_in\_time}(v, v_{\text{alvo}}, d_{\text{disp}})$\;
-}
-\uIf{cadeia atrás aceitou \textbf{e} \emph{própria} travagem ok}{
-  \texttt{\_slowed\_down} $\leftarrow$ Verdadeiro\;
-  responder \textsc{grant}(aceitar) ao remetente à frente \emph{ou} \textsc{merge\_grant} ao MC\;
-}\Else{
-  \texttt{\_pending\_speed} $\leftarrow \varnothing$\;
-  responder \textsc{grant}(recusar) / \textsc{merge\_grant}(recusar)\;
-}
-\end{algorithm}
-
-\subsection{Diagrama de sequência do protocolo}
-\label{sec:sequencia}
-
-A Figura~\ref{fig:seq} integra os dois lados num cenário concreto: o MC funde-se na via
-onde circulam A, B e C (A à frente, C atrás), estando apenas \textbf{B em conflito}. A
-sequência decorre como se segue:
+\paragraph{A negociação num relance.} Antes de descer aos detalhes, a Figura~\ref{fig:seq}
+dá a vista de conjunto do protocolo num cenário concreto: o MC funde-se na via onde
+circulam A, B e C (A à frente, C atrás), estando apenas \textbf{B em conflito}. A sequência
+decorre como se segue (os subtipos de MCM estão definidos na Tabela~\ref{tab:mensagens}):
 
 \begin{enumerate}[noitemsep,topsep=2pt,label=\arabic*.]
   \item \textbf{Pedido.} Ao atingir o horizonte de $4$\,s, o MC difunde \textsc{merge\_request}
@@ -908,10 +535,395 @@ ao \emph{stop-and-wait} (Secção~\ref{sec:lado-mc}).
   \label{fig:seq}
 \end{figure}
 
-\subsection{Orquestração e visualização}
+\subsection{O protocolo \texttt{MergeProtocol}}
+\label{sec:protocolo}
+
+Toda a negociação está numa única classe, \texttt{MergeProtocol}, partilhada por todos os
+veículos (O2, O6). O papel \emph{emerge} em tempo de execução: \texttt{set\_current\_road}
+liga \texttt{current\_is\_ramp} quando a estrada é do tipo \texttt{ramp} com
+\texttt{merges\_into}, e é esse \emph{flag} (\texttt{\_is\_ramp()}) que encaminha cada
+veículo para o comportamento de Merge Car (Secção~\ref{sec:lado-mc}) ou de veículo da via
+principal (Secção~\ref{sec:lado-estrada}). O estado é protegido por um
+\texttt{threading.Lock}, pois o \emph{tick} de movimento (uma \emph{thread}) e os
+\emph{callbacks} MCM (outra) acedem-no concorrentemente. A interface pública resume-se a
+\texttt{tick(...)}, chamado a cada \emph{tick} e que devolve \texttt{\{advance,
+target\_speed\}} ao ciclo de movimento, e \texttt{make\_mcm\_callback()}, que despacha cada
+MCM recebida pela tripla \texttt{(mcmType, itssRole, manoeuvreId)} (cf.\
+Tabela~\ref{tab:mensagens}). As duas subsecções seguintes descrevem os dois comportamentos
+que esta classe encerra.
+
+\subsubsection{Lado do Merge Car (rampa)}
+\label{sec:lado-mc}
+
+A Figura~\ref{fig:mc-fsm} resume os estados do Merge Car; descrevem-se a seguir. O
+comportamento concentra-se em \texttt{\_tick\_ramp}, executado a cada \emph{tick}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\linewidth]{mc_state_machine.png}
+  \caption{Máquina de estados do Merge Car.}
+  \label{fig:mc-fsm}
+\end{figure}
+
+Enquanto a velocidade é positiva, o MC estima o tempo até ao \emph{merge point} com base na
+fração restante da rampa, recorrendo ao modelo cinemático (Secção~\ref{sec:fundamentos}):
+\[
+  \texttt{eta\_s} = \texttt{time\_to\_cover\_distance}\bigl(v,\,v_{\text{rampa}},\,(1-t)\,L_{\text{rampa}}\bigr).
+\]
+Em \textbf{CRUISING}, enquanto $\texttt{eta\_s} > \texttt{CONFLICT\_HORIZON\_S}=4$\,s, o MC
+limita-se a circular. Quando o ETA desce ao horizonte de $4$\,s, avalia os \emph{active
+peers} --- os vizinhos que \texttt{is\_on\_road} (Secção~\ref{sec:fundamentos}) coloca na
+via principal:
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \textbf{sem peers ativos} $\rightarrow$ não há com quem negociar: o MC salta direto
+        para \texttt{\_on\_all\_granted} (\emph{merge} direto);
+  \item \textbf{com peers} $\rightarrow$ entra em \textbf{NEGOTIATING} e chama
+        \texttt{\_maybe\_send\_merge\_request}.
+\end{itemize}
+
+\paragraph{Construção do \textsc{merge\_request}.} O MC anuncia dois elementos. Primeiro, a
+\emph{zona de conflito} --- o troço que vai ocupar
+(Secção~\ref{sec:fundamentos}), que viaja nos \emph{waypoints} do TRR como \emph{offsets}
+relativos à sua posição. Segundo, a \emph{janela de ocupação} dessa zona: estima a
+velocidade de entrada na via,
+$\texttt{entry\_speed}=\texttt{predict\_motion}(v, v_{\text{rampa}}, \texttt{eta\_s})$, e
+depois quanto tempo a ocupará,
+$\texttt{occupancy}=\texttt{time\_to\_cover\_distance}(\texttt{entry\_speed}, v_{\text{main}}, \texttt{after\_m})$
+(ambas do modelo cinemático, Secção~\ref{sec:fundamentos}); a janela
+$[\,\texttt{eta\_s},\ \texttt{eta\_s}+\texttt{occupancy}\,]$ (em ms) viaja nos campos
+\texttt{tRROccupancyStartTime/EndTime}. Cada envio incrementa \texttt{manoeuvre\_id} de
+forma cíclica em $[0,127]$ (\texttt{(id+1)\%128}) e é limitado a um por
+\texttt{MERGE\_REQUEST\_RESEND\_S}=$1$\,s.
+
+\paragraph{Recolha de \emph{grants} e decisão.} Cada \textsc{merge\_grant}(aceitar) recebido
+acrescenta o emissor ao conjunto \texttt{grants\_received} (estado
+\textbf{MOVING AND WAITING GRANTS} --- o MC continua a avançar enquanto espera). Quando
+$\texttt{active\_peers} \subseteq \texttt{grants\_received}$, \texttt{\_on\_all\_granted}
+marca \texttt{merge\_decided} e difunde \textsc{merge\_confirmed}(agree), transitando para
+\textbf{MERGE DECIDED}. Se em vez disso chegar um \textsc{merge\_grant}(recusar)
+(\texttt{on\_merge\_grant} com \texttt{success=False}), o MC limpa os \emph{grants},
+difunde \textsc{merge\_confirmed}(abort) e agenda nova tentativa após
+\texttt{RETRY\_COOLDOWN\_S}=$1$\,s.
+
+\paragraph{Salvaguarda \emph{stop-and-wait} e cadeia na rampa.} Em paralelo, o MC monitoriza
+a distância ao \texttt{stop\_t} (Secção~\ref{sec:fundamentos}). Se
+$\texttt{can\_brake\_in\_time}$ indicar que está prestes a alcançá-lo sem ter decidido,
+passa o alvo a \texttt{target\_speed}=0 --- o que o faz travar progressivamente (à taxa
+\texttt{DECEL}) --- e, ao imobilizar-se, fica \textbf{STOPPED WAITING GRANTS}
+(\texttt{advance=False}), continuando a renegociar até obter todos os \emph{grants} (O5).
+Nesse estado, e relevante para cenários multi-MC (O6),
+\texttt{\_maybe\_send\_ramp\_slowdown} procura um veículo atrás \emph{na própria rampa}
+(\texttt{find\_vehicle\_behind}) e propaga-lhe um \textsc{slowdown\_request} --- a mesma
+cadeia de abrandamento da via principal, agora aplicada na rampa.
+
+\subsubsection{Lado do veículo da via principal}
+\label{sec:lado-estrada}
+
+A Figura~\ref{fig:road-fsm} resume os estados de um veículo da via principal; descrevem-se
+a seguir.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{MAIN_ROAD_STATES.png}
+  \caption{Máquina de estados do veículo na via principal.}
+  \label{fig:road-fsm}
+\end{figure}
+
+Um veículo da via principal está normalmente em \textbf{IDLE}. Ao receber um
+\textsc{merge\_request}, entra em \texttt{\_on\_merge\_request} e \textbf{avalia o conflito}.
+
+\paragraph{Deteção de conflito (O3).} O veículo reconstrói a zona a partir dos
+\emph{waypoints} do TRR (somando os \emph{offsets} à posição do MC) e projeta-a na sua
+própria estrada com \texttt{project\_t} (Secção~\ref{sec:fundamentos}), obtendo
+$\texttt{cz\_t\_start}$ e $\texttt{cz\_t\_end}$. Calcula então as distâncias até entrar e
+sair da zona (descontando/somando a meia-carroçaria), converte-as nos instantes
+$\texttt{t\_enter}$ e $\texttt{t\_exit}$ a velocidade constante, e declara conflito se essa
+janela se \textbf{sobrepõe} à janela de ocupação anunciada pelo MC,
+$[\texttt{mc\_eta\_start},\texttt{mc\_eta\_end}]$ (Algoritmo~\ref{alg:conflito}).
+
+\begin{algorithm}[H]
+\caption{Deteção de conflito (\texttt{\_on\_merge\_request})}
+\label{alg:conflito}
+\KwIn{posição $t$, velocidade $v$, zona $[\texttt{cz\_t\_start},\texttt{cz\_t\_end}]$,
+      janela do MC $[\texttt{eta}_s,\texttt{eta}_e]$, comprimento $L_{\text{veh}}$, $L$}
+\KwOut{\texttt{in\_conflict} $\in \{\text{V},\text{F}\}$}
+$d_{\text{enter}} \leftarrow \max(0,\ (\texttt{cz\_t\_start}-t)\,L - L_{\text{veh}}/2)$\;
+$d_{\text{exit}}  \leftarrow \max(0,\ (\texttt{cz\_t\_end}-t)\,L + L_{\text{veh}}/2)$\;
+$\texttt{t\_enter} \leftarrow \texttt{time\_to\_cover\_distance}(v,v,d_{\text{enter}})$\;
+$\texttt{t\_exit}  \leftarrow \texttt{time\_to\_cover\_distance}(v,v,d_{\text{exit}})$\;
+\Return $(\texttt{t\_enter} < \texttt{eta}_e)\ \wedge\ (\texttt{t\_exit} > \texttt{eta}_s)$\;
+\end{algorithm}
+
+\paragraph{Sem conflito.} O veículo responde de imediato com \textsc{merge\_grant}(aceitar)
+ao MC e regressa a \textbf{IDLE} --- não precisa de abrandar.
+
+\paragraph{Com conflito: velocidade-alvo (O4).} Detetado o conflito, o veículo tem de
+abrandar o suficiente para não chegar à zona enquanto o MC a ocupa, mas sem travar mais do
+que o necessário. \texttt{\_solve\_target\_speed} resolve esse compromisso por busca binária
+($24$ iterações): procura a \emph{maior} velocidade-alvo $v^\star$ tal que, abrandando para
+ela, o veículo percorre \emph{menos} do que a distância $d$ que o separa do início da zona
+durante o intervalo \texttt{eta} do MC --- ou seja, no instante em que o MC ocupa a zona,
+este veículo ainda não lá chegou. A previsão a cada passo usa o modelo cinemático real
+(\texttt{predict\_motion}, com aceleração limitada, Secção~\ref{sec:fundamentos}), pelo que o
+$v^\star$ encontrado é mesmo atingível; maximizá-lo minimiza o abrandamento imposto e preserva
+a fluidez (Algoritmo~\ref{alg:velocidade}). A velocidade-alvo fica guardada em
+\texttt{\_pending\_speed}.
+
+\begin{algorithm}[H]
+\caption{Velocidade-alvo (\texttt{\_solve\_target\_speed})}
+\label{alg:velocidade}
+\KwIn{distância à zona $d$, ETA do MC \texttt{eta}, velocidade atual $v$, limite $v_{\max}$}
+\KwOut{velocidade-alvo}
+\lIf{$\texttt{eta} \le 0$ \textbf{ou} $d \le 0$}{\Return $0$}
+$lo \leftarrow 0$;\quad $hi \leftarrow \max(v, v_{\max})$\;
+\For{$24$ vezes}{
+  $mid \leftarrow (lo+hi)/2$\;
+  $(d_{\text{pred}},\,\_) \leftarrow \texttt{predict\_motion}(v,\,mid,\,\texttt{eta})$\;
+  \lIf{$d_{\text{pred}} > d$}{$hi \leftarrow mid$}
+  \lElse{$lo \leftarrow mid$}
+}
+\Return $hi$\;
+\end{algorithm}
+
+\paragraph{Propagação em cadeia (O4).} Com a velocidade-alvo calculada, o veículo procura
+um veículo imediatamente atrás (\texttt{find\_vehicle\_behind}, Secção~\ref{sec:fundamentos}):
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \textbf{há veículo atrás} $\rightarrow$ propaga a cadeia
+        (\textbf{CHAIN\_PROPAGATING}): envia-lhe \textsc{slowdown\_request} com a sua
+        sugestão e fica em \textbf{WAITING\_ACK} à espera do \textsc{slowdown\_grant};
+  \item \textbf{não há veículo atrás} (fim da cadeia) $\rightarrow$ verifica a própria
+        viabilidade com \texttt{can\_brake\_in\_time} (Secção~\ref{sec:fundamentos}): se
+        consegue travar, compromete-se ($\texttt{\_slowed\_down}=\text{True}$) e envia
+        \textsc{merge\_grant}(aceitar); senão, \textsc{merge\_grant}(recusar).
+\end{itemize}
+\texttt{\_on\_slowdown\_request} replica esta lógica num veículo intermédio: adota a
+velocidade sugerida (ou $0{,}7\,v$ por omissão), e ou reenvia \textsc{slowdown\_request} ao
+seguinte, ou --- se for o fim da cadeia --- testa a sua travagem e responde com
+\textsc{slowdown\_grant}. Quando o \textsc{slowdown\_grant} \emph{regressa} pela cadeia,
+\texttt{\_on\_slowdown\_grant} confirma que a \emph{própria} travagem continua viável e
+propaga-o para a frente; o veículo no topo de cada cadeia (sem remetente à frente) traduz
+esse grant final no \textsc{merge\_grant} que envia ao MC. Assim, um veículo em conflito só
+concede a passagem ao MC depois de garantir que toda a cadeia atrás de si consegue abrandar
+em segurança (Algoritmo~\ref{alg:cadeia}).
+
+\begin{algorithm}[H]
+\caption{Propagação em cadeia do abrandamento}
+\label{alg:cadeia}
+\KwIn{velocidade-alvo $v_{\text{alvo}}$, remetente à frente (ou MC)}
+\texttt{\_pending\_speed} $\leftarrow v_{\text{alvo}}$\;
+$b \leftarrow \texttt{find\_vehicle\_behind}(\ldots)$\;
+\eIf{$b \neq \varnothing$}{
+  enviar \textsc{slowdown\_request}$(b, v_{\text{alvo}})$\;
+  \emph{aguardar} \textsc{slowdown\_grant} de $b$ \tcp*{\texttt{\_on\_slowdown\_grant}}
+}{
+  $(\text{ok},\,d_{\text{trav}}) \leftarrow \texttt{can\_brake\_in\_time}(v, v_{\text{alvo}}, d_{\text{disp}})$\;
+}
+\uIf{cadeia atrás aceitou \textbf{e} \emph{própria} travagem ok}{
+  \texttt{\_slowed\_down} $\leftarrow$ Verdadeiro\;
+  responder \textsc{grant}(aceitar) ao remetente à frente \emph{ou} \textsc{merge\_grant} ao MC\;
+}\Else{
+  \texttt{\_pending\_speed} $\leftarrow \varnothing$\;
+  responder \textsc{grant}(recusar) / \textsc{merge\_grant}(recusar)\;
+}
+\end{algorithm}
+
+\paragraph{Execução e retoma.} O \texttt{\_pending\_speed} é apenas \emph{pendente}: só é
+efetivamente aplicado (passa a \textbf{COMMITTED}) quando chega \textsc{merge\_confirmed}(agree)
+em \texttt{\_on\_merge\_confirmed} --- a partir daí, \texttt{tick()} devolve essa velocidade
+ao ciclo de movimento e o veículo desacelera. Um \textsc{merge\_confirmed}(abort) cancela o
+abrandamento e devolve-o a \textbf{IDLE}. Por fim, ao receber \textsc{execution\_status}
+(\texttt{\_on\_execution\_status}, o MC já entrou na via), limpa \texttt{\_slowed\_down}/%
+\texttt{\_pending\_speed} e retoma a velocidade-limite da estrada.
+
+\subsection{Fundamentos geométricos e cinemáticos}
+\label{sec:fundamentos}
+
+Esta secção formaliza as primitivas de \texttt{geo.py} que sustentam os cálculos do
+protocolo (Secção~\ref{sec:protocolo}): traduzem as posições GPS das CAMs em quantidades
+operacionais e modelam a dinâmica de travagem. Todas as estradas são segmentos de reta
+definidos no cenário por \texttt{start} e \texttt{end}.
+
+\paragraph{Distância e projeção.} A distância métrica entre dois pontos GPS usa a fórmula
+de \emph{haversine} (\texttt{haversine}, $R=6\,371\,000$\,m):
+\[
+  d = 2R\,\arcsin\!\sqrt{\sin^2\!\tfrac{\Delta\varphi}{2}
+      + \cos\varphi_1\cos\varphi_2\,\sin^2\!\tfrac{\Delta\lambda}{2}} .
+\]
+A posição de um veículo ao longo de uma estrada é dada por uma \textbf{coordenada
+paramétrica} $t$, obtida pela projeção escalar do ponto sobre o segmento
+(\texttt{project\_t}), com $t=0$ no início e $t=1$ no fim:
+\[
+  t = \frac{(P - s)\cdot(e - s)}{\lVert e - s\rVert^{2}},
+  \qquad s=\texttt{start},\; e=\texttt{end},
+\]
+calculada diretamente em graus (a anisotropia lat/lon é desprezável à escala local). O
+comprimento físico do segmento, $L=\texttt{road\_length}$, converte $t$ em metros
+($\text{dist} = \Delta t \cdot L$). O rumo do segmento vem de \texttt{compute\_bearing}
+(azimute referenciado a Norte). Esta projeção é usada pelo veículo da via principal para
+reposicionar a zona de conflito na sua estrada (Secção~\ref{sec:lado-estrada}).
+
+\paragraph{Pertença a uma estrada.} Como na simulação os veículos se movem por interpolação
+exata sobre a reta, a distância entre a posição GPS e a sua projeção é $\sim$0\,m;
+\texttt{is\_on\_road} considera um veículo ``nesta estrada'' se essa distância for inferior
+a um limiar de $0{,}05$\,m (apenas para absorver erro de vírgula flutuante). É este teste
+que permite ao MC distinguir, em tempo real, quais dos vizinhos circulam na via principal
+(os \emph{active peers}, Secção~\ref{sec:lado-mc}).
+
+\paragraph{Vizinho de trás e movimento.} \texttt{find\_vehicle\_behind} percorre o
+\emph{snapshot} da \texttt{NeighbourTable} (Secção~\ref{sec:mensagens}) e devolve o veículo
+com o maior $t_n < t_{\text{próprio}}$ que esteja na mesma estrada e dentro de $200$\,m ---
+a base da propagação em cadeia (Secção~\ref{sec:lado-estrada}). O movimento de cada veículo
+é um avanço incremental ao longo do segmento, $t \mathrel{+}= \texttt{speed}\cdot\texttt{DT}/L$,
+executado a cada \emph{tick} pelo \texttt{\_move\_loop}.
+
+\paragraph{Dinâmica longitudinal.} A dinâmica é deliberadamente simples e determinística,
+com aceleração limitada e simétrica $\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2}.
+\texttt{advance\_speed} aproxima a velocidade do alvo em cada \emph{tick}, no máximo
+$\pm\texttt{DECEL}\cdot\texttt{DT}$, devolvendo também a aceleração efetiva (que é depois
+anunciada na CAM). Sobre esta primitiva constroem-se duas funções de previsão usadas na
+negociação:
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \texttt{predict\_motion(v, v\_alvo, horizonte)} --- integra \texttt{advance\_speed}
+        passo a passo e devolve a distância percorrida e a velocidade final, respeitando o
+        limite de aceleração (não é cinemática de velocidade constante); base da
+        velocidade-alvo e da janela de ocupação (Secções~\ref{sec:lado-mc} e
+        \ref{sec:lado-estrada});
+  \item \texttt{time\_to\_cover\_distance(v, v\_alvo, d)} --- o inverso: o tempo necessário
+        para cobrir $d$, ou $\infty$ se for impossível (e.g.\ parado com alvo nulo); base do
+        ETA e dos instantes de entrada/saída na deteção de conflito.
+\end{itemize}
+
+\paragraph{Viabilidade de travagem.} \texttt{can\_brake\_in\_time} usa a equação de
+Torricelli para verificar se um veículo consegue desacelerar de $v$ até $v_{\text{alvo}}$
+dentro da distância disponível:
+\[
+  d_{\text{trav}} = \frac{v^{2} - v_{\text{alvo}}^{2}}{2\cdot\texttt{DECEL}},
+  \qquad \text{aceita se } d_{\text{trav}} \le d_{\text{disp}} .
+\]
+Este é o teste de segurança (O5) aplicado por cada veículo no fim de cadeia antes de se
+comprometer com um abrandamento (Secção~\ref{sec:lado-estrada}) e pelo MC antes do
+\emph{stop-and-wait} (Secção~\ref{sec:lado-mc}).
+
+\paragraph{Dimensionamento da zona de conflito.} A zona de conflito é o troço da via
+principal que o MC irá ocupar. As suas margens (em metros), fixadas em
+\texttt{\_init\_merge\_geometry}, refletem o espaço físico que a manobra exige:
+\[
+  \texttt{before\_m} = \tfrac{L_{\text{veh}}}{2} + \texttt{SAFETY\_GAP}
+                       + \underbrace{\frac{v_{\text{main}}^{2} - v_{\text{mc}}^{2}}{2\cdot\texttt{DECEL}}}_{\texttt{merge\_entry\_margin}},
+  \qquad
+  \texttt{after\_m} = \tfrac{L_{\text{veh}}}{2} + \texttt{SAFETY\_GAP}.
+\]
+A meia-carroçaria $L_{\text{veh}}/2$ e o $\texttt{SAFETY\_GAP}=10$\,m são comuns aos dois
+lados; a montante acrescenta-se ainda a \texttt{merge\_entry\_margin}, que é precisamente a
+distância de travagem necessária para um veículo da via principal (a $v_{\text{main}}$)
+igualar a velocidade de entrada do MC (a $v_{\text{mc}}$) --- nula quando
+$v_{\text{main}}\le v_{\text{mc}}$. Esta assimetria reserva mais espaço atrás do
+\emph{merge point}, onde o diferencial de velocidade é maior. A partir destas margens,
+\texttt{conflict\_zone\_t} exprime a zona em coordenadas paramétricas, centrada no
+\emph{merge point} $t_{\text{merge}}$:
+\[
+  t_{\text{start}} = t_{\text{merge}} - \frac{\texttt{before\_m}}{L},
+  \qquad
+  t_{\text{end}}   = t_{\text{merge}} + \frac{\texttt{after\_m}}{L}.
+\]
+É esta zona que o MC codifica nos \emph{waypoints} do \textsc{merge\_request}
+(Secção~\ref{sec:mensagens}) e que cada veículo da via principal reprojecta na sua estrada
+(Secção~\ref{sec:lado-estrada}).
+
+\paragraph{Ponto de paragem do MC.} Como salvaguarda (O5), o MC nunca ultrapassa um ponto
+da rampa sem ter decidido o \emph{merge}. \texttt{mc\_stop\_t} fixa essa posição
+paramétrica deixando a frente do veículo a um \emph{buffer} de $8$\,m do fim da rampa:
+\[
+  \texttt{stop\_t} = 1 - \frac{L_{\text{veh}} + 8}{L_{\text{ramp}}} .
+\]
+
+\subsection{Mensagens e consciência situacional}
+\label{sec:mensagens}
+
+Esta secção descreve como as mensagens são construídas, transportadas e recebidas, e como
+delas emerge a consciência situacional que alimenta todo o protocolo.
+
+\paragraph{Ciclo de vida de uma mensagem.} O ciclo é uniforme para CAM e MCM e atravessa as
+quatro camadas da Secção~\ref{sec:arquitetura}. Do lado emissor, um construtor puro devolve
+um dicionário: \texttt{build\_cam} é invocado a cada \emph{tick} pelo ciclo de simulação
+(\texttt{simulation.\_move\_loop}), enquanto os \texttt{build\_*} de \texttt{mcm\_builder.py}
+são chamados pela classe \texttt{MergeProtocol} (Secção~\ref{sec:protocolo}) quando a
+negociação o exige. Esse dicionário é serializado em JSON e publicado no tópico de
+\emph{entrada} da pilha C-ITS:
+\begin{center}
+\texttt{vanetza\_session.put("vanetza/in/cam", json.dumps(cam).encode())}
+\end{center}
+O container Vanetza-NAP subscreve \texttt{vanetza/in/*}, aplica as escalas inteiras do
+\emph{codec}, codifica a PDU em ASN.1/UPER e difunde-a pelo ``ar''. Do lado recetor, a PDU
+volta a ser descodificada e republicada em \texttt{vanetza/out/*}, onde os \emph{callbacks}
+de cada veículo (\texttt{make\_cam\_callback}, \texttt{MergeProtocol.make\_mcm\_callback})
+e o \texttt{bridge.py} a consomem. O \emph{payload} descodificado chega encapsulado em
+\texttt{payload["fields"]} --- sob a chave \texttt{cam} para CAM e \texttt{payload} para
+MCM ---, e cada \emph{callback} começa por descartar a mensagem se o \texttt{stationID} for
+o seu próprio.
+
+\paragraph{Beaconing e \texttt{NeighbourTable} (O1).} A consciência situacional assenta num
+\emph{beaconing} CAM síncrono com o movimento. Em cada \emph{tick} de $\texttt{DT}=0{,}1$\,s,
+o \texttt{\_move\_loop} calcula a posição interpolada, atualiza a velocidade e constrói
+\emph{uma} CAM com \texttt{build\_cam} (posição, rumo, velocidade, aceleração do \emph{tick}
+e comprimento), publicando-a em \texttt{vanetza/in/cam}. Como a geração nativa de CAM no
+Vanetza está desativada (\texttt{VANETZA\_CAM\_PERIODICITY=0}), há exatamente uma CAM por
+\emph{tick} de simulação, garantindo coerência temporal entre o que cada veículo \emph{faz}
+e o que \emph{anuncia}. Do lado da receção, \texttt{make\_cam\_callback} extrai do
+\texttt{basicVehicleContainer\-HighFrequency} a posição, velocidade, rumo e comprimento e
+invoca \texttt{NeighbourTable.update}. A \texttt{NeighbourTable} (em \texttt{comms.py}) é uma
+tabela \emph{thread-safe} que guarda apenas o estado mais recente de cada vizinho, carimbado
+com o instante de receção. O método central é \texttt{snapshot(max\_age\_s=0.2)}, usado por
+toda a lógica de protocolo: devolve somente as entradas recebidas nos últimos $200$\,ms. Com
+CAMs a cada $100$\,ms, esta janela tolera exatamente \emph{uma} CAM perdida antes de um
+vizinho ``desaparecer'' da vista, evitando decisões sobre informação obsoleta. Assim,
+\textbf{toda} a noção de vizinhança --- quem existe, onde está, a que velocidade --- é
+derivada exclusivamente das CAMs recebidas, sem qualquer configuração prévia.
+
+\paragraph{Construtores de MCM.} \texttt{mcm\_builder.py} contém \textbf{funções puras} (sem
+I/O): recebem o estado do veículo e devolvem o dicionário da PDU pronto a serializar; a
+decisão de \emph{quando} e \emph{a quem} enviar vive em \texttt{protocol.py}
+(Secção~\ref{sec:protocolo}). Toda a MCM começa por um \texttt{basicContainer} comum --- com
+o \texttt{mcmType}, o \texttt{itssRole}, o \texttt{manoeuvreId} e a posição do emissor ---
+cuja tripla \texttt{(mcmType, itssRole, manoeuvreId)} identifica o subtipo
+(Tabela~\ref{tab:mensagens}). O que vem a seguir distingue um \emph{pedido} de uma
+\emph{resposta}:
+
+\begin{itemize}[noitemsep,topsep=2pt]
+  \item \textbf{Pedidos} (\textsc{merge\_request}, \textsc{slowdown\_request}) descrevem a
+        manobra. Levam o estado cinemático do emissor (velocidade, rumo, dimensões) e,
+        sobretudo, uma lista \texttt{manoeuvreAdvice} em que \emph{cada entrada endereça um
+        destinatário} pelo seu \texttt{executantID} (o \emph{stationID}) e lhe sugere uma
+        velocidade --- um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu.
+        O \textsc{merge\_request} acrescenta o \emph{Target Road Resource} (TRR), que
+        transporta a zona de conflito: início e fim (Secção~\ref{sec:fundamentos})
+        codificados como \emph{offsets} ($\Delta$lat, $\Delta$lon) relativos à posição do MC,
+        o comprimento da zona e a janela de ocupação.
+  \item \textbf{Respostas} (\textsc{merge\_grant}, \textsc{slowdown\_grant},
+        \textsc{merge\_confirmed}, \textsc{execution\_status}) são mínimas: resumem-se a um
+        \texttt{responseContainer} com um único campo \texttt{manouevreResponse}
+        ($0=$~aceitar/acordar, $1=$~recusar/abortar).
+\end{itemize}
+
+Em esquema, um \textsc{merge\_request} do MC (\emph{station}~10) que pede a A
+(\emph{station}~11) para abrandar para $15$\,m/s tem a forma:
+
+\begin{lstlisting}[language=,basicstyle=\ttfamily\scriptsize]
+basicContainer:    { mcmType=1, itssRole=1, manoeuvreId=7, lat, lon }   # pedido, MC (coordenador)
+mcmContainer.vehicleManoeuvreContainer:
+    vehicleCurrentStateContainer: { speed, heading, length }            # estado do MC
+    targetRoadResource: zona de conflito = offsets(inicio, fim) + comprimento + janela
+    manoeuvreAdvice: [ { executantID=11, advisedSpeed=15 m/s } ]        # destinatario = A
+\end{lstlisting}
+
+\textsc{merge\_grant} e \textsc{slowdown\_grant} partilham \texttt{mcmType=2} e
+\texttt{itssRole=3}; distinguem-se apenas pelo intervalo do \texttt{manoeuvreId} (1 byte):
+\textbf{0--127} para o primeiro e \textbf{128--255} para o segundo.
+
+\subsection{Orquestração, visualização e modo demo}
 \label{sec:orquestracao}
 
-Em torno da lógica de veículo existem dois componentes de suporte, que não participam na
+Em torno da lógica de veículo existem componentes de suporte que não participam na
 negociação.
 
 \paragraph{Coordenação (\texttt{coordinator.py}).} Uma GUI Tkinter lê os cenários de
@@ -920,15 +932,15 @@ no router Zenoh. Cada container de veículo subscreve esse tópico e, se o seu
 \texttt{station\_id} constar de \texttt{active\_vehicles}, corre o cenário, emitindo
 \emph{heartbeats} em \texttt{coordinator/ready/<sid>} e, no fim, \texttt{coordinator/done/<sid>}.
 O coordenador aguarda o \emph{done} de todos antes de avançar. Expõe ainda dois
-interruptores: \textbf{Demo Mode} (ativa o \texttt{DemoMergeProtocol},
-Secção~\ref{sec:modo-demo}) e \textbf{Draw Exag} (fator de exagero visual enviado à
-\emph{dashboard}). O \texttt{run.sh} encadeia todo o arranque: \texttt{docker-compose up},
-\emph{bridge}, servidor HTTP, a GUI e o browser.
+interruptores: \textbf{Demo Mode} (ativa o \texttt{DemoMergeProtocol}, descrito abaixo) e
+\textbf{Draw Exag} (fator de exagero visual enviado à \emph{dashboard}). O \texttt{run.sh}
+encadeia todo o arranque: \texttt{docker-compose up}, \emph{bridge}, servidor HTTP, a GUI e
+o browser.
 
-\paragraph{Visualização (\texttt{bridge.py} + \texttt{dashboard.html}).} O \texttt{bridge.py}
-é o único componente que fala simultaneamente Zenoh e WebSocket. Subscreve
-\texttt{vanetza/out/\{cam,mcm\}} e \texttt{coordinator/scenario}, mantém o estado de cada
-veículo e difunde uma trama JSON a cada $100$\,ms pela porta $8765$ para a
+\paragraph{Visualização (\texttt{bridge.py} + \texttt{dashboard.html}) (O7).} O
+\texttt{bridge.py} é o único componente que fala simultaneamente Zenoh e WebSocket.
+Subscreve \texttt{vanetza/out/\{cam,mcm\}} e \texttt{coordinator/scenario}, mantém o estado
+de cada veículo e difunde uma trama JSON a cada $100$\,ms pela porta $8765$ para a
 \texttt{dashboard.html} (\emph{canvas} HTML, sem mapas). A função \texttt{\_classify\_mcm}
 traduz cada MCM num rótulo legível (e.g.\ \textsc{merge\_request}, \textsc{slowdown\_grant}),
 e o estado visual de cada veículo (\textsc{normal}, \textsc{slowing}, \textsc{speeding},
@@ -936,22 +948,19 @@ e o estado visual de cada veículo (\textsc{normal}, \textsc{slowing}, \textsc{s
 \textsc{merge\_confirmed}/\textsc{execution\_status}. O \emph{merge point} é recalculado
 geometricamente por \texttt{\_compute\_merge\_point} (interseção das retas \texttt{main} e
 \texttt{ramp}), e a zona de conflito é reconstruída a partir dos \emph{waypoints} do
-\textsc{merge\_request} (O7).
+\textsc{merge\_request}.
 
-\subsection{Modo Demo}
-\label{sec:modo-demo}
-
-Para tornar a negociação observável passo a passo, \texttt{protocol\_demo.py} define
-\texttt{DemoMergeProtocol}, uma subclasse de \texttt{MergeProtocol}. A ideia é introduzir
-pausas \emph{apenas} nos pontos de decisão relevantes: ao receber uma MCM, o
-\emph{callback} determina se este veículo a vai realmente processar (\texttt{will\_process}
---- e.g.\ um \textsc{merge\_request} que lhe diz respeito, ou um \textsc{slowdown\_request}
-endereçado ao seu \texttt{executantID}) e, nesse caso, dorme \texttt{demo\_pause\_s} antes
-de delegar no \emph{callback} do progenitor. Os veículos da via principal congelam o
-movimento (\texttt{\_demo\_paused}) ao verem o \textsc{merge\_request} e retomam-no ao
-\textsc{merge\_confirmed}. Para acomodar estas pausas, o reenvio do \textsc{merge\_request}
-é estrangulado a $\texttt{\_demo\_resend\_s}=1 + 4\cdot\texttt{demo\_pause\_s}$, em vez do
-$1$\,s do modo normal.
+\paragraph{Modo Demo (\texttt{DemoMergeProtocol}).} Para tornar a negociação observável
+passo a passo, \texttt{protocol\_demo.py} define \texttt{DemoMergeProtocol}, uma subclasse
+de \texttt{MergeProtocol}. A ideia é introduzir pausas \emph{apenas} nos pontos de decisão
+relevantes: ao receber uma MCM, o \emph{callback} determina se este veículo a vai realmente
+processar (\texttt{will\_process}) e, nesse caso, dorme \texttt{demo\_pause\_s} antes de
+delegar no \emph{callback} do progenitor. Os veículos
+da via principal congelam o movimento (\texttt{\_demo\_paused}) ao verem o
+\textsc{merge\_request} e retomam-no ao \textsc{merge\_confirmed}. Para acomodar estas
+pausas, o reenvio do \textsc{merge\_request} é limitado a
+$\texttt{\_demo\_resend\_s}=1 + 4\cdot\texttt{demo\_pause\_s}$, em vez do $1$\,s do modo
+normal.
 
 % ═════════════════════════════════════════════════════════════════════════════
 \section{Fluxo da Demonstração}
