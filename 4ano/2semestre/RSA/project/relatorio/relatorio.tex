@@ -24,11 +24,6 @@
 \captionsetup{font=small,labelfont=bf}
 \graphicspath{{figuras/}}
 
-% Placeholder de screenshot da dashboard (compila sem o ficheiro existir);
-% substituir por \includegraphics quando os prints estiverem prontos.
-\newcommand{\phshot}[1]{\fbox{\begin{minipage}[c][2.7cm][c]{\linewidth}%
-  \centering\color{gray}\footnotesize[screenshot: #1]\end{minipage}}}
-
 % ─── Código e pseudo-código ──────────────────────────────────────────────────
 \usepackage{listings}
 \usepackage{xcolor}
@@ -1257,7 +1252,7 @@ A Tabela~\ref{tab:cenarios} resume o comportamento observado em cada um.
       enquanto a folga não abre; o MC acaba por entrar \textbf{no fim} da via. \\
     04 & \texttt{2mcs\_standard} & MC e A \emph{ambos} na rampa &
       O MC (à frente na rampa) insere-se primeiro (cadeia B$\rightarrow$C); só depois A
-      (2.º MC) negoceia, com conflito sucessivo com B e C, e \textbf{entra no final}. \\
+      (2.º MC) negoceia e \textbf{insere-se entre B e C}. \\
     05 & \texttt{2mcs\_colision\_b} & 2 MC; B, C mais próximos &
       MC em conflito com B (B não trava) $\Rightarrow$ rondas de abort e
       \textbf{cadeia na própria rampa} (\textsc{slowdown\_request} MC$\rightarrow$A);
@@ -1331,17 +1326,17 @@ abrandamento cooperativo.
 \begin{figure}[H]
   \centering
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{01 standard}
+    \includegraphics[width=\linewidth]{01.png}
     \caption{01 --- MC entre A e B (corrida limpa).}
     \label{fig:res-01}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{02 colision\_b}
+    \includegraphics[width=\linewidth]{02.png}
     \caption{02 --- abort/retry; MC entre B e C.}
     \label{fig:res-02}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{03 colision\_all}
+    \includegraphics[width=\linewidth]{03.png}
     \caption{03 --- aborts até abrir folga; MC no fim.}
     \label{fig:res-03}
   \end{subfigure}
@@ -1349,17 +1344,17 @@ abrandamento cooperativo.
   \vspace{0.6em}
 
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{04 2mcs\_standard}
-    \caption{04 --- 2 MC; A (2.\textsuperscript{o}) entra no fim.}
+    \includegraphics[width=\linewidth]{04.png}
+    \caption{04 --- 2 MC; A (2.\textsuperscript{o}) entra entre B e C.}
     \label{fig:res-04}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{05 2mcs\_colision\_b}
-    \caption{05 --- cadeia na rampa MC$\rightarrow$A.}
+    \includegraphics[width=\linewidth]{05.png}
+    \caption{05 --- MC entre B e C; A no fim.}
     \label{fig:res-05}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.32\linewidth}
-    \phshot{06 2mcs\_collision\_all}
+    \includegraphics[width=\linewidth]{06.png}
     \caption{06 --- MC após C, A após o MC.}
     \label{fig:res-06}
   \end{subfigure}
@@ -1517,7 +1512,57 @@ negociação cooperativa via V2V resolve a inserção em rampa de forma segura e
 \section{Conclusão}
 \label{sec:conclusao}
 
-\todo{Síntese do alcançado vs objetivos; lições aprendidas; trabalho futuro.}
+Este trabalho demonstrou que a comunicação Veículo-a-Veículo permite resolver a inserção
+em rampa de acesso através de uma \textbf{negociação cooperativa, distribuída e
+antecipada}, sem qualquer entidade central de controlo e assente exclusivamente em
+mensagens normalizadas ETSI C-ITS (CAM e MCM). O objetivo geral
+(Secção~\ref{sec:objetivos}) foi alcançado: em todos os seis cenários testados o
+\emph{Merge Car} insere-se em segurança, abrindo a folga necessária por abrandamento
+coordenado em vez de travagem reativa ou inserção forçada.
+
+\paragraph{Síntese face aos objetivos.} Os sete objetivos específicos foram concretizados
+e validados (Tabela~\ref{tab:res-objetivos}). A consciência situacional (O1) emerge
+inteiramente do \emph{beaconing} CAM, sem configuração prévia da vizinhança; o protocolo
+de negociação (O2) materializa-se nos seis subtipos de MCM; a deteção de conflito (O3)
+combina geometria e janela temporal para abrandar apenas os veículos verdadeiramente
+afetados; o abrandamento em cadeia (O4) propaga o pedido a montante calculando a
+velocidade-alvo mínima necessária; a garantia de segurança (O5) assegura, através das
+rondas de \emph{abort}/\emph{retry} e do \emph{stop-and-wait}, que o sistema nunca força
+a entrada; o suporte a múltiplos MC (O6) reutiliza o mesmo protocolo na rampa, sem código
+adicional; e a observabilidade (O7) é dada pela \emph{dashboard} em tempo real. Decisivo
+para esta economia de meios foi o princípio de que \textbf{todos os veículos correm o
+mesmo código} e o papel \emph{emerge} do tipo de estrada --- o que tornou os cenários
+multi-MC um caso particular gratuito, em vez de uma extensão dedicada.
+
+\paragraph{Lições aprendidas.} A construção do sistema deixou três aprendizagens
+principais. Primeira, o valor de reduzir toda a localização a uma única \textbf{coordenada
+paramétrica $t$} (Secção~\ref{sec:fundamentos}): ao colapsar a geometria das estradas numa
+reta normalizada, as decisões de ``quem vai à frente'', ``onde começa o conflito'' e
+``quanto falta para a zona'' tornam-se simples comparações de escalares, o que simplificou
+drasticamente tanto a deteção de conflito como a propagação em cadeia. Segunda, a
+importância de \textbf{separar a decisão da execução}: a velocidade de abrandamento é
+apenas \emph{pendente} até ao \textsc{merge\_confirmed}, o que permite abortar e retomar
+uma negociação sem que nenhum veículo tenha já agido --- a base da salvaguarda O5.
+Terceira, que um protocolo \textbf{distribuído e idempotente}, em que cada veículo só atua
+sobre a entrada que lhe é endereçada e o MC decide apenas quando
+$\texttt{active\_peers}\subseteq\texttt{grants\_received}$, tolera naturalmente a
+reordenação e a repetição de mensagens inerentes ao meio rádio (Secção~\ref{sec:demo-rand})
+sem necessidade de garantias de entrega na camada de transporte.
+
+\paragraph{Trabalho futuro.} As simplificações identificadas na
+Secção~\ref{sec:res-limitacoes} traçam as direções naturais de evolução. A mais imediata é
+substituir o canal idealizado por um \textbf{modelo realista de rádio} (perda de pacotes,
+alcance e contenção MAC), avaliando a robustez do protocolo sob degradação --- e,
+complementarmente, introduzir \textbf{ruído de GPS} e estradas curvas, generalizando a
+coordenada paramétrica de segmentos de reta para \emph{polylines}. Em segundo lugar,
+estudar a \textbf{escalabilidade} para densidades de tráfego elevadas, cadeias longas e
+múltiplos pontos de inserção concorrentes, onde a negociação sequencial entre MC poderá
+ter de dar lugar a coordenação simultânea. Por fim, dotar as MCM de \textbf{segurança
+aplicacional} (assinatura e autenticação via PKI C-ITS), sem a qual o pressuposto de
+veículos cooperantes e honestos não se sustenta num \emph{deployment} real. Ainda assim, e
+dentro do seu domínio de validade, o protótipo cumpre o que se propôs: provar, de ponta a
+ponta e sobre normas reais, que a cooperação V2V transforma uma manobra tipicamente
+conflituosa numa inserção planeada e segura.
 
 % ═════════════════════════════════════════════════════════════════════════════
 \bibliographystyle{plain}
