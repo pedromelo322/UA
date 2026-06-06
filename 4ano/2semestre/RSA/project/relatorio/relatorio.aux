@@ -23,7 +23,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Visão geral em camadas}{5}{subsection.3.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Arquitetura em camadas do sistema.}}{5}{figure.caption.3}\protected@file@percent }
 \newlabel{fig:arch}{{1}{5}{Arquitetura em camadas do sistema}{figure.caption.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{Nota sobre os dois planos Zenoh.}{6}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Os dois planos de comunicação.}{6}{section*.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Nós e topologia}{6}{subsection.3.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Nós do sistema: identidade C-ITS e endereçamento. Cada veículo expõe ainda o broker Zenoh do seu Vanetza na porta \texttt  {7447}.}}{6}{table.caption.5}\protected@file@percent }
 \newlabel{tab:nos}{{2}{6}{Nós do sistema: identidade C-ITS e endereçamento. Cada veículo expõe ainda o broker Zenoh do seu Vanetza na porta \texttt {7447}}{table.caption.5}{}}
@@ -32,26 +32,28 @@
 \newlabel{tab:topicos}{{3}{7}{Mapa de tópicos Zenoh. \texttt {<sid>} é o \emph {Station ID} do veículo}{table.caption.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Modelo de papéis}{7}{subsection.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Tipos de mensagens trocadas}{7}{subsection.3.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces CAM (\emph  {beaconing} periódico) e os seis subtipos de MCM do protocolo. \texttt  {itssRole}: 1 = \emph  {coordinatingItss}, 3 = \emph  {targetVehicle}.}}{8}{table.caption.7}\protected@file@percent }
-\newlabel{tab:mensagens}{{4}{8}{CAM (\emph {beaconing} periódico) e os seis subtipos de MCM do protocolo. \texttt {itssRole}: 1 = \emph {coordinatingItss}, 3 = \emph {targetVehicle}}{table.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Significado dos códigos de \texttt  {mcmType} e \texttt  {itssRole} (enumerações ETSI) usados no \texttt  {basicContainer}.}}{8}{table.caption.7}\protected@file@percent }
+\newlabel{tab:mcm-campos}{{4}{8}{Significado dos códigos de \texttt {mcmType} e \texttt {itssRole} (enumerações ETSI) usados no \texttt {basicContainer}}{table.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces CAM (\emph  {beaconing} periódico) e os seis subtipos de MCM do protocolo. O significado dos códigos de \texttt  {mcmType}, \texttt  {itssRole} e \texttt  {manoeuvreId} consta da Tabela~\ref {tab:mcm-campos}.}}{8}{table.caption.8}\protected@file@percent }
+\newlabel{tab:mensagens}{{5}{8}{CAM (\emph {beaconing} periódico) e os seis subtipos de MCM do protocolo. O significado dos códigos de \texttt {mcmType}, \texttt {itssRole} e \texttt {manoeuvreId} consta da Tabela~\ref {tab:mcm-campos}}{table.caption.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Implementação}{8}{section.4}\protected@file@percent }
 \newlabel{sec:implementacao}{{4}{8}{Implementação}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Stack e fluxo de uma mensagem}{8}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Beaconing e NeighbourTable}{8}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Geometria}{8}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{8}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{8}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Geometria}{9}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{9}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{9}{subsection.4.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.6}O protocolo \texttt  {MergeProtocol}}{9}{subsection.4.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}Lado do Merge Car (rampa)}{9}{subsubsection.4.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Máquina de estados do Merge Car.}}{9}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:mc-fsm}{{2}{9}{Máquina de estados do Merge Car}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da estrada principal}{9}{subsubsection.4.6.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Máquina de estados do veículo na via principal.}}{10}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:road-fsm}{{3}{10}{Máquina de estados do veículo na via principal}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Máquina de estados do Merge Car.}}{9}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:mc-fsm}{{2}{9}{Máquina de estados do Merge Car}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da estrada principal}{10}{subsubsection.4.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Máquina de estados do veículo na via principal.}}{10}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:road-fsm}{{3}{10}{Máquina de estados do veículo na via principal}{figure.caption.10}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Algoritmos de decisão e pseudo-código}{10}{subsection.4.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Diagrama de sequência do protocolo}{10}{subsection.4.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de sequência do protocolo (cenário com o veículo B em conflito).}}{11}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:seq}{{4}{11}{Diagrama de sequência do protocolo (cenário com o veículo B em conflito)}{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Diagrama de sequência do protocolo (cenário com o veículo B em conflito).}}{11}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:seq}{{4}{11}{Diagrama de sequência do protocolo (cenário com o veículo B em conflito)}{figure.caption.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Orquestração e visualização}{11}{subsection.4.9}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Modo Demo}{11}{subsection.4.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Fluxo da Demonstração}{11}{section.5}\protected@file@percent }

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex relatorio"] 1780684554.00177 "relatorio.aux" "relatorio.bbl" "relatorio" 1780688442.14531 0
+["bibtex relatorio"] 1780745732.27224 "relatorio.aux" "relatorio.bbl" "relatorio" 1780745734.54108 0
   "./referencias.bib" 1780680934.68235 1283 cb249b10d5d0490c14bd5cc49b133706 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "relatorio.aux" 1780688441.63231 7570 400a80a31777e4c9526222647927e94f "pdflatex"
+  "relatorio.aux" 1780745734.00879 8103 ab58ee780c9b0a9669a1812af64da49b "pdflatex"
   (generated)
   "relatorio.bbl"
   "relatorio.blg"
   (rewritten before read)
-["pdflatex"] 1780688439.96842 "relatorio.tex" "relatorio.pdf" "relatorio" 1780688442.1458 0
+["pdflatex"] 1780745732.43696 "relatorio.tex" "relatorio.pdf" "relatorio" 1780745734.54141 0
   "/etc/texmf/web2c/texmf.cnf" 1759495530.32057 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
@@ -173,11 +173,11 @@
   "figuras/MERGE_LANE_ARCH.png" 1780688268.17611 137557 b32b73e1b3b915906f384ccdb0e9b07d ""
   "figuras/SCENARIO1_SEQ_DIAGRAM.png" 1780680845.19374 127682 495af8aa4963dbcee8572e296c72f6dd ""
   "figuras/mc_state_machine.png" 1780680845.19382 86083 845ab5c7fe00324aede29951e33f9ca9 ""
-  "relatorio.aux" 1780688441.63231 7570 400a80a31777e4c9526222647927e94f "pdflatex"
-  "relatorio.bbl" 1780684554.06585 49 0eba253fc001332e731e8aba3f23127b "bibtex relatorio"
-  "relatorio.out" 1780688441.63531 4897 cf3d337b83e7603870db554170f01a43 "pdflatex"
-  "relatorio.tex" 1780684546.80926 28782 541303b16c97c6e709970d4166cd238d ""
-  "relatorio.toc" 1780688441.63531 2798 674f7dfab501078556c5c5e282835b6f "pdflatex"
+  "relatorio.aux" 1780745734.00879 8103 ab58ee780c9b0a9669a1812af64da49b "pdflatex"
+  "relatorio.bbl" 1780745732.42777 49 0eba253fc001332e731e8aba3f23127b "bibtex relatorio"
+  "relatorio.out" 1780745734.01079 4897 cf3d337b83e7603870db554170f01a43 "pdflatex"
+  "relatorio.tex" 1780745724.27265 30172 394b344b36cf074ed31d98cbe1b32dc9 ""
+  "relatorio.toc" 1780745734.01079 2799 7c7627c3322f881ee88337940ac75841 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  5 JUN 2026 20:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  6 JUN 2026 12:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -803,7 +803,7 @@ alan0\T1/lmr/m/n/10.95 (-20) .
  []
 
 [5 <./figuras/MERGE_LANE_ARCH.png>]
-Overfull \hbox (4.37056pt too wide) in paragraph at lines 338--352
+Overfull \hbox (4.37056pt too wide) in paragraph at lines 341--355
  [][] 
  []
 
@@ -811,66 +811,75 @@ Overfull \hbox (4.37056pt too wide) in paragraph at lines 338--352
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
+
+Underfull \hbox (badness 1314) in paragraph at lines 409--409
+[]\T1/lmr/bx/n/10 (+20) Tabela 4: |\T1/lmr/m/n/10 (+20) Sig-ni-fi-cado dos có-d
+i-gos de \T1/lmtt/m/n/10 mcmType \T1/lmr/m/n/10 (+20) e \T1/lmtt/m/n/10 itssRol
+e \T1/lmr/m/n/10 (+20) (enu-me-ra-ções ETSI) usa-dos no
+ []
+
+[7]
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/8'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \hbox (badness 1292) in paragraph at lines 398--399
+Underfull \hbox (badness 1292) in paragraph at lines 427--428
 []|\T1/lmr/m/n/8 (+20) Confirmar/recusar a acei-ta-ção do
  []
 
 
-Overfull \hbox (34.24564pt too wide) in paragraph at lines 388--408
+Overfull \hbox (34.24564pt too wide) in paragraph at lines 417--438
  [][] 
  []
 
-[7]
-Overfull \hbox (5.57126pt too wide) in paragraph at lines 431--431
+
+Overfull \hbox (5.57126pt too wide) in paragraph at lines 461--461
 []\T1/lmr/m/n/10 (-20) [\T1/lmr/bx/n/10 (-20) TODO: \T1/lmr/m/n/10 (-20) ha-ver
 -sine, pro-ject_t (pro-je-ção pa-ra-mé-trica $\OML/lmm/m/it/10 t \OMS/lmsy/m/n/
 10 2 \OT1/lmr/m/n/10 (-20) [0\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 (-20) 1]$\T1/lm
 r/m/n/10 (-20) ), com-pute_bearing, road_length, is_on_road,
  []
 
+[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 444.
-[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathit.enc}]
-<figuras/mc_state_machine.png, id=262, 711.65875pt x 602.25pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 474.
+<figuras/mc_state_machine.png, id=265, 711.65875pt x 602.25pt>
 File: figuras/mc_state_machine.png Graphic file (type png)
 <use figuras/mc_state_machine.png>
-Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 454.
+Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 484.
 (pdftex.def)             Requested size: 386.96027pt x 327.4616pt.
 
-Overfull \hbox (39.64513pt too wide) in paragraph at lines 463--463
+Overfull \hbox (39.64513pt too wide) in paragraph at lines 493--493
 \T1/lmr/m/n/10 (-20) DOWN_REQUEST / _on_slowdown_request, fim-de-cadeia + _on_s
 lowdown_grant, en-vio de MERGE_GRANT,
  []
 
-<figuras/MAIN_ROAD_STATES.png, id=264, 1080.035pt x 691.58376pt>
+[9{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc} <./figuras/mc_state_machi
+ne.png>]
+<figuras/MAIN_ROAD_STATES.png, id=275, 1080.035pt x 691.58376pt>
 File: figuras/MAIN_ROAD_STATES.png Graphic file (type png)
 <use figuras/MAIN_ROAD_STATES.png>
-Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 467.
+Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 497.
 (pdftex.def)             Requested size: 455.24411pt x 291.5079pt.
-[9 <./figuras/mc_state_machine.png>]
-Overfull \hbox (14.64188pt too wide) in paragraph at lines 475--475
+
+Overfull \hbox (14.64188pt too wide) in paragraph at lines 505--505
 []\T1/lmr/m/n/10 (-20) [\T1/lmr/bx/n/10 (-20) TODO: \T1/lmr/m/n/10 (-20) (a) De
 -te-ção de con-flito (over-lap tem-po-ral); (b) busca bi-ná-ria da velocidade-a
 lvo _solve_target_speed;
  []
 
 
-Overfull \hbox (2.6933pt too wide) in paragraph at lines 481--481
+Overfull \hbox (2.6933pt too wide) in paragraph at lines 511--511
 \T1/lmr/m/n/10 (-20) rec-tos $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) SLOW-DOW
 N_REQUEST/GRANT em ca-deia $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) MERGE_GRAN
 T $\OMS/lmsy/m/n/10 !$ \T1/lmr/m/n/10 (-20) MERGE_CONFIRMED
  []
 
-<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=274, 893.3375pt x 664.4825pt>
+<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=277, 893.3375pt x 664.4825pt>
 File: figuras/SCENARIO1_SEQ_DIAGRAM.png Graphic file (type png)
 <use figuras/SCENARIO1_SEQ_DIAGRAM.png>
 Package pdftex.def Info: figuras/SCENARIO1_SEQ_DIAGRAM.png  used on input line 
-485.
+515.
 (pdftex.def)             Requested size: 455.24411pt x 338.6281pt.
 [10 <./figuras/MAIN_ROAD_STATES.png>] [11 <./figuras/SCENARIO1_SEQ_DIAGRAM.png>
 ] (./relatorio.bbl
@@ -886,11 +895,11 @@ Package rerunfilecheck Info: File `relatorio.out' has not changed.
 (rerunfilecheck)             Checksum: CF3D337B83E7603870DB554170F01A43;4897.
  ) 
 Here is how much of TeX's memory you used:
- 18735 strings out of 474222
- 299965 string characters out of 5748733
+ 18745 strings out of 474222
+ 300085 string characters out of 5748733
  1936975 words of memory out of 5000000
- 40421 multiletter control sequences out of 15000+600000
- 660210 words of font info for 210 fonts, out of 8000000 for 9000
+ 40422 multiletter control sequences out of 15000+600000
+ 660694 words of font info for 214 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,11n,79p,1006b,591s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
@@ -904,10 +913,10 @@ pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></u
 sr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb>
-Output written on relatorio.pdf (13 pages, 636678 bytes).
+Output written on relatorio.pdf (13 pages, 638197 bytes).
 PDF statistics:
- 392 PDF objects out of 1000 (max. 8388607)
- 328 compressed objects within 4 object streams
- 63 named destinations out of 1000 (max. 500000)
+ 396 PDF objects out of 1000 (max. 8388607)
+ 331 compressed objects within 4 object streams
+ 64 named destinations out of 1000 (max. 500000)
  59669 words of extra memory for PDF output out of 61914 (max. 10000000)
 

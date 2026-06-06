@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {2.4}Síntese}{3}{subsection.2.4}%
 \contentsline {section}{\numberline {3}Arquitetura}{4}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Visão geral em camadas}{5}{subsection.3.1}%
-\contentsline {paragraph}{Nota sobre os dois planos Zenoh.}{6}{section*.4}%
+\contentsline {paragraph}{Os dois planos de comunicação.}{6}{section*.4}%
 \contentsline {subsection}{\numberline {3.2}Nós e topologia}{6}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Mapa de tópicos Zenoh}{6}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Modelo de papéis}{7}{subsection.3.4}%
@@ -15,12 +15,12 @@
 \contentsline {section}{\numberline {4}Implementação}{8}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Stack e fluxo de uma mensagem}{8}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Beaconing e NeighbourTable}{8}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Geometria}{8}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{8}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{8}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.3}Geometria}{9}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modelo cinemático}{9}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Construtores de MCM}{9}{subsection.4.5}%
 \contentsline {subsection}{\numberline {4.6}O protocolo \texttt {MergeProtocol}}{9}{subsection.4.6}%
 \contentsline {subsubsection}{\numberline {4.6.1}Lado do Merge Car (rampa)}{9}{subsubsection.4.6.1}%
-\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da estrada principal}{9}{subsubsection.4.6.2}%
+\contentsline {subsubsection}{\numberline {4.6.2}Lado do veículo da estrada principal}{10}{subsubsection.4.6.2}%
 \contentsline {subsection}{\numberline {4.7}Algoritmos de decisão e pseudo-código}{10}{subsection.4.7}%
 \contentsline {subsection}{\numberline {4.8}Diagrama de sequência do protocolo}{10}{subsection.4.8}%
 \contentsline {subsection}{\numberline {4.9}Orquestração e visualização}{11}{subsection.4.9}%

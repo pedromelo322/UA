@@ -276,13 +276,15 @@ implementação.
         eventos MCM em tempo real.
 \end{description}
 
-\paragraph{Nota sobre os dois planos Zenoh.} Para simplicidade, a Figura~\ref{fig:arch}
-representa um único bloco ``Zenoh Router''. Na realidade existem \emph{dois} planos de
-comunicação distintos: (i)~o tráfego V2X (CAM/MCM) de cada veículo flui pelo broker
-Zenoh do seu \emph{próprio} container Vanetza-NAP (\texttt{tcp/<ip>:7447}), simulando o
-meio rádio local; (ii)~as mensagens de controlo da demonstração (cenário, \emph{ready},
-\emph{done}) passam pelo router central \texttt{192.168.98.5:7446}. Assim, nenhum
-veículo comunica com outro por um canal partilhado privilegiado --- toda a coordenação
+\paragraph{Os dois planos de comunicação.} A Figura~\ref{fig:arch} distingue, por cor,
+dois planos. O \emph{plano V2X} (ligações entre cada veículo e o seu Vanetza e entre os
+Vanetza) transporta o tráfego C-ITS (CAM/MCM) e representa o meio rádio: na realidade,
+cada veículo difunde-o pelo broker Zenoh do seu \emph{próprio} container Vanetza-NAP
+(\texttt{tcp/<ip>:7447}) --- não existe broker partilhado para o V2X, e a figura abstrai
+esses brokers como ligações diretas. O \emph{plano de orquestração} (ligações ao bloco
+central ``Zenoh Router'', \texttt{192.168.98.5:7446}) transporta apenas as mensagens de
+controlo da demonstração (cenário, \emph{ready}, \emph{done}). Assim, nenhum veículo
+comunica com outro por um canal partilhado privilegiado --- toda a coordenação
 inter-veicular acontece exclusivamente através de mensagens C-ITS difundidas pelo
 respetivo Vanetza.
 
@@ -291,8 +293,9 @@ respetivo Vanetza.
 O cenário envolve \textbf{quatro veículos} --- o Merge Car (MC) e os veículos da via
 principal A, B e C. Cada veículo é, na prática, um \emph{par de containers} (Vanetza-NAP
 + Python) com uma identidade C-ITS fixa, resumida na Tabela~\ref{tab:nos}. A estes
-juntam-se três nós de infraestrutura: o router Zenoh, o \texttt{bridge.py} e a
-dashboard. Toda a topologia assenta na rede Docker \texttt{vanetzalan0}.
+junta-se o router Zenoh (canal de orquestração) e a cadeia de observabilidade --- o
+\texttt{bridge.py} e a \texttt{dashboard} ---, que apenas consome o tráfego descodificado
+para visualização, sem participar na negociação.
 
 \begin{table}[H]
   \centering
@@ -376,10 +379,36 @@ CAM e da geometria das estradas definida no cenário.
 Apenas dois tipos de mensagem ETSI C-ITS são usados (Tabela~\ref{tab:mensagens}). A
 \textbf{CAM} é o \emph{beaconing} periódico que sustenta a consciência situacional; a
 \textbf{MCM} implementa o protocolo de negociação e desdobra-se em seis subtipos. Cada
-MCM transporta no \texttt{basicContainer} os campos \texttt{mcmType}, \texttt{itssRole}
-e \texttt{manoeuvreId} que, em conjunto, identificam o subtipo --- nomeadamente, o
-intervalo do \texttt{manoeuvreId} distingue um \textsc{merge\_grant} (0--127) de um
-\textsc{slowdown\_grant} (128--255), que de outra forma seriam indistinguíveis.
+MCM transporta no \texttt{basicContainer} três campos que, em conjunto, identificam o
+subtipo: \texttt{mcmType} (tipo de mensagem), \texttt{itssRole} (papel do emissor) e
+\texttt{manoeuvreId} (identificador da sessão); o significado de cada valor consta da
+Tabela~\ref{tab:mcm-campos}. Note-se em particular que o \texttt{manoeuvreId} --- no
+standard, apenas um identificador de 1 byte --- é usado, por convenção do projeto, para
+distinguir um \textsc{merge\_grant} (0--127) de um \textsc{slowdown\_grant} (128--255),
+que de outra forma seriam indistinguíveis.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}llp{0.52\linewidth}@{}}
+    \toprule
+    \textbf{Campo} & \textbf{Valor} & \textbf{Significado} \\
+    \midrule
+    \multirow{3}{*}{\texttt{mcmType}}
+      & 1 & \emph{request} --- pedido de manobra \\
+      & 2 & \emph{response} --- resposta a um pedido \\
+      & 7 & \emph{executionStatus} --- estado de execução da manobra \\
+    \midrule
+    \multirow{2}{*}{\texttt{itssRole}}
+      & 1 & \emph{coordinatingItss} --- ITS-S que coordena o merge (o MC) \\
+      & 3 & \emph{targetVehicle} --- veículo-alvo (a quem se pede para abrandar) \\
+    \bottomrule
+  \end{tabular}
+  \caption{Significado dos códigos de \texttt{mcmType} e \texttt{itssRole}
+  (enumerações ETSI) usados no \texttt{basicContainer}.}
+  \label{tab:mcm-campos}
+\end{table}
 
 \begin{table}[H]
   \centering
@@ -404,8 +433,9 @@ intervalo do \texttt{manoeuvreId} distingue um \textsc{merge\_grant} (0--127) de
       MC já entrou na via; veículos retomam a velocidade \\
     \bottomrule
   \end{tabular}
-  \caption{CAM (\emph{beaconing} periódico) e os seis subtipos de MCM do protocolo.
-  \texttt{itssRole}: 1 = \emph{coordinatingItss}, 3 = \emph{targetVehicle}.}
+  \caption{CAM (\emph{beaconing} periódico) e os seis subtipos de MCM do protocolo. O
+  significado dos códigos de \texttt{mcmType}, \texttt{itssRole} e \texttt{manoeuvreId}
+  consta da Tabela~\ref{tab:mcm-campos}.}
   \label{tab:mensagens}
 \end{table}
 
