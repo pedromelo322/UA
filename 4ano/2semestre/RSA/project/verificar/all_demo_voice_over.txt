@@ -1,0 +1,88 @@
+<speak>
+    <!-- Ritmo alvo: ~2.5 palavras/segundo -->
+
+    <!-- [00:00] (~3s) -->
+    Welcome to the Cooperative Lane Merge demo.
+    <break time="1s"/>
+
+    <!-- [00:04] (~3s) -->
+    In scenario one, the red car approaches.
+    <break time="1s"/>
+
+    <!-- [00:08] (~3s) -->
+    At four seconds, it broadcasts a merge request.
+
+    <!-- [00:11] (~3s) -->
+    Car B and C slow down, and the merge succeeds.
+    <break time="10s"/><break time="2s"/>
+
+    <!-- [00:26] (~3.5s) -->
+    In scenario two, highway traffic is closer.
+    <break time="3500ms"/>
+
+    <!-- [00:33] (~3.5s) -->
+    Car B cannot brake safely, so the system aborts.
+    <break time="1500ms"/>
+
+    <!-- [00:38] (~3s) -->
+    It retries, safely merging between B and C.
+    <break time="5s"/>
+
+    <!-- [00:49] (~2.5s) -->
+    Scenario three features even denser traffic.
+    <break time="3500ms"/>
+
+    <!-- [00:55] (~3s) -->
+    With no safe gap, requests are repeatedly aborted.
+    <break time="1s"/>
+
+    <!-- [00:59] (~3.5s) -->
+    The car stops and waits at the ramp's end.
+    <break time="3500ms"/>
+
+    <!-- [01:06] (~3s) -->
+    Once traffic clears, it safely merges behind.
+    <break time="5s"/>
+
+    <!-- [01:16] (~3s) -->
+    Now, two cars start on the ramp.
+    <break time="2s"/>
+
+    <!-- [01:21] (~3s) -->
+    They negotiate independently. The first car merges.
+    <break time="3s"/>
+
+    <!-- [01:27] (~3.5s) -->
+    Then, the second car starts its own session...
+    <break time="500ms"/>
+
+    <!-- [01:31] (~2s) -->
+    ...and merges safely right after.
+    <break time="6s"/>
+
+    <!-- [01:39] (~3.5s) -->
+    Scenario five combines two merging cars with tight traffic.
+    <break time="1000ms"/>
+
+    <!-- [01:44] (~3.5s) -->
+    The first car aborts, waits, and finds a gap.
+    <break time="3000ms"/>
+
+    <!-- [01:51] (~3.5s) -->
+    The second car then dynamically merges at the end.
+    <break time="6500ms"/>
+
+    <!-- [02:01] (~3.5s) -->
+    Finally, scenario six tests extreme traffic with two cars.
+    <break time="1500ms"/>
+
+    <!-- [02:06] (~3.5s) -->
+    The first car stops, waiting for a safe gap.
+
+    <!-- [02:09] (~4s) -->
+    It sends a slowdown request to the car behind it.
+    <break time="1s"/>
+
+    <!-- [02:14] (~3s) -->
+    Both cars merge sequentially. Safety is always guaranteed.
+</speak>

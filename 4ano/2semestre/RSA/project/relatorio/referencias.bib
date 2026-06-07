@@ -1,11 +1,12 @@
+% ─── Normas ETSI C-ITS ───────────────────────────────────────────────────────
 @techreport{etsi-cam,
   author      = {{ETSI}},
   title       = {{Intelligent Transport Systems (ITS); Vehicular Communications;
                  Basic Set of Applications; Part 2: Specification of Cooperative
                  Awareness Basic Service}},
   institution = {ETSI},
-  type        = {{EN}},
-  number      = {302 637-2 / TS 103 900},
+  type        = {{TS}},
+  number      = {103 900 (ex-EN 302 637-2)},
   year        = {2023},
 }
 
@@ -14,11 +15,48 @@
   title       = {{Intelligent Transport Systems (ITS); Vehicular Communications;
                  Basic Set of Applications; Manoeuvre Coordination Service}},
   institution = {ETSI},
-  type        = {{TR}},
+  type        = {{TS}},
   number      = {103 561},
   year        = {2023},
+  note        = {Em desenvolvimento},
 }
 
+@techreport{etsi-mcm-tr,
+  author      = {{ETSI}},
+  title       = {{Intelligent Transport Systems (ITS); Vehicular Communications;
+                 Informative report for the Manoeuvre Coordination Service}},
+  institution = {ETSI},
+  type        = {{TR}},
+  number      = {103 578},
+  note        = {V2.1.1},
+  year        = {2024},
+  url         = {https://www.etsi.org/deliver/etsi_tr/103500_103599/103578/02.01.01_60/tr_103578v020101p.pdf},
+}
+
+% ─── Trabalho relacionado (negociação MCM / inserção cooperativa) ─────────────
+@techreport{ccam-cutin,
+  author      = {Leiva Ricart, Gisela and Domingo Mateu, Bernat},
+  title       = {{Vehicle-to-Vehicle Negotiation via Manoeuvre Coordination
+                 Messages for Cooperative Cut-In Scenarios}},
+  institution = {SAE International},
+  type        = {{SAE Technical Paper}},
+  number      = {26SIAT-1819},
+  year        = {2026},
+  note        = {CCAM SUNRISE Project},
+  url         = {https://ccam-sunrise-project.eu/wp-content/uploads/2025/08/26SIAT-1819.pdf},
+}
+
+% NOTA: autores do artigo IEEE não confirmados automaticamente (IEEE Xplore bloqueia o
+% acesso); preencher o campo author antes da entrega se necessário.
+@article{ieee-mcs-rules,
+  title     = {{Adaptive Message Generation Rules for V2X Maneuver Coordination
+               Service}},
+  journal   = {IEEE Xplore},
+  year      = {2026},
+  url       = {https://ieeexplore.ieee.org/document/11343779},
+}
+
+% ─── Plataforma e middleware ─────────────────────────────────────────────────
 @misc{vanetza-nap,
   author       = {{NAP-IT}},
   title        = {{Vanetza-NAP: ETSI C-ITS stack with Zenoh/MQTT integration}},

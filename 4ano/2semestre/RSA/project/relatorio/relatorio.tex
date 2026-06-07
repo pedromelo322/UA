@@ -76,8 +76,9 @@
   {\large \today}\\[1cm]
 
   \begin{tabular}{rl}
-    \textbf{Repositório:} & \href{https://example.com}{\color{blue}(inserir URL)} \\[0.2cm]
-    \textbf{Vídeo da demo:} & \href{https://example.com}{\color{blue}(inserir URL / Discord)} \\
+    \textbf{Repositório:} & \href{https://github.com/pedromelo1316/Merge_Lane}{\color{blue}github.com/pedromelo1316/Merge\_Lane} \\[0.2cm]
+    \textbf{Vídeo (Cenário 1):} & \href{https://youtu.be/0EGMAUKgjWk}{\color{blue}youtu.be/0EGMAUKgjWk} \\[0.2cm]
+    \textbf{Vídeo (demo completa):} & \href{https://youtu.be/B_Q91cU7cng}{\color{blue}youtu.be/B\_Q91cU7cng} \\
   \end{tabular}
 \end{titlepage}
 
@@ -106,13 +107,22 @@ em que os veículos afetados são identificados em tempo real, decidem cooperati
 um abrandamento controlado e concedem ao MC uma janela temporal segura para a inserção.
 
 A solução assenta integralmente em mensagens normalizadas ETSI C-ITS:
-\emph{Cooperative Awareness Messages} (CAM) para a consciência situacional periódica e
-\emph{Manoeuvre Coordination Messages} (MCM) para a negociação da manobra. A pilha de
-comunicação é fornecida pelo Vanetza-NAP, o transporte de mensagens pelo middleware
-Zenoh, e toda a lógica dos veículos corre em containers Docker independentes,
-garantindo que cada veículo é um nó autónomo que só conhece a sua vizinhança através
-das CAMs que recebe. Uma dashboard web em tempo real permite observar a negociação e a
-manobra à medida que decorrem.
+\emph{Cooperative Awareness Messages} (CAM)~\cite{etsi-cam} para a consciência
+situacional periódica e \emph{Manoeuvre Coordination Messages} (MCM)~\cite{etsi-mcm}
+para a negociação da manobra. A pilha de comunicação é fornecida pelo
+Vanetza-NAP~\cite{vanetza-nap}, o transporte de mensagens pelo middleware
+Zenoh~\cite{zenoh}, e toda a lógica dos veículos corre em containers
+Docker~\cite{docker} independentes, garantindo que cada veículo é um nó autónomo que só
+conhece a sua vizinhança através das CAMs que recebe. Uma dashboard web em tempo real
+permite observar a negociação e a manobra à medida que decorrem.
+
+O serviço de coordenação de manobras encontra-se ainda em processo de normalização na
+ETSI~\cite{etsi-mcm,etsi-mcm-tr}, e demonstrações recentes têm explorado casos de uso
+semelhantes de negociação V2V para inserção e \emph{cut-in} cooperativo --- desde
+implementações práticas do MCM sobre cenários de mudança de via~\cite{ccam-cutin} até
+regras adaptativas de geração de mensagens para o serviço de coordenação de
+manobras~\cite{ieee-mcs-rules}. O presente trabalho insere-se nesta linha, focando-se
+especificamente na inserção a partir de rampa com abrandamento coordenado em cadeia.
 
 Este relatório descreve os objetivos do trabalho (Secção~\ref{sec:objetivos}), a
 arquitetura do sistema (Secção~\ref{sec:arquitetura}), a implementação detalhada do
@@ -139,7 +149,7 @@ reações tem custos:
         emergência, comprometendo a segurança;
   \item \textbf{Paragem na rampa} --- elimina a velocidade de aproximação necessária para
         uma inserção suave e cria risco de colisão traseira na própria rampa;
-  \item \textbf{Travagens reativas} --- propagam-se para montante sob a forma de ondas de
+  \item \textbf{Travagens reativas} --- propagam-se para a retaguarda sob a forma de ondas de
         choque, degradando a fluidez de todo o troço.
 \end{itemize}
 
@@ -173,7 +183,7 @@ Para concretizar o objetivo geral, definiram-se os seguintes objetivos específi
         tempo real, se irá efetivamente partilhar a zona de conflito com o MC, combinando
         a geometria da estrada com uma janela temporal de ocupação.
   \item \textbf{Abrandamento coordenado em cadeia} --- quando há conflito, calcular uma
-        velocidade-alvo viável e propagar o pedido de abrandamento aos veículos a montante,
+        velocidade-alvo viável e propagar o pedido de abrandamento aos veículos à retaguarda,
         de modo a abrir a folga necessária sem travagens bruscas.
   \item \textbf{Garantia de segurança} --- assegurar que a manobra nunca compromete a
         segurança: se a negociação não concluir a tempo, o MC recorre a um mecanismo de
@@ -492,8 +502,8 @@ resume-se a uma única \textbf{coordenada paramétrica} $t\in[0,1]$, com $t=0$ n
 \texttt{start} e $t=1$ no \texttt{end}. Toda a noção de posição relativa --- quem vai à
 frente, quem vai atrás, onde começa e acaba a zona de conflito --- reduz-se a comparar
 valores de $t$ \emph{na mesma estrada}. O comprimento físico do segmento,
-$L=\texttt{road\_length}$ (calculado por \emph{haversine}, ver adiante), converte
-diferenças de $t$ em metros: uma separação $\Delta t$ corresponde a $\Delta t\cdot L$
+$L=\texttt{road\_length}$ (calculado por \emph{haversine}, ver adiante), é o fator que
+converte diferenças de $t$ em metros: uma separação $\Delta t$ corresponde a $\Delta t\cdot L$
 metros. É esta coordenada que reaparece em praticamente todas as fórmulas seguintes.
 
 \paragraph{Distância e projeção.} A distância métrica entre dois pontos GPS usa a fórmula
@@ -534,9 +544,10 @@ $\pm\texttt{DECEL}\cdot\texttt{DT}$, devolvendo também a aceleração efetiva (
 anunciada na CAM). Sobre esta primitiva constroem-se duas funções de previsão usadas na
 negociação:
 \begin{itemize}[noitemsep,topsep=2pt]
-  \item \texttt{predict\_motion(v, v\_alvo, horizonte)} --- integra \texttt{advance\_speed}
-        passo a passo e devolve a distância percorrida e a velocidade final, respeitando o
-        limite de aceleração (não é cinemática de velocidade constante); base da
+  \item \texttt{predict\_motion(v, v\_alvo, horizonte)} --- prevê o quanto o veículo avança
+        durante um dado intervalo de tempo: integra \texttt{advance\_speed} passo a passo ao
+        longo de \texttt{horizonte} e devolve a distância percorrida e a velocidade final,
+        respeitando o limite de aceleração (não é cinemática de velocidade constante); base da
         velocidade-alvo e da janela de ocupação (Secções~\ref{sec:lado-mc} e
         \ref{sec:lado-estrada});
   \item \texttt{time\_to\_cover\_distance(v, v\_alvo, d)} --- o inverso: o tempo necessário
@@ -564,8 +575,8 @@ principal que o MC irá ocupar. As suas margens (em metros), fixadas em
   \qquad
   \texttt{after\_m} = \tfrac{L_{\text{veh}}}{2} + \texttt{SAFETY\_GAP}.
 \]
-A meia-carroçaria $L_{\text{veh}}/2$ e o $\texttt{SAFETY\_GAP}=10$\,m são comuns aos dois
-lados; a montante acrescenta-se ainda a \texttt{merge\_entry\_margin}, que é precisamente a
+A metade do comprimento do veículo $L_{\text{veh}}/2$ e o $\texttt{SAFETY\_GAP}=10$\,m são comuns aos dois
+lados; à retaguarda acrescenta-se ainda a \texttt{merge\_entry\_margin}, que é precisamente a
 distância de travagem necessária para um veículo da via principal (a $v_{\text{main}}$)
 igualar a velocidade de entrada do MC (a $v_{\text{mc}}$) --- nula quando
 $v_{\text{main}}\le v_{\text{mc}}$. Esta assimetria reserva mais espaço atrás do
@@ -912,7 +923,7 @@ Um veículo da via principal está normalmente em \textbf{IDLE}. Ao receber um
 \emph{waypoints} do TRR (somando os \emph{offsets} à posição do MC) e projeta-a na sua
 própria estrada com \texttt{project\_t} (Secção~\ref{sec:fundamentos}), obtendo
 $\texttt{cz\_t\_start}$ e $\texttt{cz\_t\_end}$. Calcula então as distâncias até entrar e
-sair da zona (descontando/somando a meia-carroçaria), converte-as nos instantes
+sair da zona (descontando/somando metade do comprimento do veículo), converte-as nos instantes
 $\texttt{t\_enter}$ e $\texttt{t\_exit}$ a velocidade constante, e declara conflito se essa
 janela se \textbf{sobrepõe} à janela de ocupação anunciada pelo MC,
 $[\texttt{mc\_eta\_start},\texttt{mc\_eta\_end}]$ (Algoritmo~\ref{alg:conflito}).
@@ -1525,7 +1536,7 @@ e validados (Tabela~\ref{tab:res-objetivos}). A consciência situacional (O1) em
 inteiramente do \emph{beaconing} CAM, sem configuração prévia da vizinhança; o protocolo
 de negociação (O2) materializa-se nos seis subtipos de MCM; a deteção de conflito (O3)
 combina geometria e janela temporal para abrandar apenas os veículos verdadeiramente
-afetados; o abrandamento em cadeia (O4) propaga o pedido a montante calculando a
+afetados; o abrandamento em cadeia (O4) propaga o pedido à retaguarda calculando a
 velocidade-alvo mínima necessária; a garantia de segurança (O5) assegura, através das
 rondas de \emph{abort}/\emph{retry} e do \emph{stop-and-wait}, que o sistema nunca força
 a entrada; o suporte a múltiplos MC (O6) reutiliza o mesmo protocolo na rampa, sem código

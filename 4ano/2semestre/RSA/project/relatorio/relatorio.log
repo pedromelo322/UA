@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  7 JUN 2026 00:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.10.3)  7 JUN 2026 02:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -757,60 +757,59 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.85 \newpage
-              [1] [2]
+l.86 \newpage
+              [1] [2] [3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 196.
+(Font)              <10> on input line 206.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 196.
+(Font)              <7> on input line 206.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 196.
+(Font)              <5> on input line 206.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
 \T1/lmr/m/sc/10 (+20) down_request/grant\T1/lmr/m/n/10 (+20) , \T1/lmr/m/sc/10 
 (+20) merge_grant\T1/lmr/m/n/10 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 212--213
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 []|\T1/lmr/m/n/10 (+20) Velocidade-alvo por busca bi-ná-ria
  []
 
 
-Underfull \hbox (badness 1360) in paragraph at lines 212--213
+Underfull \hbox (badness 1360) in paragraph at lines 222--223
 \T1/lmr/m/n/10 (+20) (\T1/lmtt/m/n/10 _solve_target_speed\T1/lmr/m/n/10 (+20) )
  e pro-pa-ga-ção de \T1/lmr/m/sc/10 (+20) slow-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--217
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 []|\T1/lmr/m/n/10 (+20) Verificação ci-ne-má-tica de tra-va-gem
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--217
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 \T1/lmr/m/n/10 (+20) (\T1/lmtt/m/n/10 can_brake_in_time\T1/lmr/m/n/10 (+20) ) e
  pa-ra-gem em \T1/lmtt/m/n/10 stop_t
  []
 
-[3]
-<figuras/MERGE_LANE_ARCH.png, id=222, 1173.38374pt x 594.22pt>
+<figuras/MERGE_LANE_ARCH.png, id=238, 1173.38374pt x 594.22pt>
 File: figuras/MERGE_LANE_ARCH.png Graphic file (type png)
 <use figuras/MERGE_LANE_ARCH.png>
-Package pdftex.def Info: figuras/MERGE_LANE_ARCH.png  used on input line 245.
+Package pdftex.def Info: figuras/MERGE_LANE_ARCH.png  used on input line 255.
 (pdftex.def)             Requested size: 455.24411pt x 230.53894pt.
- [4{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Overfull \hbox (4.84885pt too wide) in paragraph at lines 257--264
+[4{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (4.84885pt too wide) in paragraph at lines 267--274
 []\T1/lmr/m/n/10.95 (-20) Materializada por \T1/lmtt/m/n/10.95 docker-compose \
 T1/lmr/m/n/10.95 (-20) so-bre a rede Doc-ker ex-terna \T1/lmtt/m/n/10.95 vanetz
 alan0\T1/lmr/m/n/10.95 (-20) .
  []
 
 [5 <./figuras/MERGE_LANE_ARCH.png>]
-Overfull \hbox (4.37056pt too wide) in paragraph at lines 342--356
+Overfull \hbox (4.37056pt too wide) in paragraph at lines 352--366
  [][] 
  []
 
@@ -819,19 +818,19 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/8'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Underfull \hbox (badness 1292) in paragraph at lines 404--405
+Underfull \hbox (badness 1292) in paragraph at lines 414--415
 []|\T1/lmr/m/n/8 (+20) Confirmar/recusar a acei-ta-ção do
  []
 
 
-Overfull \hbox (34.24564pt too wide) in paragraph at lines 394--415
+Overfull \hbox (34.24564pt too wide) in paragraph at lines 404--425
  [][] 
  []
 
 [7] [8] [9{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/font
 s/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
 }]
-Overfull \hbox (8.55411pt too wide) in paragraph at lines 523--529
+Overfull \hbox (8.55411pt too wide) in paragraph at lines 533--539
  []\T1/lmr/bx/n/10.95 (-20) Vizinho de trás e mo-vi-mento.[] \T1/lmtt/m/n/10.95
  find_vehicle_behind \T1/lmr/m/n/10.95 (-20) per-corre o \T1/lmr/m/it/10.95 (-2
 0) snapshot \T1/lmr/m/n/10.95 (-20) da \T1/lmtt/m/n/10.95 NeighbourTable
@@ -842,16 +841,16 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10.95'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 617.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 628.
  [11] [12]
-Underfull \hbox (badness 1314) in paragraph at lines 706--706
+Underfull \hbox (badness 1314) in paragraph at lines 717--717
 []\T1/lmr/bx/n/10 (+20) Tabela 6: |\T1/lmr/m/n/10 (+20) Sig-ni-fi-cado dos có-d
 i-gos de \T1/lmtt/m/n/10 mcmType \T1/lmr/m/n/10 (+20) e \T1/lmtt/m/n/10 itssRol
 e \T1/lmr/m/n/10 (+20) (enu-me-ra-ções ETSI) usa-dos no
  []
 
 
-Overfull \hbox (18.451pt too wide) in paragraph at lines 720--724
+Overfull \hbox (18.451pt too wide) in paragraph at lines 731--735
 []\T1/lmr/bx/n/10.95 (-20) Respostas \T1/lmr/m/n/10.95 (-20) (\T1/lmr/m/sc/10.9
 5 (-20) merge_grant\T1/lmr/m/n/10.95 (-20) , \T1/lmr/m/sc/10.95 (-20) slow-down
 _grant\T1/lmr/m/n/10.95 (-20) , \T1/lmr/m/sc/10.95 (-20) merge_confirmed\T1/lmr
@@ -860,36 +859,36 @@ _grant\T1/lmr/m/n/10.95 (-20) , \T1/lmr/m/sc/10.95 (-20) merge_confirmed\T1/lmr
  []
 
 
-Overfull \hbox (15.57489pt too wide) in paragraph at lines 720--724
+Overfull \hbox (15.57489pt too wide) in paragraph at lines 731--735
 \T1/lmr/m/n/10.95 (-20) são mí-ni-mas: resumem-se a um \T1/lmtt/m/n/10.95 respo
 nseContainer \T1/lmr/m/n/10.95 (-20) com um único campo \T1/lmtt/m/n/10.95 mano
 uevreResponse
  []
 
 [13]
-Overfull \hbox (71.89297pt too wide) in paragraph at lines 748--758
+Overfull \hbox (71.89297pt too wide) in paragraph at lines 759--769
 \T1/lmtt/m/n/10.95 temporalCharateristics \T1/lmr/m/n/10.95 (-20) car-rega a \T
 1/lmr/bx/n/10.95 (-20) ja-nela de ocu-pa-ção $\OT1/lmr/m/n/10.95 (-20) [[]\OML/
 lmm/m/it/10.95 ; []\OT1/lmr/m/n/10.95 (-20) ] =
  []
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 801.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 812.
 [14]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 814.
-<figuras/mc_state_machine.png, id=397, 711.65875pt x 602.25pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 825.
+<figuras/mc_state_machine.png, id=416, 711.65875pt x 602.25pt>
 File: figuras/mc_state_machine.png Graphic file (type png)
 <use figuras/mc_state_machine.png>
-Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 839.
+Package pdftex.def Info: figuras/mc_state_machine.png  used on input line 850.
 (pdftex.def)             Requested size: 386.96027pt x 327.4616pt.
  [15]
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 860.
+(Font)              using `T1/lmr/bx/n' instead on input line 871.
 
 
-Overfull \hbox (7.02971pt too wide) in paragraph at lines 874--883
+Overfull \hbox (7.02971pt too wide) in paragraph at lines 885--894
 \T1/lmr/bx/n/10.95 (-20) DED\T1/lmr/m/n/10.95 (-20) . Se em vez disso che-gar u
 m \T1/lmr/m/sc/10.95 (-20) merge_grant\T1/lmr/m/n/10.95 (-20) (recusar) (\T1/lm
 tt/m/n/10.95 on_merge_grant \T1/lmr/m/n/10.95 (-20) com \T1/lmtt/m/n/10.95 succ
@@ -897,116 +896,112 @@ ess=False\T1/lmr/m/n/10.95 (-20) ),
  []
 
 [16 <./figuras/mc_state_machine.png>]
-<figuras/MAIN_ROAD_STATES.png, id=416, 1080.035pt x 691.58376pt>
+<figuras/MAIN_ROAD_STATES.png, id=434, 1080.035pt x 691.58376pt>
 File: figuras/MAIN_ROAD_STATES.png Graphic file (type png)
 <use figuras/MAIN_ROAD_STATES.png>
-Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 903.
+Package pdftex.def Info: figuras/MAIN_ROAD_STATES.png  used on input line 914.
 (pdftex.def)             Requested size: 455.24411pt x 291.5079pt.
  [17 <./figuras/MAIN_ROAD_STATES.png>]
 [18]
-Overfull \hbox (16.08595pt too wide) in paragraph at lines 970--974
+Overfull \hbox (16.08595pt too wide) in paragraph at lines 981--985
 []\T1/lmr/bx/n/10.95 (-20) não há veí-culo atrás \T1/lmr/m/n/10.95 (-20) (fim d
 a ca-deia) $\OMS/lmsy/m/n/10.95 !$ \T1/lmr/m/n/10.95 (-20) ve-ri-fica a pró-pri
 a vi-a-bi-li-dade com \T1/lmtt/m/n/10.95 can_brake_in_time
  []
 
 
-Overfull \hbox (61.354pt too wide) in paragraph at lines 970--974
+Overfull \hbox (61.354pt too wide) in paragraph at lines 981--985
 \T1/lmr/m/n/10.95 (-20) (Sec-ção []4.2[]): se con-se-gue tra-var, compromete-se
  ($[] \OT1/lmr/m/n/10.95 (-20) = []$\T1/lmr/m/n/10.95 (-20) ) e en-via \T1/lmr/
 m/sc/10.95 (-20) merge_grant\T1/lmr/m/n/10.95 (-20) (aceitar);
  []
 
 [19]
-Overfull \hbox (47.24872pt too wide) in paragraph at lines 1043--1048
+Overfull \hbox (47.24872pt too wide) in paragraph at lines 1054--1059
  []\T1/lmr/bx/n/10.95 (-20) Ramo al-ter-na-tivo (ABORT).[] \T1/lmr/m/n/10.95 (-
 20) Se C não con-se-guir tra-var a tempo, de-volve \T1/lmr/m/sc/10.95 (-20) slo
 w-down_grant\T1/lmr/m/n/10.95 (-20) (recusar);
  []
 
 
-Overfull \hbox (28.51991pt too wide) in paragraph at lines 1043--1048
+Overfull \hbox (28.51991pt too wide) in paragraph at lines 1054--1059
 \T1/lmr/m/n/10.95 (-20) B pro-paga a re-cusa como \T1/lmr/m/sc/10.95 (-20) merg
 e_grant\T1/lmr/m/n/10.95 (-20) (recusar) ao MC. O MC re-age com \T1/lmr/m/sc/10
 .95 (-20) merge_confirmed\T1/lmr/m/n/10.95 (-20) (abort),
  []
 
-<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=487, 893.3375pt x 664.4825pt>
+<figuras/SCENARIO1_SEQ_DIAGRAM.png, id=505, 893.3375pt x 664.4825pt>
 File: figuras/SCENARIO1_SEQ_DIAGRAM.png Graphic file (type png)
 <use figuras/SCENARIO1_SEQ_DIAGRAM.png>
 Package pdftex.def Info: figuras/SCENARIO1_SEQ_DIAGRAM.png  used on input line 
-1051.
+1062.
 (pdftex.def)             Requested size: 455.24411pt x 338.6281pt.
 [20]
-Overfull \hbox (37.50897pt too wide) in paragraph at lines 1073--1085
+Overfull \hbox (37.50897pt too wide) in paragraph at lines 1084--1096
 \T1/lmr/m/n/10.95 (-20) fala si-mul-ta-ne-a-mente Ze-noh e Web-Soc-ket. Subs-cr
 eve \T1/lmtt/m/n/10.95 vanetza/out/{cam,mcm} \T1/lmr/m/n/10.95 (-20) e \T1/lmtt
 /m/n/10.95 coordinator/scenario\T1/lmr/m/n/10.95 (-20) ,
  []
 
 [21 <./figuras/SCENARIO1_SEQ_DIAGRAM.png>]
-<figuras/coordinator.png, id=514, 723.70375pt x 589.20125pt>
+<figuras/coordinator.png, id=533, 723.70375pt x 589.20125pt>
 File: figuras/coordinator.png Graphic file (type png)
 <use figuras/coordinator.png>
-Package pdftex.def Info: figuras/coordinator.png  used on input line 1140.
+Package pdftex.def Info: figuras/coordinator.png  used on input line 1151.
 (pdftex.def)             Requested size: 318.66948pt x 259.44713pt.
  [22] [23 <./figuras/coordinator.png>]
-Underfull \hbox (badness 1412) in paragraph at lines 1247--1250
+Underfull \hbox (badness 1412) in paragraph at lines 1258--1261
 []|\T1/lmr/m/n/8 (+20) B em con-flito pede \T1/lmr/m/sc/8 (+20) slow-down \T1/l
 mr/m/n/8 (+20) a C; C con-cede, mas
  []
 
 
-Underfull \hbox (badness 1259) in paragraph at lines 1247--1250
+Underfull \hbox (badness 1259) in paragraph at lines 1258--1261
 \T1/lmr/m/n/8 (+20) no \T1/lmr/m/it/8 (+20) re-check \T1/lmr/m/n/8 (+20) B já n
 ão trava a tempo $\OMS/lmsy/m/n/8 )$ \T1/lmr/m/n/8 (+20) vá-rias ron-das
  []
 
 [24] [25]
-<figuras/01.png, id=579, 632.3625pt x 223.83624pt>
+<figuras/01.png, id=597, 632.3625pt x 223.83624pt>
 File: figuras/01.png Graphic file (type png)
 <use figuras/01.png>
-Package pdftex.def Info: figuras/01.png  used on input line 1329.
+Package pdftex.def Info: figuras/01.png  used on input line 1340.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
-<figuras/02.png, id=580, 632.3625pt x 223.83624pt>
+<figuras/02.png, id=598, 632.3625pt x 223.83624pt>
 File: figuras/02.png Graphic file (type png)
 <use figuras/02.png>
-Package pdftex.def Info: figuras/02.png  used on input line 1334.
+Package pdftex.def Info: figuras/02.png  used on input line 1345.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
-<figuras/03.png, id=581, 632.3625pt x 223.83624pt>
+<figuras/03.png, id=599, 632.3625pt x 223.83624pt>
 File: figuras/03.png Graphic file (type png)
 <use figuras/03.png>
-Package pdftex.def Info: figuras/03.png  used on input line 1339.
+Package pdftex.def Info: figuras/03.png  used on input line 1350.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
-<figuras/04.png, id=582, 632.3625pt x 223.83624pt>
+<figuras/04.png, id=600, 632.3625pt x 223.83624pt>
 File: figuras/04.png Graphic file (type png)
 <use figuras/04.png>
-Package pdftex.def Info: figuras/04.png  used on input line 1347.
+Package pdftex.def Info: figuras/04.png  used on input line 1358.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1348.
-<figuras/05.png, id=583, 632.3625pt x 223.83624pt>
+(Font)              <9> on input line 1359.
+<figuras/05.png, id=601, 632.3625pt x 223.83624pt>
 File: figuras/05.png Graphic file (type png)
 <use figuras/05.png>
-Package pdftex.def Info: figuras/05.png  used on input line 1352.
+Package pdftex.def Info: figuras/05.png  used on input line 1363.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
-<figuras/06.png, id=584, 632.3625pt x 223.83624pt>
+<figuras/06.png, id=602, 632.3625pt x 223.83624pt>
 File: figuras/06.png Graphic file (type png)
 <use figuras/06.png>
-Package pdftex.def Info: figuras/06.png  used on input line 1357.
+Package pdftex.def Info: figuras/06.png  used on input line 1368.
 (pdftex.def)             Requested size: 145.68144pt x 51.56664pt.
  [26 <./figuras/01.png> <./figuras/02.png> <./figuras/03.png> <./figuras/04.png
 > <./figuras/05.png> <./figuras/06.png>]
-Overfull \hbox (35.5876pt too wide) in paragraph at lines 1427--1433
+Overfull \hbox (35.5876pt too wide) in paragraph at lines 1438--1444
 \T1/lmr/m/n/10.95 (-20) prio MC, pa-rado ou em con-flito, tem ou-tro Merge Car 
 atrás de si na rampa: \T1/lmtt/m/n/10.95 _maybe_send_ramp_slowdown
  []
 
-[27] [28] [29] (./relatorio.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [30] (./relatorio.aux)
+[27] [28] [29] (./relatorio.bbl [30]) [31] (./relatorio.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1019,11 +1014,11 @@ Package rerunfilecheck Info: File `relatorio.out' has not changed.
 (rerunfilecheck)             Checksum: 2DDEA77F462A5273259515D0E4E11F75;5504.
  ) 
 Here is how much of TeX's memory you used:
- 19738 strings out of 474222
- 312978 string characters out of 5748733
+ 19761 strings out of 474222
+ 313257 string characters out of 5748733
  2039975 words of memory out of 5000000
- 41035 multiletter control sequences out of 15000+600000
- 697754 words of font info for 334 fonts, out of 8000000 for 9000
+ 41043 multiletter control sequences out of 15000+600000
+ 698108 words of font info for 337 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,14n,79p,1006b,2011s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
@@ -1043,10 +1038,10 @@ fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10
 .pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texmf/fonts/
 type1/public/lm/lmtti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/symbols/msbm10.pfb>
-Output written on relatorio.pdf (31 pages, 1224699 bytes).
+Output written on relatorio.pdf (32 pages, 1228559 bytes).
 PDF statistics:
- 813 PDF objects out of 1000 (max. 8388607)
- 694 compressed objects within 7 object streams
- 227 named destinations out of 1000 (max. 500000)
+ 842 PDF objects out of 1000 (max. 8388607)
+ 721 compressed objects within 8 object streams
+ 236 named destinations out of 1000 (max. 500000)
  79168 words of extra memory for PDF output out of 89155 (max. 10000000)
 

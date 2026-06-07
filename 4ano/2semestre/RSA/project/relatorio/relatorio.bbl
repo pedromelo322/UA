@@ -1,3 +1,50 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{ieee-mcs-rules}
+{Adaptive Message Generation Rules for V2X Maneuver Coordination Service}.
+\newblock {\em IEEE Xplore}, 2026.
+
+\bibitem{docker}
+{Docker, Inc.}
+\newblock {Docker and Docker Compose}.
+\newblock \url{https://docs.docker.com}, 2024.
+
+\bibitem{zenoh}
+{Eclipse Foundation}.
+\newblock {Eclipse Zenoh: Zero Overhead Pub/Sub, Store/Query and Compute}.
+\newblock \url{https://zenoh.io}, 2024.
+
+\bibitem{etsi-mcm}
+{ETSI}.
+\newblock {Intelligent Transport Systems (ITS); Vehicular Communications; Basic
+  Set of Applications; Manoeuvre Coordination Service}.
+\newblock {TS} 103 561, ETSI, 2023.
+\newblock Em desenvolvimento.
+
+\bibitem{etsi-cam}
+{ETSI}.
+\newblock {Intelligent Transport Systems (ITS); Vehicular Communications; Basic
+  Set of Applications; Part 2: Specification of Cooperative Awareness Basic
+  Service}.
+\newblock {TS} 103 900 (ex-EN 302 637-2), ETSI, 2023.
+
+\bibitem{etsi-mcm-tr}
+{ETSI}.
+\newblock {Intelligent Transport Systems (ITS); Vehicular Communications;
+  Informative report for the Manoeuvre Coordination Service}.
+\newblock {TR} 103 578, ETSI, 2024.
+\newblock V2.1.1.
+
+\bibitem{ccam-cutin}
+Gisela Leiva~Ricart and Bernat Domingo~Mateu.
+\newblock {Vehicle-to-Vehicle Negotiation via Manoeuvre Coordination Messages
+  for Cooperative Cut-In Scenarios}.
+\newblock {SAE Technical Paper} 26SIAT-1819, SAE International, 2026.
+\newblock CCAM SUNRISE Project.
+
+\bibitem{vanetza-nap}
+{NAP-IT}.
+\newblock {Vanetza-NAP: ETSI C-ITS stack with Zenoh/MQTT integration}.
+\newblock \url{https://github.com/nap-it/vanetza-nap}, 2024.
 
 \end{thebibliography}

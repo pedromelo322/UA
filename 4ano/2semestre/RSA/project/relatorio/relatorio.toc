@@ -4,7 +4,7 @@
 \contentsline {subsection}{\numberline {2.1}Problema}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Objetivo geral}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Objetivos específicos}{3}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Síntese}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.4}Síntese}{4}{subsection.2.4}%
 \contentsline {section}{\numberline {3}Arquitetura}{4}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Visão geral em camadas}{5}{subsection.3.1}%
 \contentsline {paragraph}{Os dois planos de comunicação.}{6}{section*.4}%
