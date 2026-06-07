@@ -15,56 +15,56 @@
 \contentsline {section}{\numberline {4}Implementação}{8}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Visão geral}{8}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Fundamentos geométricos e cinemáticos}{9}{subsection.4.2}%
-\contentsline {paragraph}{A coordenada paramétrica $t$.}{9}{section*.9}%
-\contentsline {paragraph}{Distância e projeção.}{9}{section*.10}%
-\contentsline {paragraph}{Pertença a uma estrada.}{10}{section*.11}%
-\contentsline {paragraph}{Vizinho de trás e movimento.}{10}{section*.12}%
-\contentsline {paragraph}{Dinâmica longitudinal.}{10}{section*.13}%
-\contentsline {paragraph}{Viabilidade de travagem.}{10}{section*.14}%
-\contentsline {paragraph}{Dimensionamento da zona de conflito.}{10}{section*.15}%
-\contentsline {paragraph}{Ponto de paragem do MC.}{11}{section*.16}%
+\contentsline {paragraph}{A coordenada paramétrica $t$.}{9}{section*.10}%
+\contentsline {paragraph}{Distância e projeção.}{9}{section*.11}%
+\contentsline {paragraph}{Pertença a uma estrada.}{10}{section*.12}%
+\contentsline {paragraph}{Vizinho de trás e movimento.}{10}{section*.13}%
+\contentsline {paragraph}{Dinâmica longitudinal.}{10}{section*.14}%
+\contentsline {paragraph}{Viabilidade de travagem.}{10}{section*.15}%
+\contentsline {paragraph}{Dimensionamento da zona de conflito.}{11}{section*.16}%
+\contentsline {paragraph}{Ponto de paragem do MC.}{11}{section*.17}%
 \contentsline {subsection}{\numberline {4.3}Mensagens e consciência situacional}{11}{subsection.4.3}%
-\contentsline {paragraph}{Ciclo de vida de uma mensagem.}{11}{section*.17}%
-\contentsline {paragraph}{Beaconing e \texttt {NeighbourTable} (O1).}{11}{section*.18}%
-\contentsline {paragraph}{Anatomia de uma CAM.}{12}{section*.19}%
-\contentsline {paragraph}{Construtores de MCM.}{13}{section*.20}%
+\contentsline {paragraph}{Ciclo de vida de uma mensagem.}{11}{section*.18}%
+\contentsline {paragraph}{Beaconing e \texttt {NeighbourTable} (O1).}{12}{section*.19}%
+\contentsline {paragraph}{Anatomia de uma CAM.}{12}{section*.20}%
+\contentsline {paragraph}{Construtores de MCM.}{13}{section*.21}%
 \contentsline {subsection}{\numberline {4.4}O protocolo \texttt {MergeProtocol}}{15}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Lado do Merge Car (rampa)}{15}{subsubsection.4.4.1}%
 \contentsline {paragraph}{Construção do \textsc {merge\_request}.}{16}{section*.24}%
-\contentsline {paragraph}{Recolha de \emph {grants} e decisão.}{17}{section*.25}%
-\contentsline {paragraph}{Salvaguarda \emph {stop-and-wait} e cadeia na rampa.}{17}{section*.26}%
-\contentsline {subsubsection}{\numberline {4.4.2}Lado do veículo da via principal}{17}{subsubsection.4.4.2}%
-\contentsline {paragraph}{Deteção de conflito (O3).}{18}{section*.28}%
-\contentsline {paragraph}{Sem conflito.}{18}{section*.29}%
+\contentsline {paragraph}{Recolha de \emph {grants} e decisão.}{16}{section*.25}%
+\contentsline {paragraph}{Salvaguarda \emph {stop-and-wait} e cadeia na rampa.}{16}{section*.26}%
+\contentsline {subsubsection}{\numberline {4.4.2}Lado do veículo da via principal}{16}{subsubsection.4.4.2}%
+\contentsline {paragraph}{Deteção de conflito (O3).}{17}{section*.28}%
+\contentsline {paragraph}{Sem conflito.}{17}{section*.29}%
 \contentsline {paragraph}{Com conflito: velocidade-alvo (O4).}{18}{section*.30}%
-\contentsline {paragraph}{Propagação em cadeia (O4).}{19}{section*.31}%
+\contentsline {paragraph}{Propagação em cadeia (O4).}{18}{section*.31}%
 \contentsline {paragraph}{Execução e retoma.}{19}{section*.32}%
-\contentsline {subsection}{\numberline {4.5}A negociação de ponta a ponta}{20}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.5}A negociação de ponta a ponta}{19}{subsection.4.5}%
 \contentsline {paragraph}{Ramo alternativo (ABORT).}{20}{section*.33}%
-\contentsline {subsection}{\numberline {4.6}Orquestração, visualização e modo demo}{21}{subsection.4.6}%
-\contentsline {paragraph}{Coordenação (\texttt {coordinator.py}).}{21}{section*.35}%
+\contentsline {subsection}{\numberline {4.6}Orquestração, visualização e modo demo}{20}{subsection.4.6}%
+\contentsline {paragraph}{Coordenação (\texttt {coordinator.py}).}{20}{section*.35}%
 \contentsline {paragraph}{Visualização (\texttt {bridge.py} + \texttt {dashboard.html}) (O7).}{21}{section*.36}%
-\contentsline {paragraph}{Modo Demo (\texttt {DemoMergeProtocol}).}{22}{section*.37}%
-\contentsline {section}{\numberline {5}Fluxo da Demonstração}{22}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Preparação}{22}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Timeline de uma negociação}{23}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Aleatoriedade e variáveis}{24}{subsection.5.3}%
-\contentsline {paragraph}{Fontes de aleatoriedade.}{24}{section*.39}%
-\contentsline {paragraph}{Variáveis controláveis.}{24}{section*.40}%
+\contentsline {paragraph}{Modo Demo (\texttt {DemoMergeProtocol}).}{21}{section*.37}%
+\contentsline {section}{\numberline {5}Fluxo da Demonstração}{21}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Preparação}{21}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Timeline de uma negociação}{22}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Aleatoriedade e variáveis}{23}{subsection.5.3}%
+\contentsline {paragraph}{Fontes de aleatoriedade.}{23}{section*.39}%
+\contentsline {paragraph}{Variáveis controláveis.}{23}{section*.40}%
 \contentsline {subsection}{\numberline {5.4}Cenários}{24}{subsection.5.4}%
-\contentsline {section}{\numberline {6}Resultados}{25}{section.6}%
+\contentsline {section}{\numberline {6}Resultados}{24}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Metodologia de validação}{25}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Resultados por cenário}{26}{subsection.6.2}%
-\contentsline {paragraph}{Cenários de via principal (01--03).}{26}{section*.43}%
+\contentsline {subsection}{\numberline {6.2}Resultados por cenário}{25}{subsection.6.2}%
+\contentsline {paragraph}{Cenários de via principal (01--03).}{25}{section*.43}%
 \contentsline {paragraph}{Cenários multi-MC (04--06).}{26}{section*.44}%
-\contentsline {subsection}{\numberline {6.3}Validação dos mecanismos de segurança}{27}{subsection.6.3}%
-\contentsline {paragraph}{Deteção de conflito seletiva (O3).}{27}{section*.45}%
-\contentsline {paragraph}{Conflito resolvido vs.\ travagem de emergência.}{27}{section*.46}%
-\contentsline {paragraph}{Abort e retentativa (O5).}{27}{section*.47}%
-\contentsline {paragraph}{Fallback \emph {stop-and-wait} (O5).}{27}{section*.48}%
-\contentsline {paragraph}{Cadeia na rampa e múltiplos MC (O6).}{27}{section*.49}%
-\contentsline {subsection}{\numberline {6.4}Síntese: objetivos validados}{28}{subsection.6.4}%
-\contentsline {section}{\numberline {7}Conclusão}{28}{section.7}%
-\contentsline {paragraph}{Síntese face aos objetivos.}{28}{section*.51}%
-\contentsline {paragraph}{Lições aprendidas.}{29}{section*.52}%
-\contentsline {paragraph}{Trabalho futuro.}{29}{section*.53}%
+\contentsline {subsection}{\numberline {6.3}Validação dos mecanismos de segurança}{26}{subsection.6.3}%
+\contentsline {paragraph}{Deteção de conflito seletiva (O3).}{26}{section*.45}%
+\contentsline {paragraph}{Conflito resolvido vs.\ travagem de emergência.}{26}{section*.46}%
+\contentsline {paragraph}{Abort e retentativa (O5).}{26}{section*.47}%
+\contentsline {paragraph}{Fallback \emph {stop-and-wait} (O5).}{26}{section*.48}%
+\contentsline {paragraph}{Cadeia na rampa e múltiplos MC (O6).}{26}{section*.49}%
+\contentsline {subsection}{\numberline {6.4}Síntese: objetivos validados}{27}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusão}{27}{section.7}%
+\contentsline {paragraph}{Síntese face aos objetivos.}{27}{section*.51}%
+\contentsline {paragraph}{Lições aprendidas.}{28}{section*.52}%
+\contentsline {paragraph}{Trabalho futuro.}{28}{section*.53}%

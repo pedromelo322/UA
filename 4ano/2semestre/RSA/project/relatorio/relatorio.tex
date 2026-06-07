@@ -215,16 +215,15 @@ implementação, remetendo para a secção correspondente.
       \textsc{merge\_grant}, \textsc{merge\_confirmed}, \textsc{execution\_status}) &
       \ref{sec:implementacao} \\
     O3 -- Deteção de conflito &
-      Projeção geométrica (\texttt{project\_t}) + sobreposição temporal entre a ocupação
-      do MC e a entrada/saída do veículo na zona &
+      Projeção geométrica da posição GPS no eixo da estrada + sobreposição temporal entre
+      a ocupação do MC e a entrada/saída do veículo na zona &
       \ref{sec:implementacao} \\
     O4 -- Abrandamento em cadeia &
-      Velocidade-alvo por busca binária (\texttt{\_solve\_target\_speed}) e propagação de
+      Velocidade-alvo por busca binária e propagação de
       \textsc{slowdown\_request} ao veículo de trás &
       \ref{sec:implementacao} \\
     O5 -- Garantia de segurança &
-      Verificação cinemática de travagem (\texttt{can\_brake\_in\_time}) e paragem em
-      \texttt{stop\_t} com retentativa &
+      Verificação cinemática de travagem e paragem num ponto fixo da rampa com retentativa &
       \ref{sec:implementacao} \\
     O6 -- Múltiplos MC &
       Mesmo protocolo na rampa: o MC propaga \textsc{slowdown\_request} ao veículo atrás
@@ -392,10 +391,33 @@ Apenas dois tipos de mensagem ETSI C-ITS são usados (Tabela~\ref{tab:mensagens}
 \textbf{MCM} implementa o protocolo de negociação e desdobra-se em seis subtipos. Cada
 MCM transporta no \texttt{basicContainer} três campos que, em conjunto, identificam o
 subtipo --- \texttt{mcmType} (tipo de mensagem), \texttt{itssRole} (papel do emissor) e
-\texttt{manoeuvreId} (identificador da sessão). A estrutura interna de cada mensagem, o
-significado destes códigos e um exemplo concreto de cada subtipo são detalhados na
-Secção~\ref{sec:mensagens}; aqui interessa apenas o mapa geral da
-Tabela~\ref{tab:mensagens}.
+\texttt{manoeuvreId} (identificador da sessão de manobra). O significado de
+\texttt{mcmType} e \texttt{itssRole} consta da Tabela~\ref{tab:mcm-campos}; a estrutura
+interna de cada mensagem e um exemplo concreto de cada subtipo são detalhados na
+Secção~\ref{sec:mensagens}.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{@{}llp{0.52\linewidth}@{}}
+    \toprule
+    \textbf{Campo} & \textbf{Valor} & \textbf{Significado} \\
+    \midrule
+    \multirow{3}{*}{\texttt{mcmType}}
+      & 1 & \emph{request} --- pedido de manobra \\
+      & 2 & \emph{response} --- resposta a um pedido \\
+      & 7 & \emph{executionStatus} --- estado de execução da manobra \\
+    \midrule
+    \multirow{2}{*}{\texttt{itssRole}}
+      & 1 & \emph{coordinatingItss} --- ITS-S que coordena o merge (o MC) \\
+      & 3 & \emph{targetVehicle} --- veículo-alvo (a quem se pede para abrandar) \\
+    \bottomrule
+  \end{tabular}
+  \caption{Significado dos códigos de \texttt{mcmType} e \texttt{itssRole}
+  (enumerações ETSI) usados no \texttt{basicContainer}.}
+  \label{tab:mcm-campos}
+\end{table}
 
 \begin{table}[H]
   \centering
@@ -420,9 +442,7 @@ Tabela~\ref{tab:mensagens}.
       MC já entrou na via; veículos retomam a velocidade \\
     \bottomrule
   \end{tabular}
-  \caption{CAM (\emph{beaconing} periódico) e os seis subtipos de MCM do protocolo. O
-  significado dos códigos de \texttt{mcmType}, \texttt{itssRole} e \texttt{manoeuvreId}
-  consta da Tabela~\ref{tab:mcm-campos}.}
+  \caption{CAM (\emph{beaconing} periódico) e os seis subtipos de MCM do protocolo.}
   \label{tab:mensagens}
 \end{table}
 
@@ -518,17 +538,18 @@ O valor de $t$ de um ponto $P$ obtém-se pela projeção escalar sobre o segment
   t = \frac{(P - s)\cdot(e - s)}{\lVert e - s\rVert^{2}},
   \qquad s=\texttt{start},\; e=\texttt{end},
 \]
-calculada diretamente em graus (a anisotropia lat/lon é desprezável à escala local). O
-rumo do segmento vem de \texttt{compute\_bearing} (azimute referenciado a Norte). Esta
-projeção é o que permite, mais adiante, a um veículo da via principal reposicionar na sua
-própria estrada a zona de conflito anunciada pelo MC (Secção~\ref{sec:lado-estrada}).
+calculada diretamente em graus, precisão suficiente para as distâncias de simulação.
+Esta projeção é o que permite, mais adiante, a um veículo da via principal reposicionar
+na sua própria estrada a zona de conflito anunciada pelo MC (Secção~\ref{sec:lado-estrada}).
 
-\paragraph{Pertença a uma estrada.} Como na simulação os veículos se movem por interpolação
-exata sobre a reta, a distância entre a posição GPS e a sua projeção é $\sim$0\,m;
-\texttt{is\_on\_road} considera um veículo ``nesta estrada'' se essa distância for inferior
-a um limiar de $0{,}05$\,m (apenas para absorver erro de vírgula flutuante). É este teste
-que permite ao MC distinguir, em tempo real, quais dos vizinhos circulam na via principal
-(os \emph{active peers}, Secção~\ref{sec:lado-mc}).
+\paragraph{Pertença a uma estrada.} A função \texttt{is\_on\_road} determina se um veículo
+circula numa dada estrada: calcula a distância entre a posição GPS do veículo e a sua
+projeção no segmento dessa estrada --- se essa distância for inferior a $0{,}05$\,m, o
+veículo é considerado nessa estrada. Na simulação, como os veículos se movem por
+interpolação exata sobre a reta, essa distância é sempre $\sim$0\,m; o limiar serve apenas
+para absorver erros de vírgula flutuante. É este teste que permite ao MC distinguir, em
+tempo real, quais dos vizinhos circulam na via principal (os \emph{active peers},
+Secção~\ref{sec:lado-mc}).
 
 \paragraph{Vizinho de trás e movimento.} \texttt{find\_vehicle\_behind} percorre o
 \emph{snapshot} da \texttt{NeighbourTable} (Secção~\ref{sec:mensagens}) e devolve o veículo
@@ -537,12 +558,12 @@ a base da propagação em cadeia (Secção~\ref{sec:lado-estrada}). O movimento 
 é um avanço incremental ao longo do segmento, $t \mathrel{+}= \texttt{speed}\cdot\texttt{DT}/L$,
 executado a cada \emph{tick} pelo \texttt{\_move\_loop}.
 
-\paragraph{Dinâmica longitudinal.} A dinâmica é deliberadamente simples e determinística,
-com aceleração limitada e simétrica $\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2}.
-\texttt{advance\_speed} aproxima a velocidade do alvo em cada \emph{tick}, no máximo
-$\pm\texttt{DECEL}\cdot\texttt{DT}$, devolvendo também a aceleração efetiva (que é depois
-anunciada na CAM). Sobre esta primitiva constroem-se duas funções de previsão usadas na
-negociação:
+\paragraph{Dinâmica longitudinal.} Em cada \emph{tick}, \texttt{advance\_speed} atualiza a
+velocidade do veículo na direção de uma velocidade-alvo, limitando a variação a
+$\texttt{DECEL}\cdot\texttt{DT}=0{,}4$\,m/s por \emph{tick} (equivalente a
+$\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2}). Devolve também a aceleração
+efetiva do \emph{tick} (positiva a acelerar, negativa a travar), que é depois anunciada na
+CAM. Sobre esta primitiva constroem-se duas funções de previsão usadas na negociação:
 \begin{itemize}[noitemsep,topsep=2pt]
   \item \texttt{predict\_motion(v, v\_alvo, horizonte)} --- prevê o quanto o veículo avança
         durante um dado intervalo de tempo: integra \texttt{advance\_speed} passo a passo ao
@@ -551,7 +572,7 @@ negociação:
         velocidade-alvo e da janela de ocupação (Secções~\ref{sec:lado-mc} e
         \ref{sec:lado-estrada});
   \item \texttt{time\_to\_cover\_distance(v, v\_alvo, d)} --- o inverso: o tempo necessário
-        para cobrir $d$, ou $\infty$ se for impossível (e.g.\ parado com alvo nulo); base do
+        para cobrir $d$, ou $\infty$ se for impossível; base do
         ETA e dos instantes de entrada/saída na deteção de conflito.
 \end{itemize}
 
@@ -685,45 +706,22 @@ aceleração (positivo) --- aqui $0{,}0$ indica velocidade constante --- e é de
 $[0,65535]$. Na receção, \texttt{make\_cam\_callback} extrai exatamente estes campos para
 alimentar a \texttt{NeighbourTable}.
 
-\paragraph{Construtores de MCM.} \texttt{mcm\_builder.py} contém \textbf{funções puras} (sem
-I/O): recebem o estado do veículo e devolvem o dicionário da PDU pronto a serializar; a
-decisão de \emph{quando} e \emph{a quem} enviar vive em \texttt{protocol.py}
+\paragraph{Construtores de MCM.} \texttt{mcm\_builder.py} contém funções que apenas
+constroem mensagens: recebem o estado do veículo e devolvem o dicionário da PDU pronto a
+serializar; a decisão de \emph{quando} e \emph{a quem} enviar vive em \texttt{protocol.py}
 (Secção~\ref{sec:protocolo}). Toda a MCM começa por um \texttt{basicContainer} comum --- com
 o \texttt{mcmType}, o \texttt{itssRole}, o \texttt{manoeuvreId} e a posição do emissor ---
 cuja tripla \texttt{(mcmType, itssRole, manoeuvreId)} identifica o subtipo
 (Tabela~\ref{tab:mensagens}); o significado dos códigos \texttt{mcmType} e \texttt{itssRole}
-consta da Tabela~\ref{tab:mcm-campos}. O que vem a seguir distingue um \emph{pedido} de uma
-\emph{resposta}:
-
-\begin{table}[H]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{@{}llp{0.52\linewidth}@{}}
-    \toprule
-    \textbf{Campo} & \textbf{Valor} & \textbf{Significado} \\
-    \midrule
-    \multirow{3}{*}{\texttt{mcmType}}
-      & 1 & \emph{request} --- pedido de manobra \\
-      & 2 & \emph{response} --- resposta a um pedido \\
-      & 7 & \emph{executionStatus} --- estado de execução da manobra \\
-    \midrule
-    \multirow{2}{*}{\texttt{itssRole}}
-      & 1 & \emph{coordinatingItss} --- ITS-S que coordena o merge (o MC) \\
-      & 3 & \emph{targetVehicle} --- veículo-alvo (a quem se pede para abrandar) \\
-    \bottomrule
-  \end{tabular}
-  \caption{Significado dos códigos de \texttt{mcmType} e \texttt{itssRole}
-  (enumerações ETSI) usados no \texttt{basicContainer}.}
-  \label{tab:mcm-campos}
-\end{table}
+foi já estabelecido na Tabela~\ref{tab:mcm-campos}. O que vem a seguir distingue um
+\emph{pedido} de uma \emph{resposta}:
 
 \begin{itemize}[noitemsep,topsep=2pt]
   \item \textbf{Pedidos} (\textsc{merge\_request}, \textsc{slowdown\_request}) descrevem a
         manobra. Levam o estado cinemático do emissor (velocidade, rumo, dimensões) e,
         sobretudo, uma lista \texttt{manoeuvreAdvice} em que \emph{cada entrada endereça um
-        destinatário} pelo seu \texttt{executantID} (o \emph{stationID}) e lhe sugere uma
-        velocidade --- um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu.
+        destinatário} pelo seu \texttt{executantID} (o \emph{stationID}) ---
+        um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu.
         O \textsc{merge\_request} acrescenta o \emph{Target Road Resource} (TRR), que
         transporta a zona de conflito: início e fim (Secção~\ref{sec:fundamentos})
         codificados como \emph{offsets} ($\Delta$lat, $\Delta$lon) relativos à posição do MC,
@@ -764,8 +762,11 @@ carrega a \textbf{janela de ocupação}
 $[\texttt{tRROccupancyStartTime},\texttt{tRROccupancyEndTime}]=[3908,4580]$\,ms a contar de
 agora --- o intervalo em que o MC estará dentro da zona. E cada entrada de
 \texttt{manoeuvreAdvice} endereça \emph{um} destinatário pelo \texttt{executantID} (o seu
-\emph{stationID}) com uma velocidade sugerida (aqui a de cruzeiro, $27{,}77$\,m/s
-$\approx100$\,km/h); um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu.
+\emph{stationID}); um recetor só atua sobre a entrada cujo \texttt{executantID} é o seu.
+A velocidade sugerida (aqui $27{,}77$\,m/s $\approx100$\,km/h) está presente no campo por
+respeitar a estrutura da norma, mas não é processada pelos recetores nesta implementação
+--- cada veículo calcula a sua própria velocidade-alvo pela busca binária descrita em
+seguida (Secção~\ref{sec:lado-estrada}).
 
 O \textsc{slowdown\_request} tem a mesma forma de um pedido, mas com \texttt{itssRole=3}, um
 único \texttt{manoeuvreAdvice} dirigido ao veículo imediatamente atrás e sem TRR (a zona já
@@ -1077,7 +1078,11 @@ no router Zenoh. Cada container de veículo subscreve esse tópico e, se o seu
 \emph{heartbeats} em \texttt{coordinator/ready/<sid>} e, no fim, \texttt{coordinator/done/<sid>}.
 O coordenador aguarda o \emph{done} de todos antes de avançar. Expõe ainda dois
 interruptores: \textbf{Demo Mode} (ativa o \texttt{DemoMergeProtocol}, descrito abaixo) e
-\textbf{Draw Exag} (fator de exagero visual enviado à \emph{dashboard}). O \texttt{run.sh}
+\textbf{Draw Exag} (fator de exagero visual enviado à \emph{dashboard}; o valor por
+omissão é $3\times$, que amplia as estradas e os veículos para facilitar a observação,
+mas pode fazer aparecer visualmente um veículo sobre a zona de conflito quando na
+realidade ele ainda não chegou lá --- criando conflitos visuais que não existem no
+protocolo; para uma vista fiel à escala real usar \textbf{Draw Exag}$=1$). O \texttt{run.sh}
 encadeia todo o arranque: \texttt{docker-compose up}, \emph{bridge}, servidor HTTP, a GUI e
 o browser.
 
@@ -1533,7 +1538,7 @@ sem necessidade de garantias de entrega na camada de transporte.
 
 \paragraph{Trabalho futuro.} O protótipo assenta em algumas simplificações que delimitam o
 seu domínio de validade e apontam direções naturais de evolução: dinâmica longitudinal
-determinística (aceleração constante, sem perfis de \emph{jerk}), geometria planar com
+determinística (aceleração constante), geometria planar com
 posições exatas (sem ruído de GPS nem curvatura), canal rádio idealizado (sem perdas de
 pacotes, alcance limitado ou contenção MAC), escala reduzida (quatro veículos, um único
 ponto de inserção) e ausência de autenticação nas MCM. A intervenção mais imediata é
