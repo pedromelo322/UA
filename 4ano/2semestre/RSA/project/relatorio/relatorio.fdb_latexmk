@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex relatorio"] 1780790305.05466 "relatorio.aux" "relatorio.bbl" "relatorio" 1780795679.59595 0
-  "./referencias.bib" 1780790276.3796 3173 9347a6bf2e740f609dfaf4048e356a1e ""
+["bibtex relatorio"] 1780859983.28908 "relatorio.aux" "relatorio.bbl" "relatorio" 1780860724.5794 0
+  "./referencias.bib" 1780796518.41275 3173 9347a6bf2e740f609dfaf4048e356a1e ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "relatorio.aux" 1780795679.02021 18672 03548928cf73140a6bfdd49279b31389 "pdflatex"
+  "relatorio.aux" 1780860724.30686 18441 f77add03d276cf64f4b61fa7f5b8a75e "pdflatex"
   (generated)
   "relatorio.bbl"
   "relatorio.blg"
   (rewritten before read)
-["pdflatex"] 1780795676.86249 "relatorio.tex" "relatorio.pdf" "relatorio" 1780795679.59632 0
+["pdflatex"] 1780860723.25883 "relatorio.tex" "relatorio.pdf" "relatorio" 1780860724.57962 0
   "/etc/texmf/web2c/texmf.cnf" 1759495530.32057 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
@@ -190,22 +190,22 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1759496338.67052 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1759496443 8212157 4ba92485032f1f499392cfeba3880b05 ""
-  "figuras/01.png" 1780788749.2659 42228 520bd5eae97ed01ab61ba03fa1359080 ""
-  "figuras/02.png" 1780788768.14988 45934 96a236430a58bf89535633262763671d ""
-  "figuras/03.png" 1780788803.78085 46391 c09b1c7be6c1c99c83b75b1d4aec34ef ""
-  "figuras/04.png" 1780788830.2791 49296 1aebb731754dd7fc962534f6b7a61bfd ""
-  "figuras/05.png" 1780788913.78457 49854 2adf6a82e28f07953e34f851e06593ea ""
-  "figuras/06.png" 1780788939.73701 49569 9c3b58508228f3a4d989f724c57e2d0f ""
+  "figuras/01.png" 1780796518.40703 42228 520bd5eae97ed01ab61ba03fa1359080 ""
+  "figuras/02.png" 1780796518.40803 45934 96a236430a58bf89535633262763671d ""
+  "figuras/03.png" 1780796518.40903 46391 c09b1c7be6c1c99c83b75b1d4aec34ef ""
+  "figuras/04.png" 1780796518.40903 49296 1aebb731754dd7fc962534f6b7a61bfd ""
+  "figuras/05.png" 1780796518.41003 49854 2adf6a82e28f07953e34f851e06593ea ""
+  "figuras/06.png" 1780796518.41103 49569 9c3b58508228f3a4d989f724c57e2d0f ""
   "figuras/MAIN_ROAD_STATES.png" 1780680845.19388 115828 d630aaf63432054e864f01a473aded6a ""
   "figuras/MERGE_LANE_ARCH.png" 1780688268.17611 137557 b32b73e1b3b915906f384ccdb0e9b07d ""
   "figuras/SCENARIO1_SEQ_DIAGRAM.png" 1780680845.19374 127682 495af8aa4963dbcee8572e296c72f6dd ""
-  "figuras/coordinator.png" 1780774649.60556 51945 2719001a302fa6cdd61b92a0e2584d41 ""
+  "figuras/coordinator.png" 1780860668.08022 58044 5b26c876746ec0fd4c23387829342481 ""
   "figuras/mc_state_machine.png" 1780680845.19382 86083 845ab5c7fe00324aede29951e33f9ca9 ""
-  "relatorio.aux" 1780795679.02021 18672 03548928cf73140a6bfdd49279b31389 "pdflatex"
-  "relatorio.bbl" 1780790305.19658 1610 afc29d54a94b857983fe92bbd05d2501 "bibtex relatorio"
-  "relatorio.out" 1780795679.02321 5504 2ddea77f462a5273259515d0e4e11f75 "pdflatex"
-  "relatorio.tex" 1780795670.79027 92937 f904eb01cbadb571f83c24396f208b79 ""
-  "relatorio.toc" 1780795679.02321 5744 8c56eff40749d21e143e935c85268696 "pdflatex"
+  "relatorio.aux" 1780860724.30686 18441 f77add03d276cf64f4b61fa7f5b8a75e "pdflatex"
+  "relatorio.bbl" 1780859983.39157 1610 afc29d54a94b857983fe92bbd05d2501 "bibtex relatorio"
+  "relatorio.out" 1780860724.30786 5293 7915f3d1b72f213444258f458ad9df24 "pdflatex"
+  "relatorio.tex" 1780860464.04274 91151 f1db8daeab461b67a0d759bd57ddfb0e ""
+  "relatorio.toc" 1780860724.30786 5646 a342eec84b15dcf31431e0266bd40470 "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"

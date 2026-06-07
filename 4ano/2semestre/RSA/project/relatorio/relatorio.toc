@@ -64,8 +64,7 @@
 \contentsline {paragraph}{Fallback \emph {stop-and-wait} (O5).}{27}{section*.48}%
 \contentsline {paragraph}{Cadeia na rampa e múltiplos MC (O6).}{27}{section*.49}%
 \contentsline {subsection}{\numberline {6.4}Síntese: objetivos validados}{28}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5}Limitações e simplificações}{28}{subsection.6.5}%
-\contentsline {section}{\numberline {7}Conclusão}{29}{section.7}%
-\contentsline {paragraph}{Síntese face aos objetivos.}{29}{section*.51}%
+\contentsline {section}{\numberline {7}Conclusão}{28}{section.7}%
+\contentsline {paragraph}{Síntese face aos objetivos.}{28}{section*.51}%
 \contentsline {paragraph}{Lições aprendidas.}{29}{section*.52}%
-\contentsline {paragraph}{Trabalho futuro.}{30}{section*.53}%
+\contentsline {paragraph}{Trabalho futuro.}{29}{section*.53}%

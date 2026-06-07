@@ -77,8 +77,8 @@
 
   \begin{tabular}{rl}
     \textbf{Repositório:} & \href{https://github.com/pedromelo1316/Merge_Lane}{\color{blue}github.com/pedromelo1316/Merge\_Lane} \\[0.2cm]
-    \textbf{Vídeo (Cenário 1):} & \href{https://youtu.be/0EGMAUKgjWk}{\color{blue}youtu.be/0EGMAUKgjWk} \\[0.2cm]
-    \textbf{Vídeo (demo completa):} & \href{https://youtu.be/B_Q91cU7cng}{\color{blue}youtu.be/B\_Q91cU7cng} \\
+    \textbf{Vídeo — Cenário\,01 (Demo):} & \href{https://youtu.be/0EGMAUKgjWk}{\color{blue}youtu.be/0EGMAUKgjWk} \\[0.2cm]
+    \textbf{Vídeo — Todos os cenários:} & \href{https://youtu.be/B_Q91cU7cng}{\color{blue}youtu.be/B\_Q91cU7cng} \\
   \end{tabular}
 \end{titlepage}
 
@@ -1116,6 +1116,12 @@ concreta (Secção~\ref{sec:demo-timeline}), as fontes de aleatoriedade e as var
 controláveis (Secção~\ref{sec:demo-rand}) e o conjunto de seis cenários preparados,
 com o comportamento observado em cada um (Secção~\ref{sec:demo-cenarios}).
 
+Realizaram-se duas gravações de demonstração, cujos links constam da capa: o
+\textbf{vídeo~``Cenário\,01 (Demo)''} corre exclusivamente o cenário\,01 com o
+\emph{Demo Mode} ativo --- com pausas nos pontos de decisão para facilitar a observação
+---; o \textbf{vídeo~``Todos os cenários''} executa os seis cenários sequencialmente,
+sem \emph{Demo Mode}, numa corrida contínua.
+
 \subsection{Preparação}
 \label{sec:demo-prep}
 
@@ -1157,10 +1163,12 @@ estado, mais um registo dos eventos MCM em tempo real
 \subsection{Timeline de uma negociação}
 \label{sec:demo-timeline}
 
-Toma-se como fio condutor o \textbf{cenário 01} (Secção~\ref{sec:demo-cenarios}),
-em que apenas \textbf{B entra em conflito} e \emph{consegue} abrandar a tempo,
-abrindo a folga para o MC se inserir \textbf{entre A e B}. É a mesma negociação do
-diagrama de sequência da Figura~\ref{fig:seq}, agora vista como linha temporal:
+A gravação desta demonstração está disponível no vídeo \emph{Cenário\,01 (Demo)}
+indicado na capa. Toma-se como fio condutor o \textbf{cenário 01}
+(Secção~\ref{sec:demo-cenarios}), em que apenas \textbf{B entra em conflito} e
+\emph{consegue} abrandar a tempo, abrindo a folga para o MC se inserir \textbf{entre A
+e B}. É a mesma negociação do diagrama de sequência da Figura~\ref{fig:seq}, agora
+vista como linha temporal:
 
 \begin{enumerate}[noitemsep,topsep=2pt,label=\textbf{t\arabic*.}]
   \item \textbf{Ponto de partida.} O MC arranca na rampa e acelera (limite
@@ -1299,10 +1307,8 @@ cada cenário constam da Secção~\ref{sec:resultados}.
 Esta secção apresenta a validação do sistema: a metodologia seguida
 (Secção~\ref{sec:res-metodo}), a evidência visual recolhida em cada um dos seis
 cenários (Secção~\ref{sec:res-cenarios}), a verificação transversal dos mecanismos de
-segurança que sustentam os objetivos (Secção~\ref{sec:res-seguranca}), uma síntese do
-grau de concretização de cada objetivo (Secção~\ref{sec:res-sintese}) e, por fim, uma
-discussão honesta das limitações e simplificações do modelo
-(Secção~\ref{sec:res-limitacoes}).
+segurança que sustentam os objetivos (Secção~\ref{sec:res-seguranca}) e uma síntese do
+grau de concretização de cada objetivo (Secção~\ref{sec:res-sintese}).
 
 \subsection{Metodologia de validação}
 \label{sec:res-metodo}
@@ -1484,41 +1490,6 @@ implementa, esta foca-se na \emph{evidência de validação}.
   \label{tab:res-objetivos}
 \end{table}
 
-\subsection{Limitações e simplificações}
-\label{sec:res-limitacoes}
-
-Os resultados devem ser lidos à luz das simplificações assumidas, que delimitam o alcance
-das conclusões e apontam o trabalho futuro (Secção~\ref{sec:conclusao}):
-
-\begin{itemize}[topsep=2pt,itemsep=3pt]
-  \item \textbf{Modelo cinemático determinístico.} A dinâmica longitudinal usa aceleração
-        constante e simétrica ($\texttt{ACCEL}=\texttt{DECEL}=4{,}0$\,m/s\textsuperscript{2})
-        e ignora a dinâmica lateral da mudança de via, perfis de conforto e a variabilidade
-        do comportamento humano. As velocidades-alvo calculadas são fisicamente atingíveis
-        no modelo, mas não modelam a suavidade (\emph{jerk}) de uma travagem real.
-  \item \textbf{Geometria planar e posições exatas.} As estradas são segmentos de reta e a
-        projeção paramétrica é feita diretamente em graus (Secção~\ref{sec:fundamentos}); o
-        movimento é interpolação exata sobre o segmento, pelo que \texttt{is\_on\_road} pode
-        usar um limiar de $0{,}05$\,m. Não há, portanto, ruído de GPS, curvatura da estrada
-        nem erro de localização --- condições mais benignas do que as de um sistema real.
-  \item \textbf{Canal rádio idealizado.} O transporte por Zenoh sobre a rede Docker não
-        modela perda de pacotes, alcance limitado nem contenção MAC para além da janela de
-        $200$\,ms da \texttt{NeighbourTable} (que tolera uma CAM perdida). O comportamento
-        sob degradação realista do canal V2X fica por avaliar.
-  \item \textbf{Escala reduzida.} Validou-se com quatro veículos e um único ponto de
-        inserção. O protocolo é distribuído e não tem entidade central, mas o seu
-        comportamento com densidades de tráfego elevadas, cadeias longas ou múltiplos
-        pontos de \emph{merge} concorrentes não foi testado.
-  \item \textbf{Ausência de segurança aplicacional.} As MCM não são autenticadas nem
-        protegidas contra adulteração; assume-se que todos os participantes são cooperantes
-        e honestos --- um pressuposto inadequado para um \emph{deployment} real, onde um
-        veículo malicioso poderia anunciar conflitos ou \emph{grants} falsos.
-\end{itemize}
-
-Nenhuma destas simplificações invalida o resultado central --- a demonstração de que a
-negociação cooperativa via V2V resolve a inserção em rampa de forma segura e antecipada
----, mas cada uma delimita o seu domínio de validade e sugere uma direção de evolução.
-
 % ═════════════════════════════════════════════════════════════════════════════
 \section{Conclusão}
 \label{sec:conclusao}
@@ -1560,20 +1531,23 @@ $\texttt{active\_peers}\subseteq\texttt{grants\_received}$, tolera naturalmente 
 reordenação e a repetição de mensagens inerentes ao meio rádio (Secção~\ref{sec:demo-rand})
 sem necessidade de garantias de entrega na camada de transporte.
 
-\paragraph{Trabalho futuro.} As simplificações identificadas na
-Secção~\ref{sec:res-limitacoes} traçam as direções naturais de evolução. A mais imediata é
-substituir o canal idealizado por um \textbf{modelo realista de rádio} (perda de pacotes,
-alcance e contenção MAC), avaliando a robustez do protocolo sob degradação --- e,
-complementarmente, introduzir \textbf{ruído de GPS} e estradas curvas, generalizando a
-coordenada paramétrica de segmentos de reta para \emph{polylines}. Em segundo lugar,
-estudar a \textbf{escalabilidade} para densidades de tráfego elevadas, cadeias longas e
-múltiplos pontos de inserção concorrentes, onde a negociação sequencial entre MC poderá
-ter de dar lugar a coordenação simultânea. Por fim, dotar as MCM de \textbf{segurança
-aplicacional} (assinatura e autenticação via PKI C-ITS), sem a qual o pressuposto de
-veículos cooperantes e honestos não se sustenta num \emph{deployment} real. Ainda assim, e
-dentro do seu domínio de validade, o protótipo cumpre o que se propôs: provar, de ponta a
-ponta e sobre normas reais, que a cooperação V2V transforma uma manobra tipicamente
-conflituosa numa inserção planeada e segura.
+\paragraph{Trabalho futuro.} O protótipo assenta em algumas simplificações que delimitam o
+seu domínio de validade e apontam direções naturais de evolução: dinâmica longitudinal
+determinística (aceleração constante, sem perfis de \emph{jerk}), geometria planar com
+posições exatas (sem ruído de GPS nem curvatura), canal rádio idealizado (sem perdas de
+pacotes, alcance limitado ou contenção MAC), escala reduzida (quatro veículos, um único
+ponto de inserção) e ausência de autenticação nas MCM. A intervenção mais imediata é
+substituir o canal idealizado por um \textbf{modelo realista de rádio}, avaliando a
+robustez do protocolo sob degradação --- e, complementarmente, introduzir \textbf{ruído de
+GPS} e estradas curvas, generalizando a coordenada paramétrica de segmentos de reta para
+\emph{polylines}. Em segundo lugar, estudar a \textbf{escalabilidade} para densidades de
+tráfego elevadas, cadeias longas e múltiplos pontos de inserção concorrentes, onde a
+negociação sequencial entre MC poderá ter de dar lugar a coordenação simultânea. Por fim,
+dotar as MCM de \textbf{segurança aplicacional} (assinatura e autenticação via PKI C-ITS),
+sem a qual o pressuposto de veículos cooperantes e honestos não se sustenta num
+\emph{deployment} real. Ainda assim, e dentro do seu domínio de validade, o protótipo
+cumpre o que se propôs: provar, de ponta a ponta e sobre normas reais, que a cooperação
+V2V transforma uma manobra tipicamente conflituosa numa inserção planeada e segura.
 
 % ═════════════════════════════════════════════════════════════════════════════
 \bibliographystyle{plain}
