@@ -306,6 +306,7 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtt8.tfm
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc
 INPUT /usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmcsc10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtk10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmtk10.tfm
@@ -314,7 +315,6 @@ INPUT ./figuras/mc_state_machine.png
 INPUT ./figuras/mc_state_machine.png
 INPUT ./figuras/mc_state_machine.png
 INPUT ./figuras/mc_state_machine.png
-INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./figuras/MAIN_ROAD_STATES.png
 INPUT ./figuras/MAIN_ROAD_STATES.png
 INPUT ./figuras/MAIN_ROAD_STATES.png

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex relatorio"] 1780870848.51284 "relatorio.aux" "relatorio.bbl" "relatorio" 1780870852.79976 0
+["bibtex relatorio"] 1780879003.47799 "relatorio.aux" "relatorio.bbl" "relatorio" 1780880030.19517 0
   "./referencias.bib" 1780796518.41275 3173 9347a6bf2e740f609dfaf4048e356a1e ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "relatorio.aux" 1780870852.01722 18171 5547fd0f914162cd96ecf66cbd34bfd9 "pdflatex"
+  "relatorio.aux" 1780880029.91106 18299 f9438c7047bca6d515556a55561e57c0 "pdflatex"
   (generated)
   "relatorio.bbl"
   "relatorio.blg"
   (rewritten before read)
-["pdflatex"] 1780870848.77134 "relatorio.tex" "relatorio.pdf" "relatorio" 1780870852.80026 0
+["pdflatex"] 1780880028.85699 "relatorio.tex" "relatorio.pdf" "relatorio" 1780880030.19539 0
   "/etc/texmf/web2c/texmf.cnf" 1759495530.32057 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
@@ -201,11 +201,11 @@
   "figuras/SCENARIO1_SEQ_DIAGRAM.png" 1780680845.19374 127682 495af8aa4963dbcee8572e296c72f6dd ""
   "figuras/coordinator.png" 1780860668.08022 58044 5b26c876746ec0fd4c23387829342481 ""
   "figuras/mc_state_machine.png" 1780680845.19382 86083 845ab5c7fe00324aede29951e33f9ca9 ""
-  "relatorio.aux" 1780870852.01722 18171 5547fd0f914162cd96ecf66cbd34bfd9 "pdflatex"
-  "relatorio.bbl" 1780870848.75719 1610 afc29d54a94b857983fe92bbd05d2501 "bibtex relatorio"
-  "relatorio.out" 1780870852.02122 5293 7915f3d1b72f213444258f458ad9df24 "pdflatex"
-  "relatorio.tex" 1780870839.4751 91594 fcef7bcaa2be01d4237cd842f46590d8 ""
-  "relatorio.toc" 1780870852.02222 5647 e6de7e90a5d2b49fd51e00c509d7004c "pdflatex"
+  "relatorio.aux" 1780880029.91106 18299 f9438c7047bca6d515556a55561e57c0 "pdflatex"
+  "relatorio.bbl" 1780879003.54908 1610 afc29d54a94b857983fe92bbd05d2501 "bibtex relatorio"
+  "relatorio.out" 1780880029.91306 5293 7915f3d1b72f213444258f458ad9df24 "pdflatex"
+  "relatorio.tex" 1780880022.72209 92242 7b681b0538617efb97e53c0a0fbb4d29 ""
+  "relatorio.toc" 1780880029.91306 5733 85415af8b006967e4096c5ad15ceb67a "pdflatex"
   (generated)
   "relatorio.aux"
   "relatorio.log"

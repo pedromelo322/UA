@@ -587,6 +587,15 @@ Este é o teste de segurança (O5) aplicado por cada veículo no fim de cadeia a
 comprometer com um abrandamento (Secção~\ref{sec:lado-estrada}) e pelo MC antes do
 \emph{stop-and-wait} (Secção~\ref{sec:lado-mc}).
 
+\paragraph{Ponto de junção (\emph{merge point}).} O \emph{merge point} é o ponto onde a
+rampa encontra a via principal e em torno do qual toda a geometria da manobra se organiza.
+Operacionalmente, \texttt{\_init\_merge\_geometry} define-o como o \textbf{fim geométrico do
+segmento da rampa} (\texttt{ramp.end}); a sua posição na via principal é a coordenada
+paramétrica obtida projetando esse ponto sobre o segmento dessa via,
+$t_{\text{merge}} = \texttt{project\_t}(\texttt{ramp.end},\,\texttt{main})$. É este
+$t_{\text{merge}}$ que centra a zona de conflito (abaixo) e a partir do qual se medem as
+margens \texttt{before\_m}/\texttt{after\_m}.
+
 \paragraph{Dimensionamento da zona de conflito.} A zona de conflito é o troço da via
 principal que o MC irá ocupar. As suas margens (em metros), fixadas em
 \texttt{\_init\_merge\_geometry}, refletem o espaço físico que a manobra exige:
@@ -1104,12 +1113,11 @@ passo a passo, \texttt{protocol\_demo.py} define \texttt{DemoMergeProtocol}, uma
 de \texttt{MergeProtocol}. A ideia é introduzir pausas \emph{apenas} nos pontos de decisão
 relevantes: ao receber uma MCM, o \emph{callback} determina se este veículo a vai realmente
 processar (\texttt{will\_process}) e, nesse caso, dorme \texttt{demo\_pause\_s} antes de
-delegar no \emph{callback} do progenitor. Os veículos
-da via principal congelam o movimento (\texttt{\_demo\_paused}) ao verem o
-\textsc{merge\_request} e retomam-no ao \textsc{merge\_confirmed}. Para acomodar estas
-pausas, o reenvio do \textsc{merge\_request} é limitado a
-$\texttt{\_demo\_resend\_s}=1 + 4\cdot\texttt{demo\_pause\_s}$, em vez do $1$\,s do modo
-normal.
+delegar no \emph{callback} do progenitor. Todos os veículos congelam o movimento 
+(\texttt{\_demo\_paused}) ao verem o \textsc{merge\_request} e retomam-no ao 
+\textsc{merge\_confirmed}. Para acomodar estas pausas, o reenvio do \textsc{merge\_request} 
+é limitado a $\texttt{\_demo\_resend\_s}=1 + 4\cdot\texttt{demo\_pause\_s}$, em vez
+do $1$\,s do modo normal.
 
 % ═════════════════════════════════════════════════════════════════════════════
 \section{Fluxo da Demonstração}
