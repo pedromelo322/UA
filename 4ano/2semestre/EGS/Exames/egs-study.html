@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGS — Estudo</title>
+<style>
+:root {
+  --bg: #0f0f1a;
+  --surface: #1a1a2e;
+  --surface2: #16213e;
+  --accent: #0f3460;
+  --primary: #e94560;
+  --primary-dim: #b83347;
+  --text: #e0e0e0;
+  --text-dim: #9090a8;
+  --green: #4caf7d;
+  --red: #e94560;
+  --yellow: #f5a623;
+  --border: #2a2a45;
+  --card-w: min(680px, 95vw);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+/* NAV */
+nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+nav h1 { font-size: 1.1rem; color: var(--primary); margin-right: 8px; white-space: nowrap; }
+.mode-btn { background: var(--accent); border: 1px solid var(--border); color: var(--text-dim); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: .85rem; transition: all .2s; }
+.mode-btn:hover, .mode-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+#filter-wrap { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+#filter-wrap label { font-size: .8rem; color: var(--text-dim); }
+select { background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px; font-size: .85rem; cursor: pointer; }
+
+/* MAIN */
+main { display: flex; flex-direction: column; align-items: center; padding: 30px 16px 60px; }
+
+/* PROGRESS BAR */
+#progress-bar-wrap { width: var(--card-w); margin-bottom: 16px; }
+#progress-bar-wrap p { font-size: .75rem; color: var(--text-dim); margin-bottom: 4px; }
+#progress-track { background: var(--surface2); border-radius: 4px; height: 6px; overflow: hidden; }
+#progress-fill { background: var(--primary); height: 100%; width: 0; transition: width .4s; border-radius: 4px; }
+#score-display { font-size: .85rem; color: var(--text-dim); text-align: right; margin-top: 4px; }
+
+/* CARDS */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; width: var(--card-w); padding: 32px; margin-bottom: 18px; }
+.card h2 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin-bottom: 12px; }
+.card .question { font-size: 1.15rem; line-height: 1.6; color: var(--text); }
+.card .answer { font-size: .95rem; line-height: 1.7; color: var(--text); margin-top: 16px; }
+.card .answer strong, .answer b { color: var(--yellow); font-weight: 700; }
+.card ul { margin: 10px 0 0 20px; }
+.card ul li { margin-bottom: 6px; font-size: .92rem; }
+
+/* FLASHCARD */
+.flip-container { perspective: 1200px; width: var(--card-w); height: 340px; cursor: pointer; margin-bottom: 18px; }
+.flip-container.flipped .flipper { transform: rotateY(180deg); }
+.flipper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+.flip-front, .flip-back { position: absolute; inset: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; }
+.flip-back { transform: rotateY(180deg); overflow-y: auto; }
+.flip-front .flip-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin-bottom: 14px; }
+.flip-front .q-num { font-size: .85rem; color: var(--primary); margin-bottom: 6px; }
+.flip-front .q-text { font-size: 1.1rem; line-height: 1.6; }
+.flip-back .flip-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--green); margin-bottom: 10px; }
+
+/* FLASH BUTTONS */
+.flash-btns { display: flex; gap: 12px; width: var(--card-w); }
+.btn { padding: 12px 28px; border-radius: 10px; border: none; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all .2s; }
+.btn-bad { background: #3a1220; color: var(--red); border: 1px solid var(--red); flex: 1; }
+.btn-bad:hover { background: var(--red); color: #fff; }
+.btn-good { background: #0e2d1e; color: var(--green); border: 1px solid var(--green); flex: 1; }
+.btn-good:hover { background: var(--green); color: #fff; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dim); }
+.btn-secondary { background: var(--accent); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+.btn-sm { padding: 8px 18px; font-size: .85rem; border-radius: 8px; }
+#flash-hint { font-size: .8rem; color: var(--text-dim); text-align: center; margin-top: 6px; }
+
+/* MULTIPLE CHOICE */
+.mc-options { display: grid; gap: 10px; width: var(--card-w); }
+.mc-opt { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; font-size: .9rem; line-height: 1.5; transition: all .2s; }
+.mc-opt:hover:not(.disabled) { border-color: var(--primary); background: #20152a; }
+.mc-opt.correct { border-color: var(--green); background: #0e2d1e; color: #fff; }
+.mc-opt.wrong { border-color: var(--red); background: #3a1220; color: #fff; }
+.mc-opt.disabled { cursor: default; }
+.mc-feedback { width: var(--card-w); padding: 16px; border-radius: 10px; margin-top: 4px; font-size: .9rem; line-height: 1.6; }
+.mc-feedback.ok { background: #0e2d1e; border: 1px solid var(--green); color: #c8f5d8; }
+.mc-feedback.ko { background: #3a1220; border: 1px solid var(--red); color: #f5c2c7; }
+.mc-feedback strong { color: var(--yellow); }
+
+/* FILL IN BLANK */
+.fib-text { font-size: .95rem; line-height: 2.2; }
+.fib-input { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; padding: 2px 8px; min-width: 120px; color: var(--text); font-size: .9rem; font-family: inherit; vertical-align: middle; }
+.fib-input.fib-correct { border-color: var(--green); background: #0e2d1e; }
+.fib-input.fib-wrong { border-color: var(--red); background: #3a1220; }
+.fib-input.fib-revealed { border-color: var(--yellow); background: #2d240a; color: var(--yellow); }
+.fib-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+
+/* OPEN ANSWER */
+textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: .95rem; font-family: inherit; padding: 14px; resize: vertical; min-height: 140px; outline: none; }
+textarea:focus { border-color: var(--primary); }
+.kw-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.kw-badge { padding: 4px 12px; border-radius: 14px; font-size: .8rem; font-weight: 600; }
+.kw-found { background: #0e2d1e; color: var(--green); border: 1px solid var(--green); }
+.kw-missing { background: #3a1220; color: var(--red); border: 1px solid var(--red); }
+.oa-score { font-size: 1rem; margin-top: 12px; color: var(--text-dim); }
+.oa-score span { color: var(--primary); font-weight: 700; font-size: 1.2rem; }
+
+/* REVIEW */
+.review-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; width: var(--card-w); padding: 24px; margin-bottom: 14px; }
+.review-item h3 { font-size: .75rem; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; letter-spacing: .08em; }
+.review-item .q { font-size: 1rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+.review-item .a { font-size: .88rem; line-height: 1.7; color: #c0c0d8; border-top: 1px solid var(--border); padding-top: 12px; }
+.review-item .a ul { margin-left: 18px; margin-top: 6px; }
+.review-item .a li { margin-bottom: 4px; }
+.review-item .a strong, .review-item .a b { color: var(--yellow); }
+
+/* END SCREEN */
+#end-screen { display: none; width: var(--card-w); background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 36px; text-align: center; }
+#end-screen h2 { font-size: 1.4rem; margin-bottom: 8px; }
+#end-screen p { color: var(--text-dim); margin-bottom: 24px; }
+.weak-list { text-align: left; margin: 14px 0; }
+.weak-list li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: .88rem; color: var(--text-dim); }
+.weak-list li span { color: var(--red); font-weight: 600; }
+
+/* UTIL */
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.hidden { display: none !important; }
+.mt-12 { margin-top: 12px; }
+.q-counter { font-size: .8rem; color: var(--text-dim); width: var(--card-w); margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <h1>EGS</h1>
+  <button class="mode-btn active" data-mode="flash">Flashcards</button>
+  <button class="mode-btn" data-mode="mc">Escolha Múltipla</button>
+  <button class="mode-btn" data-mode="fib">Completar Texto</button>
+  <button class="mode-btn" data-mode="oa">Resposta Aberta</button>
+  <button class="mode-btn" data-mode="review">Revisão</button>
+  <div id="filter-wrap">
+    <label for="q-filter">Filtro:</label>
+    <select id="q-filter">
+      <option value="all">Todas</option>
+      <option value="weak">Fracas</option>
+      <option value="1">Q1 — Cloud Sizing</option>
+      <option value="2">Q2 — Containers/K8s</option>
+      <option value="3">Q3 — SOA Princípios</option>
+      <option value="4">Q4 — SAML Assertion</option>
+      <option value="5">Q5 — Pub/Subscribe</option>
+      <option value="6">Q6 — Orquestração vs Composição</option>
+      <option value="7">Q7 — 3GPP/IMS</option>
+      <option value="8">Q8 — Cliente-Servidor vs Filas</option>
+      <option value="9">Q9 — SAML vs OAuth</option>
+      <option value="10">Q10 — ESB</option>
+      <option value="11">Q11 — Paradigmas Cloud</option>
+      <option value="12">Q12 — Public vs Private Cloud</option>
+    </select>
+  </div>
+</nav>
+
+<main id="main">
+  <div id="progress-bar-wrap">
+    <p id="progress-label">Progresso</p>
+    <div id="progress-track"><div id="progress-fill"></div></div>
+    <div id="score-display"></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div id="mode-flash">
+    <div id="flip-container" class="flip-container" onclick="flipCard()">
+      <div class="flipper">
+        <div class="flip-front">
+          <div class="flip-label">Clica para ver a resposta</div>
+          <div class="q-num" id="flash-num"></div>
+          <div class="q-text" id="flash-q"></div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-label">Resposta</div>
+          <div id="flash-a"></div>
+        </div>
+      </div>
+    </div>
+    <p id="flash-hint">Clica no cartão para ver a resposta</p>
+    <div class="flash-btns mt-12" id="flash-btns" style="display:none">
+      <button class="btn btn-bad" onclick="rateFlash(false)">Não sabia</button>
+      <button class="btn btn-good" onclick="rateFlash(true)">Sabia!</button>
+    </div>
+  </div>
+
+  <!-- MULTIPLE CHOICE -->
+  <div id="mode-mc" class="hidden">
+    <div class="q-counter" id="mc-counter"></div>
+    <div class="card">
+      <h2>Pergunta</h2>
+      <div class="question" id="mc-q"></div>
+    </div>
+    <div class="mc-options" id="mc-opts"></div>
+    <div class="mc-feedback hidden" id="mc-feedback"></div>
+    <div class="row mt-12" id="mc-next-row" style="display:none">
+      <button class="btn btn-primary btn-sm" onclick="nextQuestion('mc')">Próxima</button>
+    </div>
+  </div>
+
+  <!-- FILL IN BLANK -->
+  <div id="mode-fib" class="hidden">
+    <div class="q-counter" id="fib-counter"></div>
+    <div class="card">
+      <h2>Pergunta</h2>
+      <div class="question" id="fib-q"></div>
+    </div>
+    <div class="card">
+      <h2>Completa os espaços em branco</h2>
+      <div class="fib-text" id="fib-text"></div>
+      <div class="fib-controls">
+        <button class="btn btn-primary btn-sm" onclick="checkFib()">Verificar</button>
+        <button class="btn btn-secondary btn-sm" onclick="revealFib()">Revelar</button>
+        <button class="btn btn-secondary btn-sm" onclick="nextQuestion('fib')">Próxima</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPEN ANSWER -->
+  <div id="mode-oa" class="hidden">
+    <div class="q-counter" id="oa-counter"></div>
+    <div class="card">
+      <h2>Pergunta</h2>
+      <div class="question" id="oa-q"></div>
+    </div>
+    <div class="card">
+      <h2>A tua resposta</h2>
+      <textarea id="oa-input" placeholder="Escreve a tua resposta aqui..."></textarea>
+      <div class="fib-controls">
+        <button class="btn btn-primary btn-sm" onclick="checkOA()">Avaliar</button>
+        <button class="btn btn-secondary btn-sm" onclick="nextQuestion('oa')">Próxima</button>
+      </div>
+      <div id="oa-result" class="hidden">
+        <div class="oa-score">Keywords encontradas: <span id="oa-score-val"></span></div>
+        <div class="kw-list" id="oa-kw-list"></div>
+        <div class="card mt-12" style="background:var(--surface2)">
+          <h2>Resposta modelo</h2>
+          <div id="oa-model-answer" class="answer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEW -->
+  <div id="mode-review" class="hidden" id="mode-review"></div>
+
+  <!-- END SCREEN -->
+  <div id="end-screen">
+    <h2 id="end-title"></h2>
+    <p id="end-sub"></p>
+    <ul class="weak-list" id="end-weak"></ul>
+    <button class="btn btn-primary" onclick="restartSession()">Recomeçar</button>
+    <button class="btn btn-secondary mt-12" onclick="restartSession(true)" style="margin-left:8px">Só as fracas</button>
+  </div>
+</main>
+
+<script>
+const QA = [
+{
+  id: 1,
+  question: "O dimensionamento de uma infraestrutura de Cloud Computing é extremamente difícil pois requer o balanço de várias características. Que características deve ter em conta quando dimensiona? Porque não existe uma solução única para este problema?",
+  keyPoints: [
+    "Carga (procura): a carga varia muito e o pico pode ser 2 a 10 vezes superior à média (fins de semana, feriados, Black Friday, conteúdo viral).",
+    "Custo: o hardware é caro de comprar (CapEx) e de manter (OpEx).",
+    "Escalabilidade: tem de crescer e diminuir consoante a procura, mas escalar é lento e difícil.",
+    "Disponibilidade: o sistema tem de estar quase sempre a funcionar (ex.: 99,999% = ~5 min de falha por ano).",
+    "Não existe solução única porque a carga é dinâmica e imprevisível: ou se dimensiona para o pico (desperdiçam-se recursos, utilização típica 5%-20%), ou se dimensiona abaixo do pico (perdem-se clientes por falta de capacidade)."
+  ],
+  keywords: ["Carga", "Custo", "Escalabilidade", "Disponibilidade", "CapEx", "OpEx", "pico", "solução única"],
+  answer: `<strong>Características a ter em conta:</strong>
+<ul>
+<li><strong>Carga (procura):</strong> a carga varia muito e o pico pode ser 2 a 10× superior à média (fins de semana, Black Friday, conteúdo viral).</li>
+<li><strong>Custo:</strong> o hardware é caro de comprar (<strong>CapEx</strong>) e de manter (<strong>OpEx</strong>).</li>
+<li><strong>Escalabilidade:</strong> tem de crescer e diminuir consoante a procura, mas escalar é lento e difícil.</li>
+<li><strong>Disponibilidade:</strong> o sistema tem de estar quase sempre a funcionar (ex.: 99,999% = ~5 min de falha por ano).</li>
+</ul>
+<p style="margin-top:12px"><strong>Não existe solução única</strong> porque a carga é dinâmica e imprevisível: ou se dimensiona para o pico (desperdiçam-se recursos, utilização típica de apenas 5%–20%), ou se dimensiona abaixo do pico (perdem-se clientes por falta de capacidade).</p>`
+},
+{
+  id: 2,
+  question: "Numa infraestrutura baseada em containers, os mesmos apresentam-se por definição associados a uma rede privada, isolada da rede do anfitrião. Explique o motivo por que isto acontece e como na tecnologia Kubernetes um serviço deve ser exposto à internet.",
+  keyPoints: [
+    "Os containers usam network namespaces — um mecanismo do Linux que isola e virtualiza recursos de rede (interfaces, tabelas de encaminhamento).",
+    "Cada namespace vê apenas os seus próprios recursos; uma interface de rede só pode pertencer a um namespace.",
+    "Cria-se um par de interfaces virtuais (veth) ligadas ponto-a-ponto: uma fica no namespace do container e a outra é ligada a uma bridge de software.",
+    "No Kubernetes, o Service dá um ponto de acesso estável (IP e DNS fixos) para alcançar os pods dentro do cluster — é interno.",
+    "O Ingress torna o serviço visível para o exterior (internet), normalmente com Nginx ou Traefik."
+  ],
+  keywords: ["network namespaces", "veth", "bridge", "Service", "Ingress", "Nginx", "Traefik", "Kubernetes"],
+  answer: `<p>Os containers estão numa rede privada isolada porque usam <strong>network namespaces</strong>, um mecanismo do Linux que isola e virtualiza os recursos de rede (interfaces, tabelas de encaminhamento). Cada namespace "vê" apenas os seus próprios recursos e uma interface de rede só pode pertencer a um namespace.</p>
+<p style="margin-top:10px">Não se atribui uma interface real do host ao container. Em vez disso, cria-se um <strong>par de interfaces virtuais (veth)</strong> ligadas ponto-a-ponto: uma fica no namespace do container e a outra é ligada a uma <strong>bridge</strong> de software.</p>
+<p style="margin-top:10px">No <strong>Kubernetes</strong>, expõe-se um serviço à internet em dois passos:</p>
+<ul>
+<li><strong>Service:</strong> dá um ponto de acesso estável (IP e nome DNS fixos) para alcançar os pods dentro do cluster. É interno.</li>
+<li><strong>Ingress:</strong> torna o serviço visível para o exterior (internet), normalmente com <strong>Nginx</strong> ou Traefik.</li>
+</ul>`
+},
+{
+  id: 3,
+  question: "Enumere e defina 4 princípios da Orientação a Serviços (SOA).",
+  keyPoints: [
+    "Loose coupling (acoplamento fraco): os serviços minimizam dependências entre si; só precisam de ter consciência uns dos outros.",
+    "Service contract (contrato de serviço): os serviços seguem um acordo de comunicação, definido pelas descrições do serviço.",
+    "Autonomy (autonomia): cada serviço controla a lógica que encapsula.",
+    "Abstraction (abstração): para além do que está no contrato, o serviço esconde a sua lógica do exterior.",
+    "Outros: Reusability (reutilização), Composability, Statelessness, Discoverability."
+  ],
+  keywords: ["Loose coupling", "Service contract", "Autonomy", "Abstraction", "Reusability", "Composability", "Statelessness", "Discoverability"],
+  answer: `<p>Os princípios da orientação a serviços definem como desenhar serviços independentes e reutilizáveis:</p>
+<ul>
+<li><strong>Loose coupling (acoplamento fraco):</strong> os serviços minimizam dependências entre si; só precisam de ter consciência uns dos outros.</li>
+<li><strong>Service contract (contrato de serviço):</strong> os serviços seguem um acordo de comunicação, definido pelas descrições do serviço.</li>
+<li><strong>Autonomy (autonomia):</strong> cada serviço controla a lógica que encapsula.</li>
+<li><strong>Abstraction (abstração):</strong> para além do que está no contrato, o serviço esconde a sua lógica do exterior.</li>
+</ul>
+<p style="margin-top:10px"><em>Outros princípios: <strong>Reusability</strong> — reutilização; <strong>Composability</strong> — poderem ser combinados; <strong>Statelessness</strong> — não guardarem estado; <strong>Discoverability</strong> — poderem ser descobertos.</em></p>`
+},
+{
+  id: 4,
+  question: "Defina o que é uma SAML Assertion, para que serve e quais as vantagens da sua utilização.",
+  keyPoints: [
+    "Uma SAML Assertion é uma declaração de factos sobre um sujeito (utilizador), feita por um Identity Provider (a 'autoridade' que afirma quem o utilizador é).",
+    "Pode conter: factos de autenticação, atributos do sujeito (direitos de acesso, limites), decisões de autorização.",
+    "Serve para: permitir que dois servidores partilhem informação de identidade e autenticação — base do Single Sign-On (SSO).",
+    "Vantagens: standard da indústria neutro; baseado em XML; não depende de autoridade central; suporta identidade federada."
+  ],
+  keywords: ["Identity Provider", "Service Provider", "autenticação", "atributos", "autorização", "SSO", "Single Sign-On", "XML", "identidade federada"],
+  answer: `<p>Uma <strong>SAML Assertion</strong> é uma declaração de factos sobre um sujeito (utilizador), feita por um <strong>Identity Provider</strong> (a "autoridade" que afirma quem o utilizador é). O <strong>Service Provider</strong> confia nessa declaração.</p>
+<p style="margin-top:10px">Uma assertion pode conter:</p>
+<ul>
+<li>Factos de <strong>autenticação</strong> (o utilizador autenticou-se desta forma, a esta hora);</li>
+<li><strong>Atributos</strong> do sujeito (direitos de acesso, limites, estado);</li>
+<li>Decisões de <strong>autorização</strong> já tomadas.</li>
+</ul>
+<p style="margin-top:10px"><strong>Para que serve:</strong> permite que dois servidores partilhem informação de identidade e autenticação, sendo a base do <strong>Single Sign-On (SSO)</strong> — o utilizador autentica-se uma vez e acede a vários serviços.</p>
+<p style="margin-top:10px"><strong>Vantagens:</strong> standard da indústria, <strong>neutro</strong>; baseado em <strong>XML</strong>; qualquer ponto da rede pode afirmar que conhece a identidade (não depende de autoridade central); suporta <strong>identidade federada</strong>.</p>`
+},
+{
+  id: 5,
+  question: "Em que consiste o padrão Publish/Subscribe? Este padrão pode ser comparado a que outro padrão? Quais as suas vantagens?",
+  keyPoints: [
+    "No Publish/Subscribe, um serviço publica mensagens/eventos de um dado tipo (tópico) e os clientes subscrevem os tipos que lhes interessam; quando um evento é publicado, o sistema reencaminha-o para os clientes interessados.",
+    "O publicador e o subscritor não precisam de se conhecer.",
+    "Pode ser comparado ao modelo por filas / ponto-a-ponto (point-to-point). No ponto-a-ponto o cliente e o servidor conhecem-se; no pub/sub a ligação é feita através de tópicos. Assemelha-se também a multicast.",
+    "Vantagens: desacoplamento, comunicação assíncrona, escalabilidade, tolerância a falhas, um publicador chega a muitos subscritores."
+  ],
+  keywords: ["tópico", "subscrever", "desacoplamento", "assíncrona", "escalabilidade", "tolerância a falhas", "multicast", "point-to-point"],
+  answer: `<p>No <strong>Publish/Subscribe</strong>, um serviço publica mensagens/eventos de um dado tipo (<strong>tópico</strong>) e os clientes <strong>subscrevem</strong> os tipos que lhes interessam. Quando um evento é publicado, o sistema consulta a tabela de subscrições e reencaminha-o para os clientes interessados. O publicador e o subscritor <strong>não precisam de se conhecer</strong>.</p>
+<p style="margin-top:10px">Pode ser comparado ao <strong>modelo por filas / ponto-a-ponto (point-to-point)</strong>. A diferença: no ponto-a-ponto o cliente e o servidor conhecem-se; no pub/sub a ligação é feita através de tópicos e eventos. Assemelha-se também a <strong>multicast</strong>.</p>
+<p style="margin-top:10px"><strong>Vantagens:</strong></p>
+<ul>
+<li><strong>Desacoplamento</strong> (publicadores e subscritores independentes);</li>
+<li>Comunicação <strong>assíncrona</strong> (não é preciso esperar por resposta);</li>
+<li><strong>Escalabilidade</strong> (suporta facilmente um número variável de serviços);</li>
+<li>Maior <strong>tolerância a falhas</strong>;</li>
+<li>Um publicador consegue chegar a muitos subscritores.</li>
+</ul>`
+},
+{
+  id: 6,
+  question: "Distinga entre orquestração e composição de serviços.",
+  keyPoints: [
+    "Composição de serviços é o juntar de vários serviços para automatizar uma tarefa ou processo de negócio. Para haver composição, tem de existir pelo menos dois serviços mais um iniciador.",
+    "Orquestração estabelece um protocolo de negócio que define formalmente um processo, centralizando e controlando a lógica entre aplicações através de um modelo padronizado.",
+    "A distinção-chave: a composição é apenas a agregação de serviços, enquanto a orquestração acrescenta um controlo central (existe um 'maestro' que comanda tudo).",
+    "Contrasta com a coreografia, em que não há controlo central e os participantes se coordenam diretamente entre si."
+  ],
+  keywords: ["dois serviços mais um iniciador", "protocolo de negócio", "centralizando", "workflow", "coreografia", "maestro", "composição"],
+  answer: `<p><strong>Composição de serviços</strong> é o juntar de vários serviços para automatizar uma tarefa ou processo de negócio. Para haver composição, tem de existir pelo menos <strong>dois serviços mais um iniciador</strong>; caso contrário é apenas uma troca ponto-a-ponto.</p>
+<p style="margin-top:10px"><strong>Orquestração</strong> estabelece um <strong>protocolo de negócio que define formalmente um processo</strong>, centralizando e controlando a lógica entre aplicações através de um modelo padronizado. A lógica de <strong>workflow</strong> é dividida em atividades organizadas em sequências e fluxos.</p>
+<p style="margin-top:10px"><strong>Distinção-chave:</strong> a composição é apenas a agregação de serviços, enquanto a orquestração acrescenta um <strong>controlo central</strong> (existe um "maestro" que comanda tudo). Isto contrasta com a <strong>coreografia</strong>, em que não há controlo central e os participantes se coordenam diretamente entre si.</p>`
+},
+{
+  id: 7,
+  question: "Indique os principais componentes do 3GPP/IMS e apresente a sua definição.",
+  keyPoints: [
+    "O núcleo do IMS é composto pela CSCF (Call Session Control Function) e pelo HSS (Home Subscriber Server).",
+    "HSS: base de dados mestre com toda a informação dos subscritores (identificação, autenticação, autorização, gestão de mobilidade).",
+    "P-CSCF (Proxy-CSCF): ponto de contacto do utilizador para a sinalização SIP. Fica no domínio visitado; comprime e protege as mensagens SIP.",
+    "S-CSCF (Serving-CSCF): controla a sessão SIP do utilizador. Fica no domínio de origem (home) e funciona como registrar SIP.",
+    "I-CSCF (Interrogating-CSCF): ponto de contacto do domínio para a sinalização SIP entre domínios; descobre qual o S-CSCF que serve o utilizador.",
+    "MGCF + MGW: fazem a ligação com a rede telefónica tradicional (GSTN).",
+    "Application Servers (AS): fornecem os serviços propriamente ditos e interagem com o S-CSCF via SIP."
+  ],
+  keywords: ["CSCF", "HSS", "P-CSCF", "S-CSCF", "I-CSCF", "MGCF", "MGW", "Application Servers", "SIP", "IMS"],
+  answer: `<p>O núcleo do <strong>IMS</strong> é composto pela <strong>CSCF</strong> (Call Session Control Function) e pelo <strong>HSS</strong> (Home Subscriber Server).</p>
+<ul>
+<li><strong>HSS (Home Subscriber Server):</strong> base de dados mestre com toda a informação dos subscritores. Trata da identificação, autenticação, autorização de acesso, gestão de mobilidade.</li>
+<li><strong>P-CSCF (Proxy-CSCF):</strong> ponto de contacto do utilizador para a sinalização <strong>SIP</strong>. Fica no domínio visitado; comprime e protege as mensagens SIP.</li>
+<li><strong>S-CSCF (Serving-CSCF):</strong> controla a sessão SIP do utilizador. Fica no domínio de origem (home) e funciona como <em>registrar</em> SIP.</li>
+<li><strong>I-CSCF (Interrogating-CSCF):</strong> ponto de contacto do domínio para a sinalização SIP entre domínios; descobre qual o S-CSCF que serve o utilizador.</li>
+<li><strong>MGCF + MGW (Media Gateway Control Function e Media Gateway):</strong> fazem a ligação com a rede telefónica tradicional (GSTN).</li>
+<li><strong>Application Servers (AS):</strong> fornecem os serviços propriamente ditos (não fazem parte do core IMS) e interagem com o S-CSCF via SIP.</li>
+</ul>`
+},
+{
+  id: 8,
+  question: "Compare o modelo de interação cliente-servidor com o modelo por filas (reliable queueing).",
+  keyPoints: [
+    "O modelo cliente-servidor é síncrono e bloqueante; o modelo por filas é assíncrono e desacoplado, com mensagens persistentes.",
+    "Cliente-servidor: o cliente faz o pedido e fica bloqueado à espera da resposta. Ambos têm de estar online ao mesmo tempo. Pode provocar cascata de falhas.",
+    "Modelo por filas: comunicação feita através de filas persistentes que guardam as mensagens de forma transacional. As aplicações não precisam de estar disponíveis no momento em que o pedido é feito.",
+    "Filas: maior tolerância a falhas e flexibilidade; permite padrões 1-para-1, 1-para-muitos, muitos-para-1, muitos-para-muitos. Custo: algum desempenho."
+  ],
+  keywords: ["síncrono", "bloqueante", "assíncrono", "desacoplado", "mensagens persistentes", "cascata de falhas", "tolerância a falhas", "transacional"],
+  answer: `<p><strong>O modelo cliente-servidor é síncrono e bloqueante; o modelo por filas é assíncrono e desacoplado, com mensagens persistentes.</strong></p>
+<p style="margin-top:10px"><strong>Cliente-servidor (síncrono, pedido/resposta):</strong></p>
+<ul>
+<li>O cliente faz o pedido e <strong>fica bloqueado</strong> à espera da resposta;</li>
+<li>Ambos têm de estar online ao mesmo tempo; mantém estado no cliente (problemas de escalabilidade);</li>
+<li>Se uma chamada falha, pode provocar uma <strong>cascata de falhas</strong>.</li>
+</ul>
+<p style="margin-top:10px"><strong>Modelo por filas (assíncrono):</strong></p>
+<ul>
+<li>Comunicação feita através de <strong>filas persistentes que guardam as mensagens de forma transacional</strong>;</li>
+<li>As aplicações <strong>não precisam de estar disponíveis</strong> no momento em que o pedido é feito;</li>
+<li>Maior <strong>tolerância a falhas</strong> e flexibilidade;</li>
+<li>Permite padrões: 1-para-1, 1-para-muitos, muitos-para-1, muitos-para-muitos;</li>
+<li>Custo: mais flexibilidade à custa de algum desempenho.</li>
+</ul>`
+},
+{
+  id: 9,
+  question: "Compare SAML e OAuth.",
+  keyPoints: [
+    "SAML serve sobretudo para autenticação e Single Sign-On empresarial (baseado em XML); OAuth serve para autorizar o acesso a APIs (baseado em tokens).",
+    "SAML: standard OASIS (2005); baseado em XML (usa SOAP, XMLDSig, XMLEnc); foco em autenticação e SSO, incluindo identidade federada; é 'enterprise-ready' mas é pesado.",
+    "OAuth: standard aberto para autenticação/autorização segura de APIs; iniciado pelo Twitter (2006); baseado em tokens; mais leve.",
+    "OAuth2 (2010): protocolo novo, valida por HTTPS, traz scoping (direitos diferentes) e possibilidade de revogar direitos já concedidos."
+  ],
+  keywords: ["OASIS", "XML", "SSO", "tokens", "OAuth2", "scoping", "leve", "enterprise-ready", "identidade federada", "HTTPS"],
+  answer: `<p><strong>SAML</strong> serve sobretudo para autenticação e <strong>Single Sign-On (SSO)</strong> empresarial (baseado em XML); <strong>OAuth</strong> serve para autorizar o acesso a APIs (baseado em tokens).</p>
+<p style="margin-top:10px"><strong>SAML:</strong></p>
+<ul>
+<li>Standard <strong>OASIS</strong> (2005);</li>
+<li>Baseado em <strong>XML</strong> (usa SOAP, XMLDSig, XMLEnc);</li>
+<li>Foco em <strong>autenticação e SSO</strong>, incluindo identidade federada entre organizações;</li>
+<li>É considerado "enterprise-ready", mas é <strong>pesado</strong>; usa SSL entre servidores.</li>
+</ul>
+<p style="margin-top:10px"><strong>OAuth:</strong></p>
+<ul>
+<li>Standard aberto para autenticação/autorização segura de APIs;</li>
+<li>Iniciado pelo Twitter (2006); baseado em <strong>tokens</strong>;</li>
+<li>Mais <strong>leve</strong>; o OAuth1 não é extensível nem "enterprise-ready";</li>
+<li><strong>OAuth2</strong> (2010): protocolo novo, valida por HTTPS, traz <strong>scoping</strong> (direitos diferentes) e possibilidade de <strong>revogar</strong> direitos já concedidos.</li>
+</ul>`
+},
+{
+  id: 10,
+  question: "Defina o que é um Enterprise Service Bus.",
+  keyPoints: [
+    "Um ESB é uma arquitetura de software para um middleware (um 'barramento' central) que fornece serviços fundamentais para arquiteturas mais complexas e que serve para implementar SOA.",
+    "O ESB gere o acesso às aplicações e serviços, apresentando uma interface única, simples e consistente.",
+    "Funcionalidades: distribui informação rapidamente; mascara diferenças entre plataformas e protocolos; garante entrega mesmo quando sistemas estão offline; faz routing, log e enriquecimento; permite implementação incremental.",
+    "Componentes: Mediator, Service Registry, Choreographer e Rules Engine."
+  ],
+  keywords: ["middleware", "barramento", "SOA", "Mediator", "Service Registry", "Choreographer", "Rules Engine", "incremental", "routing"],
+  answer: `<p>Um <strong>Enterprise Service Bus (ESB)</strong> é uma arquitetura de software para um <strong>middleware</strong> (um "barramento" central) que fornece serviços fundamentais para arquiteturas mais complexas e que serve para implementar <strong>SOA</strong>. O ESB gere o acesso às aplicações e serviços, apresentando uma interface <strong>única, simples e consistente</strong>.</p>
+<p style="margin-top:10px"><strong>Funcionalidades principais:</strong></p>
+<ul>
+<li>Distribui a informação pela organização de forma rápida;</li>
+<li><strong>Mascara as diferenças</strong> entre plataformas, arquiteturas e protocolos de rede;</li>
+<li>Garante a entrega da informação mesmo quando alguns sistemas estão offline;</li>
+<li>Faz <strong>routing</strong>, registo (log) e enriquecimento sem obrigar a reescrever as aplicações;</li>
+<li>Permite implementação <strong>incremental</strong>.</li>
+</ul>
+<p style="margin-top:10px"><strong>Componentes:</strong> Mediator, Service Registry, Choreographer e Rules Engine.</p>`
+},
+{
+  id: 11,
+  question: "Indique os paradigmas do cloud computing e no que consistem.",
+  keyPoints: [
+    "Os três paradigmas são camadas de serviço que vão abstraindo cada vez mais a infraestrutura: IaaS → PaaS → SaaS.",
+    "IaaS (Infrastructure as a Service): aluga-se infraestrutura virtualizada (servidores, armazenamento, redes). Acesso ao SO completo, firewalls, load balancing. Ex.: Amazon EC2/S3, Google Cloud.",
+    "PaaS (Platform as a Service): aluga-se uma plataforma de desenvolvimento. O programador foca-se só em criar a aplicação. Ex.: Google App Engine, MS Azure, Heroku.",
+    "SaaS (Software as a Service): aluga-se o software já pronto, acedido pelo browser. Upgrades automáticos. Ex.: Google Apps, Salesforce, Office 365.",
+    "Vantagens comuns: pay-per-use, escalabilidade instantânea, segurança e fiabilidade."
+  ],
+  keywords: ["IaaS", "PaaS", "SaaS", "infraestrutura", "plataforma", "software", "pay-per-use", "escalabilidade"],
+  answer: `<p>Os três paradigmas são camadas de serviço que vão abstraindo cada vez mais a infraestrutura: <strong>IaaS → PaaS → SaaS</strong>.</p>
+<ul>
+<li><strong>IaaS (Infrastructure as a Service):</strong> aluga-se <strong>infraestrutura</strong> virtualizada (servidores, armazenamento, redes). Dá acesso ao SO completo, firewalls, load balancing. Ex.: Amazon EC2/S3, Google Cloud, IBM Bluemix.</li>
+<li><strong>PaaS (Platform as a Service):</strong> aluga-se uma <strong>plataforma</strong> de desenvolvimento. O programador foca-se só em criar a aplicação, sem se preocupar com o SO ou escalabilidade. Ex.: Google App Engine, MS Azure, Heroku.</li>
+<li><strong>SaaS (Software as a Service):</strong> aluga-se o <strong>software</strong> já pronto, acedido pelo browser. Upgrades automáticos, acesso aos dados em qualquer lado. Ex.: Google Apps, Salesforce, Office 365.</li>
+</ul>
+<p style="margin-top:10px"><strong>Vantagens comuns:</strong> pay-per-use, escalabilidade instantânea, segurança e fiabilidade.</p>`
+},
+{
+  id: 12,
+  question: "Indique o que distingue uma Public de uma Private cloud.",
+  keyPoints: [
+    "A diferença principal está em quem pode usar: a cloud pública é aberta e comercial, a cloud privada é restrita a uma única organização.",
+    "Public cloud: serviço comercial, aberto a (quase) qualquer pessoa. Ex.: Amazon AWS, Microsoft Azure, Google App Engine.",
+    "Private cloud: partilhada apenas dentro de uma única organização. Ex.: o datacenter interno de uma grande empresa.",
+    "Existe ainda a Community cloud, partilhada por várias organizações semelhantes (ex.: 'Gov Cloud' da Google)."
+  ],
+  keywords: ["comercial", "organização única", "Community cloud", "AWS", "Azure", "datacenter", "aberta"],
+  answer: `<p><strong>A diferença principal está em quem pode usar: a cloud pública é aberta e comercial, a cloud privada é restrita a uma única organização.</strong></p>
+<ul>
+<li><strong>Public cloud:</strong> serviço <strong>comercial</strong>, aberto a (quase) qualquer pessoa. Ex.: Amazon AWS, Microsoft Azure, Google App Engine.</li>
+<li><strong>Private cloud:</strong> partilhada apenas <strong>dentro de uma única organização</strong>. Ex.: o datacenter interno de uma grande empresa.</li>
+</ul>
+<p style="margin-top:10px">Existe ainda a <strong>Community cloud</strong>, partilhada por várias organizações semelhantes — ex.: a "Gov Cloud" da Google.</p>`
+},
+];
+
+// STATE
+let mode = 'flash';
+let queue = [];
+let qIdx = 0;
+let sessionCorrect = 0;
+let sessionTotal = 0;
+let weakSet = new Set(JSON.parse(localStorage.getItem('egs_weak') || '[]'));
+
+function saveWeak() { localStorage.setItem('egs_weak', JSON.stringify([...weakSet])); }
+
+function getQueue() {
+  const filter = document.getElementById('q-filter').value;
+  if (filter === 'weak') return QA.filter(q => weakSet.has(q.id));
+  const n = parseInt(filter);
+  if (!isNaN(n)) return QA.filter(q => q.id === n);
+  return [...QA];
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// MODE SWITCH
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+    startMode();
+  });
+});
+document.getElementById('q-filter').addEventListener('change', startMode);
+
+function startMode() {
+  ['flash','mc','fib','oa','review'].forEach(m => {
+    document.getElementById('mode-' + m).classList.toggle('hidden', m !== mode);
+  });
+  document.getElementById('end-screen').style.display = 'none';
+  document.getElementById('progress-bar-wrap').classList.remove('hidden');
+  queue = shuffle(getQueue());
+  if (!queue.length) { queue = shuffle(QA); }
+  qIdx = 0; sessionCorrect = 0; sessionTotal = 0;
+  updateProgress();
+  if (mode === 'flash') initFlash();
+  else if (mode === 'mc') initMC();
+  else if (mode === 'fib') initFib();
+  else if (mode === 'oa') initOA();
+  else if (mode === 'review') initReview();
+}
+
+function updateProgress() {
+  const total = queue.length;
+  const done = Math.min(qIdx, total);
+  const pct = total ? (done / total * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('score-display').textContent =
+    mode === 'flash' ? `${done}/${total}` :
+    mode === 'review' ? '' :
+    `${sessionCorrect} certas / ${sessionTotal} tentativas`;
+  document.getElementById('progress-label').textContent =
+    mode === 'flash' ? 'Progresso' : mode === 'review' ? 'Todas as perguntas' : `Pergunta ${Math.min(qIdx+1,total)} de ${total}`;
+}
+
+// ============ FLASHCARD ============
+let flashFlipped = false;
+
+function initFlash() {
+  flashFlipped = false;
+  document.getElementById('flip-container').classList.remove('flipped');
+  document.getElementById('flash-btns').style.display = 'none';
+  document.getElementById('flash-hint').textContent = 'Clica no cartão para ver a resposta';
+  renderFlash();
+}
+
+function renderFlash() {
+  if (qIdx >= queue.length) { showEnd(); return; }
+  const q = queue[qIdx];
+  flashFlipped = false;
+  document.getElementById('flip-container').classList.remove('flipped');
+  document.getElementById('flash-btns').style.display = 'none';
+  document.getElementById('flash-hint').textContent = 'Clica no cartão para ver a resposta';
+  document.getElementById('flash-num').textContent = `Pergunta ${q.id}`;
+  document.getElementById('flash-q').textContent = q.question;
+  document.getElementById('flash-a').innerHTML = q.answer;
+  updateProgress();
+}
+
+function flipCard() {
+  flashFlipped = !flashFlipped;
+  document.getElementById('flip-container').classList.toggle('flipped', flashFlipped);
+  if (flashFlipped) {
+    document.getElementById('flash-btns').style.display = 'flex';
+    document.getElementById('flash-hint').textContent = '';
+  }
+}
+
+function rateFlash(knew) {
+  sessionTotal++;
+  if (knew) { sessionCorrect++; weakSet.delete(queue[qIdx].id); }
+  else { weakSet.add(queue[qIdx].id); }
+  saveWeak();
+  qIdx++;
+  renderFlash();
+  updateProgress();
+}
+
+// ============ MULTIPLE CHOICE ============
+let mcAnswered = false;
+
+function initMC() { mcAnswered = false; renderMC(); }
+
+function renderMC() {
+  if (qIdx >= queue.length) { showEnd(); return; }
+  const q = queue[qIdx];
+  mcAnswered = false;
+  document.getElementById('mc-q').textContent = q.question;
+  document.getElementById('mc-counter').textContent = `Pergunta ${qIdx+1} de ${queue.length}`;
+  document.getElementById('mc-feedback').classList.add('hidden');
+  document.getElementById('mc-next-row').style.display = 'none';
+
+  // Build options: 1 correct keyPoint + 3 distractors from other questions
+  const correct = q.keyPoints[0];
+  const others = QA.filter(x => x.id !== q.id);
+  const distractors = shuffle(others).slice(0, 3).map(o => o.keyPoints[Math.floor(Math.random() * o.keyPoints.length)]);
+  const opts = shuffle([correct, ...distractors]);
+
+  const container = document.getElementById('mc-opts');
+  container.innerHTML = '';
+  opts.forEach(opt => {
+    const el = document.createElement('div');
+    el.className = 'mc-opt';
+    el.textContent = opt;
+    el.addEventListener('click', () => selectMC(el, opt === correct, q));
+    container.appendChild(el);
+  });
+  updateProgress();
+}
+
+function selectMC(el, isCorrect, q) {
+  if (mcAnswered) return;
+  mcAnswered = true;
+  sessionTotal++;
+  const opts = document.querySelectorAll('.mc-opt');
+  opts.forEach(o => {
+    o.classList.add('disabled');
+    if (o.textContent === el.textContent) o.classList.add(isCorrect ? 'correct' : 'wrong');
+  });
+  if (isCorrect) {
+    sessionCorrect++;
+    weakSet.delete(q.id);
+    const fb = document.getElementById('mc-feedback');
+    fb.className = 'mc-feedback ok';
+    fb.innerHTML = '✓ Correto!';
+    fb.classList.remove('hidden');
+  } else {
+    weakSet.add(q.id);
+    const fb = document.getElementById('mc-feedback');
+    fb.className = 'mc-feedback ko';
+    fb.innerHTML = `✗ Errado. <strong>Resposta correta:</strong><br>${q.answer}`;
+    fb.classList.remove('hidden');
+  }
+  saveWeak();
+  document.getElementById('mc-next-row').style.display = 'flex';
+  updateProgress();
+}
+
+function nextQuestion(m) {
+  qIdx++;
+  if (m === 'mc') renderMC();
+  else if (m === 'fib') renderFib();
+  else if (m === 'oa') renderOA();
+}
+
+// ============ FILL IN BLANK ============
+let fibBlanks = [];
+
+function initFib() { renderFib(); }
+
+function renderFib() {
+  if (qIdx >= queue.length) { showEnd(); return; }
+  const q = queue[qIdx];
+  document.getElementById('fib-q').textContent = q.question;
+  document.getElementById('fib-counter').textContent = `Pergunta ${qIdx+1} de ${queue.length}`;
+  fibBlanks = [...q.keywords];
+  // Build text with blanks from keyPoints joined
+  let text = q.keyPoints.join(' ');
+  const container = document.getElementById('fib-text');
+  container.innerHTML = '';
+  // Replace keywords with inputs
+  let remaining = text;
+  const parts = [];
+  const usedKws = [];
+  q.keywords.forEach(kw => {
+    const idx = remaining.toLowerCase().indexOf(kw.toLowerCase());
+    if (idx !== -1) {
+      parts.push({ before: remaining.slice(0, idx), kw });
+      remaining = remaining.slice(idx + kw.length);
+      usedKws.push(kw);
+    }
+  });
+  parts.push({ before: remaining, kw: null });
+
+  let html = '';
+  parts.forEach(p => {
+    html += escapeHtml(p.before);
+    if (p.kw) html += `<input class="fib-input" data-kw="${escapeAttr(p.kw)}" placeholder="______" autocomplete="off">`;
+  });
+  container.innerHTML = html;
+  updateProgress();
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function escapeAttr(s) {
+  return s.replace(/"/g,'&quot;');
+}
+
+function normalize(s) { return s.trim().toLowerCase().replace(/[^a-záéíóúàâãêôçü0-9/]/gi, ''); }
+
+function checkFib() {
+  const inputs = document.querySelectorAll('#fib-text .fib-input');
+  let correct = 0;
+  inputs.forEach(inp => {
+    const kw = inp.dataset.kw;
+    const val = inp.value;
+    const ok = normalize(val).includes(normalize(kw)) || normalize(kw).includes(normalize(val)) && normalize(val).length > 2;
+    inp.classList.remove('fib-correct','fib-wrong','fib-revealed');
+    inp.classList.add(ok ? 'fib-correct' : 'fib-wrong');
+    if (!ok) inp.placeholder = kw;
+    if (ok) correct++;
+  });
+  sessionTotal++;
+  if (correct === inputs.length) { sessionCorrect++; weakSet.delete(queue[qIdx].id); }
+  else weakSet.add(queue[qIdx].id);
+  saveWeak();
+  updateProgress();
+}
+
+function revealFib() {
+  const inputs = document.querySelectorAll('#fib-text .fib-input');
+  inputs.forEach(inp => {
+    inp.value = inp.dataset.kw;
+    inp.classList.remove('fib-correct','fib-wrong');
+    inp.classList.add('fib-revealed');
+    inp.disabled = true;
+  });
+}
+
+// ============ OPEN ANSWER ============
+function initOA() { renderOA(); }
+
+function renderOA() {
+  if (qIdx >= queue.length) { showEnd(); return; }
+  const q = queue[qIdx];
+  document.getElementById('oa-q').textContent = q.question;
+  document.getElementById('oa-counter').textContent = `Pergunta ${qIdx+1} de ${queue.length}`;
+  document.getElementById('oa-input').value = '';
+  document.getElementById('oa-result').classList.add('hidden');
+  updateProgress();
+}
+
+function checkOA() {
+  const q = queue[qIdx];
+  const text = document.getElementById('oa-input').value.toLowerCase();
+  const found = [], missing = [];
+  q.keywords.forEach(kw => {
+    if (text.includes(kw.toLowerCase()) || kw.toLowerCase().split(' ').every(w => text.includes(w))) {
+      found.push(kw);
+    } else {
+      missing.push(kw);
+    }
+  });
+  const score = found.length;
+  const total = q.keywords.length;
+  document.getElementById('oa-score-val').textContent = `${score}/${total}`;
+  const kwList = document.getElementById('oa-kw-list');
+  kwList.innerHTML = '';
+  found.forEach(kw => {
+    const b = document.createElement('span');
+    b.className = 'kw-badge kw-found';
+    b.textContent = '✓ ' + kw;
+    kwList.appendChild(b);
+  });
+  missing.forEach(kw => {
+    const b = document.createElement('span');
+    b.className = 'kw-badge kw-missing';
+    b.textContent = '✗ ' + kw;
+    kwList.appendChild(b);
+  });
+  document.getElementById('oa-model-answer').innerHTML = q.answer;
+  document.getElementById('oa-result').classList.remove('hidden');
+  sessionTotal++;
+  if (score / total >= 0.6) { sessionCorrect++; weakSet.delete(q.id); }
+  else weakSet.add(q.id);
+  saveWeak();
+  updateProgress();
+}
+
+// ============ REVIEW ============
+function initReview() {
+  const container = document.getElementById('mode-review');
+  container.innerHTML = '';
+  QA.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `<h3>Pergunta ${q.id}</h3>
+<div class="q">${escapeHtml(q.question)}</div>
+<div class="a">${q.answer}</div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('progress-bar-wrap').classList.add('hidden');
+}
+
+// ============ END SCREEN ============
+function showEnd() {
+  ['flash','mc','fib','oa'].forEach(m => document.getElementById('mode-'+m).classList.add('hidden'));
+  const es = document.getElementById('end-screen');
+  es.style.display = 'block';
+  const pct = sessionTotal ? Math.round(sessionCorrect/sessionTotal*100) : 0;
+  document.getElementById('end-title').textContent = `Sessão terminada! ${pct}% correto`;
+  document.getElementById('end-sub').textContent = `${sessionCorrect} de ${sessionTotal} respostas corretas`;
+  const weakList = document.getElementById('end-weak');
+  weakList.innerHTML = '';
+  if (weakSet.size) {
+    const h = document.createElement('p');
+    h.style.cssText = 'margin-bottom:8px;font-weight:600;color:var(--text)';
+    h.textContent = 'Perguntas fracas para rever:';
+    weakList.appendChild(h);
+    weakSet.forEach(id => {
+      const q = QA.find(x => x.id === id);
+      if (!q) return;
+      const li = document.createElement('li');
+      li.innerHTML = `<span>Q${id}:</span> ${escapeHtml(q.question.slice(0,80))}...`;
+      weakList.appendChild(li);
+    });
+  }
+}
+
+function restartSession(weakOnly) {
+  document.getElementById('end-screen').style.display = 'none';
+  document.getElementById('progress-bar-wrap').classList.remove('hidden');
+  if (weakOnly) document.getElementById('q-filter').value = 'weak';
+  else document.getElementById('q-filter').value = 'all';
+  startMode();
+}
+
+// INIT
+startMode();
+</script>
+</body>
+</html>

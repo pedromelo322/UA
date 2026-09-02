@@ -1,0 +1,36 @@
+Current configuration:
+!
+frr version 10.3
+frr defaults traditional
+hostname FW6
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+interface eth0
+ ip address 10.100.0.6/16
+ ip ospf 1 area 0
+ ip ospf passive
+exit
+!
+interface eth1
+ ip address 10.0.0.22/30
+ ip ospf 1 area 0
+exit
+!
+interface eth2
+ ip address 10.0.0.33/30
+ ip ospf 1 area 0
+exit
+!
+interface eth3
+ ip address 10.0.0.37/30
+ ip ospf 1 area 0
+exit
+!
+router ospf 1
+ ospf router-id 0.0.0.6
+exit
+!
+end
+

@@ -1,0 +1,7 @@
+Sistema de Climatização Automático (ESP32-C6 · ESP-IDF)
+
+Autoavaliação do projeto (0-20): 19
+
+Contribuições relativas dos elementos do grupo:
+- Hugo Dias  --- 114142 --- 50%
+- Pedro Melo --- 114208 --- 50%

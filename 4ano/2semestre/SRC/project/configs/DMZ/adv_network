@@ -1,0 +1,16 @@
+ip addr add 200.0.0.100/24 dev eth0
+ip route add default via 200.0.0.254
+
+# HTTPS TCP
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ HTTPS reply: $msg"; done' &
+# HTTPS UDP
+socat -d2 UDP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ HTTPS UDP reply: $msg"; done' &
+# IMAP
+socat -d2 TCP-LISTEN:993,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ IMAP reply: $msg"; done' &
+# SMTP
+socat -d2 TCP-LISTEN:25,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ SMTP reply: $msg"; done' &
+# DNS
+socat -d2 UDP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ DNS reply: $msg"; done' &
+# SSH
+socat -d2 TCP-LISTEN:22,reuseaddr,fork SYSTEM:'while read msg; do echo "DMZ SSH reply: $msg"; done' &
+

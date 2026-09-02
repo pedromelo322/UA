@@ -1,0 +1,13 @@
+ip addr add 10.100.0.100/24 dev eth0
+ip route add default via 10.100.0.254
+
+# Intranet/Storage
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "DATACENTER Intranet reply: $msg"; done' &
+# DNS
+socat -d2 UDP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "DATACENTER DNS reply: $msg"; done' &
+socat -d2 TCP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "DATACENTER DNS reply: $msg"; done' &
+# Databases
+socat -d2 TCP-LISTEN:3306,reuseaddr,fork SYSTEM:'while read msg; do echo "DATACENTER DB reply: $msg"; done' &
+# SSH
+socat -d2 TCP-LISTEN:22,reuseaddr,fork SYSTEM:'while read msg; do echo "DATACENTER SSH reply: $msg"; done' &
+

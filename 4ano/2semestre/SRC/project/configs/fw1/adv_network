@@ -1,0 +1,28 @@
+########################################
+# 1. Disable rp_filter
+########################################
+
+sysctl -w net.ipv4.conf.all.rp_filter=0
+sysctl -w net.ipv4.conf.default.rp_filter=0
+
+sysctl -w net.ipv4.conf.eth0.rp_filter=0
+sysctl -w net.ipv4.conf.eth1.rp_filter=0
+sysctl -w net.ipv4.conf.eth2.rp_filter=0
+sysctl -w net.ipv4.conf.eth3.rp_filter=0
+sysctl -w net.ipv4.conf.eth4.rp_filter=0
+sysctl -w net.ipv4.conf.eth5.rp_filter=0
+
+sysctl -w net.ipv4.ip_forward=1
+
+iptables-restore < /etc/init.d/iptables.rules
+
+echo "A limpar lixo de sessões anteriores..."
+killall -9 conntrackd 2>/dev/null
+rm -f /var/lock/conntrackd.lock
+rm -f /var/run/conntrackd.sock
+
+sleep 10
+
+service conntrackd start
+service keepalived restart
+

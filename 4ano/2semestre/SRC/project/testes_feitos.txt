@@ -1,0 +1,123 @@
+Teste 1 — Anti-Spoofing e DDoS (FW7/FW8)
+Simular ataque SYN Flood
+No Pc_internet tenta enviar SYN flood:
+bash# Deve ser limitado a 100/s
+nping --tcp -p 443 100.0.0.254 --rate 200
+Verificar que endereços privados são bloqueados
+bash# Tentar enviar pacote com source privado (deve ser DROP)
+nping --tcp -p 443 100.0.0.254 -S 10.1.0.50
+Verificar estatísticas nas FW7/FW8
+bashiptables -L FROM-OUTSIDE-TO-CORE -vn
+
+Teste 2 — Acesso à Internet só 80/443 (FW3/FW4)
+No Pc_vlan10, criar servidor na Internet
+No Pc_internet:
+bash# Servidor TCP 443
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# Servidor TCP 80
+socat -d2 TCP-LISTEN:80,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# Servidor TCP 8080 (deve ser bloqueado)
+socat -d2 TCP-LISTEN:8080,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+No Pc_vlan10:
+bash# Deve funcionar ✅
+socat - TCP:100.0.0.100:443
+socat - TCP:100.0.0.100:80
+
+# Deve ser bloqueado ❌
+socat - TCP:100.0.0.100:8080
+
+Teste 3 — VoIP só VLAN10 (FW3/FW4)
+No Pc_internet (servidor VoIP simulado):
+bashsocat -d2 UDP-LISTEN:5060,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+No Pc_vlan10:
+bash# Deve funcionar ✅ (IP predefinido)
+socat - UDP:100.0.0.10:5060
+No Pc_vlan1 e Pc_vlan20:
+bash# Deve ser bloqueado ❌
+socat - UDP:100.0.0.10:5060
+
+Teste 4 — Serviços DMZ (FW1/FW2)
+No Pc_dmz, criar todos os serviços:
+bash# HTTPS TCP 443
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# IMAP TCP 993
+socat -d2 TCP-LISTEN:993,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# SMTP TCP 25
+socat -d2 TCP-LISTEN:25,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# DNS UDP 53
+socat -d2 UDP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+Da Internet:
+bash# Todos devem funcionar ✅
+socat - TCP:200.0.0.100:443
+socat - TCP:200.0.0.100:993
+socat - TCP:200.0.0.100:25
+socat - UDP:200.0.0.100:53
+Do interior (Pc_vlan10):
+bash# Todos devem funcionar ✅
+socat - TCP:200.0.0.100:443
+socat - TCP:200.0.0.100:993
+socat - TCP:200.0.0.100:25
+socat - UDP:200.0.0.100:53
+
+Teste 5 — Datacenter (FW5/FW6)
+No Pc_datacenter, criar todos os serviços:
+bash# Intranet TCP 443
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# DNS UDP/TCP 53
+socat -d2 UDP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+socat -d2 TCP-LISTEN:53,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+
+# Base de dados TCP 3306
+socat -d2 TCP-LISTEN:3306,reuseaddr,fork SYSTEM:'while read msg; do echo "reply: $msg"; done' &
+De Pc_vlan10:
+bash# Deve funcionar ✅
+socat - TCP:10.100.0.100:443
+socat - UDP:10.100.0.100:53
+
+# Deve ser bloqueado ❌
+socat - TCP:10.100.0.100:3306
+De Pc_vlan20:
+bash# Todos devem funcionar ✅
+socat - TCP:10.100.0.100:443
+socat - UDP:10.100.0.100:53
+socat - TCP:10.100.0.100:3306
+De Pc_vlan1:
+bash# Todos devem ser bloqueados ❌
+socat - TCP:10.100.0.100:443
+socat - UDP:10.100.0.100:53
+socat - TCP:10.100.0.100:3306
+
+Teste 6 — File Sharing (FW3/FW4)
+De Pc_vlan10:
+bash# Deve funcionar ✅
+socat - TCP:10.20.0.100:445
+socat - TCP:10.20.0.100:139
+
+# Deve ser bloqueado para outras zonas ❌
+socat - TCP:200.0.0.100:445
+socat - TCP:100.0.0.100:445
+
+
+
+Teste 7 — Dispositivo de Gestão
+Do dispositivo de gestão 10.1.0.50:
+bash# PING para todos os dispositivos ✅
+ping 200.0.0.100    # DMZ
+ping 10.100.0.100   # Datacenter
+ping 100.0.0.100    # Internet
+
+# SSH para todos os dispositivos ✅
+ssh 200.0.0.100
+ssh 10.100.0.100
+ssh 100.0.0.100
+De qualquer outro dispositivo:
+bash# SSH deve ser bloqueado ❌
+ssh 10.100.0.100
+
+

@@ -1,0 +1,296 @@
+#RouterFW1
+vtysh
+configure
+int eth0
+ip add 100.0.0.1/24 
+
+int eth1
+ip add 200.0.0.1/24 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.53/30
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.62/30 
+ip ospf 1 area 0
+
+int eth4
+ip add 10.0.0.42/30 
+ip ospf 1 area 0
+
+
+router ospf 1
+default-information originate always
+end
+write
+
+#RouterFW2
+
+vtysh
+configure
+int eth0
+ip add 100.0.0.2/24 
+
+int eth1
+ip add 200.0.0.2/24 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.54/30
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.46/30 
+ip ospf 1 area 0
+
+int eth4
+ip add 10.0.0.58/30 
+ip ospf 1 area 0
+
+router ospf 1
+default-information originate always
+end
+write
+
+#RouterFW3
+ip link add link eth0 name eth0.1 type vlan id 1
+ip link add link eth0 name eth0.10 type vlan id 10
+ip link add link eth0 name eth0.20 type vlan id 20
+ip link set up dev eth0.1
+ip link set up dev eth0.10
+ip link set up dev eth0.20
+
+vtysh
+configure
+int eth0.1
+ip add 10.1.0.3/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth0.10
+ip add 10.10.0.3/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth0.20
+ip add 10.20.0.3/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth1
+ip add 10.0.0.1/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.5/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.9/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+
+#RouterFW4
+ip link add link eth0 name eth0.1 type vlan id 1
+ip link add link eth0 name eth0.10 type vlan id 10
+ip link add link eth0 name eth0.20 type vlan id 20
+ip link set up dev eth0.1
+ip link set up dev eth0.10
+ip link set up dev eth0.20
+
+vtysh
+configure
+int eth0.1
+ip add 10.1.0.4/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth0.10
+ip add 10.10.0.4/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth0.20
+ip add 10.20.0.4/24 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth1
+ip add 10.0.0.2/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.13/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.17/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+
+#RouterFW5
+vtysh
+configure
+int eth0
+ip add 10.100.0.5/16 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth1
+ip add 10.0.0.21/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.25/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.29/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+#RouterFW6
+vtysh
+configure
+int eth0
+ip add 10.100.0.6/16 
+ip ospf 1 area 0
+ip ospf passive
+
+int eth1
+ip add 10.0.0.22/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.33/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.37/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+
+#RouterC1
+vtysh
+configure
+int eth0
+ip add 10.0.0.41/30 
+ip ospf 1 area 0
+
+int eth1
+ip add 10.0.0.45/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.49/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.34/30 
+ip ospf 1 area 0
+
+int eth4
+ip add 10.0.0.30/30 
+ip ospf 1 area 0
+
+int eth5
+ip add 10.0.0.14/30 
+ip ospf 1 area 0
+
+int eth6
+ip add 10.0.0.10/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+#RouterC2
+vtysh
+configure
+int eth0
+ip add 10.0.0.57/30 
+ip ospf 1 area 0
+
+int eth1
+ip add 10.0.0.61/30 
+ip ospf 1 area 0
+
+int eth2
+ip add 10.0.0.50/30 
+ip ospf 1 area 0
+
+int eth3
+ip add 10.0.0.6/30 
+ip ospf 1 area 0
+
+int eth4
+ip add 10.0.0.18/30 
+ip ospf 1 area 0
+
+int eth5
+ip add 10.0.0.26/30 
+ip ospf 1 area 0
+
+int eth6
+ip add 10.0.0.38/30 
+ip ospf 1 area 0
+
+router ospf 1
+end
+write
+
+
+##################
+
+Configure (using option configure) the Layer 2 switch VLAN 1, 10, and 20 accesss ports, in links to test PCs.
+Configure (using option configure) the Layer 2 switch trunk (dot1q) ports, in links to FW3 and FW4.
+
+##################
+
+# PC (VLAN 1)
+ip addr add 10.1.0.100/24 dev eth0
+ip route add default via 10.1.0.3 metric 10
+ip route add default via 10.1.0.4 metric 20
+
+# PC (VLAN 10)
+ip addr add 10.10.0.100/24 dev eth0
+ip route add default via 10.10.0.3 metric 10
+ip route add default via 10.10.0.4 metric 20
+
+# PC (VLAN 20)
+ip addr add 10.20.0.100/24 dev eth0
+ip route add default via 10.20.0.3 metric 10
+ip route add default via 10.20.0.4 metric 20
+
+# PC (Datacenter)
+ip addr add 10.100.0.100/24 dev eth0
+ip route add default via 10.100.0.5 metric 10
+ip route add default via 10.100.0.6 metric 20
+
+# PC (DMZ)
+ip addr add 200.0.0.100/24 dev eth0
+ip route add default via 200.0.0.1 metric 10
+ip route add default via 200.0.0.2 metric 20
+
+# PC (Internet)
+ip addr add 100.0.0.100/24 dev eth0
+ip route add default via 100.0.0.1 metric 10
+ip route add default via 100.0.0.2 metric 20

@@ -1,0 +1,35 @@
+menu "Example Configuration"
+
+    config EXAMPLE_ENABLE_HTTPS_USER_CALLBACK
+        bool "Enable user callback with HTTPS Server"
+        select ESP_TLS_SERVER_MIN_AUTH_MODE_OPTIONAL
+        help
+            Enable user callback for esp_https_server which can be used to get SSL context (connection information)
+            E.g. Certificate of the connected client
+
+    config ESP_WIFI_SSID
+        string "SoftAP SSID"
+        default "ESP32_AP"
+        help
+            SSID (network name) of the soft access point.
+
+    config ESP_WIFI_PASSWORD
+        string "SoftAP Password"
+        default ""
+        help
+            Password for the soft access point. Leave empty for open network.
+
+    config ESP_WIFI_CHANNEL
+        int "SoftAP Channel"
+        range 1 13
+        default 1
+        help
+            WiFi channel for the soft access point.
+
+    config ESP_MAX_STA_CONN
+        int "Max STA connections"
+        default 4
+        help
+            Maximum number of stations that can connect simultaneously.
+
+endmenu

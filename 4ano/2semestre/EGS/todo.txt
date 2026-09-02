@@ -1,0 +1,4 @@
+Ver se está tudo com docker
+Fazer logs de metricas nos serviços (grafana)
+
+Nos payments usar as notificações, para mandar código para o telemovel para confirmar

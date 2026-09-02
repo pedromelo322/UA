@@ -1,0 +1,10 @@
+ip addr add 100.0.0.100/24 dev eth0
+#ip route add default via 100.0.0.1 metric 10
+#ip route add default via 100.0.0.2 metric 20
+ip route add default via 100.0.0.254
+
+# Web HTTP
+socat -d2 TCP-LISTEN:80,reuseaddr,fork SYSTEM:'while read msg; do echo "INTERNET HTTP reply: $msg"; done' &
+# Web HTTPS
+socat -d2 TCP-LISTEN:443,reuseaddr,fork SYSTEM:'while read msg; do echo "INTERNET HTTPS reply: $msg"; done' &
+

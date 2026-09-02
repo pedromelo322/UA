@@ -1,0 +1,100 @@
+- Enumere e descreva três princípios da orientação a serviços.
+
+Loose Coupling - Serviços devem minimizar as dependências entre eles e requer apenas que estejam cientes que o outro serviço existe
+Service Contract - Serviços devem seguir um contrato para publicar a sua interface, definido por documentos
+Abstraction - Serviços devem esconder a lógica interna de implementação e apresentar apenas as interfaces necessárias
+Autonomy - Serviços têm controlo total sobre a lógica que implementam
+Reusability - Lógica da aplicação é subdividida entre serviços para promover a reutilização
+Composability - Conjuntos de serviços podem ser compostos e coordenados para criar serviços maiores
+Statelessness - Serviços devem minimizar a retenção de informação necessária de uma atividade
+Discoverability - Serviços são desenhados para ser altamente descritivos, para poderem ser encontrados e acedidos via mecanismos de descoberta
+
+
+
+- Distinga entre orquestração e composição de serviços.
+
+Uma composição de serviços é efetuada quando um agregado de serviços são compostos para efetuar uma tarefa específica. Para ser uma composição, pelo menos um compositor e dois serviços participantes têm de estar presentes.
+Uma orquestração centraliza e controla a lógica entre aplicações através de um modelo de serviço standard. Uma orquestração estabelece um protocolo de negócio que define um processo de negócio.
+Uma coreografia é uma atividade complexa de composição de serviços e envolve uma série de troca de mensagens entre múltiplos participantes, que assumem diferentes papéis e têm diferentes relacionamentos entre eles.
+
+
+
+- Indique os principais componentes do 3GPP/IMS e apresente a sua definição.
+
+Os principais componentes do 3GPP/IMS são o HSS e a Call Session Control Function. O HSS é a base de dados principal que contém informação de utilizador e de subscrição, para suportar as chamadas e sessões efetuadas na rede. Quando um utilizador se regista num domínio IMS, o seu perfil é baixado do HSS para o CSCF. Para estabelecimento de sessão, o HSS fornece informação sobre qual CSCF serve o utilizador. É utilizado para identificação, autorização de acesso, autenticação, gestão de mobilidade, entre outras coisas.
+
+O CSCF tem os seguintes objetivos:
+	Controlo de sessão para terminais e aplicações que utilizam a rede IMS
+	Routing seguro de mensagens SIP
+	Monitorização de sessões SIP e comunicação com a arquitetura de políticas para suportar a autorização de media
+	Responsabilidade de interagir com o HSS
+
+O CSCF subdivide-se em três componentes:
+O P-CSCF (Proxy-CSCF) é o ponto de contacto para a sinalização SIP. Existem vários num domínio. Os terminais devem conhecer este proxy (normalmente através de DHCP) para utilizarem serviços IMS. É utilizado para comprimir e descomprimir mensagens SIP, tal como assegurar a sua segurança e verificar se estão corretas.
+O S-CSCF (Serving-CSCF) controla a sessão SIP dos utilizadores. Existem poucos por domínio. É utilizado como SIP registrar.
+O I-CSCF (Interrogating-CSCF) é o ponto de contacto para sinalização SIP inter-domínio. Existem um ou mais por domínio. Quando existe mais do que um S-CSCF, localiza qual S-CSCF serve o utilizador.
+
+
+
+- Explique de forma sucinta como um Service Center (SC) envia um SMS para um MT.
+
+O SC envia uma mensagem para o Gateway MSC. O gateway comunica com o HLR para obter informação do destinatário e depois envia a mensagem para o Serving MSC. O Serving MSC acede ao VLR para receber informação sobre o destinatário da mensagem e posteriormente envia-a para o telemóvel. Após o MT receber a mensagem, envia um Ack para o Serving MSC, que é posteriormente enviado para o Gateway MSC e para o SC.
+
+
+
+- Descreva sucintamente como é enviado um MMS.
+
+O MMS é enviado com suporte em dois serviços já existentes: SMS e WAP. As mensagens são codificadas utilizando o formato MIME e enviadas através de WAP. O MMS Center recebe a mensagem e envia uma mensagem a um SMS center, que envia uma mensagem de SMS ao destinatário. O telemóvel do destinatário, ao receber a mensagem SMS com os dados do MMS, acede ao servidor de MMS e efetua pull da mensagem.
+
+
+
+- O que é um RCS?
+
+Um RCS (Rich Communication Suite) é um protocolo de comunicação com o objetivo de substituir as mensagens SMS para telemóveis com novas features, como contactos com Presence e mais informação sobre os contactos, mensagens com novas opções, incluindo histórico de mensagens e chat, e chamadas inovadoras, como por exemplo partilha de conteúdo multimédia. O seu desenvolvimento iniciou-se em 2008, e um exemplo de uma aplicação é o Vodafone 360. No entanto, devido às aplicações internet-based, que já existem e possuem tais features e outras não incluídas no RCS, e são grátis, a sua adoção à larga escala ainda não se verificou. Apesar das desvantagens, o RCS promete integração total com o ambiente móvel e interoperabilidade entre todos os telemóveis.
+
+
+
+- Compare o modelo de interação cliente-servidor com o modelo por filas (reliable queueing).
+
+No modelo de interação cliente-servidor, o cliente efetua chamadas síncronas ao servidor e fica bloqueado à espera da resposta. Como fica bloqueado, necessita de manter o estado da chamada, desperdiçando recursos de CPU e RAM. Para além disso, o contexto deve ser enviado pelo servidor se mais chamadas forem efetuadas, para manter a consistência das chamadas. Esta interação obriga a que ambas as partes estejam constantemente on-line.
+
+No modelo por filas, o código para enviar e receber mensagens pode estar em módulos diferentes, levando a um design mais modular. É mais fácil desenhar modelos de distribuição sofisticados e é uma maneira mais natural de implementar interações. Para além disso, a fila pode armazenar as mensagens se uma das partes não estiver online, entregando a mensagem assim que possível. É também possível existir vários recetores da mesma fila, permitindo assim tolerância de falhas. Finalmente, a comunicação entre redes e sistemas heterogéneos é mais natural.
+
+
+
+- Compare SAML e OAuth.
+
+SAML é um protocolo para partilha de informação de autenticação, não providenciando o serviço de autenticação em si. Com SAML, a segurança é expressada na forma de asserções sobre sujeitos. Existem três tipos de asserções: Autenticação (o sujeito foi autenticado num instante específico), atributo (o sujeito contém um atributo específico) e autorização (o sujeito está autorizado/negado para aceder a um recurso). É um protocolo de request-response, com o objetivo de single sign-on de aplicações.
+O Protocolo OAuth é um protocolo para delegação de acesso, onde permite que um serviço contacte outro serviço em nome de um sujeito. É um protocolo baseado em tokens, onde o utilizador possui um único token para aceder a todos os recursos do serviço. O serviço contacta o IDP para obter um request token, com a autorização do utilizador. Esse request token pode ser trocado por um Access Token para aceder a recursos protegidos de outro serviço.
+
+
+
+- Dê a definição de uma SAML assertion.
+
+Asserções são factos sobre um sujeito. Existem três tipos de asserções: autenticação (o sujeito foi autenticado com um método específico no instante definido), autorização (o sujeito está autorizado/não está autorizado para aceder ao recurso protegido) e atributo (o sujeito tem um atributo específico).
+
+
+
+- Defina o que é um Enterprise Service Bus.
+
+Um Enterprise Service Bus é uma arquitetura de software para um middleware para providenciar serviços fundamentais para arquiteturas mais complexas. Pode ser utilizada para implementar arquiteturas SOA. Efetua a gestão de acesso a serviços e aplicações para apresentar uma interface única, simples e consistente aos serviços. ESB apresenta várias vantagens, como a baixa latência, baixo overhead de integração, é uma camada de abstração para as aplicações, assegura a entrega de informação mesmo quando os serviços estão offline, permite rerouting, logs e enrichement de mensagens e permite a alteração de serviços parciais, não sendo necessário alterar todos os serviços ao mesmo tempo, sendo assim uma solução para implementações incrementais de uma aplicação.
+
+
+
+- Indique os paradigmas do cloud computing e no que consistem.
+
+Existem três paradigmas de Cloud Computing. IaaS (Infrastructure-as-a-Service) é um paradigma onde é fornecida uma máquina virtual, tendo acesso direto à stack de infraestrutura: SO, firewalls, routers, load balancing. As vantagens são o pagamento é efetuado por utilização, escalabilidade instantânea, segurança, API's e confiabilidade (reliability).
+
+No paradigma PaaS (Platform-as-a-Service) não se tem acesso à stack de infraestrutura, pois existe uma abstração do hardware utilizado, permitindo aos programadores concentrarem-se no desenvolvimento da aplicação e não se preocuparem com o SO, scaling, load balancing, ... Como vantagens, existe melhor segurança e não são necessárias tarefas de Sysadmin nem de gestão da plataforma.
+
+Finalmente, no SaaS (Software-as-a-Service), as aplicações estão localizadas na Web e os utilizadores têm acesso a elas através do browser. Neste paradigma, existem as vantagens de não ser necessária qualquer instalação do software, updates automáticos, capacidade de aceder aos dados em qualquer lugar e não ser específico de plataformas. Para além disso, não é necessário efetuar a gestão de hardware ou softare.
+
+
+
+- Indique o que distingue uma Public de uma Private cloud.
+
+Numa public could o custo de ownership é menor. Para além disso, permite deployment de aplicações mais rápido, não é necessário preocuparmo-nos com a gestão da infraestrutura e lida bem com carga inesperada. A virtualização baixa o custo de utilização, devido à economia de massa.
+As vantagem de uma privade cloud são o acesso, o downtime, a interoperabilidade, as dependências e a segurança.
+
+
+

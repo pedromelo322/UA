@@ -1,0 +1,34 @@
+Current configuration:
+!
+frr version 10.3
+frr defaults traditional
+hostname FW8
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+interface eth0
+ description Link_Internet
+ ip address 100.0.0.8/24
+ ip ospf passive
+exit
+!
+interface eth3
+ description Link_to_C3
+ ip address 10.0.1.6/30
+ ip ospf 1 area 0
+exit
+!
+interface eth4
+ description Link_to_C4
+ ip address 10.0.1.26/30
+ ip ospf 1 area 0
+exit
+!
+router ospf 1
+ ospf router-id 8.8.8.8
+ default-information originate always
+exit
+!
+end
+

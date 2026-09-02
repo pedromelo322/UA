@@ -1,0 +1,41 @@
+Current configuration:
+!
+frr version 10.3
+frr defaults traditional
+hostname C3
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+interface eth0
+ ip address 10.0.1.1/30
+ ip ospf 1 area 0
+exit
+!
+interface eth1
+ ip address 10.0.1.5/30
+ ip ospf 1 area 0
+exit
+!
+interface eth2
+ ip address 10.0.1.9/30
+ ip ospf 1 area 0
+exit
+!
+interface eth3
+ ip address 10.0.1.13/30
+ ip ospf 1 area 0
+exit
+!
+interface eth4
+ ip address 10.0.1.17/30
+ ip ospf 1 area 0
+exit
+!
+router ospf 1
+ ospf router-id 3.3.3.3
+ maximum-paths 2
+exit
+!
+end
+

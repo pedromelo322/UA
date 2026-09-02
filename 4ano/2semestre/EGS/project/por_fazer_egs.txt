@@ -1,0 +1,13 @@
+1:
+  1. Utilizador cria pagamento → serviço gera código OTP e envia SMS
+  2. Frontend apresenta input para o código
+  3. Novo endpoint POST /v1/payments/{id}/verify valida o OTP
+  4. Só depois o pagamento pode ser marcado como concluded
+
+
+2: Talvez seja melhor um user ter logo associado a ele 1 ou + cartões, e um numero de telefone também associado para a mensagem
+
+
+3: Na app mesmo está a ir para a pagina de teste, mas devia ir direto para o pagamento
+
+

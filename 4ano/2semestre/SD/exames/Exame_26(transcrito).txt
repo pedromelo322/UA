@@ -1,0 +1,19 @@
+1a) o que é um sistema distribuido
+1b) arquitetura logida de software vs arquitetura fisica do sistema
+1c) Qualquer coisa sobre redes p2p ... era para identificar que era p2p e explciar como funciona
+
+
+2a)
+2b) Que tipo de transparenca é que o RPC oferece e como fornece essa transparencia
+2c) Qual é a diferença entre disseminação de rumores e anti-entropia no que diz respeito aos seus objetivos, fator de ativamento e desencadiamento.
+
+
+3a) porque é maquinas em redes distribuidas precisam de cordenação
+3b) Dizer a limitação de Lamport Timestamps
+3c) Descreva os passos básicos do funcionamento do algoritmo bully para eleição do lider
+
+
+4a) qual o foco principal de um sistema com consistencia focado no clientes e de um focado nos dados
+4b) os 2 requesitos fundamentais para um repositorio de dados ser considerado consistente
+4c) os 3 tipos de redundacia para obter ocultação de falhar
+

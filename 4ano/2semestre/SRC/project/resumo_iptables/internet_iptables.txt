@@ -1,0 +1,82 @@
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [287:15128]
+
+:FROM-CORE-TO-OUTSIDE - [0:0]
+:FROM-OUTSIDE-TO-CORE - [0:0]
+
+:ZONE-CORE - [0:0]
+:ZONE-OUTSIDE - [0:0]
+
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p 112 -j ACCEPT
+-A INPUT -p 89 -j ACCEPT
+
+# Limite de input vindo da Internet
+-A INPUT -i eth0 -p icmp -m limit --limit 10/sec --limit-burst 20 -j ACCEPT
+-A INPUT -i eth0 -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m limit --limit 100/sec --limit-burst 200 -j ACCEPT
+-A INPUT -i eth0 -p udp -m limit --limit 100/sec --limit-burst 200 -j ACCEPT
+-A INPUT -s 10.1.0.50/32 -p tcp -m tcp --dport 22 -j ACCEPT
+-A INPUT -s 10.1.0.50/32 -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+-A FORWARD -o eth0 -j ZONE-OUTSIDE
+-A FORWARD -o eth3 -j ZONE-CORE
+-A FORWARD -o eth4 -j ZONE-CORE
+
+
+
+# Core Para a Internet (serviços)
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --dport 443 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p udp -m udp --dport 443 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --dport 80 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p udp -m udp --dport 80 -j ACCEPT
+
+
+# DMZ para Internet
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --sport 443 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p udp -m udp --sport 443 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --sport 993 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --sport 25 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p udp -m udp --sport 53 -j ACCEPT
+-A FROM-CORE-TO-OUTSIDE -p tcp -m tcp --sport 53 -j ACCEPT
+
+# VLAN10 para VOIP
+-A FROM-CORE-TO-OUTSIDE -p udp -m udp --dport 5060 -j ACCEPT
+
+# Impedir IP Spoofing
+-A FROM-OUTSIDE-TO-CORE -s 172.16.0.0/12 -j DROP
+-A FROM-OUTSIDE-TO-CORE -s 192.168.0.0/16 -j DROP
+-A FROM-OUTSIDE-TO-CORE -s 127.0.0.0/8 -j DROP
+-A FROM-OUTSIDE-TO-CORE -s 0.0.0.0/8 -j DROP
+-A FROM-OUTSIDE-TO-CORE -s 255.255.255.255/32 -j DROP
+
+## Impedir IP Spoofing (não permitir redes internas virem do exterior)
+-A FROM-OUTSIDE-TO-CORE -s 10.0.0.0/8 -j DROP
+-A FROM-OUTSIDE-TO-CORE -s 200.0.0.0/24 -j DROP
+
+# Impedir DDOS
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m limit --limit 100/sec --limit-burst 200 -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p udp -m limit --limit 100/sec --limit-burst 200 -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p icmp -m limit --limit 10/sec --limit-burst 20 -j ACCEPT
+
+# INTERNET to CORE (serviços)
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --sport 80 -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p udp -m udp --sport 80 -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --sport 443 -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p udp -m udp --sport 443 -j ACCEPT
+
+# Internet para Core (VOIP)
+-A FROM-OUTSIDE-TO-CORE -p udp -m udp --sport 5060 -j ACCEPT
+
+
+######### 
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK ACK -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --tcp-flags FIN,SYN,RST,PSH,ACK PSH,ACK -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK FIN,ACK -j ACCEPT
+-A FROM-OUTSIDE-TO-CORE -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK RST -j ACCEPT
+
+
+-A ZONE-CORE -i eth0 -j FROM-OUTSIDE-TO-CORE
+-A ZONE-OUTSIDE -i eth3 -j FROM-CORE-TO-OUTSIDE
+-A ZONE-OUTSIDE -i eth4 -j FROM-CORE-TO-OUTSIDE

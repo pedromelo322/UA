@@ -1,0 +1,8 @@
+ip addr add 100.0.0.10/24 dev eth0
+#ip route add default via 100.0.0.1 metric 10
+#ip route add default via 100.0.0.2 metric 20
+ip route add default via 100.0.0.254
+
+socat -d2 UDP-LISTEN:5060,reuseaddr,fork SYSTEM:'while read msg; do echo "VoIP reply: $msg"; done' &
+ 
+

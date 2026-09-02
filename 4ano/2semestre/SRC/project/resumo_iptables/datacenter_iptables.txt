@@ -1,0 +1,51 @@
+
+:INPUT ACCEPT [2109:161044]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [8224:407744]
+
+#Chains
+:FROM-CORE-TO-DATACENTER - [0:0]
+:FROM-DATACENTER-TO-CORE - [0:0]
+
+#Zonas
+:ZONE-CORE - [0:0]
+:ZONE-DATACENTER - [0:0]
+
+#Assiciação Procolo - Interface(veio) - Zona
+-A FORWARD -o eth0 -j ZONE-DATACENTER
+-A FORWARD -o eth2 -j ZONE-CORE
+-A FORWARD -o eth3 -j ZONE-CORE
+
+#Já estabelecidas passam
+-A FROM-CORE-TO-DATACENTER -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A FROM-DATACENTER-TO-CORE -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+#VLAN10 -> DATACENTER - INTERNAL STORAGE e DNS
+-A FROM-CORE-TO-DATACENTER -s 10.10.0.0/24 -p tcp -m tcp --dport 443 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.10.0.0/24 -p udp -m udp --dport 53 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.10.0.0/24 -p tcp -m tcp --dport 53 -j ACCEPT
+
+#VLAN20 -> DATACENER -> Internal STORAGE e DNS e Databases
+-A FROM-CORE-TO-DATACENTER -s 10.20.0.0/24 -p tcp -m tcp --dport 443 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.20.0.0/24 -p udp -m udp --dport 53 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.20.0.0/24 -p tcp -m tcp --dport 53 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.20.0.0/24 -p tcp -m tcp --dport 3306 -j ACCEPT
+
+#Gestor -> DATACENTER - ICMP e SSH
+-A FROM-CORE-TO-DATACENTER -s 10.1.0.50/32 -p icmp -m icmp --icmp-type 8 -j ACCEPT
+-A FROM-CORE-TO-DATACENTER -s 10.1.0.50/32 -p tcp -m tcp --dport 22 -j ACCEPT
+
+
+# Associação Zona(saida) - Int(veio) - Chain
+-A ZONE-CORE -i eth0 -j FROM-DATACENTER-TO-CORE
+-A ZONE-DATACENTER -i eth2 -j FROM-CORE-TO-DATACENTER
+-A ZONE-DATACENTER -i eth3 -j FROM-CORE-TO-DATACENTER
+
+
+
+
+
+
+
+
+
