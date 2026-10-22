@@ -1,0 +1,72 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: networktopologies.tsn.dev
+spec:
+  scope: Namespaced
+  group: tsn.dev
+  names:
+    kind: NetworkTopology
+    plural: networktopologies
+    singular: networktopology
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                nodes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:                   # switch ID
+                        type: string
+                      switchRef:            # switch it references
+                        type: string
+                      zone:
+                        type: string        # zone this switch serves, if any.
+                        # Zonal (edge) switches set this; transit-only
+                        # switches that only link other switches together
+                        # can omit it.
+                      port:
+                        type: string        # port facing the zone's workloads
+                        enum:
+                          - PORT_0
+                          - PORT_1
+                          - PORT_2
+                          - PORT_3
+                      links:                # physical links to other switches
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            target:
+                              type: string  # id of the switch on the other end
+                            port:
+                              type: string  # local port used for this link
+                              enum:
+                                - PORT_0
+                                - PORT_1
+                                - PORT_2
+                                - PORT_3
+                          required:
+                            - target
+                            - port
+                    required:
+                      - id
+                      - switchRef
+                      - port
+              required:
+                - nodes
+            # Written by the sdv-operator (status.sdv, see set_sdv_status in
+            # sdv-operator.py) and shown by the dashboard. Without this the
+            # API server prunes it, since it isn't in the schema.
+            status:
+              type: object
+              x-kubernetes-preserve-unknown-fields: true

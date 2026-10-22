@@ -1,0 +1,22 @@
+apiVersion: tsn.dev/v1
+kind: NetworkTopology
+metadata:
+  name: my-networktopology-resource
+spec:
+  nodes:
+    - id: sw1
+      switchRef: switch1
+      zone: zone1
+      links:
+        - target: sw2
+          ports:
+            - port: PORT_0
+            - port: PORT_1
+    - id: sw2
+      switchRef: switch2
+      zone: zone1
+      links:
+        - target: sw1
+          ports:
+            - port: PORT_0
+            - port: PORT_1

@@ -1,0 +1,14 @@
+Papers:
+https://dl.acm.org/doi/epdf/10.1145/3609389.3610566
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10575426
+
+Do Rodrigo
+https://arxiv.org/abs/2302.08398
+https://arxiv.org/abs/2407.17287
+
+
+Sites:
+https://www.latitude.sh/blog/time-sensitive-networking-tsn-in-kubernetes
+
+Gits:
+https://github.com/MMw-Unibo/KuberneTSN

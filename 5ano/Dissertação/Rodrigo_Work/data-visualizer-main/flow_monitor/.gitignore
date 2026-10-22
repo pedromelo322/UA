@@ -1,0 +1,6 @@
+# Artefactos de build (gerados pelo Makefile, especificos da maquina)
+vmlinux.h
+flow_monitor.skel.h
+flow_monitor.bpf.o
+flow_monitor
+__pycache__/

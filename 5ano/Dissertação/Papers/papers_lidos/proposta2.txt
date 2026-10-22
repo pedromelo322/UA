@@ -1,0 +1,86 @@
+Eu queria fazer uma apresentação em que explica-se os papers que achei, mas ia ficar muito grande então decidi fazer apeans um resumo da proposta dos papers.
+
+A maneira que eu decidi organizar a apresentação começo pelos papers que se focam em orquestração de containers com base no poder de computação, depois computação e rede, depois orquestração em SDVs e depois overlay de networks.
+
+-----------------------------Uso do CPU--------------------------------
+
+Nesta secção o foco dos papers é conseguir maximizar o numero de tarefas a correr sem intreferirem umas nas outras.
+
+React:
+
+A proposta consiste em cada container RT declarar (Q,P) em que Q é o tempo de CPU que utilizam e P é o periodo em que são executadas.
+Um nó só aceita o container se a soma de todos os Q/P dos containers for menor que 1-δᵢ, em que δᵢ é uma margem de segurança.
+De todos os nós que passam este teste, o container é atribuido ao nó com maior capacidade de CPU não reservada.
+
+No nó o container recebe Q unidades de CPU em cada periodo P. Caso o Q tenha sido mal calculado e o container consuma todo o seu Q sem acabar, o container é suspenso até ao seu proximo P.
+É feita monitorização ao nível do nó (interrupções, trocas de contexto, I/O) e ao nível do container (deadlines falhados, lateness, tempo de resposta).
+
+RT-Kube:
+
+Criaram um CRD com criticidade, periodo, deadline e WCET(Worst Case Execution Time). 
+Um scheduler secundário ordena os containers por criticidade, faz o teste de admissão Σ WCET/P ≤ M × 0,95 e atribui os containers aos nós segundo a criticidade.
+A monitorização é feita ao nível do container, conta os deadlines falhados e assima de uma limiar expulsa um container stateless de criticidade inferior.
+
+
+Nenhum dos 2 papers lva em qualquer consideração a rede.
+
+------------------Orquestração consciente da rede -----------------------
+
+Estes são os mais semalhantes ao meu trabalho, propoem uma arquitetura para ligar plataformas de contentores com redes em fábricas.
+
+FabOS:
+
+[foto da arquitetura do claude]
+
+1. O SCC recebe o pedido de aplicação e pede ao SCO um plano de colocação dos workloads.
+2. O SCNS pede ao MoNC os streams TSN que esse plano exige.
+3. O MoNC verifica se consegue garantir as latências. Se conseguir, configura as bridges. Se não, devolve um erro e o SCC pede um novo plano ao SCO.
+4. Com os streams embebidos, o SCS arranca os pods. Estes enviam o tráfego TSN pelo plugin CNI, que adiciona o VLAN ID e o PCP.
+
+Lacunas: Não tem monitorização, shapers(usam prioridade + PSFP, não TAS), sem RT do CPU
+
+
+k4.0s
+
+[foto da arquitetura do k4.0s]
+
+Plano de controlo corre nos nós com maior computação (equivalente aos HPCs) e o compute cluster corre nos worker nodes ( equivalente às ECUs)
+
+1. O utilizador submete o job pela User API, com criticidade HI, períodos e WCETs, e um requisito de timeslot TDMA.
+2. O Scheduler filtra os nós sem garantia suficiente, com base na informação do State monitor.
+3. Pede a cada nó candidato que corra o teste de escalonabilidade, através do módulo Real-time do Worker Agent.
+4. Pede ao Network manager um timeslot livre.
+5. Escolhe o nó e o Launcher envia a ação.
+6. Durante a execução, o módulo Assurance vigia o nó. Se uma carga vizinha começar a perturbar o job crítico, tenta eliminá-la. Se não conseguir, baixa a garantia do nó e o plano de controlo migra o job.
+
+Lacunas: Usa TDMA não TSN.
+
+----------------------------------- Veiculo --------------------------------------------
+
+Este foi o unico que eu encontrei sobre orquestração de containers em SDVs, que eu achei relevante.
+
+Foi proposto um algoritmo de escalonamento determinístico para SDVs, que maximiza o número de tarefas concluídas dentro do prazo e favorece caminhos mais fiáveis.
+O objetivo não é a menor latencia mas sim a maior taxa de satisfação, o que é mais importante para aplicações críticas.
+O problema é que é um algoritmo que assume o conhecimento prévio das tarefas, a pesar de dizer que é dinamico não dizem como.
+É só simulação e não foi utilizado TSN.
+
+-------------------------------- Overlay ------------------------------------
+
+Não sei se pretendem usar overlay da netowork mas achei 2 papers interessantes para permitir TSN em redes overlay
+
+KuberneTSN:
+
+É um plugin CNI que dá TSN a pods numa rede overlay.
+Basicamente interceta os pacotes TSN antes de saírem do container e um container próprio faz o shaping (TAS) e envia com kernel
+bypass (DPDK).
+Os resultados mostram que a latência e jitter são praticamente iguais a bare-metal.
+Alguns pontos negativos é que fazem kernel bypass (perde-se a monitorização e a segurança do kernel) e, pela forma como funciona o DPDK, um core
+ocupado a fazer polling (inferido, o paper não o diz). 
+
+
+TSN Metadata Proxy:
+
+É um plugin CNI que mantem a metadata TSN nos pacotes.
+Consite de um programa eBPF que guarda os metadados TSN (prioridade e txtime) à saída do pod e volta a pô-los antes da NIC.
+Vantagem: os pacotes continuam no kernel e o custo deve ser baixo (são 12 bytes por pacote).
+No não reduz a latência do container, e não fizeram testes de desempenho.

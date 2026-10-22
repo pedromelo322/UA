@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdv-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sdv-operator
+  template:
+    metadata:
+      labels:
+        app: sdv-operator
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      serviceAccountName: sdv-operator
+      containers:
+      - name: sdv-operator
+        image: code.nap.av.it.pt:5050/detnets/sdv-operator/sdv-operator:amd64
+        imagePullPolicy: Always

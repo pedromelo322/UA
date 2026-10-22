@@ -1,0 +1,55 @@
+Arquitetura zonal
+
+4 zonas:
+
+- Frente esquerda
+- Frente direita
+- Traseira esquerda
+- Traseira direita
+
+1 ECU por zona responsavel por I/O com sensroes/atuadores
+HPC no centro responsável por comutação mais pesada
+
+Tipos de ligações: CAN, LIN, Flexray e Ethernet
+
+Restrições onde dar deploy:
+
+- Determinismo (latencia fim-a-fim)
+- Proximidade aos atuadores/senores
+- Plantaforma (arquitetura, SO, Middlewares, acelaradores)
+- Recursos ( CPU, memória, armazenamento)
+
+- TSN ( é validado à posterior, verifica se consegue fornecer o QoS forncecido pelo plano)
+
+
+Proposta:
+
+CRD para os serviços que permite defenir:
+- Criticidade
+- Periodo
+- WCET
+
+
+
+Arquitetura (ideia inicial):
+
+Divida em 2 partes:
+
+Scheduler:
+
+- Entidida responsavel por receber pedido de deployment
+- Teste padrão do K8s de memória e armazenamento
+- Entidade responsavel por filtrar os nós que conseguem dar deploy ao serviço de acordo com restrições RT do uso do CPU
+- Entidade responsavel por ver qual dos nós é o melhor, segundo as restrições de dependencia com I/O, dependencia entre serviços. Talvez aqui seja melhor ordenar os nós por preferencia.
+- Entidade responsavel por dar deploy ao serviço depois de receber o resultado da entidade da rede TSN
+- Entidade responsavel por monitoramento
+
+
+Rede TSN:
+
+- Entidade responsavel por mapeamento da topologia da rede
+- Entidade responsavel por receber os nós por ordem e ver por ordem se consegue aceitar.
+- Entidade responsavel por configurar os switches TSN
+
+
+

@@ -1,0 +1,43 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <stream-identity xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1cb-stream-identification">
+
+        <index>0</index>
+        <handle>1</handle>
+
+        <in-facing>
+        <input-port>PORT_2</input-port>
+        <input-port>PORT_3</input-port>
+        </in-facing>
+
+        <null-stream-identification>
+        <destination-mac>AA-BB-CC-DD-EE-FF</destination-mac>
+        <tagged>all</tagged>
+        <vlan>0</vlan>
+        </null-stream-identification>
+
+    </stream-identity>
+
+    <frer xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1cb-frer">
+        <sequence-generation>
+            <index>3</index>
+            <stream>1</stream>
+            <reset>false</reset>
+        </sequence-generation>
+        <sequence-recovery>
+            <index>3</index>
+            <stream>1</stream>
+            <port>PORT_2</port>
+            <algorithm>
+                <match></match>
+            </algorithm>
+            <history-length>2</history-length>
+            <reset-timeout>200</reset-timeout>
+        </sequence-recovery>
+        <sequence-identification>
+            <stream>1</stream>
+            <port>PORT_2</port>
+            <direction-out-facing>true</direction-out-facing>
+            <active>false</active>
+        </sequence-identification>
+    </frer>
+</config>

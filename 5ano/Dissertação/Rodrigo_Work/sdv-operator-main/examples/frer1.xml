@@ -1,0 +1,19 @@
+
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <stream-identity xmlns="urn:ietf:params:xml:ns:yang:ieee802-dot1cb-stream-identification">
+    <index>1</index>
+    <handle>2</handle>
+
+    <in-facing>
+      <input-port xmlns:if="urn:ietf:params:xml:ns:yang:ietf-interfaces">PORT_0</input-port>
+    </in-facing>
+
+    <null-stream-identification>
+
+      <destination-mac xmlns:ieee="urn:ietf:params:xml:ns:yang:ieee802-types">58:47:ca:79:74:de</destination-mac>
+      <tagged>all</tagged>
+      <vlan>2</vlan>
+    </null-stream-identification>
+  </stream-identity>
+</config>
+

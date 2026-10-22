@@ -1,0 +1,71 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: tsnapps.tsn.dev
+spec:
+  scope: Namespaced
+  group: tsn.dev
+  names:
+    kind: TsnApp
+    plural: tsnapps
+    singular: tsnapp
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec: # Specification for the TsnApp
+              type: object
+              properties:
+                shaper: # What Shaper
+                  description: Traffic shaping mechanism
+                  type: string
+                  enum: # Options
+                    - TAS
+                    - CBS
+                tas:
+                  type: object
+                  properties:
+                    cycleTime:
+                      type: integer
+                    gateControlList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type: integer
+                            minimum: 0
+                            maximum: 7
+                          gateState:
+                            type: integer
+                            minimum: 0
+                            maximum: 255
+                          timeInterval:
+                            type: integer
+                        required:
+                          - index
+                          - gateState
+                          - timeInterval
+                cbs:
+                  type: object
+                  properties:
+                    bandwidth: 
+                      type: integer
+                      minimum: 0
+                      maximum: 100
+                    pcp:
+                      type: integer
+                      minimum: 0
+                      maximum: 7
+                  required:
+                    - bandwidth
+                    - pcp
+              required:
+                - shaper
+              oneOf:
+                - required: [tas]
+                - required: [cbs]

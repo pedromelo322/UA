@@ -1,0 +1,86 @@
+# Example TSN apps plus a TsnFlow between them (crd/tsnflow-crd.yaml).
+#
+# A TsnFlow's talker/listeners name apps by their tsn.dev/cr-name label, and
+# the sdv-operator places each app in the zone given by the first value of
+# its Deployment's node affinity. For the operator to find a switch path,
+# that zone value must equal the `zone` of a NetworkTopology switch exactly
+# (e.g. both "p1", not "p1" vs "zone1").
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-talker
+  labels:
+    app: nginx-talker
+    tag: app1
+    tsn.dev/cr-name: talker-app-cr-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-talker
+  template:
+    metadata:
+      labels:
+        app: nginx-talker
+        tsn.dev/cr-name: talker-app-cr-name
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values:
+                - "p1"
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-listener
+  labels:
+    app: nginx-listener
+    tsn.dev/cr-name: listener-app-cr-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-listener
+  template:
+    metadata:
+      labels:
+        app: nginx-listener
+        tsn.dev/cr-name: listener-app-cr-name
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values:
+                - "p2"
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: tsn.dev/v1
+kind: TsnFlow
+metadata:
+  name: my-tsnflow-resource
+spec:
+  talker: talker-app-cr-name
+  listeners:
+    - listener-app-cr-name
+  shaper: CBS
+  cbs:
+    bandwidth: 20   # Mb/s reserved, 0-100
+    pcp: 5          # traffic class, 0-7

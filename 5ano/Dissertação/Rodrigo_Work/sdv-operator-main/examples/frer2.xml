@@ -1,0 +1,53 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<frer xmlns="urn:ietf:params:xml:ns:yang:ieee802-dot1cb-frer">
+
+  <!-- Sequence Generation -->
+  <!-- <sequence-generation>
+    <index>1</index>
+    <stream>1</stream>
+    <direction-out-facing>true</direction-out-facing>
+    <reset>false</reset>
+  </sequence-generation>
+  
+  <sequence-identification>
+    <asdasd>1</asdasd>
+    <port>PORT_3</port>
+    <direction-out-facing>true</direction-out-facing>
+    <active>true</active>
+
+    <encapsulation>
+      <r-tag/>
+    </encapsulation>
+  </sequence-identification>
+
+   Stream Replication
+  <stream-split>
+    <port>PORT_0</port>
+    <direction-out-facing>true</direction-out-facing>
+
+    <input-id>1</input-id>
+
+    <output-id>1</output-id>
+    <output-id>2</output-id>
+  </stream-split>
+  
+  -->
+
+  <!-- Sequence Identification on output ports -->
+  <sequence-identification>
+    <asdasd>1</asdasd>
+    <port>PORT_1</port>
+    <direction-out-facing>true</direction-out-facing>
+    <active>true</active>
+
+    <encapsulation>
+      <r-tag/>
+    </encapsulation>
+  </sequence-identification>
+
+
+
+  
+
+</frer>
+</config>

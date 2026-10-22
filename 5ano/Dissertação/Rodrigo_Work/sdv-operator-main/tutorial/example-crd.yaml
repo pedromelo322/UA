@@ -1,0 +1,27 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: exampleresources.example.com # <plural>.<group> format
+spec:
+  group: example.com
+  scope: Namespaced
+  names:
+    plural: exampleresources
+    singular: exampleresource
+    kind: ExampleResource
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec: # Specification for the ExampleResource
+              type: object
+              properties:
+                replicas: # Number of replicas
+                  type: integer
+                image: # Docker image for the custom resource
+                  type: string
+                # ... other properties as needed

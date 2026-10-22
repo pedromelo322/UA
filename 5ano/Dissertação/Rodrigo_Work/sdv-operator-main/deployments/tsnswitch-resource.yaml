@@ -1,0 +1,10 @@
+apiVersion: tsn.dev/v1
+kind: TsnSwitch
+metadata:
+  name: my-tsnswitch-resource
+spec:
+  id: switch1
+  host: 10.0.22.176
+  port: 830
+  username: sys-admin
+  password: sys-admin

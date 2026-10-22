@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Arquitetura SDV" id="sdv-arch">
+    <mxGraphModel dx="1509" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1380" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="orq" parent="1" style="rounded=0;whiteSpace=wrap;html=1;container=1;collapsible=0;verticalAlign=top;align=center;fontStyle=1;fontSize=16;spacingTop=8;fillColor=#FFFFFF;strokeColor=#333333;strokeWidth=2;" value="Orquestrador" vertex="1">
+          <mxGeometry height="780" width="1000" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" parent="orq" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;[1] Registo de serviços&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;requisitos, validação,&lt;br&gt;regra de ASIL das dependências,&lt;br&gt;stateless / stateful&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="220" x="60" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" parent="orq" style="swimlane;startSize=28;rounded=1;arcSize=4;html=1;whiteSpace=wrap;collapsible=0;fillColor=#dae8fc;swimlaneFillColor=#F4F8FD;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="[3] Monitorização" vertex="1">
+          <mxGeometry height="170" width="260" x="700" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" parent="e3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;3.1 Estado do sistema&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;nós vivos, serviço por nó, utilização RT,&lt;br&gt;tempo até o serviço correr&lt;/font&gt;" vertex="1">
+          <mxGeometry height="56" width="240" x="10" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" parent="e3" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;3.2 Deteção de falhas&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;heartbeats param → serviços para recolocação&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="240" x="10" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" parent="orq" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;[4] Fila de espera&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;criticidade, depois tempo de espera&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="380" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" parent="orq" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;[6] Gestor de expulsão&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;escolhe a vítima e liberta o lugar&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="220" x="60" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" parent="orq" style="swimlane;startSize=28;rounded=1;arcSize=4;html=1;whiteSpace=wrap;collapsible=0;fillColor=#dae8fc;swimlaneFillColor=#F4F8FD;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="[2] Modelo do sistema" vertex="1">
+          <mxGeometry height="170" width="240" x="40" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" parent="e2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;2.1 Inventário de nós&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;tipo, zona, I/O, SO RT, recursos&lt;/font&gt;" vertex="1">
+          <mxGeometry height="56" width="220" x="10" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" parent="e2" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;2.2 Mapeamento da topologia&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;ligações, mapa de I/O, proximidade&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="220" x="10" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" parent="orq" style="swimlane;startSize=28;rounded=1;arcSize=4;html=1;whiteSpace=wrap;collapsible=0;fillColor=#dae8fc;swimlaneFillColor=#F4F8FD;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="[5] Decisor de colocação" vertex="1">
+          <mxGeometry height="286" width="260" x="360" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="e51" parent="e5" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;5.1 Filtragem&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;restrições duras&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="240" x="10" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e52" parent="e5" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;5.2 Pontuação&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;restrições flexíveis (proximidade)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="240" x="10" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="e53" parent="e5" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;5.3 Teste de admissão&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;nó (escalonabilidade), depois rede&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="240" x="10" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="e54" parent="e5" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;5.4 Ligação&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;Bind: pod → nó (não fala com a rede)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="240" x="10" y="222" as="geometry" />
+        </mxCell>
+        <mxCell id="s51_52" edge="1" parent="e5" source="e51" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=classic;strokeColor=#6c8ebf;" target="e52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s52_53" edge="1" parent="e5" source="e52" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=classic;strokeColor=#6c8ebf;" target="e53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s53_54" edge="1" parent="e5" source="e53" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=classic;strokeColor=#6c8ebf;" target="e54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" parent="orq" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;b&gt;[7] Interface com a rede&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;dependências → pedidos de fluxo;&lt;br&gt;junta fluxos a apagar e a verificar&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="240" x="700" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" parent="1" style="swimlane;startSize=28;rounded=1;arcSize=4;html=1;whiteSpace=wrap;collapsible=0;fillColor=#dae8fc;swimlaneFillColor=#F4F8FD;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="[9] Agentes de nó (correm em cada ECU / HPC)" vertex="1">
+          <mxGeometry height="120" width="540" x="600" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e91" parent="e9" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;9.1 Heartbeat&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;sinal de vida curto e frequente&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="15" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e92" parent="e9" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;9.2 Serviços no nó&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;confirma que o pod arrancou&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="190" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="e93" parent="e9" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#6c8ebf;fontSize=11;" value="&lt;b&gt;9.3 Prazos falhados&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;serviço passou do deadline&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="365" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="tsn" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;fontSize=12;fontColor=#333333;" value="&lt;b style=&quot;font-size:16px&quot;&gt;Rede TSN&lt;/b&gt;&lt;br&gt;&lt;br&gt;[8] Gestor da rede TSN&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;caixa preta · externa&lt;/font&gt;" vertex="1">
+          <mxGeometry height="220" width="280" x="1180" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="kube" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;fontSize=12;fontColor=#333333;" value="&lt;b&gt;Kubernetes&lt;/b&gt; (externa)&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;kubelet puxa a imagem e arranca o container&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="300" x="380" y="1170" as="geometry" />
+        </mxCell>
+        <mxCell id="switches" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1;dashed=1;" value="Switches TSN" vertex="1">
+          <mxGeometry height="60" width="220" x="1210" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="pedido" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" value="Pedido&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;(serviço novo / OTA)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="220" x="100" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="c_pedido_1" edge="1" parent="1" source="pedido" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;" target="e1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_9_3" edge="1" parent="1" source="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;" target="e3" value="heartbeats, reports">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_1_4" edge="1" parent="1" source="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="e4" value="serviço novo / OTA">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_32_4" edge="1" parent="1" source="e32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="e4" value="falha de nó&lt;br&gt;(recolocação)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_6_4" edge="1" parent="1" source="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.15;entryY=1;entryDx=0;entryDy=0;" target="e4" value="serviço expulso">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_4_5" edge="1" parent="1" source="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="e5" value="próximo serviço">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_3_5" edge="1" parent="1" source="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.23;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.17;entryDx=0;entryDy=0;" target="e5" value="nós vivos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_2_5" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.647;entryDx=0;entryDy=0;" target="e5" value="nós e topologia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_5_6" edge="1" parent="1" source="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.15;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="e6" value="sem candidato">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_53_7" edge="1" parent="1" source="e53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="e7" value="apaga inativos + deployment possível?&lt;br&gt;sim / não">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_54_kube" edge="1" parent="1" source="e54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="kube" value="bind (pod → nó)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_7_tsn" edge="1" parent="1" source="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=classic;endArrow=classic;startFill=1;endFill=1;strokeWidth=2;strokeColor=#333333;fontSize=10;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="tsn" value="apaga estes fluxos: [...]&lt;br&gt;este fluxo é possível: [...]&lt;br&gt;sim: já configurado&lt;br&gt;não: nada configurado">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c_tsn_sw" edge="1" parent="1" source="tsn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;strokeColor=#666666;fontSize=10;labelBackgroundColor=#FFFFFF;dashed=1;" target="switches" value="TsnApp / TsnFlow&lt;br&gt;→ NETCONF / YANG">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

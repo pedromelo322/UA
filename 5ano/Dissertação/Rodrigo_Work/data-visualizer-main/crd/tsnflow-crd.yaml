@@ -1,0 +1,117 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: tsnflows.tsn.dev
+spec:
+  scope: Namespaced
+  group: tsn.dev
+  names:
+    kind: TsnFlow
+    plural: tsnflows
+    singular: tsnflow
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec: # Specification for a cross-zone traffic flow
+              type: object
+              properties:
+                talker: # tsn.dev/cr-name of the TsnApp that originates the flow
+                  type: string
+                listeners: # tsn.dev/cr-name of every TsnApp that receives it
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+                # Same shaper schema as TsnApp: this is the profile
+                # applied at EVERY switch hop between talker and each
+                # listener, not just the talker's own zonal switch.
+                shaper:
+                  description: Traffic shaping mechanism for this flow
+                  type: string
+                  enum:
+                    - TAS
+                    - CBS
+                tas:
+                  type: object
+                  properties:
+                    cycleTime:
+                      type: integer
+                    gateControlList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          index:
+                            type: integer
+                            minimum: 0
+                            maximum: 7
+                          gateState:
+                            type: integer
+                            minimum: 0
+                            maximum: 255
+                          timeInterval:
+                            type: integer
+                        required:
+                          - index
+                          - gateState
+                          - timeInterval
+                cbs:
+                  type: object
+                  properties:
+                    bandwidth:
+                      type: integer
+                      minimum: 0
+                      maximum: 100
+                    pcp:
+                      type: integer
+                      minimum: 0
+                      maximum: 7
+                  required:
+                    - bandwidth
+                    - pcp
+              required:
+                - talker
+                - listeners
+                - shaper
+              oneOf:
+                - required: [tas]
+                - required: [cbs]
+            # Written by the sdv-operator (see tsnflow_apply in
+            # sdv-operator.py). Unknown fields are kept too, for kopf's own
+            # bookkeeping under status.kopf.
+            status:
+              type: object
+              x-kubernetes-preserve-unknown-fields: true
+              properties:
+                sdv: # what the operator last did with this flow, shown by the dashboard (set_sdv_status)
+                  type: object
+                  properties:
+                    state:
+                      type: string
+                      enum:
+                        - Applied
+                        - Waiting
+                        - Failed
+                    message:
+                      type: string
+                    observedGeneration: # metadata.generation this status describes
+                      type: integer
+                    lastUpdate: # RFC 3339 timestamp
+                      type: string
+                appliedHops: # switch ports the shaping was pushed to; tsnflow_delete undoes exactly these
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      switch: # NetworkTopology switchRef
+                        type: string
+                      port:
+                        type: string
+                    required:
+                      - switch
+                      - port

@@ -1,0 +1,25 @@
+#Slide 1
+O tema da minha tese é o desenvolvimento de um serviço de orquestração para veículos definidos por software que seja time-aware, utilizando TSN e as redes internas do veículo.
+
+#Slide 2
+Um SDV é um veículo em que as funcionalidades principais, como por exemplo o controlo dos travões e do motor, passam a ser feitas por software. Basicamente em vez de um sistema mecânico com eletrónica como acessório, passa a ser um sistema distribuído, com vários módulos distribuidos por diferentes zonas funcionais que comunicam entre si por Ethernet.
+
+Por exemplo, temos uma zona de perceção, com câmaras e sensores, que comunica com uma zona de controlo, que decide se o veículo deve travar ou acelerar.
+
+#Slide 3
+Tipicamente, estas zonas correm software em contentores, orquestrado por plataformas como o Kubernetes, tal como acontece em cloud computing. 
+No entanto, os SDVs têm um requisito extra: correm aplicações críticas que precisam de garantias de que os dados chegam ao destino dentro de um intervalo de tempo definido.
+
+Para se obter este tipo de garantias na rede utiliza-se o TSN, que é um conjunto de normas que estende o padrão Ethernet para garantir transmissão de dados em tempo real, com alta fiabilidade e baixa latência.
+
+#Slide 4
+O problema é que o Kubernetes decide onde colocar os contentores com base no CPU e memória disponíveis e não sabe nada sobre a topologia física do veículo: que zonas estão mais próximas entre si, que ligações existem entre elas, nem que garantias temporais o TSN consegue oferecer em cada ligação.
+Isto cria um gap entre a realidade física e temporal da rede do veículo e a camada de orquestração, que a ignora por completo.
+
+Supondo que a zona de controlo precisa que os dados da zona de perceção chegem em menos de 10ms para conseguir garantir uma travagem segura, o kubernetes não tem como garantir esse requisito.
+
+#Slide 5
+Portanto o objetivo da tese é desenvolver uma framework de orquestração que combine o conhecimento da topologia do veículo, que zonas existem, como estão ligadas, que garantias o TSN oferece em cada trajeto, com o Kubernetes, para permitir decisões de deployment mais informadas e deterministas.
+
+#Slide 6
+Com isto, quero tornar os SDVs mais previsíveis, seguros e eficientes.

@@ -1,0 +1,2510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow Dashboard</title>
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" href="/favicon.png" sizes="64x64">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --surface-2:      #ffffff;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+
+    --series-1: #2a78d6; /* tcp   */
+    --series-2: #eb6834; /* udp   */
+    --series-3: #1baf7a; /* icmp  */
+    --series-4: #eda100; /* other */
+
+    --seq-450: #2a78d6;
+    --tsn:     #7c4dcc; /* TSN shaping marks (ports, gate schedules) */
+
+    --good:     #0ca30c;
+    --warning:  #fab219;
+    --critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --page:      #0d0d0d;
+      --surface-2: #222221;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:      #2c2c2a;
+      --baseline:  #383835;
+      --border:    rgba(255,255,255,0.10);
+
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --series-3: #199e70;
+      --series-4: #c98500;
+
+      --seq-450: #3987e5;
+      --tsn:     #a07ae6;
+
+      --good:     #0ca30c;
+      --warning:  #fab219;
+      --critical: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --page:      #0d0d0d;
+    --surface-2: #222221;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:      #2c2c2a;
+    --baseline:  #383835;
+    --border:    rgba(255,255,255,0.10);
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+
+    --seq-450: #3987e5;
+    --tsn:     #a07ae6;
+
+    --good:     #0ca30c;
+    --warning:  #fab219;
+    --critical: #e66767;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 14px;
+    padding-block: 20px;
+  }
+  .wrap { max-width: 1400px; margin: 0 auto; padding-inline: 16px; }
+
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  header.top h1 { font-size: 18px; margin: 0; font-weight: 600; }
+  .conn-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: none; }
+  .dot.live { background: var(--good); }
+  .dot.stale { background: var(--warning); }
+  .dot.down { background: var(--critical); }
+
+  button.theme-toggle {
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary);
+    border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+    gap: 16px;
+  }
+
+  .panel {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 0;
+  }
+  .panel-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 8px; margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .panel-head .device-id { font-size: 15px; font-weight: 600; }
+  .panel-head .endpoint { font-size: 12px; color: var(--text-muted); font-weight: 400; margin-left: 6px; }
+  .status-line { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+
+  .panel-toolbar { display: flex; gap: 8px; margin-bottom: 14px; }
+  .panel-btn {
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary);
+    border-radius: 8px; padding: 5px 10px; font-size: 11px; cursor: pointer;
+  }
+  .panel-btn:hover { background: var(--grid); }
+
+  .stat-tiles {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;
+  }
+  .stat-tile {
+    background: var(--surface-2); border-radius: 8px; padding: 10px 12px;
+  }
+  .stat-tile .value {
+    font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .stat-tile .label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .section-title {
+    font-size: 12px; font-weight: 600; color: var(--text-secondary);
+    text-transform: uppercase; letter-spacing: 0.02em;
+    margin: 18px 0 8px;
+  }
+
+  .chart-card svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart-card { position: relative; }
+  .chart-tooltip {
+    position: absolute; pointer-events: none; background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px;
+    font-size: 11px; color: var(--text-primary); white-space: nowrap;
+    transform: translate(-50%, -110%); opacity: 0; transition: opacity 0.1s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .chart-tooltip.show { opacity: 1; }
+
+  .proto-bars { display: flex; flex-direction: column; gap: 2px; }
+  .proto-row { display: flex; align-items: center; gap: 8px; height: 20px; }
+  .proto-row .name { width: 46px; font-size: 12px; color: var(--text-secondary); flex: none; }
+  .proto-row .track { flex: 1; background: var(--grid); border-radius: 4px; height: 14px; overflow: hidden; }
+  .proto-row .fill { height: 100%; border-radius: 4px; }
+  .proto-row .val { width: 74px; text-align: right; font-size: 11px; color: var(--text-muted); flex: none; font-variant-numeric: tabular-nums; }
+
+  table.flows {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+  }
+  .table-scroll { overflow-x: auto; }
+  table.flows th {
+    text-align: left; font-weight: 600; color: var(--text-muted);
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.02em;
+    padding: 4px 8px; border-bottom: 1px solid var(--grid);
+    white-space: nowrap;
+  }
+  table.flows td {
+    padding: 5px 8px; border-bottom: 1px solid var(--grid);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  table.flows td.num, table.flows th.num { text-align: right; }
+  .proto-chip {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+  }
+  .proto-chip .sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .bw-cell { display: flex; align-items: center; gap: 6px; }
+  .bw-track { width: 56px; height: 6px; background: var(--grid); border-radius: 3px; overflow: hidden; flex: none; }
+  .bw-fill { height: 100%; background: var(--seq-450); border-radius: 3px; }
+  .more-note { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .empty-note { font-size: 12px; color: var(--text-muted); padding: 12px 0; }
+
+  @media (max-width: 520px) {
+    .stat-tiles { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .topology-panel { margin-bottom: 16px; }
+  .topology-panel .section-title { margin-top: 0; }
+  .topology-note { font-size: 11px; color: var(--text-muted); margin: -4px 0 12px; max-width: 640px; }
+  .topology-wrap { max-width: 900px; margin: 0 auto; }
+  .topology-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .car-body { fill: var(--grid); fill-opacity: 0.45; stroke: var(--border); stroke-width: 2; }
+  .car-cabin { fill: var(--grid); fill-opacity: 0.7; stroke: var(--border); stroke-width: 1.5; }
+  .car-glass { fill: var(--baseline); fill-opacity: 0.4; stroke: var(--border); stroke-width: 1; }
+  .car-wheel { fill: var(--text-muted); fill-opacity: 0.55; }
+  .car-mirror { fill: var(--grid); stroke: var(--border); stroke-width: 1.5; }
+  .car-headlight { fill: var(--warning); fill-opacity: 0.55; }
+  .car-taillight { fill: var(--critical); fill-opacity: 0.5; }
+  .car-bed { fill: var(--baseline); fill-opacity: 0.25; stroke: var(--border); stroke-width: 1.5; }
+  .car-detail { fill: none; stroke: var(--baseline); stroke-width: 1.5; stroke-linecap: round; }
+  .topo-connector { stroke: var(--baseline); stroke-width: 2; fill: none; stroke-dasharray: 4 3; transition: stroke 0.4s ease; }
+  .topo-connector.fabric-hidden { display: none; }
+  .topo-sensor { r: 3; stroke: var(--surface-1); stroke-width: 1; }
+
+  /* NetworkTopology switch fabric: switch<->switch links and the access
+     links from each switch to the zone (or HPC) it serves. */
+  .topo-link { stroke: var(--text-secondary); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .topo-access { stroke: var(--series-1); stroke-width: 2.5; fill: none; stroke-linecap: round; transition: stroke 0.4s ease; }
+  .topo-link-hit { stroke: transparent; stroke-width: 10; fill: none; pointer-events: stroke; }
+  .topo-port {
+    font: 600 8px system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--text-secondary);
+    text-anchor: middle; dominant-baseline: central; pointer-events: none;
+    paint-order: stroke; stroke: var(--surface-1); stroke-width: 3px; stroke-linejoin: round;
+  }
+
+  .cr-switch {
+    background: var(--surface-2); border: 1px solid var(--series-1); border-radius: 6px;
+    padding: 2px 5px; box-sizing: border-box; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow: hidden; white-space: nowrap;
+  }
+  .cr-switch.transit { border-color: var(--text-secondary); border-style: dashed; }
+  .cr-switch.has-issue { border-color: var(--warning); }
+  .cr-switch .cr-switch-name { font-size: 10px; font-weight: 600; color: var(--text-primary); }
+  .cr-switch .cr-switch-meta { font-size: 8px; color: var(--text-muted); }
+
+  .zone-node {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 10px; font-size: 11px; height: 100%; box-sizing: border-box;
+    display: flex; flex-direction: column; gap: 4px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text-primary);
+  }
+  .zone-node.hpc-node { border-color: var(--series-1); }
+  .zone-node-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .zone-title { font-weight: 600; font-size: 12px; }
+  .zone-dot { margin-left: 4px; }
+  .dot.unknown { background: var(--text-muted); }
+  .zone-device { color: var(--text-muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+  .zone-status-text { font-size: 10px; color: var(--text-secondary); }
+  .zone-stats { display: flex; gap: 10px; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .zone-k8s { font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: auto; padding-top: 2px; }
+  .zone-k8s.populated { font-style: normal; color: var(--text-secondary); }
+  .zone-k8s .k8s-ready { color: var(--good); font-weight: 600; }
+  .zone-k8s .k8s-notready { color: var(--critical); font-weight: 600; }
+
+  .operator-status { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--text-primary); padding-top: 4px; }
+  .operator-status .operator-dot { width: 10px; height: 10px; }
+  .operator-status .operator-text { flex: 1; min-width: 0; overflow-wrap: break-word; }
+
+  .crd-panel { margin-bottom: 16px; }
+  .crd-panel .section-title { margin-top: 0; }
+  .section-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .section-title-row .section-title { margin: 18px 0 8px; }
+  .crd-panel .section-title-row .section-title { margin-top: 0; }
+  .crd-poll-controls { display: flex; align-items: center; gap: 10px; flex: none; }
+  .crd-poll-indicator {
+    display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted);
+    font-variant-numeric: tabular-nums; flex: none;
+  }
+  #crdRefreshBtn:disabled { opacity: 0.5; cursor: default; }
+  .crd-poll-ring { flex: none; transform: rotate(-90deg); }
+  .crd-poll-ring-track { fill: none; stroke: var(--border); stroke-width: 2; }
+  .crd-poll-ring-progress {
+    fill: none; stroke: var(--series-1); stroke-width: 2; stroke-linecap: round;
+    stroke-dasharray: 50.27; transition: stroke-dashoffset 1s linear;
+  }
+  .crd-poll-indicator.due .crd-poll-ring-progress { stroke: var(--good); }
+  .crd-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;
+  }
+  .crd-card {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; min-width: 0;
+  }
+  .crd-card-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 4px;
+  }
+  .crd-kind-wrap { min-width: 0; }
+  .crd-title { font-size: 13px; font-weight: 600; }
+  .crd-group { font-size: 11px; color: var(--text-muted); margin-left: 6px; }
+  .crd-badge { font-size: 10px; font-weight: 600; white-space: nowrap; flex: none; }
+  .crd-badge.good { color: var(--good); }
+  .crd-badge.critical { color: var(--critical); }
+  .crd-meta {
+    display: flex; gap: 12px; font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;
+  }
+  table.crd-instances th, table.crd-instances td { padding: 3px 6px; font-size: 11px; }
+  .crd-card.wide { grid-column: 1 / -1; }
+  .sdv-state { display: inline-flex; align-items: center; gap: 5px; cursor: help; }
+  .dot.info { background: var(--seq-450); }
+  .tsn-shaper { font-weight: 600; color: var(--tsn); }
+  table.crd-instances td.wrap { white-space: normal; min-width: 160px; max-width: 320px; }
+  .flow-zone { color: var(--text-muted); font-size: 10px; }
+  .route-error { display: inline-flex; align-items: baseline; gap: 5px; color: var(--text-secondary); }
+  table.crd-instances tr.gcl-row td { border-bottom: 1px solid var(--grid); padding-top: 0; }
+  table.crd-instances tr.has-detail td { border-bottom: none; }
+  .gcl { display: block; width: 100%; max-width: 480px; height: auto; }
+  .gcl-open { fill: var(--tsn); }
+  .gcl-closed { fill: var(--grid); }
+  .gcl-label { font-size: 7px; fill: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .gcl-sep { stroke: var(--surface-2); stroke-width: 1; }
+
+  /* Chart range selector and flows filter / sortable headers */
+  .section-title-row.panel-row { align-items: center; }
+  .range-select { display: flex; gap: 2px; flex: none; }
+  .range-btn {
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--text-secondary);
+    border-radius: 6px; padding: 2px 7px; font-size: 10px; cursor: pointer;
+  }
+  .range-btn.active { background: var(--text-primary); border-color: var(--text-primary); color: var(--surface-1); }
+  .chart-legend { display: flex; gap: 12px; font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+  .chart-legend .sw { display: inline-block; width: 12px; height: 2px; vertical-align: middle; margin-right: 4px; background: var(--seq-450); }
+  .chart-legend .sw.peak { opacity: 0.45; }
+  .flow-filter {
+    width: 100%; max-width: 240px; min-width: 0; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text-primary); border-radius: 6px; padding: 4px 8px; font-size: 12px;
+  }
+  .sort-btn {
+    all: unset; cursor: pointer; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit;
+  }
+  .sort-btn:hover, th[aria-sort] .sort-btn { color: var(--text-primary); }
+  .sort-btn:focus-visible { outline: 2px solid var(--seq-450); outline-offset: 2px; border-radius: 2px; }
+  th[aria-sort="ascending"] .sort-btn::after { content: " ↑"; }
+  th[aria-sort="descending"] .sort-btn::after { content: " ↓"; }
+
+  /* Topology: live throughput on zone links, pods, TSN shaping marks */
+  .topo-connector, .topo-access { transition: stroke 0.4s ease, stroke-width 0.4s ease; }
+  .topo-traffic {
+    font: 600 9px system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--text-primary);
+    dominant-baseline: central; pointer-events: none; font-variant-numeric: tabular-nums;
+    paint-order: stroke; stroke: var(--surface-1); stroke-width: 3px; stroke-linejoin: round;
+  }
+  .topo-port.shaped, .topo-tsn-tag { fill: var(--tsn); pointer-events: auto; cursor: help; }
+  .topo-tsn-tag { font-weight: 700; }
+  .cr-switch.has-tsn { box-shadow: inset 3px 0 0 var(--tsn); }
+  .zone-pods { font-size: 10px; color: var(--text-secondary); cursor: default; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: none; }
+  .zone-pods .pods-bad { color: var(--critical); font-weight: 600; }
+  .zone-pods .pods-tsn { color: var(--tsn); font-weight: 600; }
+
+  /* Event timeline */
+  .events-panel { margin-bottom: 16px; }
+  .events-panel .section-title-row .section-title { margin-top: 0; }
+  .event-count { font-size: 11px; color: var(--text-muted); }
+  .event-list { max-height: 260px; overflow-y: auto; }
+  .event-row {
+    display: grid; grid-template-columns: 76px 8px minmax(0, 90px) minmax(0, 1fr); gap: 8px; align-items: center;
+    padding: 4px 0; border-bottom: 1px solid var(--grid); font-size: 12px;
+  }
+  .event-time { color: var(--text-muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .event-source { color: var(--text-secondary); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .event-message { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Flow Dashboard</h1>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="conn-badge"><span id="connDot" class="dot down"></span><span id="connText">connecting…</span></span>
+      <button class="theme-toggle" id="vehicleToggle" type="button" title="Change the vehicle drawn behind the network topology">Vehicle: Sedan</button>
+      <button class="theme-toggle" id="themeToggle" type="button">Theme</button>
+    </div>
+  </header>
+  <div class="panel topology-panel">
+    <div class="section-title">Vehicle Network Topology</div>
+    <div class="topology-note">
+      Zonal gateways mirror the physical zones in the testbed, front and rear of the central Vehicle Computer, the HPC (control-plane) node, which is zone 3. Each active zone runs its own flow_monitor and reports into the cluster. Each zone box's dot and top status line reflect flow-monitor liveness; the line below shows that node's live Kubernetes state (Ready condition, kubelet version, allocatable vCPU/memory), polled directly from the cluster API. The HPC box has no flow_monitor of its own, so its dot reflects Kubernetes Ready state directly. Zones come from the NetworkTopology resource: every zone it describes is drawn, including ones with no flow_monitor or node behind them (their boxes say so). Its switches replace the direct zone–HPC lines: the Vehicle Computer's switch (zone 3) sits above the HPC box as the core switch the zonal switches link to, each zonal switch is wired to the zone it serves (labelled with its workload-facing port), switch–switch links are drawn from the resource's links (labelled with the port on each end), and transit-only switches are shown dashed. Each zone's own link gets thicker with its current throughput (on a log scale) and is labelled with it. Boxes list the pods running on that node (hover for each pod). Switch ports a TsnFlow shapes (every hop on its path from talker to listeners) are labelled with the shaper in purple, and those switches get a purple edge (hover for the TsnFlow).
+    </div>
+    <div class="topology-wrap">
+      <svg id="topoSvg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <div class="panel crd-panel">
+    <div class="section-title-row">
+      <div class="section-title">Custom Resources</div>
+      <div class="crd-poll-controls">
+        <div class="crd-poll-indicator" id="crdPollIndicator" title="Custom resources are re-polled from the Kubernetes API on this interval">
+          <svg class="crd-poll-ring" viewBox="0 0 20 20" width="14" height="14">
+            <circle class="crd-poll-ring-track" cx="10" cy="10" r="8"></circle>
+            <circle class="crd-poll-ring-progress" id="crdPollRing" cx="10" cy="10" r="8"></circle>
+          </svg>
+          <span id="crdPollText">next update in --s</span>
+        </div>
+        <button class="panel-btn" type="button" id="crdRefreshBtn">Refresh now</button>
+      </div>
+    </div>
+    <div class="topology-note">
+      CustomResourceDefinitions in the tsn.dev API group (e.g. NetworkTopology) and their currently active instances, polled directly from the Kubernetes API. Status is what the sdv-operator last reported for each resource (hover it for detail); "Pending" means the spec changed since. TsnFlows also show each app's zone, their shaping, the switch ports it's applied to (worked out the way the sdv-operator does, or why it can't be) and, for TAS, the gate schedule over one cycle (one row per traffic class, filled while its gate is open).
+    </div>
+    <div class="crd-grid" id="crdGrid"></div>
+  </div>
+
+  <div class="panel events-panel">
+    <div class="section-title-row">
+      <div class="section-title">Events</div>
+      <span class="event-count" id="eventCount"></span>
+    </div>
+    <div class="topology-note">
+      Flow-monitor, node, sdv-operator and custom resource changes since the dashboard server started, newest first.
+    </div>
+    <div class="event-list" id="eventList"></div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</div>
+
+<template id="panel-template">
+  <div class="panel">
+    <div class="panel-head">
+      <div><span class="device-id"></span><span class="endpoint"></span></div>
+      <div class="status-line"><span class="dot down"></span><span class="status-text">no data</span></div>
+    </div>
+
+    <div class="panel-toolbar">
+      <button class="panel-btn" type="button" data-action="reset">Reset statistics</button>
+      <button class="panel-btn" type="button" data-action="export">Export CSV</button>
+    </div>
+
+    <div class="stat-tiles">
+      <div class="stat-tile"><div class="value" data-f="flows">0</div><div class="label">Flows</div></div>
+      <div class="stat-tile"><div class="value" data-f="packets">0</div><div class="label">Packets</div></div>
+      <div class="stat-tile"><div class="value" data-f="bytes">0</div><div class="label">Bytes</div></div>
+      <div class="stat-tile"><div class="value" data-f="throughput">0</div><div class="label">Throughput</div></div>
+    </div>
+
+    <div class="section-title-row panel-row">
+      <div class="section-title">Throughput over time</div>
+      <div class="range-select" role="group" aria-label="Chart time range">
+        <button class="range-btn active" type="button" data-range="300" aria-pressed="true">5 min</button>
+        <button class="range-btn" type="button" data-range="900" aria-pressed="false">15 min</button>
+        <button class="range-btn" type="button" data-range="3600" aria-pressed="false">1 h</button>
+      </div>
+    </div>
+    <div class="chart-card" data-chart="line">
+      <svg viewBox="0 0 600 150" preserveAspectRatio="none"></svg>
+      <div class="chart-tooltip"></div>
+    </div>
+    <div class="chart-legend" data-legend hidden>
+      <span><span class="sw"></span>10 s average</span><span><span class="sw peak"></span>10 s peak</span>
+    </div>
+
+    <div class="section-title">Protocol breakdown (bytes)</div>
+    <div class="proto-bars" data-chart="proto"></div>
+
+    <div class="section-title-row panel-row">
+      <div class="section-title">Flows</div>
+      <input class="flow-filter" type="search" placeholder="Filter by IP, port or protocol" aria-label="Filter flows">
+    </div>
+    <div class="table-scroll">
+      <table class="flows">
+        <thead>
+          <tr>
+            <th data-sort="a"><button class="sort-btn" type="button">Endpoint A</button></th>
+            <th data-sort="b"><button class="sort-btn" type="button">Endpoint B</button></th>
+            <th data-sort="proto"><button class="sort-btn" type="button">Proto</button></th>
+            <th class="num" data-sort="packets"><button class="sort-btn" type="button">Packets</button></th>
+            <th class="num" data-sort="bytes"><button class="sort-btn" type="button">Bytes</button></th>
+            <th class="num" data-sort="mean"><button class="sort-btn" type="button">Mean</button></th>
+            <th class="num" data-sort="throughput"><button class="sort-btn" type="button">Throughput</button></th>
+          </tr>
+        </thead>
+        <tbody data-flows-body></tbody>
+      </table>
+    </div>
+    <div class="more-note" data-more hidden></div>
+    <div class="empty-note" data-empty hidden></div>
+  </div>
+</template>
+
+<script>
+const PROTO_NAMES = {1: "icmp", 6: "tcp", 17: "udp"};
+const PROTO_SLOT = {tcp: 1, udp: 2, icmp: 3};
+const MAX_ROWS = 20;
+const HISTORY_LEN = 300;
+
+function protoName(p) { return PROTO_NAMES[p] || String(p); }
+function protoBucket(p) {
+  const name = PROTO_NAMES[p];
+  return (name === "tcp" || name === "udp" || name === "icmp") ? name : "other";
+}
+function protoColorVar(bucket) {
+  const slot = PROTO_SLOT[bucket] || 4;
+  return `var(--series-${slot})`;
+}
+
+function formatThroughput(bps) {
+  if (bps == null) return "-";
+  const units = [["Gbps", 1e9], ["Mbps", 1e6], ["kbps", 1e3]];
+  for (const [unit, scale] of units) {
+    if (bps >= scale) return (bps / scale).toFixed(2) + " " + unit;
+  }
+  return Math.round(bps) + " bps";
+}
+function formatBytes(n) {
+  if (n == null) return "-";
+  const units = [["GB", 1e9], ["MB", 1e6], ["KB", 1e3]];
+  for (const [unit, scale] of units) {
+    if (n >= scale) return (n / scale).toFixed(2) + " " + unit;
+  }
+  return n + " B";
+}
+function formatCount(n) {
+  if (n == null) return "-";
+  return n.toLocaleString();
+}
+function timeAgo(lastSeen) {
+  if (lastSeen == null) return "never";
+  const diff = Date.now() / 1000 - lastSeen;
+  if (diff < 1.5) return "just now";
+  if (diff < 60) return Math.floor(diff) + "s ago";
+  return Math.floor(diff / 60) + "m ago";
+}
+function ageFromIso(iso) {
+  if (!iso) return "-";
+  const t = new Date(iso).getTime();
+  if (Number.isNaN(t)) return "-";
+  const diff = Math.max(0, (Date.now() - t) / 1000);
+  if (diff < 60) return Math.floor(diff) + "s";
+  if (diff < 3600) return Math.floor(diff / 60) + "m";
+  if (diff < 86400) return Math.floor(diff / 3600) + "h";
+  return Math.floor(diff / 86400) + "d";
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+}
+
+const STATUS_LABEL = {live: "Live", stale: "Stale", down: "No data"};
+
+// Chart ranges up to this long are drawn from the per-snapshot history;
+// longer ones from the server's 10 s buckets (LONG_HISTORY_BUCKET_S /
+// LONG_HISTORY_LEN in dashboard_server.py).
+const FINE_RANGE_S = 300;
+const LONG_HISTORY_LEN = 360;
+
+// Endpoints sort by IP numerically, then port.
+function ipKey(ip, port) {
+  const parts = String(ip).split(".").map(Number);
+  return parts.length === 4 && parts.every(n => n >= 0 && n <= 255)
+    ? ((parts[0] * 256 + parts[1]) * 256 + parts[2]) * 256 + parts[3] + (port || 0) / 65536
+    : NaN;
+}
+function compareEndpoints(ipA, portA, ipB, portB) {
+  const ka = ipKey(ipA, portA), kb = ipKey(ipB, portB);
+  if (!Number.isNaN(ka) && !Number.isNaN(kb)) return ka - kb;
+  return `${ipA}:${portA}`.localeCompare(`${ipB}:${portB}`);
+}
+const FLOW_SORT = {
+  a: (x, y) => compareEndpoints(x.ip_a, x.port_a, y.ip_a, y.port_a),
+  b: (x, y) => compareEndpoints(x.ip_b, x.port_b, y.ip_b, y.port_b),
+  proto: (x, y) => protoName(x.proto).localeCompare(protoName(y.proto)),
+  packets: (x, y) => (x.packets || 0) - (y.packets || 0),
+  bytes: (x, y) => (x.total_bytes || 0) - (y.total_bytes || 0),
+  mean: (x, y) => (x.mean_pkt_size || 0) - (y.mean_pkt_size || 0),
+  throughput: (x, y) => (x.throughput_bps || 0) - (y.throughput_bps || 0),
+};
+const FLOW_SORT_TEXT_KEYS = new Set(["a", "b", "proto"]);
+
+function formatDurationNs(ns) {
+  const n = Number(ns);
+  if (ns == null || !Number.isFinite(n)) return "-";
+  for (const [unit, scale] of [["s", 1e9], ["ms", 1e6], ["µs", 1e3]]) {
+    if (n >= scale) return +(n / scale).toFixed(3) + " " + unit;
+  }
+  return n + " ns";
+}
+
+// ---------------------------------------------------------------------
+// Per-device panel controller
+// ---------------------------------------------------------------------
+class DevicePanel {
+  constructor(root, deviceId, endpoint) {
+    this.root = root;
+    this.deviceId = deviceId;
+    this.history = [];       // per-snapshot points, the last HISTORY_LEN
+    this.historyLong = [];   // LONG_HISTORY_BUCKET_S averages (with peaks), the last hour
+    this.rangeS = 300;       // chart range; above FINE_RANGE_S it's drawn from historyLong
+    this.flows = [];
+    this.sort = { key: "packets", dir: -1 };
+    this.filter = "";
+    root.querySelector(".device-id").textContent = deviceId;
+    root.querySelector(".endpoint").textContent = endpoint;
+    this.els = {
+      statusDot: root.querySelector(".status-line .dot"),
+      statusText: root.querySelector(".status-text"),
+      flows: root.querySelector('[data-f="flows"]'),
+      packets: root.querySelector('[data-f="packets"]'),
+      bytes: root.querySelector('[data-f="bytes"]'),
+      throughput: root.querySelector('[data-f="throughput"]'),
+      lineChart: root.querySelector('[data-chart="line"]'),
+      lineSvg: root.querySelector('[data-chart="line"] svg'),
+      lineTooltip: root.querySelector('[data-chart="line"] .chart-tooltip'),
+      legend: root.querySelector('[data-legend]'),
+      rangeBtns: root.querySelectorAll(".range-btn"),
+      protoBars: root.querySelector('[data-chart="proto"]'),
+      filterInput: root.querySelector(".flow-filter"),
+      sortHeaders: root.querySelectorAll("th[data-sort]"),
+      flowsBody: root.querySelector('[data-flows-body]'),
+      more: root.querySelector('[data-more]'),
+      empty: root.querySelector('[data-empty]'),
+      resetBtn: root.querySelector('[data-action="reset"]'),
+      exportBtn: root.querySelector('[data-action="export"]'),
+    };
+    this._wireLineHover();
+    this._wireToolbar();
+    this._wireFlowTable();
+  }
+
+  _wireToolbar() {
+    this.els.resetBtn.addEventListener("click", () => this.resetStats());
+    this.els.exportBtn.addEventListener("click", () => this.exportCsv());
+    for (const btn of this.els.rangeBtns) {
+      btn.addEventListener("click", () => {
+        this.rangeS = Number(btn.dataset.range);
+        for (const b of this.els.rangeBtns) {
+          b.classList.toggle("active", b === btn);
+          b.setAttribute("aria-pressed", String(b === btn));
+        }
+        this.renderLineChart();
+      });
+    }
+  }
+
+  _wireFlowTable() {
+    this.els.filterInput.addEventListener("input", () => {
+      this.filter = this.els.filterInput.value;
+      this.renderFlowTable(this.flows);
+    });
+    for (const th of this.els.sortHeaders) {
+      th.querySelector(".sort-btn").addEventListener("click", () => {
+        const key = th.dataset.sort;
+        // Same column flips direction; a new one starts biggest-first for
+        // numbers and A-Z for text.
+        this.sort = this.sort.key === key
+          ? { key, dir: -this.sort.dir }
+          : { key, dir: FLOW_SORT_TEXT_KEYS.has(key) ? 1 : -1 };
+        this.renderFlowTable(this.flows);
+      });
+    }
+  }
+
+  clearHistory() {
+    this.history = [];
+    this.historyLong = [];
+    this.renderLineChart();
+  }
+
+  async resetStats() {
+    this.clearHistory();
+    this.renderSummary(null, null);
+    try {
+      await fetch(`/api/reset/${encodeURIComponent(this.deviceId)}`, { method: "POST" });
+    } catch (e) {
+      // best-effort; server-side history will catch up on the next snapshot regardless
+    }
+  }
+
+  // Exports what the chart currently shows: per-snapshot points for the
+  // shortest range, 10 s buckets (with their peak) for the longer ones.
+  exportCsv() {
+    const coarse = this._isCoarse();
+    const header = ["time_iso", "unix_time", "throughput_bps", ...(coarse ? ["throughput_max_bps"] : []),
+                    "packets", "bytes", "flow_count"];
+    const rows = this._chartPoints().map(p => [
+      new Date(p.t * 1000).toISOString(), p.t, p.throughput_bps, ...(coarse ? [p.throughput_max_bps] : []),
+      p.packets, p.bytes, p.flow_count,
+    ]);
+    const csv = [header, ...rows].map(r => r.join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${this.deviceId}-stats-${this.rangeS}s-${Date.now()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  applyStatus(status, lastSeen) {
+    this.els.statusDot.className = "dot " + status;
+    this.els.statusText.textContent = STATUS_LABEL[status] + (lastSeen ? ` · ${timeAgo(lastSeen)}` : "");
+  }
+
+  update(deviceData) {
+    this.applyStatus(deviceData.status, deviceData.last_seen);
+    if (deviceData.history) this.history = deviceData.history;
+    if (deviceData.history_long) this.historyLong = deviceData.history_long;
+    this.renderLineChart();
+    this.renderSummary(deviceData.summary, deviceData.snapshot);
+  }
+
+  pushSnapshot(deviceData) {
+    if (deviceData.history && deviceData.history.length) {
+      this.history = deviceData.history;
+    }
+    this.update(deviceData);
+  }
+
+  // A newly closed 10 s bucket from the server's "history_long" event.
+  appendLong(point) {
+    this.historyLong.push(point);
+    if (this.historyLong.length > LONG_HISTORY_LEN) this.historyLong.splice(0, this.historyLong.length - LONG_HISTORY_LEN);
+    if (this._isCoarse()) this.renderLineChart();
+  }
+
+  renderSummary(summary, snapshot) {
+    this.els.flows.textContent = formatCount(summary ? summary.flow_count : 0);
+    this.els.packets.textContent = formatCount(summary ? summary.total_packets : 0);
+    this.els.bytes.textContent = formatBytes(summary ? summary.total_bytes : 0);
+    this.els.throughput.textContent = formatThroughput(summary ? summary.total_throughput_bps : 0);
+    this.renderProtoBars(summary ? summary.by_proto : [], summary ? summary.total_bytes : 0);
+    this.renderFlowTable(snapshot ? snapshot.flows : []);
+  }
+
+  renderProtoBars(byProto, totalBytes) {
+    const buckets = {};
+    for (const p of byProto || []) {
+      const b = protoBucket(p.proto);
+      const acc = buckets[b] || (buckets[b] = {bucket: b, bytes: 0, packets: 0});
+      acc.bytes += p.bytes;
+      acc.packets += p.packets;
+    }
+    const order = ["tcp", "udp", "icmp", "other"];
+    const rows = order.map(b => buckets[b]).filter(Boolean);
+    const max = Math.max(1, ...rows.map(r => r.bytes));
+    const container = this.els.protoBars;
+    container.innerHTML = "";
+    if (!rows.length) {
+      container.innerHTML = '<div class="empty-note">No data yet.</div>';
+      return;
+    }
+    for (const r of rows) {
+      const row = document.createElement("div");
+      row.className = "proto-row";
+      const pct = Math.max(2, (r.bytes / max) * 100);
+      row.innerHTML = `
+        <div class="name">${r.bucket}</div>
+        <div class="track"><div class="fill" style="width:${pct}%; background:${protoColorVar(r.bucket)}"></div></div>
+        <div class="val">${formatBytes(r.bytes)}</div>`;
+      container.appendChild(row);
+    }
+  }
+
+  renderFlowTable(flows) {
+    this.flows = flows = flows || [];
+    const terms = this.filter.toLowerCase().split(/\s+/).filter(Boolean);
+    const matching = terms.length
+      ? flows.filter(f => {
+          const text = `${f.ip_a}:${f.port_a} ${f.ip_b}:${f.port_b} ${protoName(f.proto)}`.toLowerCase();
+          return terms.every(t => text.includes(t));
+        })
+      : flows;
+    const { key, dir } = this.sort;
+    const sorted = [...matching].sort((a, b) => dir * FLOW_SORT[key](a, b));
+    const shown = sorted.slice(0, MAX_ROWS);
+    const maxBps = Math.max(1, ...shown.map(f => f.throughput_bps || 0));
+
+    for (const th of this.els.sortHeaders) {
+      if (th.dataset.sort === key) th.setAttribute("aria-sort", dir > 0 ? "ascending" : "descending");
+      else th.removeAttribute("aria-sort");
+    }
+    this.els.flowsBody.innerHTML = "";
+    this.els.empty.hidden = shown.length > 0;
+    this.els.empty.textContent = flows.length ? "No flows match the filter." : "No flows in the latest snapshot.";
+    const notes = [];
+    if (terms.length && flows.length) notes.push(`${matching.length} of ${flows.length} flow(s) match`);
+    if (sorted.length > MAX_ROWS) notes.push(`${sorted.length - MAX_ROWS} more not shown`);
+    this.els.more.hidden = !notes.length;
+    this.els.more.textContent = notes.join(" · ");
+
+    for (const f of shown) {
+      const bucket = protoBucket(f.proto);
+      const bw = f.throughput_bps || 0;
+      const pct = Math.max(2, (bw / maxBps) * 100);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${f.ip_a}:${f.port_a}</td>
+        <td>${f.ip_b}:${f.port_b}</td>
+        <td><span class="proto-chip"><span class="sw" style="background:${protoColorVar(bucket)}"></span>${protoName(f.proto)}</span></td>
+        <td class="num">${formatCount(f.packets)}</td>
+        <td class="num">${formatBytes(f.total_bytes)}</td>
+        <td class="num">${Math.round(f.mean_pkt_size)}</td>
+        <td class="num"><div class="bw-cell"><div class="bw-track"><div class="bw-fill" style="width:${pct}%"></div></div><span>${formatThroughput(bw)}</span></div></td>`;
+      this.els.flowsBody.appendChild(tr);
+    }
+  }
+
+  _isCoarse() { return this.rangeS > FINE_RANGE_S; }
+
+  // Points for the selected range, ending at the newest one we have (the
+  // device's clock, not the browser's).
+  _chartPoints() {
+    const pts = this._isCoarse() ? this.historyLong : this.history;
+    if (!pts.length) return [];
+    const end = pts[pts.length - 1].t;
+    return pts.filter(p => p.t >= end - this.rangeS);
+  }
+
+  renderLineChart() {
+    const svg = this.els.lineSvg;
+    const W = 600, H = 150, padTop = 14, padBottom = 22, padX = 4;
+    const plotH = H - padTop - padBottom;
+    const coarse = this._isCoarse();
+    this.els.legend.hidden = !coarse;
+    svg.innerHTML = "";
+    const pts = this._chartPoints();
+    if (pts.length < 2) {
+      const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t.setAttribute("x", W / 2); t.setAttribute("y", H / 2);
+      t.setAttribute("text-anchor", "middle");
+      t.setAttribute("fill", "var(--text-muted)");
+      t.setAttribute("font-size", "12");
+      t.textContent = coarse ? "Collecting 10 s averages…" : "Waiting for data…";
+      svg.appendChild(t);
+      this._linePts = [];
+      return;
+    }
+    const peak = p => (coarse ? p.throughput_max_bps : p.throughput_bps);
+    const maxV = Math.max(1, ...pts.map(peak));
+    const minT = pts[0].t, maxT = pts[pts.length - 1].t;
+    const spanT = Math.max(1e-6, maxT - minT);
+
+    const x = (t) => padX + ((t - minT) / spanT) * (W - padX * 2);
+    const y = (v) => padTop + plotH - (v / maxV) * plotH;
+
+    const ns = "http://www.w3.org/2000/svg";
+    // reference gridlines (min/mid/max)
+    [0, 0.5, 1].forEach(frac => {
+      const yy = padTop + plotH - frac * plotH;
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", padX); line.setAttribute("x2", W - padX);
+      line.setAttribute("y1", yy); line.setAttribute("y2", yy);
+      line.setAttribute("stroke", "var(--grid)");
+      line.setAttribute("stroke-width", "1");
+      svg.appendChild(line);
+      const label = document.createElementNS(ns, "text");
+      label.setAttribute("x", padX); label.setAttribute("y", yy - 3);
+      label.setAttribute("fill", "var(--text-muted)");
+      label.setAttribute("font-size", "9");
+      label.textContent = formatThroughput(frac * maxV);
+      svg.appendChild(label);
+    });
+
+    const pathOf = (value) => pts.map((p, i) => `${i === 0 ? "M" : "L"} ${x(p.t).toFixed(2)} ${y(value(p)).toFixed(2)}`).join(" ");
+    const linePath = pathOf(p => p.throughput_bps);
+    const areaPath = `${linePath} L ${x(pts[pts.length - 1].t).toFixed(2)} ${padTop + plotH} L ${x(pts[0].t).toFixed(2)} ${padTop + plotH} Z`;
+
+    const area = document.createElementNS(ns, "path");
+    area.setAttribute("d", areaPath);
+    area.setAttribute("fill", "var(--seq-450)");
+    area.setAttribute("opacity", "0.12");
+    area.setAttribute("stroke", "none");
+    svg.appendChild(area);
+
+    // Averages hide bursts, so the longer ranges also trace each bucket's peak.
+    if (coarse) {
+      const peakLine = document.createElementNS(ns, "path");
+      peakLine.setAttribute("d", pathOf(peak));
+      peakLine.setAttribute("fill", "none");
+      peakLine.setAttribute("stroke", "var(--seq-450)");
+      peakLine.setAttribute("stroke-width", "1.5");
+      peakLine.setAttribute("opacity", "0.45");
+      peakLine.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(peakLine);
+    }
+
+    const line = document.createElementNS(ns, "path");
+    line.setAttribute("d", linePath);
+    line.setAttribute("fill", "none");
+    line.setAttribute("stroke", "var(--seq-450)");
+    line.setAttribute("stroke-width", "2");
+    line.setAttribute("stroke-linecap", "round");
+    line.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(line);
+
+    // time labels
+    const fmtT = (t) => new Date(t * 1000).toLocaleTimeString([], {hour: "2-digit", minute: "2-digit", second: "2-digit"});
+    [pts[0], pts[pts.length - 1]].forEach((p, i) => {
+      const label = document.createElementNS(ns, "text");
+      label.setAttribute("x", i === 0 ? padX : W - padX);
+      label.setAttribute("y", H - 6);
+      label.setAttribute("text-anchor", i === 0 ? "start" : "end");
+      label.setAttribute("fill", "var(--text-muted)");
+      label.setAttribute("font-size", "9");
+      label.textContent = fmtT(p.t);
+      svg.appendChild(label);
+    });
+
+    // hover overlay
+    const overlay = document.createElementNS(ns, "rect");
+    overlay.setAttribute("x", 0); overlay.setAttribute("y", 0);
+    overlay.setAttribute("width", W); overlay.setAttribute("height", H);
+    overlay.setAttribute("fill", "transparent");
+    overlay.setAttribute("data-role", "overlay");
+    svg.appendChild(overlay);
+
+    const cursorLine = document.createElementNS(ns, "line");
+    cursorLine.setAttribute("y1", padTop); cursorLine.setAttribute("y2", padTop + plotH);
+    cursorLine.setAttribute("stroke", "var(--baseline)");
+    cursorLine.setAttribute("stroke-width", "1");
+    cursorLine.setAttribute("opacity", "0");
+    svg.appendChild(cursorLine);
+
+    const cursorDot = document.createElementNS(ns, "circle");
+    cursorDot.setAttribute("r", "3.5");
+    cursorDot.setAttribute("fill", "var(--seq-450)");
+    cursorDot.setAttribute("opacity", "0");
+    svg.appendChild(cursorDot);
+
+    this._linePts = pts;
+    this._lineScale = {x, y, W, H, padTop, plotH, fmtT, coarse};
+    this._cursorLine = cursorLine;
+    this._cursorDot = cursorDot;
+  }
+
+  _wireLineHover() {
+    const svg = this.els.lineSvg;
+    const tooltip = this.els.lineTooltip;
+    svg.addEventListener("mousemove", (ev) => {
+      if (!this._linePts || this._linePts.length < 2) return;
+      const rect = svg.getBoundingClientRect();
+      const relX = (ev.clientX - rect.left) / rect.width * this._lineScale.W;
+      let nearest = this._linePts[0], nearestDist = Infinity;
+      for (const p of this._linePts) {
+        const px = this._lineScale.x(p.t);
+        const d = Math.abs(px - relX);
+        if (d < nearestDist) { nearestDist = d; nearest = p; }
+      }
+      const px = this._lineScale.x(nearest.t), py = this._lineScale.y(nearest.throughput_bps);
+      this._cursorLine.setAttribute("x1", px); this._cursorLine.setAttribute("x2", px);
+      this._cursorLine.setAttribute("opacity", "1");
+      this._cursorDot.setAttribute("cx", px); this._cursorDot.setAttribute("cy", py);
+      this._cursorDot.setAttribute("opacity", "1");
+      tooltip.style.left = (px / this._lineScale.W * 100) + "%";
+      tooltip.style.top = (py / this._lineScale.H * 100) + "%";
+      tooltip.textContent = this._lineScale.coarse
+        ? `${this._lineScale.fmtT(nearest.t)} · avg ${formatThroughput(nearest.throughput_bps)} · peak ${formatThroughput(nearest.throughput_max_bps)}`
+        : `${this._lineScale.fmtT(nearest.t)} · ${formatThroughput(nearest.throughput_bps)}`;
+      tooltip.classList.add("show");
+    });
+    svg.addEventListener("mouseleave", () => {
+      if (this._cursorLine) this._cursorLine.setAttribute("opacity", "0");
+      if (this._cursorDot) this._cursorDot.setAttribute("opacity", "0");
+      tooltip.classList.remove("show");
+    });
+  }
+}
+
+// ---------------------------------------------------------------------
+// Vehicle topology view — draws a semi-visible vehicle with each zonal
+// gateway positioned inside it, wired to the central HPC/control-plane node.
+// ---------------------------------------------------------------------
+const SVG_NS = "http://www.w3.org/2000/svg";
+const XHTML_NS = "http://www.w3.org/1999/xhtml";
+
+const SENSOR_COLORS = ["var(--series-2)", "var(--series-1)", "var(--series-3)"];
+
+// Layout (see computeTopologyLayout): zones sit in columns from the front of
+// the car (left, near the nose) to the rear, two per column -- one in a top
+// row, one in a bottom row -- around a "spine" column in the middle holding
+// the HPC box with its core switch right above it. Each zonal switch sits
+// between its zone and the core switch's row, so every cable to the core
+// runs through the band between the two rows. The canvas grows a column at a
+// time as zones are added. frontPad/rearPad leave room for the car's bonnet
+// and boot (and its wheels) beyond the outermost zone columns.
+const TOPO_GEOM = {
+  margin: 20, frontPad: 80, rearPad: 80, colW: 230, spineW: 300, height: 610,
+  zoneW: 190, zoneH: 130, topZoneY: 40, bottomZoneY: 455,
+  topSwitchY: 210, coreY: 280, bottomSwitchY: 410,
+  topRunY: 232, bottomRunY: 382,   // lanes for outer-tier cables, see _coreRoute()
+  channelInset: 20,                // bottom-row cables climb this far inside the spine's edge
+  hpcW: 230, hpcH: 140, hpcY: 330,
+  spineSlotY: 150,                 // transit switch slots in the empty top of the spine
+};
+const SW_W = 74, SW_H = 30, SW_SPACING = 82;
+
+function switchName(sw) { return sw.switchRef || sw.id || "switch"; }
+function portShort(port) { return String(port).replace(/^PORT_/i, "P"); }
+function linkTitle(link) {
+  const end = (sw, port) => switchName(sw) + (port ? " " + port : "");
+  return `${end(link.a, link.aPort)} ↔ ${end(link.b, link.bPort)}`;
+}
+
+function nearestPointOnRect(rect, p) {
+  return {
+    x: Math.min(Math.max(p.x, rect.x), rect.x + rect.w),
+    y: Math.min(Math.max(p.y, rect.y), rect.y + rect.h),
+  };
+}
+
+// SVG path through `points` with every corner rounded off into a curve of
+// radius `r` (shrunk where a segment is too short to fit it, so neighbouring
+// corners never overlap).
+function roundedPath(points, r) {
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < points.length - 1; i++) {
+    const p = points[i - 1], c = points[i], n = points[i + 1];
+    const d1 = Math.hypot(c.x - p.x, c.y - p.y), d2 = Math.hypot(n.x - c.x, n.y - c.y);
+    const rr = Math.min(r, d1 / 2, d2 / 2);
+    if (!rr) {
+      d += ` L ${c.x} ${c.y}`;
+      continue;
+    }
+    const inX = c.x + (p.x - c.x) * rr / d1, inY = c.y + (p.y - c.y) * rr / d1;
+    const outX = c.x + (n.x - c.x) * rr / d2, outY = c.y + (n.y - c.y) * rr / d2;
+    d += ` L ${inX} ${inY} Q ${c.x} ${c.y} ${outX} ${outY}`;
+  }
+  const last = points[points.length - 1];
+  return d + ` L ${last.x} ${last.y}`;
+}
+
+function quadCurveHitsRect(p, ctrl, q, rect) {
+  for (let i = 0; i <= 32; i++) {
+    const t = i / 32, s = 1 - t;
+    const x = s * s * p.x + 2 * s * t * ctrl.x + t * t * q.x;
+    const y = s * s * p.y + 2 * s * t * ctrl.y + t * t * q.y;
+    if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h) return true;
+  }
+  return false;
+}
+
+// A zone's identity is its number ("zone-1", "zone1" and "Zone 1" are all
+// "1"), so TOPOLOGY entries and NetworkTopology `zone` fields line up; a zone
+// without a number falls back to its lowercased name.
+function zoneKey(name) {
+  const m = /\d+/.exec(name || "");
+  return m ? String(Number(m[0])) : String(name || "").trim().toLowerCase();
+}
+
+// Every zone to draw: each zone a NetworkTopology switch serves, whether or
+// not it has any physical device, plus each TOPOLOGY zone with a flow_monitor
+// device (so a monitored zone still shows before any resource exists).
+// TOPOLOGY only adds what the dashboard knows about a zone (label,
+// flow_monitor device, Kubernetes node); it never adds a zone by itself. The
+// HPC's own zone (TOPOLOGY.master.zone, zone 3) is never a zone box. Each
+// zone's slot comes from its number with the HPC's skipped --
+// zones 1/2 fill the front column top/bottom, 4/5 the next, then 6/7, ... --
+// so a zone keeps its place whether or not the zones around it exist. Zones
+// without a number go after all numbered ones.
+function collectZones(topology, switches, hpcKey) {
+  const configured = new Map();
+  for (const z of topology.zones || []) {
+    const key = zoneKey(z.id);
+    if (key && key !== hpcKey && !configured.has(key)) configured.set(key, { ...z, key });
+  }
+  const byKey = new Map();
+  for (const z of configured.values()) {
+    if (z.device_id) byKey.set(z.key, z);
+  }
+  for (const sw of switches) {
+    if (!sw.zoneKey || sw.servesHpc || byKey.has(sw.zoneKey)) continue;
+    const numeric = /^\d+$/.test(sw.zoneKey);
+    byKey.set(sw.zoneKey, configured.get(sw.zoneKey) || {
+      id: numeric ? `zone-${sw.zoneKey}` : sw.zoneKey, key: sw.zoneKey,
+      label: numeric ? `Zone ${sw.zoneKey}` : String(sw.zone),
+      device_id: null, node_name: null,
+    });
+  }
+
+  const hpcNumber = /^\d+$/.test(hpcKey || "") ? Number(hpcKey) : null;
+  const zones = [...byKey.values()];
+  const numbered = zones.filter(z => /^\d+$/.test(z.key) && Number(z.key) > 0);
+  for (const z of numbered) {
+    const n = Number(z.key);
+    z.slot = n - 1 - (hpcNumber !== null && n > hpcNumber ? 1 : 0);
+  }
+  let next = numbered.reduce((m, z) => Math.max(m, z.slot + 1), 0);
+  zones.filter(z => z.slot === undefined)
+    .sort((a, b) => a.key.localeCompare(b.key))
+    .forEach(z => { z.slot = next++; });
+  return zones.sort((a, b) => a.slot - b.slot);
+}
+
+// Positions for a zone list from collectZones() (annotating each zone with
+// its row, box and switch slot) plus the canvas size, the spine, the HPC box
+// and the free slots transit switches can take. Front columns go left of the
+// spine and rear ones right of it, with the extra one on the left when the
+// count is odd. There's always at least one column each side, so the view
+// keeps its proportions while only the front zones exist.
+function computeTopologyLayout(zones) {
+  const G = TOPO_GEOM;
+  const nCols = Math.max(2, ...zones.map(z => Math.floor(z.slot / 2) + 1));
+  const nLeft = Math.ceil(nCols / 2);
+  const spineX = G.margin + G.frontPad + nLeft * G.colW;
+  const spineCx = spineX + G.spineW / 2;
+  const colCx = c => (c < nLeft ? G.margin + G.frontPad + c * G.colW : spineX + G.spineW + (c - nLeft) * G.colW) + G.colW / 2;
+
+  for (const z of zones) {
+    const cx = colCx(Math.floor(z.slot / 2)), top = z.slot % 2 === 0;
+    z.row = top ? "top" : "bottom";
+    z.box = { x: cx - G.zoneW / 2, y: top ? G.topZoneY : G.bottomZoneY, w: G.zoneW, h: G.zoneH };
+    z.switchSlot = { x: cx, y: top ? G.topSwitchY : G.bottomSwitchY };
+  }
+
+  // Transit switches: the middle row of each zone column (clear of every
+  // cable lane), then the empty top of the spine.
+  const transitSlots = [];
+  for (let c = 0; c < nCols; c++) transitSlots.push({ x: colCx(c), y: G.coreY });
+  const sy = G.spineSlotY;
+  transitSlots.push({ x: spineCx, y: sy }, { x: spineCx - SW_SPACING, y: sy }, { x: spineCx + SW_SPACING, y: sy });
+
+  return {
+    width: 2 * G.margin + G.frontPad + G.rearPad + nCols * G.colW + G.spineW, height: G.height,
+    spineX, spineCx,
+    hpcBox: { x: spineCx - G.hpcW / 2, y: G.hpcY, w: G.hpcW, h: G.hpcH },
+    transitSlots,
+  };
+}
+
+// Flattens every NetworkTopology CR (tsn.dev) into one switch graph:
+//   switches -- one per spec.nodes[] entry, with its `zone` reduced to a
+//     zone key (see zoneKey). The HPC's zone makes it a core switch wired to
+//     the HPC box; no `zone` at all makes it a transit switch that only
+//     links other switches.
+//   links -- one per physical cable. Each end may declare the same cable in
+//     its own links[] (with its own local port), so A->B and B->A entries are
+//     paired up into one link carrying both ports; if one side declares more
+//     cables to the other than vice versa, the extras keep just one port.
+// Link targets are switch ids within the same CR, so switches are keyed by
+// CR + id to keep two CRs reusing an id apart.
+function buildSwitchFabric(crds, hpcKey) {
+  const switches = [];
+  const links = [];
+  for (const crd of Object.values(crds || {})) {
+    if (!crd.kind || crd.kind.toLowerCase() !== "networktopology") continue;
+    for (const inst of crd.instances || []) {
+      const crLabel = (inst.namespace ? inst.namespace + "/" : "") + (inst.name || "-");
+      const byId = new Map();
+      for (const n of (inst.spec && inst.spec.nodes) || []) {
+        if (!n || !n.id) continue;
+        const key = n.zone ? zoneKey(String(n.zone)) : "";
+        byId.set(n.id, {
+          ...n, key: crLabel + "|" + n.id, crLabel,
+          zoneKey: key || null, servesHpc: !!key && key === hpcKey, zoneRef: null,
+          neighbors: [], issues: [], pos: null, w: SW_W, h: SW_H,
+        });
+      }
+
+      const pairs = new Map();
+      for (const sw of byId.values()) {
+        for (const l of sw.links || []) {
+          const other = l && byId.get(l.target);
+          if (!other || other === sw) {
+            sw.issues.push(`link ${(l && l.port) || "?"} -> "${l && l.target}": no such switch in this NetworkTopology`);
+            continue;
+          }
+          const [a, b] = sw.id < other.id ? [sw, other] : [other, sw];
+          const key = a.id + "\u0000" + b.id;
+          let pair = pairs.get(key);
+          if (!pair) pairs.set(key, pair = { a, b, aPorts: [], bPorts: [] });
+          (sw === a ? pair.aPorts : pair.bPorts).push(l.port);
+        }
+      }
+      for (const { a, b, aPorts, bPorts } of pairs.values()) {
+        const count = Math.max(aPorts.length, bPorts.length);
+        for (let i = 0; i < count; i++) {
+          links.push({ a, b, aPort: aPorts[i], bPort: bPorts[i], index: i, count });
+        }
+        a.neighbors.push(b);
+        b.neighbors.push(a);
+      }
+      switches.push(...byId.values());
+    }
+  }
+  return { switches, links };
+}
+
+// TsnFlow resources (tsn.dev tsnflows), flattened for the topology and
+// resources views: talker/listeners and the shaper with its parameters from
+// the spec (CBS bandwidth in Mb/s, TAS times in ns), plus the route the
+// server resolved the same way the sdv-operator does (resolve_flow in
+// dashboard_server.py): the app zones, and the switch ports ("hops") the
+// shaping is applied to -- or why it can't be resolved.
+function collectTsnFlows(crds) {
+  const flows = [];
+  for (const crd of Object.values(crds || {})) {
+    if (crd.plural !== "tsnflows") continue;
+    for (const inst of crd.instances || []) {
+      const spec = inst.spec || {};
+      flows.push({
+        inst, name: inst.name, namespace: inst.namespace,
+        talker: spec.talker || null, listeners: spec.listeners || [],
+        shaper: String(spec.shaper || "").toUpperCase(), cbs: spec.cbs || null, tas: spec.tas || null,
+        route: inst.route || { hops: [], listener_zones: [], talker_zone: null, error: null },
+      });
+    }
+  }
+  return flows;
+}
+function flowLabel(flow) { return (flow.namespace ? flow.namespace + "/" : "") + flow.name; }
+function shaperShort(app) {
+  if (app.shaper === "CBS" && app.cbs) return `CBS ${app.cbs.bandwidth}M`;
+  if (app.shaper === "TAS" && app.tas) return `TAS ${formatDurationNs(app.tas.cycleTime)}`;
+  return app.shaper || "?";
+}
+function shaperDetail(app) {
+  if (app.shaper === "CBS" && app.cbs) return `${app.cbs.bandwidth} Mb/s reserved · PCP ${app.cbs.pcp}`;
+  if (app.shaper === "TAS" && app.tas) {
+    return `cycle ${formatDurationNs(app.tas.cycleTime)} · ${(app.tas.gateControlList || []).length} gate entries`;
+  }
+  return "-";
+}
+
+// A TAS gate-states value is a bitmask with bit i set while traffic class
+// i's gate is open (802.1Qbv gate-states-value). Accepts a number, a
+// decimal/0x/0b string, or an 8-character "0"/"1" string written TC7 first.
+// Returns null for anything else.
+function parseGateStates(v) {
+  if (typeof v === "number") return v;
+  const s = String(v == null ? "" : v).trim();
+  if (/^[01]{8}$/.test(s) || /^0b[01]+$/i.test(s)) return parseInt(s.replace(/^0b/i, ""), 2);
+  if (/^0x[0-9a-f]+$/i.test(s)) return parseInt(s, 16);
+  if (/^\d+$/.test(s)) return Number(s);
+  return null;
+}
+
+// One cycle of a TAS gate control list as SVG: a row per traffic class
+// (TC7 on top), filled while that class's gate is open, entries in index
+// order left to right. Scaled to cycleTime, or to the entries' total if
+// the spec has no cycle time.
+function gateScheduleSvg(tas) {
+  const entries = [...(tas.gateControlList || [])].sort((a, b) => (a.index || 0) - (b.index || 0));
+  const listTotal = entries.reduce((s, e) => s + (Number(e.timeInterval) || 0), 0);
+  const total = Number(tas.cycleTime) || listTotal;
+  if (!entries.length || !total) return "";
+  const W = 320, labelW = 24, rowH = 8, gap = 1, axisH = 11;
+  const plotW = W - labelW, H = 8 * (rowH + gap) + axisH;
+  const rowY = tc => (7 - tc) * (rowH + gap);
+  let body = "";
+  for (let tc = 7; tc >= 0; tc--) {
+    body += `<text class="gcl-label" x="0" y="${rowY(tc) + rowH - 1}">TC${tc}</text>`;
+    body += `<rect class="gcl-closed" x="${labelW}" y="${rowY(tc)}" width="${plotW}" height="${rowH}"/>`;
+  }
+  let t = 0;
+  for (const e of entries) {
+    const dur = Number(e.timeInterval) || 0;
+    const x = labelW + (t / total) * plotW, w = (Math.min(dur, Math.max(0, total - t)) / total) * plotW;
+    const mask = parseGateStates(e.gateState);
+    const open = [];
+    for (let tc = 0; tc < 8; tc++) if (mask !== null && (mask >> tc) & 1) open.push(tc);
+    const tip = `entry ${e.index}: ${formatDurationNs(dur)} · ` +
+      (mask === null ? `unrecognised gate state ${JSON.stringify(e.gateState)}` : `open: ${open.length ? open.map(tc => "TC" + tc).join(", ") : "none"}`);
+    body += `<g><title>${escapeHtml(tip)}</title>`;
+    for (const tc of open) body += `<rect class="gcl-open" x="${x}" y="${rowY(tc)}" width="${w}" height="${rowH}"/>`;
+    body += `<rect x="${x}" y="0" width="${w}" height="${8 * (rowH + gap)}" fill="transparent"/></g>`;
+    if (t > 0) body += `<line class="gcl-sep" x1="${x}" x2="${x}" y1="0" y2="${8 * (rowH + gap) - gap}"/>`;
+    t += dur;
+  }
+  const axisY = H - 2;
+  body += `<text class="gcl-label" x="${labelW}" y="${axisY}">0</text>`;
+  body += `<text class="gcl-label" x="${W}" y="${axisY}" text-anchor="end">${escapeHtml(formatDurationNs(total))}</text>`;
+  const mismatch = tas.cycleTime && listTotal !== Number(tas.cycleTime)
+    ? ` (entries add up to ${formatDurationNs(listTotal)})` : "";
+  return `<svg class="gcl" viewBox="0 0 ${W} ${H}" role="img" aria-label="${escapeHtml(`TAS gate schedule, cycle ${formatDurationNs(total)}${mismatch}`)}">${body}</svg>` +
+    (mismatch ? `<div class="more-note">Cycle time ${escapeHtml(formatDurationNs(tas.cycleTime))}, but the gate entries add up to ${escapeHtml(formatDurationNs(listTotal))}.</div>` : "");
+}
+
+// Vehicle outlines for the topology view's background, all top-down with the
+// nose to the left and built from the canvas size rather than a fixed path, so
+// they lengthen with the layout instead of stretching. Each draw() adds its
+// parts through shape(tag, cls, attrs). Wheels stay within ~170px of either
+// end of the body, clear of the outermost zones' sensor dots.
+function vehicleFrame(width, height) {
+  const x0 = 16, x1 = width - 12, y0 = 30, y1 = height - 30;
+  return { x0, x1, y0, y1, len: x1 - x0, wid: y1 - y0, cy: (y0 + y1) / 2 };
+}
+
+// Outline from x0 (nose) to x1: front corners fx by fy swept back from a nose
+// bulging `bulge` forward, and rear corners of radius r.
+function bodyOutline(x0, x1, y0, y1, fx, fy, r, bulge = 0) {
+  const cy = (y0 + y1) / 2;
+  return `M ${x0 + fx} ${y0} L ${x1 - r} ${y0} Q ${x1} ${y0} ${x1} ${y0 + r} L ${x1} ${y1 - r} ` +
+    `Q ${x1} ${y1} ${x1 - r} ${y1} L ${x0 + fx} ${y1} ` +
+    `C ${x0 + fx * 0.35} ${y1} ${x0} ${y1 - fy * 0.45} ${x0} ${y1 - fy} ` +
+    `Q ${x0 - bulge} ${cy} ${x0} ${y0 + fy} ` +
+    `C ${x0} ${y0 + fy * 0.45} ${x0 + fx * 0.35} ${y0} ${x0 + fx} ${y0} Z`;
+}
+
+function addWheels(shape, xs, ys, w, h) {
+  for (const x of xs) {
+    for (const y of ys) shape("rect", "car-wheel", { x, y: y - h / 2, width: w, height: h, rx: 8 });
+  }
+}
+
+// Evenly spaced strokes across (vertical) or along (horizontal) a rect, for
+// roof ribs, bed slats and the like.
+function ribs(x0, y0, x1, y1, n, vertical) {
+  let d = "";
+  for (let i = 1; i < n; i++) {
+    if (vertical) {
+      const x = x0 + (x1 - x0) * i / n;
+      d += `M ${x} ${y0} L ${x} ${y1} `;
+    } else {
+      const y = y0 + (y1 - y0) * i / n;
+      d += `M ${x0} ${y} L ${x1} ${y} `;
+    }
+  }
+  return d;
+}
+
+const VEHICLES = {
+  // Wheels and mirrors poking out past the body, a rounded front bumper and
+  // squarer rear, the cabin with windscreen and rear window, and head/tail lights.
+  sedan: { label: "Sedan", draw(shape, width, height) {
+    const { x0, x1, y0, y1, len, wid, cy } = vehicleFrame(width, height);
+    addWheels(shape, [x0 + 42, x1 - 42 - 96], [y0, y1], 96, 26);
+
+    const cabinX0 = x0 + 0.3 * len, cabinX1 = x1 - 0.16 * len;
+    const cabinY0 = y0 + 0.12 * wid, cabinY1 = y1 - 0.12 * wid;
+    for (const y of [y0 - 3, y1 + 3]) {
+      shape("ellipse", "car-mirror", { cx: cabinX0 + 26, cy: y, rx: 16, ry: 8 });
+    }
+
+    // Body: front corners swept back into a slightly bulging bumper, tighter rear corners.
+    const fx = 70, fy = 0.3 * wid, rx = 36, ry = 0.16 * wid;
+    shape("path", "car-body", { d:
+      `M ${x0 + fx} ${y0} L ${x1 - rx} ${y0} ` +
+      `C ${x1 - rx * 0.3} ${y0} ${x1} ${y0 + ry * 0.3} ${x1} ${y0 + ry} L ${x1} ${y1 - ry} ` +
+      `C ${x1} ${y1 - ry * 0.3} ${x1 - rx * 0.3} ${y1} ${x1 - rx} ${y1} L ${x0 + fx} ${y1} ` +
+      `C ${x0 + fx * 0.35} ${y1} ${x0 + 4} ${y1 - fy * 0.4} ${x0 + 2} ${y1 - fy} ` +
+      `Q ${x0 - 8} ${cy} ${x0 + 2} ${y0 + fy} ` +
+      `C ${x0 + 4} ${y0 + fy * 0.4} ${x0 + fx * 0.35} ${y0} ${x0 + fx} ${y0} Z` });
+
+    // Cabin, rounder at the front, with the windscreen and rear window as
+    // curved bands across it.
+    const cr = 0.16 * wid;
+    shape("path", "car-cabin", { d:
+      `M ${cabinX0 + cr} ${cabinY0} L ${cabinX1 - cr * 0.6} ${cabinY0} ` +
+      `Q ${cabinX1} ${cabinY0} ${cabinX1} ${cabinY0 + cr * 0.6} L ${cabinX1} ${cabinY1 - cr * 0.6} ` +
+      `Q ${cabinX1} ${cabinY1} ${cabinX1 - cr * 0.6} ${cabinY1} L ${cabinX0 + cr} ${cabinY1} ` +
+      `Q ${cabinX0 - 10} ${cabinY1} ${cabinX0 - 10} ${cy} Q ${cabinX0 - 10} ${cabinY0} ${cabinX0 + cr} ${cabinY0} Z` });
+    const wsFront = cabinX0 + 4, wsBack = cabinX0 + 0.08 * len;
+    shape("path", "car-glass", { d:
+      `M ${wsFront + 26} ${cabinY0 + 14} Q ${wsFront - 8} ${cy} ${wsFront + 26} ${cabinY1 - 14} ` +
+      `L ${wsBack} ${cabinY1 - 30} Q ${wsBack - 20} ${cy} ${wsBack} ${cabinY0 + 30} Z` });
+    const rwBack = cabinX1 - 6, rwFront = cabinX1 - 0.05 * len;
+    shape("path", "car-glass", { d:
+      `M ${rwBack - 12} ${cabinY0 + 20} Q ${rwBack + 4} ${cy} ${rwBack - 12} ${cabinY1 - 20} ` +
+      `L ${rwFront} ${cabinY1 - 34} Q ${rwFront + 12} ${cy} ${rwFront} ${cabinY0 + 34} Z` });
+
+    for (const y of [y0 + fy * 0.7, y1 - fy * 0.7]) {
+      shape("ellipse", "car-headlight", { cx: x0 + 16, cy: y, rx: 6, ry: 26 });
+    }
+    for (const y of [y0 + ry + 6, y1 - ry - 6 - 44]) {
+      shape("rect", "car-taillight", { x: x1 - 9, y, width: 7, height: 44, rx: 3 });
+    }
+  } },
+
+  // Creased bonnet, a short cab with windscreen and rear window, and an open
+  // slatted bed behind it closed off by the tailgate.
+  pickup: { label: "Pickup", draw(shape, width, height) {
+    const { x0, x1, y0, y1, len, wid, cy } = vehicleFrame(width, height);
+    addWheels(shape, [x0 + 48, x1 - 48 - 100], [y0, y1], 100, 30);
+
+    const cabX0 = x0 + 0.2 * len, cabX1 = x0 + 0.5 * len;
+    const cabY0 = y0 + 0.1 * wid, cabY1 = y1 - 0.1 * wid;
+    for (const y of [y0 - 4, y1 + 4]) {
+      shape("ellipse", "car-mirror", { cx: cabX0 + 22, cy: y, rx: 18, ry: 9 });
+    }
+
+    const fy = 0.22 * wid;
+    shape("path", "car-body", { d: bodyOutline(x0, x1, y0, y1, 56, fy, 16, 6) });
+    shape("path", "car-detail", { d:
+      `M ${x0 + 44} ${cy - 0.2 * wid} L ${cabX0 - 14} ${cy - 0.2 * wid} ` +
+      `M ${x0 + 44} ${cy + 0.2 * wid} L ${cabX0 - 14} ${cy + 0.2 * wid}` });
+
+    shape("rect", "car-cabin", { x: cabX0, y: cabY0, width: cabX1 - cabX0, height: cabY1 - cabY0, rx: 0.08 * wid });
+    const ws0 = cabX0 + 6, ws1 = cabX0 + 0.07 * len;
+    shape("path", "car-glass", { d:
+      `M ${ws0 + 20} ${cabY0 + 14} Q ${ws0 - 6} ${cy} ${ws0 + 20} ${cabY1 - 14} ` +
+      `L ${ws1} ${cabY1 - 26} Q ${ws1 - 16} ${cy} ${ws1} ${cabY0 + 26} Z` });
+    shape("rect", "car-glass", { x: cabX1 - 20, y: cabY0 + 34, width: 10, height: cabY1 - cabY0 - 68, rx: 4 });
+
+    const bedX0 = cabX1 + 12, bedX1 = x1 - 22, bedY0 = y0 + 0.07 * wid, bedY1 = y1 - 0.07 * wid;
+    shape("rect", "car-bed", { x: bedX0, y: bedY0, width: bedX1 - bedX0, height: bedY1 - bedY0, rx: 6 });
+    shape("path", "car-detail", { d: ribs(bedX0 + 10, bedY0, bedX1 - 10, bedY1, 6, false) });
+    shape("rect", "car-cabin", { x: bedX1 + 4, y: bedY0, width: x1 - 4 - (bedX1 + 4), height: bedY1 - bedY0, rx: 3 });
+
+    for (const y of [y0 + fy - 10, y1 - fy + 10 - 44]) {
+      shape("rect", "car-headlight", { x: x0 + 5, y, width: 10, height: 44, rx: 4 });
+    }
+    for (const y of [y0 + 20, y1 - 20 - 40]) {
+      shape("rect", "car-taillight", { x: x1 - 8, y, width: 6, height: 40, rx: 3 });
+    }
+  } },
+
+  // Stubby nose, a wide windscreen with big mirrors either side, and a long
+  // ribbed roof running back to a square rear.
+  van: { label: "Van", draw(shape, width, height) {
+    const { x0, x1, y0, y1, len, wid, cy } = vehicleFrame(width, height);
+    addWheels(shape, [x0 + 44, x1 - 44 - 92], [y0, y1], 92, 28);
+
+    const wsX0 = x0 + 0.08 * len, wsX1 = x0 + 0.15 * len;
+    for (const y of [y0 - 6, y1 + 6]) {
+      shape("ellipse", "car-mirror", { cx: wsX0 + 4, cy: y, rx: 12, ry: 10 });
+    }
+
+    shape("path", "car-body", { d: bodyOutline(x0, x1, y0, y1, 70, 0.26 * wid, 12, 10) });
+    shape("path", "car-glass", { d:
+      `M ${wsX0 + 18} ${y0 + 20} Q ${wsX0 - 10} ${cy} ${wsX0 + 18} ${y1 - 20} ` +
+      `L ${wsX1} ${y1 - 24} Q ${wsX1 - 20} ${cy} ${wsX1} ${y0 + 24} Z` });
+
+    const roofX0 = wsX1 + 8, roofX1 = x1 - 10;
+    shape("rect", "car-cabin", { x: roofX0, y: y0 + 14, width: roofX1 - roofX0, height: wid - 28, rx: 14 });
+    shape("path", "car-detail", { d: ribs(roofX0, y0 + 30, roofX1, y1 - 30, Math.max(4, Math.round((roofX1 - roofX0) / 110)), true) });
+
+    for (const y of [y0 + 0.3 * wid, y1 - 0.3 * wid]) {
+      shape("ellipse", "car-headlight", { cx: x0 + 12, cy: y, rx: 6, ry: 22 });
+    }
+    for (const y of [y0 + 16, y1 - 16 - 60]) {
+      shape("rect", "car-taillight", { x: x1 - 8, y, width: 6, height: 60, rx: 3 });
+    }
+  } },
+
+  // Long flat-fronted box: a full-width windscreen, mirrors on arms, roof
+  // hatches and air-con units along the top, and the engine grille at the back.
+  bus: { label: "Bus", draw(shape, width, height) {
+    const { x0, x1, y0, y1, len, wid, cy } = vehicleFrame(width, height);
+    addWheels(shape, [x0 + 64, x1 - 70 - 104], [y0, y1], 104, 28);
+
+    for (const [y, dy] of [[y0, -1], [y1, 1]]) {
+      shape("path", "car-detail", { d: `M ${x0 + 46} ${y} L ${x0 + 26} ${y + dy * 12}` });
+      shape("ellipse", "car-mirror", { cx: x0 + 22, cy: y + dy * 12, rx: 8, ry: 6 });
+    }
+
+    shape("path", "car-body", { d: bodyOutline(x0, x1, y0, y1, 36, 36, 20, 4) });
+    shape("path", "car-glass", { d:
+      `M ${x0 + 26} ${y0 + 16} Q ${x0 + 4} ${cy} ${x0 + 26} ${y1 - 16} ` +
+      `L ${x0 + 50} ${y1 - 20} Q ${x0 + 30} ${cy} ${x0 + 50} ${y0 + 20} Z` });
+    shape("path", "car-detail", { d: `M ${x0 + 70} ${y0 + 14} L ${x1 - 24} ${y0 + 14} M ${x0 + 70} ${y1 - 14} L ${x1 - 24} ${y1 - 14}` });
+
+    const acW = 0.14 * len, acH = 0.34 * wid;
+    for (const f of [0.28, 0.6]) {
+      const ax = x0 + f * len;
+      shape("rect", "car-cabin", { x: ax, y: cy - acH / 2, width: acW, height: acH, rx: 10 });
+      shape("path", "car-detail", { d: ribs(ax, cy - acH / 2 + 12, ax + acW, cy + acH / 2 - 12, 4, true) });
+    }
+    for (const f of [0.16, 0.52, 0.84]) {
+      shape("rect", "car-glass", { x: x0 + f * len - 22, y: cy - 22, width: 44, height: 44, rx: 6 });
+    }
+    shape("path", "car-detail", { d: ribs(x1 - 40, cy - 0.18 * wid, x1 - 10, cy + 0.18 * wid, 4, true) });
+
+    for (const y of [y0 + 40, y1 - 40 - 30]) {
+      shape("rect", "car-headlight", { x: x0 + 3, y, width: 8, height: 30, rx: 3 });
+    }
+    for (const y of [y0 + 26, y1 - 26 - 36]) {
+      shape("rect", "car-taillight", { x: x1 - 8, y, width: 6, height: 36, rx: 3 });
+    }
+  } },
+
+  // Tractor unit up front -- steer axle, windscreen, roof fairing -- hitched
+  // to a full-width ribbed box trailer that sits over its drive axles.
+  semi: { label: "Semi truck", draw(shape, width, height) {
+    const { x0, x1, y0, y1, len, wid, cy } = vehicleFrame(width, height);
+    const cabX1 = x0 + Math.min(250, 0.3 * len), trX0 = cabX1 + 16;
+    const cabY0 = y0, cabY1 = y1;
+    addWheels(shape, [x0 + 40], [cabY0, cabY1], 92, 28);
+    addWheels(shape, [cabX1 - 24, cabX1 + 46], [cabY0, cabY1], 62, 28);
+    addWheels(shape, [x1 - 40 - 62, x1 - 40 - 2 * 62 - 8], [y0, y1], 62, 28);
+
+    for (const y of [cabY0 - 8, cabY1 + 8]) {
+      shape("ellipse", "car-mirror", { cx: x0 + 62, cy: y, rx: 14, ry: 8 });
+    }
+    const fy = 0.2 * wid;
+    shape("path", "car-body", { d: bodyOutline(x0, cabX1, cabY0, cabY1, 48, fy, 12, 8) });
+    const ws0 = x0 + 30, ws1 = x0 + 58;
+    shape("path", "car-glass", { d:
+      `M ${ws0 + 14} ${cabY0 + 22} Q ${ws0 - 8} ${cy} ${ws0 + 14} ${cabY1 - 22} ` +
+      `L ${ws1} ${cabY1 - 28} Q ${ws1 - 18} ${cy} ${ws1} ${cabY0 + 28} Z` });
+    shape("rect", "car-cabin", { x: x0 + 74, y: cabY0 + 16, width: cabX1 - 12 - (x0 + 74), height: cabY1 - cabY0 - 32, rx: 0.1 * wid });
+    shape("rect", "car-cabin", { x: cabX1 - 6, y: cy - 14, width: trX0 - cabX1 + 12, height: 28, rx: 4 });
+
+    shape("rect", "car-body", { x: trX0, y: y0, width: x1 - trX0, height: wid, rx: 8 });
+    shape("path", "car-detail", { d: ribs(trX0, y0 + 10, x1, y1 - 10, Math.max(3, Math.round((x1 - trX0) / 140)), true) });
+
+    for (const y of [cabY0 + fy, cabY1 - fy - 34]) {
+      shape("rect", "car-headlight", { x: x0 + 3, y, width: 8, height: 34, rx: 3 });
+    }
+    for (const y of [y0 + 18, y1 - 18 - 40]) {
+      shape("rect", "car-taillight", { x: x1 - 8, y, width: 6, height: 40, rx: 3 });
+    }
+  } },
+};
+const VEHICLE_TYPES = Object.keys(VEHICLES);
+
+class TopologyView {
+  constructor(svg, topology, vehicle) {
+    this.svg = svg;
+    this.topology = topology;
+    this.vehicle = vehicle;
+    this.hpcKey = zoneKey(topology.master && topology.master.zone) || null;
+    // Last state pushed in, re-applied whenever a new zone forces a full re-render.
+    this.lastDevices = {};  // device_id -> device state
+    this.lastK8s = null;
+    this.lastOperator = null;
+    this.zoneTrafficColor = {};  // zone key -> last dominant-protocol stroke, re-applied after each redraw
+    this.zoneThroughput = {};    // zone key -> last total throughput (bps), or null while the zone is down
+    this._setZones(collectZones(topology, [], this.hpcKey));
+  }
+
+  _setZones(zones) {
+    this.zones = zones;
+    this.layout = computeTopologyLayout(zones);
+    this.render();
+    for (const [id, dev] of Object.entries(this.lastDevices)) this.updateDevice(id, dev);
+    if (this.lastK8s) this.updateK8s(this.lastK8s);
+    if (this.lastOperator) this.updateOperator(this.lastOperator);
+  }
+
+  // Redraws just the vehicle outline under the topology, e.g. when the
+  // vehicle picker changes, leaving the zones and switch fabric alone.
+  _drawVehicle() {
+    const layer = this.vehicleLayer;
+    layer.innerHTML = "";
+    const shape = (tag, cls, attrs) => {
+      const el = document.createElementNS(SVG_NS, tag);
+      el.setAttribute("class", cls);
+      for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+      layer.appendChild(el);
+    };
+    (VEHICLES[this.vehicle] || VEHICLES.sedan).draw(shape, this.layout.width, this.layout.height);
+  }
+
+  setVehicle(type) {
+    this.vehicle = type;
+    if (this.vehicleLayer) this._drawVehicle();
+  }
+
+  _addSensors(box, side) {
+    const cx0 = box.x + box.w * 0.5 - 20;
+    const above = side !== "below";
+    const dotY = above ? box.y - 10 : box.y + box.h + 10;
+    const wireY1 = above ? box.y - 7 : box.y + box.h + 7;
+    const wireY2 = above ? box.y : box.y + box.h;
+    SENSOR_COLORS.forEach((color, i) => {
+      const dot = document.createElementNS(SVG_NS, "circle");
+      dot.setAttribute("class", "topo-sensor");
+      dot.setAttribute("cx", cx0 + i * 20);
+      dot.setAttribute("cy", dotY);
+      dot.setAttribute("fill", color);
+      this.svg.appendChild(dot);
+      const wire = document.createElementNS(SVG_NS, "line");
+      wire.setAttribute("x1", cx0 + i * 20); wire.setAttribute("y1", wireY1);
+      wire.setAttribute("x2", cx0 + i * 20); wire.setAttribute("y2", wireY2);
+      wire.setAttribute("stroke", color); wire.setAttribute("stroke-width", "1.5");
+      this.svg.appendChild(wire);
+    });
+  }
+
+  _addConnector(from, to) {
+    const line = document.createElementNS(SVG_NS, "path");
+    line.setAttribute("class", "topo-connector");
+    line.setAttribute("d", `M ${from.x} ${from.y} L ${to.x} ${to.y}`);
+    this.svg.appendChild(line);
+    return line;
+  }
+
+  _addBox(box, isHpc) {
+    const fo = document.createElementNS(SVG_NS, "foreignObject");
+    fo.setAttribute("x", box.x); fo.setAttribute("y", box.y);
+    fo.setAttribute("width", box.w); fo.setAttribute("height", box.h);
+    const div = document.createElementNS(XHTML_NS, "div");
+    div.setAttribute("class", "zone-node" + (isHpc ? " hpc-node" : ""));
+    fo.appendChild(div);
+    this.svg.appendChild(fo);
+    return div;
+  }
+
+  render() {
+    const svg = this.svg;
+    const L = this.layout;
+    svg.innerHTML = "";
+    svg.setAttribute("viewBox", `0 0 ${L.width} ${L.height}`);
+    this.zoneNodes = {};      // device_id -> {dot, statusText, flows, throughput}
+    this.k8sEls = {};         // topology id (zone.id / master.id) -> {dot, text}
+    this.connectorEls = {};   // zone key -> {el, from, to}: the zone<->HPC connector <path> and its ends
+    this.deviceZoneKey = {};  // device_id -> zone key, so updateDevice() can find its links
+    this.accessEls = {};      // zone key -> [{el, from, to}]: access links from that zone's switches to its box
+    this.trafficLabels = {};  // zone key -> the throughput <text> on that zone's link
+    this.operatorEls = null;  // {dot, text} for the sdv-operator status line on the HPC box
+
+    this.vehicleLayer = document.createElementNS(SVG_NS, "g");   // vehicle outline, under everything
+    svg.appendChild(this.vehicleLayer);
+    this._drawVehicle();
+
+    const hpc = L.hpcBox;
+    const hpcCenter = { x: hpc.x + hpc.w / 2, y: hpc.y + hpc.h / 2 };
+    for (const zone of this.zones) {
+      const from = nearestPointOnRect(zone.box, hpcCenter);
+      const to = nearestPointOnRect(hpc, from);
+      this.connectorEls[zone.key] = { el: this._addConnector(from, to), from, to };
+    }
+    this.linkLayer = document.createElementNS(SVG_NS, "g");   // CR-derived switch links, under the boxes
+    svg.appendChild(this.linkLayer);
+
+    for (const zone of this.zones) {
+      this._addSensors(zone.box, zone.row === "top" ? "above" : "below");
+      const div = this._addBox(zone.box, false);
+      const title = escapeHtml(zone.label);
+      if (zone.device_id) {
+        div.innerHTML = `
+          <div class="zone-node-head">
+            <span class="zone-title">${title}</span>
+            <span class="zone-dot dot down"></span>
+          </div>
+          <div class="zone-device">${escapeHtml(zone.device_id)}</div>
+          <div class="zone-status-text">no data</div>
+          <div class="zone-stats"><span data-zf="flows">0 flows</span><span data-zf="throughput">0 bps</span></div>
+          <div class="zone-pods" hidden></div>
+          <div class="zone-k8s">K8s node metrics: not connected</div>`;
+        this.zoneNodes[zone.device_id] = {
+          dot: div.querySelector(".zone-dot"),
+          statusText: div.querySelector(".zone-status-text"),
+          flows: div.querySelector('[data-zf="flows"]'),
+          throughput: div.querySelector('[data-zf="throughput"]'),
+        };
+        this.deviceZoneKey[zone.device_id] = zone.key;
+        this.k8sEls[zone.id] = { dot: null, text: div.querySelector(".zone-k8s"), pods: div.querySelector(".zone-pods") };
+      } else {
+        // A zone the NetworkTopology describes with no flow_monitor behind
+        // it: a regular zone, just without traffic stats (and without node
+        // state too, unless TOPOLOGY gives it a Kubernetes node).
+        div.innerHTML = `
+          <div class="zone-node-head">
+            <span class="zone-title">${title}</span>
+            <span class="zone-dot dot unknown"></span>
+          </div>
+          <div class="zone-device">NetworkTopology zone</div>
+          <div class="zone-status-text">No flow_monitor in this zone</div>
+          <div class="zone-pods" hidden></div>
+          <div class="zone-k8s">${zone.node_name ? "K8s node metrics: not connected" : "No Kubernetes node in this zone"}</div>`;
+        if (zone.node_name) {
+          this.k8sEls[zone.id] = { dot: null, text: div.querySelector(".zone-k8s"), pods: div.querySelector(".zone-pods") };
+        }
+      }
+    }
+
+    const master = this.topology.master;
+    if (master) {
+      const div = this._addBox(hpc, true);
+      div.innerHTML = `
+        <div class="zone-node-head">
+          <span class="zone-title">${master.label}</span>
+          <span class="zone-dot dot unknown"></span>
+        </div>
+        <div class="zone-device">${master.role || ""}</div>
+        <div class="zone-pods" hidden></div>
+        <div class="zone-k8s">Kubernetes API not connected — node state pending</div>
+        <div class="operator-status" title="sdv-operator: reconciles tsnswitch/networktopology/tsnflow CRs against the TSN switches">
+          <span class="operator-dot dot unknown"></span>
+          <span class="operator-text">Operator: checking…</span>
+        </div>`;
+      this.k8sEls[master.id] = {
+        dot: div.querySelector(".zone-dot"), text: div.querySelector(".zone-k8s"), pods: div.querySelector(".zone-pods"),
+      };
+      this.operatorEls = { dot: div.querySelector(".operator-dot"), text: div.querySelector(".operator-text") };
+    }
+
+    this.crLayer = document.createElementNS(SVG_NS, "g");   // CR-derived switch markers + port labels, on top
+    svg.appendChild(this.crLayer);
+    this.trafficLayer = document.createElementNS(SVG_NS, "g");   // per-zone throughput labels, above everything
+    svg.appendChild(this.trafficLayer);
+  }
+
+  updateDevice(deviceId, deviceData) {
+    this.lastDevices[deviceId] = deviceData;
+    const node = this.zoneNodes[deviceId];
+    if (!node) return;
+    node.dot.className = "zone-dot dot " + deviceData.status;
+    node.statusText.textContent = STATUS_LABEL[deviceData.status] +
+      (deviceData.last_seen ? ` · ${timeAgo(deviceData.last_seen)}` : "");
+    if (deviceData.summary) {
+      node.flows.textContent = formatCount(deviceData.summary.flow_count) + " flows";
+      node.throughput.textContent = formatThroughput(deviceData.summary.total_throughput_bps);
+    }
+    this._updateConnectorTraffic(deviceId, deviceData);
+  }
+
+  // Colors the zone's own link -- the zone<->HPC connector, or the access
+  // link(s) to its switch when a NetworkTopology puts one there -- by
+  // whichever protocol (tcp/udp/icmp/other) accounts for the most bytes in
+  // that zone's latest snapshot, using the same series colors as the
+  // protocol-breakdown bars -- so the topology view gives an at-a-glance
+  // read of what kind of traffic is actually flowing out of each zone, not
+  // just whether the zone is up.
+  _updateConnectorTraffic(deviceId, deviceData) {
+    const key = this.deviceZoneKey[deviceId];
+    if (key === undefined) return;
+
+    const up = deviceData.status !== "down";
+    const byProto = up ? (deviceData.summary && deviceData.summary.by_proto) : null;
+    let color = "";
+    if (byProto && byProto.length) {
+      const bytesByBucket = {};
+      for (const p of byProto) {
+        const b = protoBucket(p.proto);
+        bytesByBucket[b] = (bytesByBucket[b] || 0) + (p.bytes || 0);
+      }
+      const [dominant] = Object.entries(bytesByBucket).sort((a, b) => b[1] - a[1])[0];
+      color = protoColorVar(dominant);
+    }
+    this.zoneTrafficColor[key] = color;
+    this.zoneThroughput[key] = up && deviceData.summary ? deviceData.summary.total_throughput_bps : null;
+    this._applyZoneTraffic(key);
+  }
+
+  // Applies a zone's traffic to its own link (its access link when a switch
+  // serves it, else the direct connector): the dominant-protocol colour, a
+  // width that grows with throughput on a log scale (2px at 1 kbps or less,
+  // +1px per decade, capped at 8px from 1 Gbps), and a throughput label.
+  _applyZoneTraffic(key) {
+    const color = this.zoneTrafficColor[key] || "";
+    const bps = this.zoneThroughput[key];
+    const width = bps == null ? "" : String(2 + Math.min(6, Math.max(0, Math.log10(bps) - 3)));
+    const connector = this.connectorEls[key];
+    const links = [...(this.accessEls[key] || [])];
+    if (connector) {
+      connector.el.style.stroke = color;
+      connector.el.style.strokeWidth = width;
+      if (!connector.el.classList.contains("fabric-hidden")) links.push(connector);
+    }
+    for (const { el } of this.accessEls[key] || []) {
+      el.style.stroke = color;
+      el.style.strokeWidth = width;
+    }
+
+    if (this.trafficLabels[key]) this.trafficLabels[key].remove();
+    delete this.trafficLabels[key];
+    if (bps == null || !links.length) return;
+    // Beside the middle of the zone's (first) link, clear of the port label
+    // at the switch end.
+    const { from, to } = links[0];
+    const text = document.createElementNS(SVG_NS, "text");
+    text.setAttribute("class", "topo-traffic");
+    text.setAttribute("x", (from.x + to.x) / 2 + 9);
+    text.setAttribute("y", (from.y + to.y) / 2);
+    text.textContent = formatThroughput(bps);
+    this.trafficLayer.appendChild(text);
+    this.trafficLabels[key] = text;
+  }
+
+  // One line per box: pod count, how many aren't ready and how many belong
+  // to a TSN app (labelled tsn.dev/cr-name); hovering lists every pod (with its waiting reason, e.g.
+  // CrashLoopBackOff). Hidden when the server couldn't list pods.
+  _renderPods(el, pods) {
+    if (!el) return;
+    el.hidden = !Array.isArray(pods);
+    if (el.hidden) return;
+    if (!pods.length) {
+      el.textContent = "No pods";
+      el.removeAttribute("title");
+      return;
+    }
+    const bad = pods.filter(p => p.terminating || (!p.ready && p.phase !== "Succeeded"));
+    const tsn = pods.filter(p => p.tsn_app);
+    const parts = [`${pods.length} pod${pods.length === 1 ? "" : "s"}`];
+    if (bad.length) parts.push(`<span class="pods-bad">${bad.length} not ready</span>`);
+    if (tsn.length) parts.push(`<span class="pods-tsn">${tsn.length} TSN</span>`);
+    el.innerHTML = parts.join(" · ");
+    el.title = pods.map(p => {
+      const state = p.terminating ? "Terminating" : (p.reason || p.phase) + (p.ready ? ", ready" : "");
+      return `${p.namespace}/${p.name} — ${state}` +
+        (p.restarts ? `, ${p.restarts} restart${p.restarts === 1 ? "" : "s"}` : "") +
+        (p.tsn_app ? ` [TSN app ${p.tsn_app}]` : "");
+    }).join("\n");
+  }
+
+  updateK8s(k8sState) {
+    if (!k8sState) return;
+    this.lastK8s = k8sState;
+    for (const [id, els] of Object.entries(this.k8sEls)) {
+      const node = k8sState[id];
+      if (!node) continue; // leave the "not connected" placeholder until the poller reports this node
+      this._renderPods(els.pods, node.pods);
+      const readyLabel = node.ready ? "Ready" : "Not Ready";
+      const readyClass = node.ready ? "k8s-ready" : "k8s-notready";
+      const parts = [`<span class="${readyClass}">${readyLabel}</span>`, node.node_name];
+      if (node.kubelet_version) parts.push(node.kubelet_version);
+      if (node.cpu_allocatable != null) parts.push(`${node.cpu_allocatable} vCPU`);
+      if (node.memory_allocatable_bytes != null) parts.push(formatBytes(node.memory_allocatable_bytes) + " mem");
+      els.text.classList.add("populated");
+      els.text.innerHTML = parts.join(" · ");
+      if (els.dot) els.dot.className = "zone-dot dot " + (node.ready ? "live" : "down");
+    }
+  }
+
+  // Drives the sdv-operator status line on the HPC box. `state` is the
+  // Deployment status polled by operator_poll_thread in dashboard_server.py
+  // (ready/available replica counts) -- "online" means the operator's pod
+  // is up and ready, not that it's actively mid-reconcile right now.
+  updateOperator(state) {
+    this.lastOperator = state;
+    if (!this.operatorEls) return;
+    const { dot, text } = this.operatorEls;
+    if (!state || state.online === undefined) {
+      dot.className = "operator-dot dot unknown";
+      text.textContent = "Operator: unknown";
+      return;
+    }
+    dot.className = "operator-dot dot " + (state.online ? "live" : "down");
+    if (state.online) {
+      text.textContent = "Operator online";
+    } else if (state.error === "not found") {
+      text.textContent = "Operator: not deployed";
+    } else if (state.ready_replicas != null && state.desired_replicas != null) {
+      text.textContent = `Operator offline (${state.ready_replicas}/${state.desired_replicas} ready)`;
+    } else {
+      text.textContent = "Operator offline";
+    }
+  }
+
+  // Renders NetworkTopology CRs (tsn.dev) as a switch graph (see
+  // buildSwitchFabric): a marker per switch, a link per cable between
+  // switches (port labelled at each end), and an access link from each
+  // switch to the zone/HPC box it serves (labelled with its workload-facing
+  // port). A zone the resource names that isn't drawn yet re-lays out the
+  // whole view to make room for it. A zone with a switch loses its direct
+  // dashed connector to the HPC, since its traffic goes through the fabric.
+  updateCrs(crds) {
+    const { switches, links } = buildSwitchFabric(crds, this.hpcKey);
+    const zones = collectZones(this.topology, switches, this.hpcKey);
+    const signature = zs => zs.map(z => z.key).join(",");
+    if (signature(zones) !== signature(this.zones)) this._setZones(zones);
+
+    this.crLayer.innerHTML = "";
+    this.linkLayer.innerHTML = "";
+    this.accessEls = {};
+    for (const { el } of Object.values(this.connectorEls)) el.classList.remove("fabric-hidden");
+
+    const zoneByKey = new Map(this.zones.map(z => [z.key, z]));
+    for (const sw of switches) sw.zoneRef = sw.servesHpc ? null : zoneByKey.get(sw.zoneKey) || null;
+    // Each TsnFlow's shaping lands on the ports of its resolved hops: one
+    // {flow..., port} per hop on this switch; see _addPortText /
+    // _addSwitchMarker.
+    const flows = collectTsnFlows(crds);
+    for (const sw of switches) {
+      sw.shaping = flows.flatMap(f => f.route.hops.filter(h => h.id === sw.id).map(h => ({ ...f, port: h.port })));
+    }
+    const coreRoutes = this._placeSwitches(switches, links);
+
+    for (const link of links) {
+      const route = coreRoutes.get(link);
+      if (route) this._drawCoreLink(link, route);
+      else this._drawDirectLink(link);
+    }
+
+    const L = this.layout;
+    const master = this.topology.master;
+    for (const sw of switches) {
+      let rect, label;
+      if (sw.zoneRef) {
+        rect = sw.zoneRef.box;
+        label = sw.zoneRef.label;
+      } else if (sw.servesHpc && master) {
+        rect = L.hpcBox;
+        label = master.label;
+      } else {
+        continue;
+      }
+      const to = nearestPointOnRect(rect, sw.pos);
+      const el = this._addLink(`M ${sw.pos.x} ${sw.pos.y} L ${to.x} ${to.y}`, "topo-access",
+        `${switchName(sw)}${sw.port ? " " + sw.port : ""} → ${label}`);
+      if (sw.port) this._addPortLabel(sw, to, sw.port);
+      if (sw.zoneRef) {
+        const key = sw.zoneRef.key;
+        (this.accessEls[key] || (this.accessEls[key] = [])).push({ el, from: sw.pos, to });
+        if (this.connectorEls[key]) this.connectorEls[key].el.classList.add("fabric-hidden");
+      }
+    }
+    for (const key of Object.keys(this.zoneThroughput)) this._applyZoneTraffic(key);
+
+    for (const sw of switches) this._addSwitchMarker(sw);
+  }
+
+  // Positions every switch and returns the routes for zonal<->core cables
+  // (link -> {zonal, core, side, tier, count}, see _coreRoute). Zonal
+  // switches sit side by side on their zone's slot; core switches (the
+  // HPC's) side by side above the HPC box, grown to fit the cables coming
+  // into them; transit switches take the free slot nearest their already
+  // placed neighbours.
+  _placeSwitches(switches, links) {
+    const L = this.layout;
+    const byZone = new Map();
+    for (const sw of switches) {
+      if (sw.zoneRef) (byZone.get(sw.zoneRef) || byZone.set(sw.zoneRef, []).get(sw.zoneRef)).push(sw);
+    }
+    for (const [zone, group] of byZone) {
+      group.forEach((sw, k) => {
+        sw.pos = { x: zone.switchSlot.x + (k - (group.length - 1) / 2) * SW_SPACING, y: zone.switchSlot.y };
+      });
+    }
+
+    // Group core cables by core and by the side they come in from, nearest
+    // the spine first (tier 0).
+    const routes = new Map();
+    const groups = new Map();
+    for (const link of links) {
+      const [zonal, core] = link.a.servesHpc ? [link.b, link.a] : [link.a, link.b];
+      if (!core.servesHpc || !zonal.zoneRef) continue;
+      const side = zonal.zoneRef.row + (zonal.pos.x < L.spineCx ? "L" : "R");
+      const route = { zonal, core, side };
+      routes.set(link, route);
+      const key = core.key + "|" + side;
+      (groups.get(key) || groups.set(key, []).get(key)).push(route);
+    }
+    for (const group of groups.values()) {
+      group.sort((r, s) => Math.abs(r.zonal.pos.x - L.spineCx) - Math.abs(s.zonal.pos.x - L.spineCx));
+      group.forEach((r, t) => { r.tier = t; r.count = group.length; });
+      const core = group[0].core;
+      if (group[0].side.startsWith("top")) core.w = Math.max(core.w, 2 * (22 + 16 * (group.length - 1)));
+      else core.h = Math.max(core.h, 20 + 10 * (group.length - 1));
+    }
+
+    const cores = switches.filter(sw => sw.servesHpc);
+    const coreStep = Math.max(SW_W, ...cores.map(c => c.w)) + 8;
+    cores.forEach((sw, k) => {
+      sw.pos = { x: L.spineCx + (k - (cores.length - 1) / 2) * coreStep, y: TOPO_GEOM.coreY };
+    });
+
+    // Transit switches one at a time, most-connected-to-placed first, so a
+    // chain of them grows outward from the switches it links.
+    const free = L.transitSlots.slice();
+    const placedNeighbors = sw => sw.neighbors.filter(n => n.pos);
+    const pending = switches.filter(sw => !sw.pos);
+    let overflow = 0;
+    while (pending.length) {
+      pending.sort((s, t) => placedNeighbors(t).length - placedNeighbors(s).length);
+      const sw = pending.shift();
+      const anchors = placedNeighbors(sw).map(n => n.pos);
+      const target = anchors.length
+        ? { x: anchors.reduce((s, a) => s + a.x, 0) / anchors.length, y: anchors.reduce((s, a) => s + a.y, 0) / anchors.length }
+        : { x: L.spineCx, y: TOPO_GEOM.coreY };
+      if (free.length) {
+        let best = 0;
+        free.forEach((slot, i) => {
+          if (Math.hypot(slot.x - target.x, slot.y - target.y) < Math.hypot(free[best].x - target.x, free[best].y - target.y)) best = i;
+        });
+        sw.pos = free.splice(best, 1)[0];
+      } else {
+        // Out of slots: stack the rest above the chassis rather than drop them.
+        sw.pos = { x: L.spineCx, y: TOPO_GEOM.spineSlotY - ++overflow * (SW_H + 6) };
+      }
+    }
+    return routes;
+  }
+
+  // Right-angled route for a zonal<->core cable, like a wiring diagram: a
+  // top-row switch runs across toward the core and drops into its top edge;
+  // a bottom-row switch runs to a channel beside the HPC box, climbs, and
+  // enters the core from the side. Per side, tier 0 (the switch nearest the
+  // spine) leaves from the switch's own side at its own height; each outer
+  // tier leaves from the switch's top/bottom, runs one lane further out and
+  // enters the core further out, so the cables nest instead of crossing.
+  // Returns the points from the zonal switch to the core's edge, plus the
+  // outward direction at that edge (for the core-side port label).
+  _coreRoute({ zonal: s, core: c, side, tier: t, count: n }) {
+    const G = TOPO_GEOM, L = this.layout;
+    const dir = side.endsWith("L") ? -1 : 1;
+    const bend = runY => (t ? [{ x: s.pos.x, y: runY }] : []);
+    if (side.startsWith("top")) {
+      const x = c.pos.x + dir * (12 + 16 * t), y = c.pos.y - c.h / 2;
+      const runY = t ? G.topRunY + 7 * (t - 1) : s.pos.y;
+      return { points: [s.pos, ...bend(runY), { x, y: runY }, { x, y }], outward: { x: 0, y: -1 } };
+    }
+    const channelX = dir < 0 ? L.spineX + G.channelInset - 8 * t : L.spineX + G.spineW - G.channelInset + 8 * t;
+    const x = c.pos.x + dir * c.w / 2, y = c.pos.y + (n - 1) * 5 - 10 * t;
+    const runY = t ? G.bottomRunY - 7 * (t - 1) : s.pos.y;
+    return {
+      points: [s.pos, ...bend(runY), { x: channelX, y: runY }, { x: channelX, y }, { x, y }],
+      outward: { x: dir, y: 0 },
+    };
+  }
+
+  _drawCoreLink(link, route) {
+    const { points, outward } = this._coreRoute(route);
+    this._addLink(roundedPath(points, 16), "topo-link", linkTitle(link));
+    const zonalFirst = route.zonal === link.a;
+    const zonalPort = zonalFirst ? link.aPort : link.bPort;
+    const corePort = zonalFirst ? link.bPort : link.aPort;
+    if (zonalPort) this._addPortLabel(route.zonal, points[1], zonalPort);
+    const entry = points[points.length - 1];
+    if (corePort) this._addPortText(entry.x + outward.x * 11, entry.y + outward.y * 11, corePort, route.core, outward);
+  }
+
+  // Any other cable (between zonal switches, or to/from a transit switch) is
+  // a straight line, bowed out around the HPC box if it would cut through
+  // it; parallel cables between the same two switches are fanned apart so
+  // each one stays visible.
+  _drawDirectLink(link) {
+    const p = link.a.pos, q = link.b.pos;
+    const hpcBox = this.layout.hpcBox;
+    const mid = { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 };
+    const len = Math.hypot(q.x - p.x, q.y - p.y) || 1;
+    let nx = -(q.y - p.y) / len, ny = (q.x - p.x) / len;
+    const hpcCx = hpcBox.x + hpcBox.w / 2, hpcCy = hpcBox.y + hpcBox.h / 2;
+    if (nx * (mid.x - hpcCx) + ny * (mid.y - hpcCy) < 0) { nx = -nx; ny = -ny; }
+    const fan = (link.index - (link.count - 1) / 2) * 24;
+    const avoid = { x: hpcBox.x - 6, y: hpcBox.y - 6, w: hpcBox.w + 12, h: hpcBox.h + 12 };
+    let ctrl = { x: mid.x + nx * fan, y: mid.y + ny * fan };
+    for (let bow = 0; bow <= 480; bow += 20) {
+      const c = { x: mid.x + nx * (bow + fan), y: mid.y + ny * (bow + fan) };
+      if (!this.topology.master || !quadCurveHitsRect(p, c, q, avoid)) { ctrl = c; break; }
+    }
+    this._addLink(`M ${p.x} ${p.y} Q ${ctrl.x} ${ctrl.y} ${q.x} ${q.y}`, "topo-link", linkTitle(link));
+    if (link.aPort) this._addPortLabel(link.a, ctrl, link.aPort);
+    if (link.bPort) this._addPortLabel(link.b, ctrl, link.bPort);
+  }
+
+  // Draws a link into the layer under the boxes, plus a wider invisible
+  // copy on top of it so the thin line is actually hoverable for its tooltip.
+  _addLink(d, cls, title) {
+    const path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute("class", cls);
+    path.setAttribute("d", d);
+    this.linkLayer.appendChild(path);
+    const hit = document.createElementNS(SVG_NS, "path");
+    hit.setAttribute("class", "topo-link-hit");
+    hit.setAttribute("d", d);
+    const t = document.createElementNS(SVG_NS, "title");
+    t.textContent = title;
+    hit.appendChild(t);
+    this.linkLayer.appendChild(hit);
+    return path;
+  }
+
+  // Labels a port just outside switch `sw`'s box, along the direction its
+  // link leaves in (toward `toward`).
+  _addPortLabel(sw, toward, port) {
+    const from = sw.pos;
+    const dx = toward.x - from.x, dy = toward.y - from.y;
+    const len = Math.hypot(dx, dy);
+    if (!len) return;
+    const ux = dx / len, uy = dy / len;
+    const toEdge = Math.min(ux ? (sw.w / 2) / Math.abs(ux) : Infinity, uy ? (sw.h / 2) / Math.abs(uy) : Infinity);
+    this._addPortText(from.x + ux * (toEdge + 11), from.y + uy * (toEdge + 11), port, sw, { x: ux, y: uy });
+  }
+
+  // A port of switch `sw` that a TsnFlow shapes has its label drawn in the
+  // TSN colour plus a tag with the shaper (e.g. "CBS 20M") beside the link:
+  // to its left, or above it for a horizontal link (`dir` is the link's
+  // direction there), keeping the right of a zone's access link free for
+  // its throughput label. Both carry the TsnFlow(s) and parameters as a tooltip.
+  _addPortText(x, y, port, sw, dir) {
+    const apps = (sw && sw.shaping || []).filter(a => a.port && portShort(a.port) === portShort(port));
+    const tooltip = apps.map(a => `${port}: ${a.shaper} ${shaperDetail(a)} (TsnFlow ${flowLabel(a)}: ${a.talker} → ${a.listeners.join(", ")})`).join("\n");
+    const addText = (cls, tx, ty, content) => {
+      const text = document.createElementNS(SVG_NS, "text");
+      text.setAttribute("class", cls);
+      text.setAttribute("x", tx);
+      text.setAttribute("y", ty);
+      text.textContent = content;
+      if (tooltip) {
+        const title = document.createElementNS(SVG_NS, "title");
+        title.textContent = tooltip;
+        text.appendChild(title);
+      }
+      this.crLayer.appendChild(text);
+      return text;
+    };
+    addText("topo-port" + (apps.length ? " shaped" : ""), x, y, portShort(port));
+    if (!apps.length || !dir) return;
+    let px = -dir.y, py = dir.x;   // perpendicular to the link, flipped to point left or up
+    if (px > 0 || (px === 0 && py > 0)) { px = -px; py = -py; }
+    // Beside a vertical link the tag ends at the link; above a horizontal
+    // one it runs away from the switch, so it never covers the marker.
+    const horizontal = px > -0.5;
+    const tag = addText("topo-port topo-tsn-tag", horizontal ? x - dir.x * 6 : x + px * 10, y + py * 9,
+      apps.map(shaperShort).join(", "));
+    tag.style.textAnchor = !horizontal ? "end" : (dir.x > 0 ? "start" : "end");
+  }
+
+  _addSwitchMarker(sw) {
+    const isTransit = !sw.zoneKey;
+    const fo = document.createElementNS(SVG_NS, "foreignObject");
+    fo.setAttribute("x", sw.pos.x - sw.w / 2);
+    fo.setAttribute("y", sw.pos.y - sw.h / 2);
+    fo.setAttribute("width", sw.w);
+    fo.setAttribute("height", sw.h);
+    const div = document.createElementNS(XHTML_NS, "div");
+    const shaping = sw.shaping || [];
+    div.setAttribute("class", "cr-switch" + (isTransit ? " transit" : "") + (sw.issues.length ? " has-issue" : "") +
+      (shaping.length ? " has-tsn" : ""));
+    const tip = [
+      `${switchName(sw)} (${sw.id})`,
+      isTransit ? "transit switch"
+        : `zone: ${sw.zone}${sw.servesHpc ? " (Vehicle Computer)" : ""} · workload port: ${sw.port || "-"}`,
+      ...(sw.links || []).map(l => `link: ${(l && l.port) || "?"} → ${l && l.target}`),
+      ...shaping.map(a => `TSN: ${a.port || "no port"} ${a.shaper} ${shaperDetail(a)} (TsnFlow ${flowLabel(a)})`),
+      ...sw.issues.map(msg => "⚠ " + msg),
+      `NetworkTopology: ${sw.crLabel}`,
+    ];
+    div.setAttribute("title", tip.join("\n"));
+    div.innerHTML = `
+      <span class="cr-switch-name">${escapeHtml(switchName(sw))}</span>
+      <span class="cr-switch-meta">${escapeHtml(sw.id)} · ${escapeHtml(sw.zone || "transit")}</span>`;
+    fo.appendChild(div);
+    this.crLayer.appendChild(fo);
+  }
+}
+
+let topologyView = null;
+
+// ---------------------------------------------------------------------
+// Custom resources view — one card per CustomResourceDefinition, listing
+// its currently active custom resources. CRD set/instances change rarely,
+// so this just fully re-renders on each update rather than diffing.
+// ---------------------------------------------------------------------
+const MAX_CRD_INSTANCES_SHOWN = 8;
+
+// status.sdv states the sdv-operator writes (set_sdv_status in sdv-operator.py).
+const SDV_STATE_DOT = { Applied: "live", Connected: "live", Accepted: "live", Waiting: "stale", Failed: "down" };
+const SDV_STATE_LABEL = {};
+
+// What the operator last reported for a resource, as a dot + label with the
+// detail in its tooltip. "Pending" when the spec changed after that report
+// (its observedGeneration is behind the resource's generation).
+function sdvStatusCell(inst) {
+  const s = inst.sdv_status;
+  if (!s || !s.state) {
+    return `<span class="sdv-state" title="The sdv-operator hasn't reported a status for this resource"><span class="dot unknown"></span>No status</span>`;
+  }
+  const pending = s.observedGeneration != null && inst.generation != null && s.observedGeneration < inst.generation;
+  const label = pending ? "Pending" : (SDV_STATE_LABEL[s.state] || s.state);
+  const dot = pending ? "unknown" : (SDV_STATE_DOT[s.state] || "unknown");
+  const title = [
+    pending ? `Spec changed since the operator last reported (generation ${s.observedGeneration} → ${inst.generation}). Last report: ${s.state}` : null,
+    s.message,
+    s.lastUpdate ? `Reported ${s.lastUpdate}` : null,
+  ].filter(Boolean).join("\n");
+  return `<span class="sdv-state" title="${escapeHtml(title)}"><span class="dot ${dot}"></span>${escapeHtml(label)}</span>`;
+}
+
+class CrdSection {
+  constructor(container) {
+    this.container = container;
+  }
+
+  update(crds) {
+    const list = Object.values(crds || {}).sort((a, b) => a.kind.localeCompare(b.kind));
+    this.container.innerHTML = "";
+    if (!list.length) {
+      this.container.innerHTML = '<div class="empty-note">No CustomResourceDefinitions found in the tsn.dev API group.</div>';
+      return;
+    }
+    for (const crd of list) {
+      this.container.appendChild(this._renderCard(crd));
+    }
+  }
+
+  _renderCard(crd) {
+    const card = document.createElement("div");
+    const isTsnFlow = crd.plural === "tsnflows";
+    card.className = "crd-card" + (isTsnFlow ? " wide" : "");
+
+    const badgeClass = crd.established ? "good" : "critical";
+    const badgeLabel = crd.established ? "Established" : "Not established";
+    const scopeLabel = crd.scope === "Namespaced" ? "Namespaced" : "Cluster-scoped";
+    const instances = crd.instances || [];
+    const shown = instances.slice(0, MAX_CRD_INSTANCES_SHOWN);
+
+    let body;
+    if (shown.length) {
+      const table = isTsnFlow ? this._tsnFlowTable(shown) : this._genericTable(shown);
+      const more = instances.length > shown.length
+        ? `<div class="more-note">+ ${instances.length - shown.length} more not shown</div>`
+        : "";
+      body = `
+        <div class="table-scroll">
+          <table class="flows crd-instances">${table}</table>
+        </div>${more}`;
+    } else {
+      body = '<div class="empty-note">No active resources.</div>';
+    }
+
+    card.innerHTML = `
+      <div class="crd-card-head">
+        <div class="crd-kind-wrap">
+          <span class="crd-title">${escapeHtml(crd.kind)}</span>
+          <span class="crd-group">${escapeHtml(crd.group)}/${escapeHtml(crd.storage_version || "")}</span>
+        </div>
+        <span class="crd-badge ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="crd-meta">
+        <span>${scopeLabel}</span>
+        <span>${crd.instance_count} active</span>
+      </div>
+      ${body}`;
+    return card;
+  }
+
+  _genericTable(instances) {
+    const rows = instances.map(inst => `
+      <tr>
+        <td>${escapeHtml(inst.name || "-")}</td>
+        <td>${escapeHtml(inst.namespace || "-")}</td>
+        <td>${sdvStatusCell(inst)}</td>
+        <td class="num">${ageFromIso(inst.created)}</td>
+      </tr>`).join("");
+    return `<thead><tr><th>Name</th><th>Namespace</th><th>Status</th><th class="num">Age</th></tr></thead><tbody>${rows}</tbody>`;
+  }
+
+  // TsnFlows: talker -> listeners (with the zone each app's Deployment is
+  // pinned to), the shaping, and the switch ports it's applied to -- or why
+  // the route can't be resolved -- plus, for TAS, the gate schedule on a
+  // row of its own below.
+  _tsnFlowTable(instances) {
+    const flows = collectTsnFlows({ tsnflows: { plural: "tsnflows", instances } });
+    const app = (name, zone) => `${escapeHtml(name || "?")} <span class="flow-zone">${escapeHtml(zone || "no zone")}</span>`;
+    const rows = flows.map(flow => {
+      const inst = flow.inst, route = flow.route;
+      const listeners = flow.listeners.map((l, i) => app(l, route.listener_zones[i])).join(", ");
+      const hops = route.error
+        ? `<span class="route-error"><span class="dot stale"></span>${escapeHtml(route.error)}</span>`
+        : route.hops.map(h => `${escapeHtml(h.switch || h.id)} ${escapeHtml(portShort(h.port))}`).join(" · ") || "-";
+      const schedule = flow.shaper === "TAS" && flow.tas ? gateScheduleSvg(flow.tas) : "";
+      return `
+        <tr${schedule ? ' class="has-detail"' : ""}>
+          <td>${escapeHtml(flowLabel(flow))}</td>
+          <td class="wrap">${app(flow.talker, route.talker_zone)} → ${listeners}</td>
+          <td><span class="tsn-shaper">${escapeHtml(flow.shaper || "-")}</span></td>
+          <td>${escapeHtml(shaperDetail(flow))}</td>
+          <td class="wrap">${hops}</td>
+          <td>${sdvStatusCell(inst)}</td>
+          <td class="num">${ageFromIso(inst.created)}</td>
+        </tr>${schedule ? `<tr class="gcl-row"><td colspan="7">${schedule}</td></tr>` : ""}`;
+    }).join("");
+    return `<thead><tr><th>Name</th><th>Talker → listeners</th><th>Shaper</th><th>Parameters</th><th>Switch ports</th><th>Status</th><th class="num">Age</th></tr></thead><tbody>${rows}</tbody>`;
+  }
+}
+
+// ---------------------------------------------------------------------
+// Event timeline -- the server's record_event() log (flow_monitor liveness,
+// node Ready, sdv-operator online, CRs created/deleted/reported on), newest
+// first. The server keeps the last EVENT_LOG_LEN; so does this.
+// ---------------------------------------------------------------------
+const EVENT_LOG_LEN = 200;
+const EVENT_DOT = { good: "live", warning: "stale", critical: "down", info: "info" };
+
+class EventLog {
+  constructor(listEl, countEl) {
+    this.listEl = listEl;
+    this.countEl = countEl;
+    this.events = [];
+  }
+
+  set(events) {
+    this.events = (events || []).slice(-EVENT_LOG_LEN);
+    this.render();
+  }
+
+  add(event) {
+    this.events.push(event);
+    if (this.events.length > EVENT_LOG_LEN) this.events.shift();
+    this.render();
+  }
+
+  render() {
+    this.countEl.textContent = this.events.length ? `${this.events.length} event${this.events.length === 1 ? "" : "s"}` : "";
+    if (!this.events.length) {
+      this.listEl.innerHTML = '<div class="empty-note">No events yet.</div>';
+      return;
+    }
+    const today = new Date().toDateString();
+    this.listEl.innerHTML = [...this.events].reverse().map(ev => {
+      const d = new Date(ev.t * 1000);
+      const time = d.toDateString() === today
+        ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+        : d.toLocaleDateString([], { month: "short", day: "numeric" });
+      return `
+        <div class="event-row">
+          <span class="event-time" title="${escapeHtml(d.toLocaleString())}">${escapeHtml(time)}</span>
+          <span class="dot ${EVENT_DOT[ev.severity] || "info"}"></span>
+          <span class="event-source" title="${escapeHtml(ev.source)}">${escapeHtml(ev.source)}</span>
+          <span class="event-message">${escapeHtml(ev.message)}</span>
+        </div>`;
+    }).join("");
+  }
+}
+
+const eventLog = new EventLog(document.getElementById("eventList"), document.getElementById("eventCount"));
+
+let crdSection = null;
+
+// Countdown/progress-ring showing time until the server's next CRD poll
+// (see CRD_POLL_INTERVAL_S / crd_last_poll in dashboard_server.py). Purely
+// a local timer driven off the last known poll timestamp -- it doesn't
+// re-fetch anything, it just counts down and gets re-synced whenever a
+// "crd_poll" (or "crds") event reports a new last_poll.
+const CRD_POLL_RING_CIRCUMFERENCE = 50.27;
+
+class CrdPollIndicator {
+  constructor(el, ringEl, textEl, refreshBtn) {
+    this.el = el;
+    this.ringEl = ringEl;
+    this.textEl = textEl;
+    this.refreshBtn = refreshBtn;
+    this.intervalS = null;
+    this.lastPoll = null;
+    this.active = false;
+    setInterval(() => this._tick(), 250);
+    this.refreshBtn.addEventListener("click", () => this._refreshNow());
+  }
+
+  set(meta) {
+    this.active = !!(meta && meta.last_poll != null && meta.interval_s);
+    // Hide the whole control cluster, not just the indicator, when there's
+    // no poller to refresh (e.g. no reachable Kubernetes cluster) -- a
+    // "Refresh now" button with nothing behind it would just error out.
+    this.refreshBtn.style.display = this.active ? "" : "none";
+    if (!this.active) {
+      this.el.style.display = "none";
+      this.lastPoll = null;
+      return;
+    }
+    this.intervalS = meta.interval_s;
+    this.lastPoll = meta.last_poll;
+    this.el.style.display = "";
+    this._tick();
+  }
+
+  _tick() {
+    if (this.lastPoll == null) return;
+    const elapsed = Date.now() / 1000 - this.lastPoll;
+    const remaining = Math.max(0, this.intervalS - elapsed);
+    const frac = Math.max(0, Math.min(1, remaining / this.intervalS));
+    this.ringEl.style.strokeDashoffset = String(CRD_POLL_RING_CIRCUMFERENCE * (1 - frac));
+    this.el.classList.toggle("due", remaining <= 0);
+    this.textEl.textContent = remaining <= 0 ? "updating…" : `next update in ${Math.ceil(remaining)}s`;
+  }
+
+  async _refreshNow() {
+    if (this.refreshBtn.disabled) return;
+    this.refreshBtn.disabled = true;
+    const original = this.refreshBtn.textContent;
+    this.refreshBtn.textContent = "Refreshing…";
+    try {
+      await fetch("/api/crds/refresh", { method: "POST" });
+      // Actual state lands via the "crds"/"crd_poll" SSE events; this just
+      // guards against double-clicks spamming the Kubernetes API.
+    } catch (e) {
+      // best-effort; the periodic poll will catch up regardless
+    } finally {
+      setTimeout(() => {
+        this.refreshBtn.disabled = false;
+        this.refreshBtn.textContent = original;
+      }, 1500);
+    }
+  }
+}
+
+const crdPollIndicator = new CrdPollIndicator(
+  document.getElementById("crdPollIndicator"),
+  document.getElementById("crdPollRing"),
+  document.getElementById("crdPollText"),
+  document.getElementById("crdRefreshBtn"),
+);
+
+// ---------------------------------------------------------------------
+// App bootstrap
+// ---------------------------------------------------------------------
+const panels = {};
+const grid = document.getElementById("grid");
+const tpl = document.getElementById("panel-template");
+
+function ensurePanel(deviceId, endpoint) {
+  if (panels[deviceId]) return panels[deviceId];
+  const node = tpl.content.firstElementChild.cloneNode(true);
+  grid.appendChild(node);
+  const panel = new DevicePanel(node, deviceId, endpoint);
+  panels[deviceId] = panel;
+  return panel;
+}
+
+function setConn(status) {
+  const dot = document.getElementById("connDot");
+  const text = document.getElementById("connText");
+  dot.className = "dot " + status;
+  text.textContent = status === "live" ? "connected" : (status === "stale" ? "reconnecting…" : "disconnected");
+}
+
+async function loadInitial() {
+  try {
+    const res = await fetch("/api/state");
+    const data = await res.json();
+    if (data.topology) {
+      topologyView = new TopologyView(document.getElementById("topoSvg"), data.topology, vehicleType);
+      topologyView.updateK8s(data.k8s);
+      topologyView.updateOperator(data.operator);
+    }
+    crdSection = new CrdSection(document.getElementById("crdGrid"));
+    crdSection.update(data.crds);
+    if (topologyView) topologyView.updateCrs(data.crds);
+    crdPollIndicator.set(data.crd_poll);
+    eventLog.set(data.events);
+    for (const dev of data.devices) {
+      const panel = ensurePanel(dev.id, dev.endpoint);
+      panel.update(dev);
+      if (topologyView) topologyView.updateDevice(dev.id, dev);
+    }
+    setConn("live");
+  } catch (e) {
+    setConn("down");
+  }
+}
+
+function connectEvents() {
+  const es = new EventSource("/events");
+  es.addEventListener("open", () => setConn("live"));
+  es.addEventListener("error", () => setConn("stale"));
+  es.addEventListener("snapshot", (ev) => {
+    const msg = JSON.parse(ev.data);
+    const panel = ensurePanel(msg.device_id, msg.device.endpoint);
+    panel.pushSnapshot(msg.device);
+    if (topologyView) topologyView.updateDevice(msg.device_id, msg.device);
+  });
+  es.addEventListener("k8s", (ev) => {
+    if (topologyView) topologyView.updateK8s(JSON.parse(ev.data));
+  });
+  es.addEventListener("operator", (ev) => {
+    if (topologyView) topologyView.updateOperator(JSON.parse(ev.data));
+  });
+  es.addEventListener("crds", (ev) => {
+    const crds = JSON.parse(ev.data);
+    if (crdSection) crdSection.update(crds);
+    if (topologyView) topologyView.updateCrs(crds);
+  });
+  es.addEventListener("crd_poll", (ev) => {
+    crdPollIndicator.set(JSON.parse(ev.data));
+  });
+  es.addEventListener("history_long", (ev) => {
+    const msg = JSON.parse(ev.data);
+    if (panels[msg.device_id]) panels[msg.device_id].appendLong(msg.point);
+  });
+  es.addEventListener("reset", (ev) => {
+    const msg = JSON.parse(ev.data);
+    if (panels[msg.device_id]) panels[msg.device_id].clearHistory();
+  });
+  es.addEventListener("event", (ev) => {
+    eventLog.add(JSON.parse(ev.data));
+  });
+  es.addEventListener("status", (ev) => {
+    const msg = JSON.parse(ev.data);
+    const panel = ensurePanel(msg.device_id, msg.device.endpoint);
+    panel.applyStatus(msg.device.status, msg.device.last_seen);
+    if (topologyView) topologyView.updateDevice(msg.device_id, msg.device);
+  });
+}
+
+// theme toggle
+const themeToggle = document.getElementById("themeToggle");
+function applyStoredTheme() {
+  let theme = null;
+  try { theme = localStorage.getItem("flow-dashboard-theme"); } catch (e) {}
+  if (theme) document.documentElement.setAttribute("data-theme", theme);
+}
+themeToggle.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = current === "dark" ? "light" : (current === "light" ? "dark" : (prefersDark ? "light" : "dark"));
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("flow-dashboard-theme", next); } catch (e) {}
+});
+
+// vehicle picker: cycles the vehicle drawn behind the topology view
+const vehicleToggle = document.getElementById("vehicleToggle");
+let vehicleType = "sedan";
+try {
+  const stored = localStorage.getItem("flow-dashboard-vehicle");
+  if (VEHICLES[stored]) vehicleType = stored;
+} catch (e) {}
+function showVehicle() {
+  vehicleToggle.textContent = "Vehicle: " + VEHICLES[vehicleType].label;
+  if (topologyView) topologyView.setVehicle(vehicleType);
+}
+vehicleToggle.addEventListener("click", () => {
+  vehicleType = VEHICLE_TYPES[(VEHICLE_TYPES.indexOf(vehicleType) + 1) % VEHICLE_TYPES.length];
+  try { localStorage.setItem("flow-dashboard-vehicle", vehicleType); } catch (e) {}
+  showVehicle();
+});
+
+applyStoredTheme();
+showVehicle();
+loadInitial().then(connectEvents);
+</script>
+</body>
+</html>

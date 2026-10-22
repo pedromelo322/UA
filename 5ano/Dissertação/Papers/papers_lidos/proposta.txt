@@ -1,0 +1,162 @@
+Eu fiz uma apresentação em consiste dos papers que achei relevantes para o trabalho, depois o que falta explorar e no fim a minha proposta
+
+Os 3 primeiros não vão bem ao encontro da framework para alocação dos nós mas deixei-os na mesma porque pode ser agl oque vale a pena usar
+
+
+--------------------Overlay-----------------------------------------
+
+
+Começando pelo paper do Rodrigo, Bridging TSN and Containerization.
+
+No paper estuda o uso de TSN em containers, em que as aplicações BE estão ligadas a uma bridge e as aplicações TSN estão ligadas diretamente ao Host
+Em que os resutlados apontam que com TAS o shaper com LaunchTime obtem resultados quase perfeitos e com CBS basta apeans o shaper o LaunchTime não acresenta muito
+Apontam para o problema de 2 aplicações TSN a tentar configurar o mesmo TAS podem se bloquear e sugerem um gestor.
+E utilizam a rede host que não é o padrão da industria, onde se utilizam redes Overlay, que é onde entram os proximos 2 papers.
+
+A KuberneTSN é remover o overhead criado pelas redes overlay e resolver a falta de supoerte TSN, a partir de um plugin CNI.
+Basicamente o que faz é intresetar os pacotes TSN antes de sairem do Container, e tem o seu proprio contetor que faz o shaping e mete o pacote diretamente nos buffers da NIC para ser encaminhados.
+Vantagens: Latencias quase identicas ao bare-metal, jitter despresável e não perde determinismo em comparação com o bare-metal.
+Desvantagem: 100% de uso de 1 core (pulling constante (não dizem mas eu assumi, porque dizem 100% constante), copia pacote todo) e faz kernel-bypassing (perde-se monitoramente e segurança)
+
+Outra proposta é o TSN Metadata proxy que o focot é apenas manter o TSN e manter o uso do kernel.
+É um plugin-cni que antes do pacote sair do cotainer copia os metadados TSN com um programa eBPF e antes de sair pela NIC TSN volta a adicionar os dados.
+Vantagens: permite o uso de TSN e os pacotes passam pelo Kernel (monitoramento e segurança), não mencionam uso de CPU mas deve ser baixo (só compiam metadados e é programa eBPF que é por interrupção)
+Desavabntagens: Não reduz a latenia introduzida pelo containers
+
+------------------Computação do CPU----------------------------
+
+
+Propostas de orquestração que se focam em conseguir maximizar o numero de tarefas a correm em um nó, só tem em conta as restrições computacionais
+
+REACT:
+
+Esta é a arquitetura proposta (imagem da arquitetura)
+
+Os contentores RT trazem um interface RT (Q,P) em que Q é o tempo de CPU que utilizam e P o periodo em que são executadas (usado para alocação) e em task anotations parametros sobre as tasks(usado para monetorização).
+
+Colocar o contentor:
+
+1. filtro k8s: é usado o filtro normal do kubernets em que são eleminados os nós sem memória ou armazenamento sufecientes.
+2. rt-filter: para cada nó restante é calculado o RT total, ou seja Q_novo/P_novo + Qk/Pk <= 1-δᵢ (ex: Q:10ms P:100ms, a tarefa usa 100% do CPU), o δᵢ é uma margem de segurança
+3. rt-scorring: Os nós que passam a este teste, recebem uma pontuação igual à Capacidade do CPU que não está reservada.
+4. bind: O pod é atribuido ao nó com maior pontuação
+
+Execução no nó:
+
+Cada contentor recebe Q unidades de CPU em cada periodo P (o que foi explicito na interface RT). Caso o Q tenha sido mal calculado e o contentor consuma todo o seu Q sem acabar o contentor é supenso até ao seu proximo P.
+Dentro de um contentor cada tarefa é escalonada com uma prioridade fixa
+Se sobrar tempo o CPU que sobre vai para os contentores BE
+
+Monitorização:
+OSLM(nó): utilização de CPU, interrupções/s, trocas de contexto, I/O.
+CLM(contentor): número de deadline misses, lateness máxima e tempo de resposta máximo das tarefas dentro do contentor.
+
+Passando à outra proposta
+
+RT-Kube:
+
+Arquitetura proposta (imagem da arquitetura)
+
+Criaram um RT CRD em que contem:
+- criticiade do contentor
+- periodo e prazo
+- WCET, tempo maximo que uma instancia pode gastar
+Quando os prazos falhados ultrapassam um limiar, expulsa um contentor stateless de criticidade inferior e marca o nó como temporariamente indisponível.
+Adicionaram um Escalonador RT secundário, que funciona na seguinte ordem
+1. Ordenação: Ordena os contentores por criticidade.
+2. Filtragem: Faz um teste de admissão aos nós Σ WCET/P ≤ M × 0,95
+3. Atribuição dos contentores aos nós segundo a criticidade
+
+Monitorização: 
+
+Nivel do contentor: Conta os prazos falhados e envia o estado ao servidor.
+Nível de cluster: Quando os prazos falhados ultrapassam um limiar, expulsa um contentor stateless de criticidade inferior e marca o nó como temporariamente indisponível.
+
+------------------------ orquestração consciente da rede -----------------------
+
+FabOs:
+
+É o mais semelhrante ao meu trabalho, propoe uma arquitetura para ligar plataformas de contentores com redes TSN em fábricas.
+
+No paper não tinham uma imagem da arquitetura, mas descreviam-a por isso pedi ao claude para desenhar (Imagem da arquitetura do claude)
+
+A implantação percorre o diagrama de cima para baixo:
+
+1. O SCC recebe o pedido de aplicação e pede ao SCO um plano de colocação dos workloads.
+2. O SCNS pede ao MoNC os streams TSN que esse plano exige.
+3. O MoNC verifica se consegue garantir as latências. Se conseguir, configura as bridges. Se não, devolve um erro e o SCC pede um novo plano ao SCO.
+4. Com os streams embebidos, o SCS arranca os pods. Estes enviam o tráfego TSN pelo plugin CNI, que adiciona o VLAN ID e o PCP.
+
+Rede TSN nos pods: através do Multus, cada pod tem uma interface para o tráfego normal e uma interface por stream TSN. Um plugin CNI próprio encaminha cada stream para uma subinterface física que adiciona o VLAN ID e o PCP. As aplicações usam apenas nomes DNS, sem código específico de TSN.
+
+
+K4s:
+
+Também propoe uma arquitetura para ligar plataformas de contentores com redes TSN em fábricas.
+O problema do k4s é que não é uma proposta sobre o kubernets mas sim uma abordagem completamente independente.
+
+Modelo:
+
+- Nós de trabalho: nivel de garantia Aᵢ = αᵢ + βᵢ + γᵢ(t), hardware + sofware + valor ajustavel para melhor garantia
+- Recursos: recursos básicos (CPU, disco, memória) e recursos adicionais (sensores, atuadores, GPU, FPGA).
+- Redes: cada rede é modelada como um grafo com matriz de atrasos, e cada tipo de rede é tratado de forma distinta.
+- Jobs: cada job tem um nível de criticidade (NO, LOW ou HI), requisitos de tempo real e requisitos de rede.
+- tarefas: periodo, perioridade, WCET
+
+
+Esta é arquitetura (imagem da arquitetura)
+
+O plano de controlo corre nos master nodes (o que correspende aos HPC) e o compute cluster corre nos worker nodes (que corresponde às ECUs)
+
+plano de controlo:
+
+- launcher: envia aos nós as ações decididas
+- state monitor: guarda o estado global e reage quando este se desvia do desejado
+- Resource manager & Accounting : contabiliza os recursos disponíveis
+- Scheduler: decide onde colocar cada job:
+	- Criticality: usa políticas de colocação diferentes conforme a criticidade
+	- Real-time: deteta a interface de tempo real do job (períodos e WCETs das tarefas) e delega o teste de escalonabilidade aos nós
+	- Network: delega ao Network manager a verificação dos requisitos de rede
+- User API: Recebe e valida pedidos de deployment
+- Network manager: conhece a topologia física e os vários tipos de rede
+
+
+Compute cluster:
+
+- worker agent: recolhe informação de saúde e mantém o estado desejado
+	- Assurance: monitoriza métricas do sistema
+	- Real-time: recebe pedidos de tempo real, corre o teste de escalonabilidade localmente e reserva os recursos.
+	- Network: executa localmente as decisões de rede tomadas pelo plano de controlo.
+- Container Runtime: é o container em execução
+- Jobs: É o conjunto de tarefas a correr
+
+Como tudo funciona em conjunto
+
+1. O utilizador submete o job pela User API, com criticidade HI, períodos e WCETs, e um requisito de timeslot TDMA.
+2. O Scheduler filtra os nós sem garantia suficiente, com base na informação do State monitor.
+3. Pede a cada nó candidato que corra o teste de escalonabilidade, através do módulo Real-time do Worker Agent.
+4. Pede ao Network manager um timeslot livre.
+5. Escolhe o nó e o Launcher envia a ação.
+6. Durante a execução, o módulo Assurance vigia o nó. Se uma carga vizinha começar a perturbar o job crítico, tenta eliminá-la. Se não conseguir, baixa a garantia do nó e o plano de controlo migra o job.
+
+
+----------------------------------- Veiculo --------------------------------------------
+
+Foi proposto um algoritmo de escalonamento determinístico para SDVs, que maximiza o número de tarefas concluídas dentro do prazo e favorece caminhos mais fiáveis.
+O objetivo não é a menor latencia mas sim a maior taxa de satisfação, o que é mais importante para aplicações críticas.
+O problema é que é um algoritmo que assume o conhecimento prévio das tarefas, a pesar de dizer que é dinamico não dizem como.
+
+
+
+
+----------------------------------- Benchmark de RT e TSN --------------------------------
+
+O paper faz um benchmark do desempenho de aplicações determinísticas em contentores Linux(genérico).
+Foram feitos teste com stress-ng (simular sobrecarga do CPU) e iperf3 (simular tráfego de rede).
+O caminho de receção (sensor → vPLC) é mais crítico que o de transmissão (vPLC → atuador).
+Os autores consideram RT+CPU(iso) suficiente para proteger o caminho de receção, mas não o de transmissão. CPU(iso) não é bem realista porque isolar uma CPU para cada aplicação não é escalável.
+Taprio é suficiente para proteger o caminho de transmissão, mas requer conhecimento da largura de banda ocupada pelo tráfego BE.
+
+
+
+

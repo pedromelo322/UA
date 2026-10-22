@@ -1,0 +1,231 @@
+# flow-dashboard: the web dashboard (dashboard_server.py + static/dashboard.html)
+# for the in-vehicle testbed. Represents the "Vehicle Computer" / HPC node in
+# the topology it renders, so it's scheduled onto the control-plane node and
+# aggregates flow snapshots from the zonal gateways over the vehicle network.
+#
+# Device endpoints and the zone/HPC topology come from the flow-dashboard-config
+# ConfigMap below (see the README's Configuration section), so changing them
+# doesn't need a rebuild -- edit it, re-apply, then
+# `kubectl rollout restart deployment/flow-dashboard` (it's read at startup).
+#
+# Build & load the image before applying:
+#
+#   docker build -t flow-dashboard:latest .
+#
+# On a single-node/kind-style testbed, load the image onto the node your
+# container runtime uses (e.g. `kind load docker-image flow-dashboard:latest`
+# or `ctr -n k8s.io images import` after `docker save`) instead of pulling
+# from a registry — adjust `image`/`imagePullPolicy` below if you push to one.
+#
+# Apply with:
+#   kubectl apply -f deployments/dashboard.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flow-dashboard
+  namespace: default
+---
+# Cluster-scoped: Nodes aren't namespaced, so a namespaced Role can't grant
+# access to them — the dashboard's k8s_poll_thread needs this to read node
+# conditions/capacity for the topology view.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flow-dashboard-node-reader
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flow-dashboard-node-reader
+subjects:
+  - kind: ServiceAccount
+    name: flow-dashboard
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: flow-dashboard-node-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+# Cluster-scoped: CustomResourceDefinitions aren't namespaced. The dashboard
+# lists all CRDs cluster-wide (cheap: metadata only) but only reads instances
+# of CRDs in the tsn.dev group (see CRD_GROUP_FILTER in dashboard_server.py),
+# so the second rule only needs to cover that group. If you widen
+# CRD_GROUP_FILTER to more groups (or None, for all of them), add those
+# groups here too -- apiGroups: ["*"] with resources: ["*"] for "all groups".
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flow-dashboard-crd-reader
+rules:
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["tsn.dev"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flow-dashboard-crd-reader
+subjects:
+  - kind: ServiceAccount
+    name: flow-dashboard
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: flow-dashboard-crd-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+# Cluster-wide, read-only access to workloads:
+#   - pods: listed across all namespaces for the pods shown in each zone box
+#     (see POD_NAMESPACE_EXCLUDE in dashboard_server.py).
+#   - deployments: the sdv-operator's own Deployment (operator_poll_thread,
+#     OPERATOR_DEPLOYMENT_NAME/OPERATOR_NAMESPACE) for the "operator online"
+#     indicator, and every Deployment labelled tsn.dev/cr-name, whose node
+#     affinity places each TsnFlow talker/listener in a zone (app_zones).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: flow-dashboard-workload-reader
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flow-dashboard-workload-reader
+subjects:
+  - kind: ServiceAccount
+    name: flow-dashboard
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: flow-dashboard-workload-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+# DASHBOARD_CONFIG for dashboard_server.py: the flow_monitor devices to
+# subscribe to, and what the dashboard knows about each zone (see DEVICES /
+# TOPOLOGY in dashboard_server.py for what each field means).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flow-dashboard-config
+  namespace: default
+data:
+  config.json: |
+    {
+      "devices": [
+        {"id": "10.0.10.13", "endpoint": "tcp://10.0.10.13:5556"},
+        {"id": "10.0.10.12", "endpoint": "tcp://10.0.10.12:5556"}
+      ],
+      "topology": {
+        "master": {"id": "hpc-master", "label": "Vehicle Computer",
+                   "role": "Kubernetes control-plane (HPC)", "zone": "zone-3"},
+        "zones": [
+          {"id": "zone-1", "label": "Zone 1", "device_id": "10.0.10.13", "node_name": "ms265"},
+          {"id": "zone-2", "label": "Zone 2", "device_id": "10.0.10.12", "node_name": "ms270"}
+        ]
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-dashboard
+  namespace: default
+  labels:
+    app: flow-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flow-dashboard
+  template:
+    metadata:
+      labels:
+        app: flow-dashboard
+    spec:
+      # The dashboard needs a route to each zonal gateway's fixed vehicle-network
+      # IP (see DEVICES in dashboard_server.py), so it shares the host's network
+      # namespace rather than the pod network, same as flow_monitor's own
+      # --network host requirement (see flow_monitor/Dockerfile).
+      serviceAccountName: flow-dashboard
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      # Pin to the control-plane/HPC node, matching the topology view's model
+      # of the dashboard living on the central HPC. Drop the nodeSelector and
+      # tolerations if your testbed's control-plane node isn't tainted, or if
+      # you'd rather run the dashboard on a specific worker node instead.
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: data-visualizer
+          image: code.nap.av.it.pt:5050/detnets/data-visualizer
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8765
+          env:
+            - name: DASHBOARD_CONFIG
+              value: /etc/flow-dashboard/config.json
+          volumeMounts:
+            - name: config
+              mountPath: /etc/flow-dashboard
+              readOnly: true
+          # /healthz is cheap (unlike /api/state, which serializes all state)
+          # and fails if any of the server's background threads has died.
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8765
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8765
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: config
+          configMap:
+            name: flow-dashboard-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flow-dashboard
+  namespace: default
+  labels:
+    app: flow-dashboard
+spec:
+  type: NodePort
+  selector:
+    app: flow-dashboard
+  ports:
+    - name: http
+      port: 8765
+      targetPort: 8765
+      nodePort: 30765

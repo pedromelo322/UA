@@ -1,0 +1,22 @@
+apiVersion: tsn.dev/v1
+kind: TsnApp
+metadata:
+  name: my-tsnapp-resource
+#spec:
+#  shaper: CBS
+#  cbs: {bandwidth: 10}
+#  pcp: 4
+spec:
+  shaper: TAS
+  tas:
+    cycleTime: 20000000
+    gateControlList:
+      - index: 0
+        gateState: 255
+        timeInterval: 1000000
+      - index: 1
+        gateState: 15
+        timeInterval: 5000000
+      - index: 2
+        gateState: 0
+        timeInterval: 5000000

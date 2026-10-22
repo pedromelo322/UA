@@ -1,0 +1,2 @@
+pyzmq>=27,<28
+kubernetes>=31,<32

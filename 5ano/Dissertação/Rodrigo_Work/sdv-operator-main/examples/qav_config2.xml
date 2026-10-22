@@ -1,0 +1,176 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+
+<ieee8021FqtssBap xmlns="urn:ieee:std:802.1:yang:ieee802-dot1-fqtss-cbs">
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>0</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>1</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>2</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>3</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>4</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>5</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>6</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_1</port>
+    <ieee8021FqtssBAPTrafficClass>7</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth> <!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>0</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>10000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>1</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>2</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>3</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>4</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>5</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>6</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_2</port>
+    <ieee8021FqtssBAPTrafficClass>7</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth> <!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>100000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>0</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>1</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>2</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>3</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>4</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>5</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>6</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth><!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+  <ieee8021FqtssBapEntry>
+    <port>PORT_3</port>
+    <ieee8021FqtssBAPTrafficClass>7</ieee8021FqtssBAPTrafficClass>
+    <ieee8021FqtssDeltaBandwidth>0</ieee8021FqtssDeltaBandwidth> <!-- Not used-->
+    <ieee8021FqtssAdminIdleSlopeMs>0</ieee8021FqtssAdminIdleSlopeMs>
+    <ieee8021FqtssAdminIdleSlopeLs>120000000</ieee8021FqtssAdminIdleSlopeLs>
+  </ieee8021FqtssBapEntry>
+
+</ieee8021FqtssBap>
+</config>

@@ -1,0 +1,8 @@
+.venv
+.git
+.DS_Store
+tools
+*.o
+*.skel.h
+vmlinux.h
+flow_monitor

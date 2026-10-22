@@ -1,0 +1,58 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: networktopologies.tsn.dev
+spec:
+  scope: Namespaced
+  group: tsn.dev
+  names:
+    kind: NetworkTopology
+    plural: networktopologies
+    singular: networktopology
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                nodes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:                   # switch ID
+                        type: string
+                      switchRef:            # switch it references
+                        type: string
+                      zone:
+                        type: string        # zone
+                      links:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            target:
+                              type: string  # switch link target
+                            ports:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  port:   # name of each port used in the links
+                                    type: string
+                                    enum:
+                                      - PORT_0
+                                      - PORT_1
+                                      - PORT_2
+                                      - PORT_3
+                    required:
+                      - id
+                      - switchRef
+                      - links
+              required:
+                - nodes
